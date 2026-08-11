@@ -1,0 +1,167 @@
+/* ============================================================
+   NAVBAR — Preetam Anandshala
+   Pink + Blue gradient brand design (Enlarged Size)
+   ============================================================ */
+
+.navbar-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ── BACKGROUND BLUR LAYER ── */
+.navbar-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 2px solid rgba(219, 39, 119, 0.15);
+  box-shadow: 0 4px 24px rgba(29, 78, 216, 0.1);
+}
+
+/* ── CONTAINER ── */
+.navbar-container {
+  position: relative;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.navbar-inner {
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* ── LOGO ── */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.navbar-logo:hover {
+  opacity: 0.9;
+}
+
+.navbar-logo-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #db2777, #1D4ED8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(219, 39, 119, 0.35);
+  flex-shrink: 0;
+}
+
+.navbar-logo-icon span {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.navbar-logo-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #0F172A;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+.navbar-logo-sub {
+  font-size: 13px;
+  color: #db2777;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* ── DESKTOP NAV ── */
+.navbar-desktop-nav {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .navbar-desktop-nav {
+    display: flex;
+  }
+}
+
+.navbar-nav-link {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #1A05A2;
+  text-decoration: none;
+  border-radius: 9999px;
+  transition: color 0.25s ease, background 0.25s ease;
+}
+
+.navbar-nav-link:hover {
+  color: #db2777;
+  background: rgba(219, 39, 119, 0.08);
+}
+
+.navbar-nav-link--active {
+  color: #db2777;
+}
+
+/* Animated pink underline */
+.navbar-underline {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 4px;
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #db2777, #1D4ED8);
+  animation: slideIn 0.25s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.navbar-cta-btn {
+  background: linear-gradient(135deg, #db2777 0%, #1A05A2 100%);
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(219, 39, 119, 0.3);
+  transition: all 0.3s ease;
+}
+
+.navbar-cta-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(219, 39, 119, 0.45);
+}

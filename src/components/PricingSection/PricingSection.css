@@ -1,0 +1,723 @@
+/* ══════════════════════════════════════════════════════════════
+   REDESIGNED RATE CARD SECTION - FULL WIDTH LIGHT BACKGROUND
+   ══════════════════════════════════════════════════════════════ */
+
+.ps-exact-table-section {
+  width: 100%;
+  background: #ffffff !important;
+  padding: 4rem 1.5rem;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1e293b;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .ps-exact-table-section {
+    padding: 2.5rem 1rem;
+  }
+}
+
+.ps-exact-header {
+  max-width: 900px;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+}
+
+.ps-badge-offer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 9999px;
+  background-color: #fff7ed;
+  border: 2px solid #fed7aa;
+  color: #c2410c;
+  font-size: 0.9rem;
+  font-weight: 900;
+  box-shadow: 0 4px 14px rgba(194, 65, 12, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.ps-main-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1e293b !important;
+  letter-spacing: -0.025em;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+}
+
+@media (max-width: 640px) {
+  .ps-main-title {
+    font-size: 1.65rem;
+  }
+}
+
+.ps-subtitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #475569 !important;
+  line-height: 1.65;
+}
+
+/* ── INTERACTIVE TABLE LAYOUT ── */
+.ps-table-wrapper {
+  max-width: 1240px;
+  margin: 0 auto 2.5rem auto;
+  overflow-x: auto;
+  border-radius: 1.75rem;
+  box-shadow: 0 12px 35px rgba(194, 65, 12, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 2px solid #fed7aa;
+  background-color: #ffffff;
+}
+
+.ps-exact-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+}
+
+.ps-exact-table th,
+.ps-exact-table td {
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1.5px solid #fde8d8;
+}
+
+.ps-exact-table th {
+  background: linear-gradient(135deg, #c2410c 0%, #db2777 100%);
+  color: #ffffff !important;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.ps-exact-table th.th-details {
+  width: 45%;
+}
+
+.ps-table-row {
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+}
+
+.ps-table-row:nth-child(even) {
+  background-color: #fff7f3;
+}
+
+.ps-table-row:hover {
+  background-color: #fff0e6;
+  transform: scale(1.002);
+  box-shadow: 0 4px 12px rgba(219, 39, 119, 0.08);
+}
+
+.td-title-cell {
+  position: relative;
+}
+
+.row-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.85rem;
+  height: 1.85rem;
+  border-radius: 9999px;
+  background-color: #fce7f3;
+  color: #db2777;
+  font-weight: 900;
+  font-size: 0.8rem;
+  border: 1.5px solid #fbcfe8;
+  flex-shrink: 0;
+}
+
+.row-cat-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ea580c;
+  letter-spacing: 0.025em;
+  margin-bottom: 0.15rem;
+}
+
+.row-title-text {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #1e293b !important;
+}
+
+.info-help-btn {
+  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+}
+
+.price-bold {
+  font-weight: 900;
+  color: #1e293b !important;
+  font-size: 0.9rem;
+}
+
+/* ── MOBILE RESPONSIVE LAYOUT ── */
+.ps-mobile-cards-list {
+  display: none;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .ps-table-wrapper {
+    display: none;
+  }
+
+  .ps-mobile-cards-list {
+    display: flex;
+  }
+}
+
+.ps-mobile-item-card {
+  background-color: #ffffff;
+  border: 2px solid #fde8d8;
+  border-radius: 1.5rem;
+  padding: 1.25rem;
+  box-shadow: 0 6px 18px rgba(194, 65, 12, 0.08);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ps-mobile-item-card:active {
+  transform: scale(0.98);
+  border-color: #db2777;
+}
+
+.mobile-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.mobile-id-badge {
+  background-color: #fce7f3;
+  color: #db2777;
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.35rem;
+  border: 1px solid #fbcfe8;
+}
+
+.mobile-cat-tag {
+  color: #c2410c;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.mobile-title-text {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+}
+
+.mobile-prices-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+  background-color: #fff7ed;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid #fed7aa;
+}
+
+.mobile-price-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-price-lbl {
+  font-size: 0.65rem;
+  color: #6b7280;
+  font-weight: 800;
+}
+
+.mobile-price-val {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+
+.mobile-click-more {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #c2410c;
+  padding-top: 0.25rem;
+  border-top: 1px solid #fde8d8;
+}
+
+/* ── GOLDEN TICKET / PICNIC PASS SECTION ── */
+.ps-golden-ticket-container {
+  max-width: 1240px;
+  margin: 3rem auto;
+}
+
+.ps-golden-ticket {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  background: linear-gradient(135deg, #7c2d12 0%, #9a1a4a 50%, #6d1a3a 100%);
+  border: 3px solid #b45309;
+  border-radius: 2rem;
+  box-shadow: 0 20px 50px rgba(120, 40, 20, 0.25), 0 6px 15px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .ps-golden-ticket {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ticket-body-left {
+  padding: 2.25rem;
+  border-right: 2px dashed rgba(251, 191, 36, 0.4);
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .ticket-body-left {
+    border-right: none;
+    border-bottom: 2px dashed rgba(251, 191, 36, 0.4);
+    padding: 1.5rem;
+  }
+}
+
+.ticket-header-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ticket-vip-tag {
+  background-color: #d97706;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+.ticket-limit-tag {
+  border: 1.5px solid #fbbf24;
+  color: #fbbf24;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+}
+
+.ticket-title {
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: #fef3c7 !important;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.ticket-desc {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fde68a !important;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.ticket-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .ticket-rules-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ticket-rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fef3c7 !important;
+  line-height: 1.4;
+}
+
+.ticket-slogan {
+  background-color: rgba(251, 191, 36, 0.1);
+  border-left: 4px solid #fbbf24;
+  padding: 0.75rem 1rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #fde68a;
+}
+
+.ticket-stub-right {
+  background-color: rgba(251, 191, 36, 0.04);
+  padding: 2.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .ticket-stub-right {
+    padding: 1.5rem;
+  }
+}
+
+.stub-notch-top,
+.stub-notch-bottom {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 9999px;
+  left: -0.75rem;
+}
+
+.stub-notch-top {
+  top: -0.75rem;
+}
+
+.stub-notch-bottom {
+  bottom: -0.75rem;
+}
+
+@media (max-width: 900px) {
+  .stub-notch-top,
+  .stub-notch-bottom {
+    display: none;
+  }
+}
+
+.stub-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.stub-label {
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fde68a;
+  letter-spacing: 0.05em;
+}
+
+.stub-price {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fbbf24;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.stub-time-badge {
+  background-color: #d97706;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin: 0.2rem 0 0.5rem 0;
+}
+
+.stub-gst {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #fde68a;
+  opacity: 0.75;
+  margin-bottom: 0.5rem;
+}
+
+.stub-call-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #1e293b !important;
+  font-size: 0.8rem;
+  font-weight: 900;
+  padding: 0.65rem 1.25rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  box-shadow: 0 6px 15px rgba(180, 83, 9, 0.4);
+  transition: all 0.25s ease;
+}
+
+.stub-call-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(180, 83, 9, 0.5);
+}
+
+/* ── OPTIONAL SERVICES CARD ── */
+.ps-extra-services-card {
+  max-width: 1240px;
+  margin: 0 auto 2.5rem auto;
+  background-color: #fff7f3;
+  border: 2px solid #fed7aa;
+  border-radius: 1.75rem;
+  padding: 1.75rem;
+  box-shadow: 0 4px 12px rgba(194, 65, 12, 0.06);
+}
+
+.extra-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.extra-header h3 {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #541a1a !important;
+}
+
+.extra-desc {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #475569 !important;
+  line-height: 1.6;
+}
+
+/* ── CONTACT DETAILS FOOTER ── */
+.ps-contact-card-footer {
+  max-width: 1240px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #541A1A 0%, #db2777 100%);
+  border: 2.5px solid #fbcfe8;
+  border-radius: 2rem;
+  padding: 2.25rem;
+  box-shadow: 0 20px 45px rgba(219, 39, 119, 0.18);
+}
+
+@media (max-width: 640px) {
+  .ps-contact-card-footer {
+    padding: 1.5rem;
+  }
+}
+
+.contact-badge {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.contact-phone-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  color: #541a1a !important;
+  font-size: 1rem;
+  font-weight: 900;
+  padding: 0.85rem 1.75rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
+}
+
+.contact-phone-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.22);
+}
+
+.contact-phone-btn.second {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: #ffffff !important;
+}
+
+.contact-phone-btn.second:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ── PORTAL MODAL VIEW DIALOG ── */
+.ps-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 10, 20, 0.65);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.ps-modal-card {
+  background-color: #ffffff;
+  border-radius: 2rem;
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  border: 1.5px solid #fde8d8;
+  position: relative;
+}
+
+.ps-modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.2s ease;
+}
+
+.ps-modal-close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.ps-modal-top-banner {
+  background: linear-gradient(135deg, #541A1A 0%, #db2777 100%);
+  padding: 2rem;
+  color: #ffffff;
+}
+
+.ps-modal-cat {
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fca5a5;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.ps-modal-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.ps-modal-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ps-modal-desc {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.ps-modal-features-box {
+  background-color: #fdf2f8;
+  border: 1.5px solid #fbcfe8;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+}
+
+.features-title {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #541a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  margin-bottom: 0.75rem;
+}
+
+.ps-modal-all-prices-table {
+  background-color: #fff7ed;
+  border: 1.5px solid #fed7aa;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+}
+
+.modal-prices-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .modal-prices-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.modal-price-box-item {
+  background-color: #ffffff;
+  border: 1.5px solid #fde8d8;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-price-box-item.highlight {
+  border-color: #fbcfe8;
+  background-color: #fdf2f8;
+}
+
+.modal-price-box-item .lbl {
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.modal-price-box-item .val {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+
+.modal-price-box-item.highlight .val {
+  color: #db2777;
+}
