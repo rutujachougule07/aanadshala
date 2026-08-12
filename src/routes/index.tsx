@@ -405,15 +405,9 @@ function IndexComponent() {
                 object-cover
                 object-center
                 select-none
-                filter
-                brightness-90
-                contrast-[1.05]
                 cursor-pointer
               "
             />
-
-            {/* LIGHT SOFT GRADIENT OVERLAY FOR CRISP TEXT & BUTTON READABILITY */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 pointer-events-none" />
 
             {/* ========================================= */}
             {/* WELCOME HEADER TEXT (BABY PINK & MODERN)  */}
