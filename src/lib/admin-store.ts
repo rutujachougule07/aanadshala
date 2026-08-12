@@ -249,7 +249,7 @@ const initialSiteData: SiteData = {
   email: "preetamanandshala@gmail.com",
   address: "सर्व्हे नं. ३९/१,२,३, माधवनगर - धनंजय गार्डन रोड, रेल्वे गेट शेजारी, सांगली",
   girishOakQuote: "आनंदात जगायचं, आरोग्य जपायचं, आनंदशाळेत येऊन स्वप्न साकारायचं",
-  anandshalaDesc: "भारतातील पहिली ज्येष्ठ नागरिक आनंदशाळा! निवास, सकस जेवण, २४x७ दवाखाना, ५५ फुटांची राधाकृष्ण मूर्ती, मंदिर, गोशाळा, १५ उपक्रम हॉल्स व सर्व सोयी सुविधा.",
+  anandshalaDesc: "भारतातील पहिली ज्येष्ठ नागरिक आनंदशाळा! निवास, सकस जेवण, २४x७ दवाखाना, ५५ फुटांची राधाकृष्ण मूर्ती, मंदिर, गोशाळा, १८ उपक्रम हॉल्स व सर्व सोयी सुविधा.",
   sportsDesc: "सांगलीतील १.५ एकर भव्य अद्ययावत क्रीडा संकुल! ओलंपिक स्टाईल स्विमिंग पूल, इनडोअर बॅडमिंटन, टेनिस कोर्ट, वातानुकूलित जीम व रेस्टॉरंट.",
   welcomePosterUrl: "/images/welcome-building.jpg",
   showWelcomePoster: true,
@@ -333,7 +333,7 @@ const initialBrochures: BrochureItem[] = [
     category: "आनंदशाळा ब्रोशर",
     fileUrl: "/images/Screenshot 2026-07-31 103107.png",
     fileType: "image",
-    description: "आनंदशाळेचे १५ उपक्रम हॉल्स, दैनिक वेळापत्रक व संपूर्ण १५ सुविधांची रंगीत माहिती.",
+    description: "आनंदशाळेचे १८ उपक्रम हॉल्स, दैनिक वेळापत्रक व संपूर्ण १८ सुविधांची रंगीत माहिती.",
     date: "३१ जुलै २०२६",
   },
 ];
@@ -396,7 +396,7 @@ const initialGallery: GalleryItem[] = [
   {
     id: "g2",
     url: "/images/Screenshot 2026-07-31 103131.png",
-    caption: "आनंदशाळेतील ५ तासांचे वेळापत्रक व १५ उपक्रम हॉल्स",
+    caption: "आनंदशाळेतील ५ तासांचे वेळापत्रक व १८ उपक्रम हॉल्स",
     category: ["ज्येष्ठ नागरिक आनंदशाळा माहिती", "ज्येष्ठ नागरिक विरंगुळा केंद्र"],
   },
   {
@@ -497,6 +497,141 @@ export type ScheduleRowItem = {
   wed: { main: string; sub: string };
   thu: { main: string; sub: string };
   fri: { main: string; sub: string };
+};
+
+export type FoodScheduleRow = {
+  srNo: number;
+  day: string;
+  morningTea: string;
+  morningBreakfast: string;
+  afternoonLunch: string;
+  eveningTeaSnack: string;
+  nightDinner: string;
+};
+
+export type FoodRateItem = {
+  item: string;
+  oneTime: string;
+  oneMonth: string;
+};
+
+export type ExtraFoodItem = {
+  name: string;
+  price: string;
+  daySpecial?: string;
+};
+
+export type BhojanalayaConfig = {
+  headerTitle: string;
+  subtitle: string;
+  healthNote: string;
+  weeklySchedule: FoodScheduleRow[];
+  rateList: FoodRateItem[];
+  extraItems: ExtraFoodItem[];
+};
+
+export const initialBhojanalayaConfig: BhojanalayaConfig = {
+  headerTitle: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक",
+  subtitle: "ताजा, सात्विक व पौष्टिक शाकाहारी आहार • आरोग्यदायी सहवास व स्वाद",
+  healthNote: "स्वतःची काळजी घेऊन आहार घेणे जे चालत नाही ते टाळणे बरे नसेल तर सांगणे इतर पर्याय विचारणे",
+  weeklySchedule: [
+    {
+      srNo: 1,
+      day: "सोमवार",
+      morningTea: "7 ते 9",
+      morningBreakfast: "उडीद वडा + सांभार + चटणी",
+      afternoonLunch: "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
+      eveningTeaSnack: "चहा + पोहे चिवडा",
+      nightDinner: "चपाती + भाजी + पुलाव + आमटी"
+    },
+    {
+      srNo: 2,
+      day: "मंगळवार",
+      morningTea: "7 ते 9",
+      morningBreakfast: "पोहे + शेव + शिरा पांढरा",
+      afternoonLunch: "चपाती, पराठा, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
+      eveningTeaSnack: "चहा + भाजके पोहे चिवडा",
+      nightDinner: "चपाती + भाजी + थालीपीठ + भात"
+    },
+    {
+      srNo: 3,
+      day: "बुधवार",
+      morningTea: "7 ते 9",
+      morningBreakfast: "पावभाजी किंवा मिसळ",
+      afternoonLunch: "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
+      eveningTeaSnack: "चहा + बिस्कीट",
+      nightDinner: "चपाती + भाजी + आमटी + वरण + भात"
+    },
+    {
+      srNo: 4,
+      day: "गुरुवार",
+      morningTea: "7 ते 9",
+      morningBreakfast: "उतपा + डोसा + भाजी + चटणी",
+      afternoonLunch: "चपाती, धपाटा, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
+      eveningTeaSnack: "चहा + चुरमुरे चिवडा",
+      nightDinner: "चपाती + भाजी + भाकरी + खिचडी + कढी"
+    },
+    {
+      srNo: 5,
+      day: "शुक्रवार",
+      morningTea: "7 ते 9",
+      morningBreakfast: "उपीट + भेळ किंवा दडपे पोहे",
+      afternoonLunch: "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
+      eveningTeaSnack: "चहा + भजी",
+      nightDinner: "चपाती + भाजी + आमटी + भात"
+    },
+    {
+      srNo: 6,
+      day: "शनिवार",
+      morningTea: "7 ते 9",
+      morningBreakfast: "इडली + सांभार + चटणी",
+      afternoonLunch: "चपाती, थालीपीठ, भाजी, कडधान्य उसळ, आमटी, वरण भात",
+      eveningTeaSnack: "चहा + भडंग",
+      nightDinner: "भाकरी + चपाती + भाजी + आमटी + भात"
+    },
+    {
+      srNo: 7,
+      day: "रविवार",
+      morningTea: "7 ते 9",
+      morningBreakfast: "शेवयाचे उपीट + ढोकळा + चटणी",
+      afternoonLunch: "चपाती, भाकरी, आमटी, मसाले भात, भाजी, स्वीट",
+      eveningTeaSnack: "चहा + मक्काचिवडा",
+      nightDinner: "चपाती + भाजी + भात + आमटी"
+    }
+  ],
+  rateList: [
+    { item: "चहा", oneTime: "10/-", oneMonth: "240/-" },
+    { item: "स्पेशल चहा", oneTime: "20/-", oneMonth: "480/-" },
+    { item: "नेस कॅफे", oneTime: "20/-", oneMonth: "480/-" },
+    { item: "नाष्टा", oneTime: "60/-", oneMonth: "1400/-" },
+    { item: "जेवण", oneTime: "120/-", oneMonth: "2700/-" },
+    { item: "दुध कप", oneTime: "20/-", oneMonth: "480/-" },
+    { item: "मसाला दुध", oneTime: "30/-", oneMonth: "750/-" },
+    { item: "हळद दुध", oneTime: "30/-", oneMonth: "750/-" },
+    { item: "1 चहा, 1 नाष्टा, 1 जेवण (मासिक कॉम्बो)", oneTime: "3500/-", oneMonth: "3500/-" }
+  ],
+  extraItems: [
+    { name: "दही / ताक वाटी", price: "10/-" },
+    { name: "पापड", price: "10/-" },
+    { name: "कोशिंबीर", price: "10/-" },
+    { name: "ग्रीन सलाद", price: "10/-" },
+    { name: "लाडू", price: "10/-" },
+    { name: "शेंगदाणा चटणी", price: "10/-" },
+    { name: "सूप", price: "20/-" },
+    { name: "केक", price: "20/-" },
+    { name: "डींक लाडू", price: "20/-" },
+    { name: "गुलाबजामून", price: "20/-" },
+    { name: "मसाला पान", price: "20/-" },
+    { name: "चिवडा", price: "20/-" },
+    { name: "मसाला पापड", price: "20/-" },
+    { name: "आईस्क्रीम / कुल्फी", price: "20/-" },
+    { name: "श्रीखंड / बासुंदी", price: "30/-" },
+    { name: "खिर", price: "30/-" },
+    { name: "फ्रूट सलाद", price: "30/-", daySpecial: "सोमवार" },
+    { name: "पुरण पोळी", price: "30/-", daySpecial: "मंगळवार" },
+    { name: "शेंगा पोळी", price: "30/-", daySpecial: "गुरुवार" },
+    { name: "खवा पोळी", price: "30/-", daySpecial: "शनिवार" }
+  ]
 };
 
 export type ScheduleConfig = {

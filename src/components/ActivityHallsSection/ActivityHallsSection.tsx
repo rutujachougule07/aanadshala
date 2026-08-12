@@ -16,17 +16,15 @@ import {
   Sparkles,
   PhoneCall,
   ArrowRight,
-  CheckCircle2,
   Dumbbell,
   BookOpen,
   Utensils,
   Film,
-  Smile,
-  Trees,
-  Stethoscope
+  Smile
 } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { useLanguage } from "@/lib/use-language";
+import { HighlightText } from "@/components/HighlightText";
 import "./ActivityHallsSection.css";
 
 interface HallDetail {
@@ -34,8 +32,6 @@ interface HallDetail {
   title: string;
   category: string;
   desc: string;
-  gamesList: string[];
-  features: string[];
   icon: React.ReactNode;
   image: string;
   theme: string;
@@ -43,81 +39,130 @@ interface HallDetail {
 
 const hallsData: HallDetail[] = [
   {
-    id: "01",
-    title: "बौद्धिक खेळ हॉल",
-    category: "इनडोअर गेम्स & मेमरी",
-    desc: "ज्येष्ठ नागरिकांच्या बौद्धिक क्षमतेला चालना देण्यासाठी व मनोरंजनासाठी विशेष सुसज्ज बैठे खेळ हॉल. येथे मित्र-मैत्रिणींसोबत कॅरम, बुद्धिबळ व पत्त्यांच्या विविध खेळांचा आनंद घेता येतो.",
-    gamesList: ["बुद्धीबळ (Chess)", "कॅरम (Carrom)", "पत्त्यांचे खेळ", "सापाशिडी व ल्युडो", "व्यापार व मेमरी गेम्स"],
-    features: ["आरामदायक सोफे व टेबल", "प्रसन्न व वातानुकूलित वातावरण", "बौद्धिक विकास व ताणतणाव मुक्ती"],
+    id: "०१",
+    title: "सिटिंग गेम हॉल",
+    category: "इनडोअर गेम्स",
+    desc: "सिटिंग गेम हॉलमध्ये जाऊन कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.",
     icon: <Puzzle size={28} />,
     image: "/images/subimg/baithe khel.png",
     theme: "theme-pink"
   },
   {
-    id: "02",
+    id: "०२",
     title: "आर्ट हॉल",
     category: "हस्तकला & चित्रकला",
-    desc: "चित्रकला, हस्तकला, विणकाम आणि सर्जनशील कला शिकण्यासाठी व सराव करण्यासाठी प्रेरणादायी कला दालन. स्वतःच्या हाताने सुंदर वस्तू बनवून आनंद व मानधन मिळवण्याची सोय.",
-    gamesList: ["चित्रकला (Painting)", "हस्तकला (Handicrafts)", "विणकाम व शिलाई", "मातीकाम व कागदी वस्तू", "ओरिगामी आर्ट"],
-    features: ["सर्व कला साहित्य विनामूल्य उपलब्ध", "तज्ज्ञ शिक्षकांचे मार्गदर्शन", "तयार केलेल्या वस्तूंचे प्रदर्शन"],
+    desc: "आर्ट हॉलमध्ये जाऊन चित्रकला, हस्तकला आणि विणकाम शिकणे.",
     icon: <Palette size={28} />,
     image: "/images/subimg/aart hall.png",
     theme: "theme-blue"
   },
   {
-    id: "03",
-    title: "संगीत उपकरणे हॉल",
+    id: "०३",
+    title: "संगीत वाद्ययंत्र हॉल",
     category: "गायन व वाद्यवृंद",
-    desc: "संगीत प्रेमींसाठी तबला, हार्मोनियम, पेटी, गिटार, पियानो, सॅक्सोफोन व बासरी शिकण्याचा व जुनी आवडती भावगीते-भक्तीगीते गाण्याचा विशेष संगीत हॉल.",
-    gamesList: ["तबला व पेटी सराव", "गिटार व पियानो शिकणे", "बासरी व सॅक्सोफोन", "जुनी भावगीते व भक्तीगीते", "भजन & कीर्तन रियाझ"],
-    features: ["ध्वनिरोधक (Soundproof) हॉल", "आधुनिक वाद्यवृंद उपकरणे", "सांस्कृतिक संगीतमय वातावरण"],
+    desc: "संगीत व वाद्यवृंद हॉलमध्ये जाऊन तबला, गिटार, हार्मोनियम, पेटी, पियानो, सॅक्सोफोन व बासरी शिकणे आणि संगीताचा आनंद घेणे.",
     icon: <Music size={28} />,
     image: "/images/subimg/sangit hall.png",
     theme: "theme-pink"
   },
   {
-    id: "04",
+    id: "०४",
     title: "माहिती तंत्रज्ञान हॉल",
     category: "डिजिटल लर्निंग & IT",
-    desc: "आधुनिक युगात कॉम्प्युटर, लॅपटॉप, स्मार्टफोन, इंटरनेट, व्हॉट्सॲप, युट्यूब व ऑनलाइन सेवा सहज सोप्या भाषेत शिकण्यासाठी अत्याधुनिक डिजिटल लर्निंग हॉल.",
-    gamesList: ["संगणक पायाभूत शिक्षण", "स्मार्टफोन & व्हॉट्सॲप", "ऑनलाइन बँकिंग & बिल पेमेंट", "व्हिडिओ कॉलिंग सोय", "डिजिटल फोटो एडिटिंग"],
-    features: ["हाय-स्पीड विनामूल्य वाय-फाय", "वैयक्तिक मार्गदर्शक प्रशिक्षक", "अत्याधुनिक कॉम्प्युटर्स"],
+    desc: "माहिती तंत्रज्ञान हॉलमध्ये जाऊन संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.",
     icon: <Monitor size={28} />,
     image: "/images/subimg/mahiti tantradyan hall.png",
     theme: "theme-blue"
   },
   {
-    id: "05",
-    title: "करमणूक हॉल",
+    id: "०५",
+    title: "मनोरंजन हॉल",
     category: "मनोरंजन & अंताक्षरी",
-    desc: "गप्पा-गोष्टी, अंताक्षरी, पासिंग गेम, जुने किस्से सांगणे आणि समूह खेळ खेळून हसत-खेळत वेळ घालवण्यासाठी आनंददायी मनोरंजन हॉल.",
-    gamesList: ["अंताक्षरी स्पर्धा", "पासिंग द पार्सल", "गोष्टी व किस्से सांगणे", "नाटक व विनोदी स्कीट", "समूह मनोरंजन खेळ"],
-    features: ["होम थिएटर & साऊंड सिस्टिम", "हसते-खेळते कौटुंबिक वातावरण", "प्रसन्न आसन व्यवस्था"],
+    desc: "मनोरंजन हॉलमध्ये जाऊन गप्पा-गोष्टी करणे, अंताक्षरी व पासिंग गेम इत्यादी समूह खेळ खेळणे.",
     icon: <Ticket size={28} />,
     image: "/images/subimg/karmnuk hall.png",
     theme: "theme-purple"
   },
   {
-    id: "06",
+    id: "०६",
     title: "स्विमिंग पूल",
-    category: "जलतरण & वॉटर थेरपी",
-    desc: "ज्येष्ठ नागरिकांच्या आरोग्यासाठी व ताजगीसाठी ऑलिंपिक मानकांचा स्वच्छ फिल्टर केलेला तरणतलाव. वॉटर ॲरोबिक्स व हायड्रोथेरपी सराव सोय.",
-    gamesList: ["जलतरण (Swimming)", "वॉटर ॲरोबिक्स", "हायड्रोथेरपी सराव", "जलक्रिडा व मनोरंजन"],
-    features: ["२४ तास शुद्ध फिल्टर पाणी", "ज्येष्ठांसाठी सोपी खोली", "अनुभवी लाईफगार्ड्स व सुरक्षितता"],
+    category: "जलतरण & क्रिडा",
+    desc: "स्विमिंग पूलमध्ये जाऊन पोहणे व पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.",
     icon: <Waves size={28} />,
     image: "/images/subimg/swimming hall.png",
     theme: "theme-blue"
   },
   {
-    id: "07",
-    title: "संस्कार व संवाद हॉल",
-    category: "धार्मिक & अध्यात्म",
-    desc: "धार्मिक, सांस्कृतिक आणि अध्यात्मिक कार्यक्रमांसाठी पवित्र आणि शांत हॉल. प्रवचन, कीर्तन, भगवद्गीता पठण व ध्यानधारणेने मनःशांती मिळवण्याचे ठिकाण.",
-    gamesList: ["प्रवचन व कीर्तन श्रवण", "भगवद्गीता व अध्यात्म पठण", "संस्कार वर्ग", "सामूहिक प्रार्थना & आरती"],
-    features: ["शांत व प्रसन्न अध्यात्मिक ऊर्जा", "वातानुकूलित बैठक व्यवस्था", "अनुभवी वक्त्यांचे मार्गदर्शन"],
+    id: "०७",
+    title: "संस्कार व संप्रदाय हॉल",
+    category: "संस्कार & अध्यात्म",
+    desc: "संस्कार व संप्रदाय हॉलमध्ये जाऊन विविध सांस्कृतिक कार्यक्रम आणि व्हिडिओ पाहणे.",
     icon: <Landmark size={28} />,
     image: "/images/subimg/sanskar sampraday hall.png",
     theme: "theme-pink"
+  },
+  {
+    id: "०८",
+    title: "विविध खेळ हॉल",
+    category: "क्रीडा व स्पोर्ट्स",
+    desc: "विविध क्रीडा हॉलमध्ये जाऊन बॅडमिंटन, टेबल टेनिस, स्नूकर आणि स्क्वॅश खेळणे.",
+    icon: <Dumbbell size={28} />,
+    image: "/images/subimg/tebal tenis.png",
+    theme: "theme-purple"
+  },
+  {
+    id: "०९",
+    title: "जिम, योगा व डान्स हॉल",
+    category: "फिटनेस & योगा",
+    desc: "जिम हॉलमध्ये जाऊन व्यायाम, योगासने, ध्यानधारणा, झुम्बा व नृत्य करणे.",
+    icon: <Dumbbell size={28} />,
+    image: "/images/subimg/vyayam hall.png",
+    theme: "theme-blue"
+  },
+  {
+    id: "१०",
+    title: "पाककृती हॉल",
+    category: "पाककला & आस्वाद",
+    desc: "पाककृती हॉलमध्ये जाऊन स्वयंपाक करणे, नाष्टा, जेवण, आईस्क्रीम, सरबते व मिठाई बनवायला शिकणे.",
+    icon: <Utensils size={28} />,
+    image: "/images/subimg/pakruti hall.png",
+    theme: "theme-pink"
+  },
+  {
+    id: "११",
+    title: "विश्राम कक्ष",
+    category: "वाचन & विश्रांती",
+    desc: "विश्राम कक्षामध्ये जाऊन आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.",
+    icon: <BookOpen size={28} />,
+    image: "/images/subimg/vishranti hall.png",
+    theme: "theme-purple"
+  },
+  {
+    id: "१२",
+    title: "थिएटर हॉल",
+    category: "थिएटर & सिनेमा",
+    desc: "थिएटर हॉलमध्ये जाऊन टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.",
+    icon: <Film size={28} />,
+    image: "/images/subimg/karmnuk hall.png",
+    theme: "theme-pink"
+  },
+  {
+    id: "१३",
+    title: "मंदिर हॉल",
+    category: "भजन व नामस्मरण",
+    desc: "मंदिर हॉलमध्ये जाऊन भजन, कीर्तन, अभंग पठण, जप आणि नामस्मरण करणे.",
+    icon: <Landmark size={28} />,
+    image: "/images/subimg/sanskar sampraday hall.png",
+    theme: "theme-pink"
+  },
+  {
+    id: "१४",
+    title: "हास्य व कराओके हॉल",
+    category: "हास्य & कराओके",
+    desc: "हास्य व कराओके हॉलमध्ये जाऊन कॉमेडी, गायन कार्यक्रम आणि विनोदी व्हिडिओ पाहणे.",
+    icon: <Smile size={28} />,
+    image: "/images/subimg/sangit hall.png",
+    theme: "theme-purple"
   }
 ];
 
@@ -145,25 +190,24 @@ const ActivityHallsSection = () => {
           </div>
 
           <div className="ah-header-subtitle">
-            <span style={{ color: '#f472b6' }}>❖</span> {isEn ? "Anandshala's" : "आनंदशाळेतील"} <span style={{ color: '#f472b6' }}>❖</span>
+            <span style={{ color: '#db2777' }}>❖</span> {isEn ? "Anandshala's" : "आनंदशाळेतील"} <span style={{ color: '#db2777' }}>❖</span>
           </div>
           <h2 className="ah-header-title">
-            {isEn ? "15 Specialized " : "१५ विशेष "}
-            <span className="blue-text">{isEn ? "Activity Halls" : "उपक्रम हॉल्स"}</span>
+            <span className="text-[#db2777]">विशेष</span> <span className="blue-text">{isEn ? "Activity Halls" : "उपक्रम हॉल्स"}</span>
           </h2>
           <div className="ah-header-desc">
             {isEn
-              ? "15 fully equipped luxury activity halls for daily joy, recreation and wellness! (Click card to view details)"
-              : "आनंदशाळेत दररोज तुमच्या आवडीनुसार मनोरंजक आनंद घेता येईल असे 15 समृद्ध आणि सुसज्जीत हॉल्स! (माहिती पाहण्यासाठी कार्डवर क्लीक करा)"}
+              ? "Fully equipped luxury activity halls for daily joy, recreation and wellness! (Click card to view details)"
+              : "आनंदशाळेत दररोज तुमच्या आवडीनुसार मनोरंजक आनंद घेता येईल असे सुसज्जीत हॉल्स! (माहिती पाहण्यासाठी कार्डवर क्लीक करा)"}
           </div>
         </div>
       </Reveal>
 
       <div className="ah-container">
-        {/* Grid of Clean Non-Flipping Interactive Cards */}
+        {/* Grid of Clean Cards */}
         <div className="ah-grid">
           {hallsData.map((hall, index) => (
-            <Reveal key={hall.id} delay={index * 80}>
+            <Reveal key={hall.id} delay={index * 60}>
               <div 
                 className={`ah-card-clean ${hall.theme}`}
                 onClick={() => setSelectedHall(hall)}
@@ -174,13 +218,18 @@ const ActivityHallsSection = () => {
                   <img src={hall.image} alt={hall.title} className="ah-card-img" />
                 </div>
 
-                <div className="ah-card-content">
-                  <div className="ah-card-icon">{hall.icon}</div>
-                  <h3 className="ah-card-title">{hall.title}</h3>
-                  <div className="ah-card-action-btn">
-                    <span>माहिती उघडा</span>
-                    <ArrowRight size={14} />
+                <div className="ah-card-content space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="ah-card-icon">{hall.icon}</div>
+                    <h3 className="ah-card-title text-base sm:text-lg font-black text-slate-900">
+                      <HighlightText text={hall.title} />
+                    </h3>
                   </div>
+
+                  {/* MARATHI DESCRIPTION TEXT ON CARD */}
+                  <p className="text-xs text-slate-700 font-extrabold leading-relaxed">
+                    <HighlightText text={hall.desc} />
+                  </p>
                 </div>
               </div>
             </Reveal>
@@ -209,7 +258,7 @@ const ActivityHallsSection = () => {
           </div>
         </Reveal>
 
-        {/* ELEGANT SLEEK CTA BUTTON (SMALLER & COMPACT) */}
+        {/* ELEGANT SLEEK CTA BUTTON */}
         <Reveal delay={400}>
           <div className="flex justify-center mt-6">
             <a href="tel:9370237633" className="ah-footer-cta-pill">
@@ -223,7 +272,7 @@ const ActivityHallsSection = () => {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════
-          POPUP MODAL WINDOW: ONE SIDE IMAGE, OTHER SIDE RICH DETAILS
+          POPUP MODAL WINDOW: MARATHI DETAILS
          ══════════════════════════════════════════════════════════════ */}
       {selectedHall && typeof document !== "undefined" && createPortal(
         <div 
@@ -249,68 +298,42 @@ const ActivityHallsSection = () => {
               <div className="ah-modal-img-gradient" />
               <div className="ah-modal-img-badge">
                 <Sparkles size={16} className="text-amber-300" />
-                <span>आनंदशाळा उपक्रम हॉल {selectedHall.id}</span>
+                <span><HighlightText text="आनंदशाळा" /> उपक्रम हॉल {selectedHall.id}</span>
               </div>
             </div>
 
-            {/* RIGHT SIDE: RICH DETAILED INFORMATION */}
+            {/* RIGHT SIDE: MARATHI DETAILS */}
             <div className="ah-modal-right-content">
               {/* CATEGORY BADGE */}
-              <div className="inline-flex items-center gap-2 bg-pink-50 border border-pink-200 text-pink-700 text-xs font-black px-3.5 py-1.5 rounded-full mb-3 w-fit">
+              <div className="inline-flex items-center gap-2 bg-pink-50 border border-pink-200 text-[#db2777] text-xs font-black px-3.5 py-1.5 rounded-full mb-3 w-fit">
                 <span>{selectedHall.category}</span>
               </div>
 
               {/* TITLE */}
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-2xl bg-pink-100 border border-pink-300 flex items-center justify-center text-pink-700 shrink-0 shadow-sm">
+                <div className="w-12 h-12 rounded-2xl bg-pink-100 border border-pink-300 flex items-center justify-center text-[#db2777] shrink-0 shadow-sm">
                   {selectedHall.icon}
                 </div>
-                <h3 className="text-2xl font-black text-[#541A1A]">
-                  {selectedHall.title}
+                <h3 className="text-2xl font-black text-slate-900">
+                  <HighlightText text={selectedHall.title} />
                 </h3>
               </div>
 
-              {/* DESCRIPTION */}
-              <p className="text-sm text-slate-700 font-semibold leading-relaxed mb-4">
-                {selectedHall.desc}
-              </p>
-
-              {/* GAMES & ACTIVITIES LIST */}
-              <div className="mb-4 bg-slate-50 border border-slate-200 p-3.5 rounded-2xl">
-                <h4 className="text-xs font-black uppercase tracking-wider text-pink-700 mb-2 flex items-center gap-1.5">
-                  <Puzzle size={15} /> खेळ व उपक्रम सूची:
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs font-extrabold text-slate-800">
-                  {selectedHall.gamesList.map((g, i) => (
-                    <div key={i} className="flex items-center gap-1.5">
-                      <span className="text-pink-500">•</span>
-                      <span>{g}</span>
-                    </div>
-                  ))}
-                </div>
+              {/* MARATHI DESCRIPTION */}
+              <div className="p-4 rounded-2xl bg-rose-50/70 border border-rose-200 mb-5">
+                <p className="text-sm sm:text-base text-slate-800 font-extrabold leading-relaxed">
+                  <HighlightText text={selectedHall.desc} />
+                </p>
               </div>
 
-              {/* KEY FEATURES */}
-              <div className="mb-5 space-y-1.5">
-                <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 mb-2">
-                  हॉलची मुख्य वैशिष्ट्ये:
-                </h4>
-                {selectedHall.features.map((f, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                    <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
-                    <span>{f}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CALL BUTTON & CLOSE */}
+              {/* CALL BUTTON */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2 mt-auto border-t border-slate-100">
                 <a 
                   href="tel:9370237633" 
-                  className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
+                  className="flex-1 bg-gradient-to-r from-[#810B38] to-[#db2777] text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
                 >
                   <PhoneCall size={18} />
-                  <span>अधिक माहितीसाठी कॉल करा: 9370237633</span>
+                  <span>अधिक माहितीसाठी कॉल करा: ९३७०२३७६३३</span>
                 </a>
               </div>
 

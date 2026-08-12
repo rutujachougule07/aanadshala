@@ -1,103 +1,155 @@
 import { motion } from "framer-motion";
-import { HeartHandshake, Users, Building2, Target, Sprout } from "lucide-react";
+import { 
+  Lightbulb, 
+  Flag, 
+  Heart, 
+  Building2, 
+  HeartHandshake, 
+  Sparkles, 
+  Palette, 
+  Clock 
+} from "lucide-react";
+import { HighlightText } from "@/components/HighlightText";
 import "./journey.css";
 
 const timelineData = [
   {
     id: 1,
-    date: "२६ जानेवारी, २०००",
-    titleNormal: "श्री. अभिनव जगन्नाथ कामाजी यांची",
-    titleHighlight: "प्रतिष्ठान व्यवस्था",
-    description: "माझ्या जन्माची बीजे रुजली ती श्री. अभिनव जगन्नाथ कामाजी या सांगली यांच्या स्वप्नातून.",
-    color: "#f472b6",
+    stepNo: "१",
+    title: "संकल्पनेची सुरुवात",
+    description: "श्री. अभिनय जगन्नाथ कामाजी यांच्या स्वप्नातील प्रकल्पातून प्रीतम ज्येष्ठ नागरिक आनंदशाळेची संकल्पना उदयास आली.",
+    color: "#db2777",
     bgColor: "#FDE8F3",
     borderColor: "#FCCEE4",
-    nodeIcon: Sprout,
-    cardIcon: HeartHandshake,
+    nodeIcon: Lightbulb,
+    cardIcon: Lightbulb,
     side: "left",
   },
   {
     id: 2,
-    date: "१५ ऑगस्ट, २०२३",
-    titleNormal: "नागरिक आनंद मेळाव्याचा",
-    titleHighlight: "यशस्वी शुभारंभ",
-    description: "ज्येष्ठ नागरिकांचे मानसिक, शारीरिक आणि सामाजिक आनंदवर्धक म्हणून आनंदशाळेची भूमिका बळकट झाली.",
+    stepNo: "२",
+    title: "भूमिपूजन",
+    description: "१५ ऑगस्ट २०२३ रोजी स्वातंत्र्य दिन व ज्येष्ठ नागरिक आनंद मेळाव्याच्या शुभमुहूर्तावर भूमिपूजन संपन्न झाले.",
     color: "#1D4ED8",
     bgColor: "#EFF6FF",
     borderColor: "#BFDBFE",
-    nodeIcon: Users,
-    cardIcon: Users,
+    nodeIcon: Flag,
+    cardIcon: Flag,
     side: "right",
   },
   {
     id: 3,
-    date: "०१ जानेवारी, २०२५",
-    titleNormal: "प्रतीतम अत्याधुनिक इमारत व",
-    titleHighlight: "नवीन सुविधांचा शुभारंभ",
-    description: "प्रतीतम अत्याधुनिक इमारत, ज्येष्ठ नागरिकांसाठी ताज्या सुविधांची उभारणी पूर्ण.",
+    stepNo: "३",
+    title: "आनंदशाळेची संकल्पना",
+    description: "ज्येष्ठ नागरिकांना आनंदी, उत्साही, निरोगी आणि सुखी जीवन जगता यावे यासाठी प्रीतम ज्येष्ठ नागरिक आनंदशाळेची उभारणी करण्याची संकल्पना.",
     color: "#EA580C",
     bgColor: "#FFF7ED",
     borderColor: "#FFEDD5",
-    nodeIcon: Building2,
-    cardIcon: Building2,
+    nodeIcon: Heart,
+    cardIcon: Heart,
     side: "left",
   },
-
+  {
+    id: 4,
+    stepNo: "४",
+    title: "विविध सुविधांची उभारणी",
+    description: "आनंद निवास, नियोजित गोशाळा, नियोजित श्रीकृष्ण मंदिर, जलतरण तलाव, आनंदशाळा इमारत, फिटनेस व स्पोर्ट्स कॉम्प्लेक्स, फूड कोर्ट, प्युअर व्हेज हॉटेल, कार्यक्रम स्टेज, गार्डन, लॉन आणि क्रिकेट व इतर खेळांसाठी मैदान.",
+    color: "#059669",
+    bgColor: "#ECFDF5",
+    borderColor: "#A7F3D0",
+    nodeIcon: Building2,
+    cardIcon: Building2,
+    side: "right",
+  },
+  {
+    id: 5,
+    stepNo: "५",
+    title: "ज्येष्ठ नागरिकांसाठी सेवा व सुविधा",
+    description: "जाण्या-येण्याची सुविधा, राहण्याची व्यवस्था, कला शिक्षण, चहा, नाश्ता, जेवण, दवाखाना, वाचनालय, गार्डन, जलतरण तलाव, बॅडमिंटन, जिम, टेनिस, विविध इनडोअर व आउटडोअर खेळ, मंदिर, गोशाळा, कमाईच्या संधी आणि रोजगार सुविधा.",
+    color: "#7C3AED",
+    bgColor: "#F5F3FF",
+    borderColor: "#DDD6FE",
+    nodeIcon: HeartHandshake,
+    cardIcon: HeartHandshake,
+    side: "left",
+  },
+  {
+    id: 6,
+    stepNo: "६",
+    title: "आनंदशाळेचा शुभारंभ",
+    description: "२६ जानेवारी २०२६ रोजी प्रीतम ज्येष्ठ नागरिक आनंदशाळेचा शुभारंभ.",
+    color: "#E11D48",
+    bgColor: "#FFF1F2",
+    borderColor: "#FECDD3",
+    nodeIcon: Sparkles,
+    cardIcon: Sparkles,
+    side: "right",
+  },
+  {
+    id: 7,
+    stepNo: "७",
+    title: "विविध उपक्रमांची सुरुवात",
+    description: "बैठे खेळ, चित्रकला, हस्तकला, विणकाम, संगीत वाद्ये, संगणक व माहिती तंत्रज्ञान, मनोरंजन, पोहणे, विविध खेळ, व्यायाम, योगा, ध्यान, झुंबा, नृत्य, पाककला, वाचन व विश्रांती, थिएटर, भजन-कीर्तन आणि हास्य व कराओके असे विविध उपक्रम.",
+    color: "#0284C7",
+    bgColor: "#F0F9FF",
+    borderColor: "#BAE6FD",
+    nodeIcon: Palette,
+    cardIcon: Palette,
+    side: "left",
+  },
+  {
+    id: 8,
+    stepNo: "८",
+    title: "आनंदशाळेचे वेळापत्रक",
+    description: "सकाळी ११ ते संध्याकाळी ५ या वेळेत विविध तास व उपक्रमांचे नियोजन करण्यात आले आहे. गरजेनुसार वेळापत्रक दर महिन्याला बदलता येते.",
+    color: "#D97706",
+    bgColor: "#FEF3C7",
+    borderColor: "#FDE68A",
+    nodeIcon: Clock,
+    cardIcon: Clock,
+    side: "right",
+  },
 ];
 
 export default function JourneyTimeline() {
   return (
-    <section className="journey-exact-v2">
+    <section className="journey-exact-v2 my-6 sm:my-10" id="milestones">
       {/* Background Dot Grid */}
       <div className="journey-dot-grid" />
 
-      {/* Building Sketch Background */}
-      <div className="journey-building-sketch">
-        <svg viewBox="0 0 500 400" fill="none" stroke="#1D4ED8" strokeWidth="1.2">
-          <path d="M50 350 H450 M120 180 H380 M200 80 H300 V180 H200 Z M120 180 V350 M380 180 V350" />
-          <rect x="220" y="100" width="25" height="35" rx="3" />
-          <rect x="255" y="100" width="25" height="35" rx="3" />
-          <rect x="220" y="220" width="60" height="130" rx="4" />
-          <path d="M80 350 V200 L120 180 M420 350 V200 L380 180" />
-        </svg>
-      </div>
-
       <div className="journey-exact-container">
         {/* HEADER */}
-        <div className="journey-exact-header">
-          {/* Badge */}
+        <div className="journey-exact-header text-center max-w-4xl mx-auto mb-10">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="journey-exact-badge"
+            className="journey-exact-badge inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-50 border border-pink-200 text-[#810B38] font-black text-xs sm:text-sm mb-4 shadow-xs"
           >
-            <span className="badge-line"></span>
-            <span className="font-bold">● वाट चाल ●</span>
-            <span className="badge-line"></span>
+            <span>🌿</span>
+            <span>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span> — प्रकल्पाचे टप्पे</span>
+            <span>🌿</span>
           </motion.div>
 
-          {/* Title */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
             viewport={{ once: true }}
-            className="journey-exact-title"
+            className="journey-exact-title text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight"
           >
-            आमचा प्रवास
+            प्रकल्पाची वाटचाल व <span className="text-[#db2777]">महत्त्वाचे टप्पे</span>
           </motion.h2>
 
-          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
             viewport={{ once: true }}
-            className="journey-exact-subtitle"
+            className="journey-exact-subtitle text-slate-600 font-extrabold text-sm sm:text-lg mt-3"
           >
-            प्रेम, विश्वास आणि सेवांचा प्रवास – आनंदशाळेच्या सोबत...
+            संकल्पनेपासून ते भव्य शुभारंभापर्यंतचा प्रेरणादायी प्रवास...
           </motion.p>
 
           {/* Ornamental Divider */}
@@ -106,198 +158,168 @@ export default function JourneyTimeline() {
             whileInView={{ scaleX: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
             viewport={{ once: true }}
-            className="journey-ornament"
+            className="journey-ornament flex items-center justify-center gap-3 mt-4"
           >
-            <span className="ornament-line"></span>
-            <span className="ornament-node">❖</span>
-            <span className="ornament-line"></span>
+            <span className="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#db2777]"></span>
+            <span className="text-[#db2777] font-black text-sm">❖</span>
+            <span className="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#db2777]"></span>
           </motion.div>
         </div>
 
         {/* TIMELINE GRID */}
-        <div className="journey-exact-timeline">
+        <div className="journey-exact-timeline relative">
           {/* Center Vertical Dashed Line */}
           <div className="journey-center-line">
             <div className="line-dashed" />
             <div className="line-end-circle" />
           </div>
 
-          {/* ROW 1: Card 1 (Left) */}
-          <div className="journey-row-item row-left">
-            <motion.div
-              initial={{ opacity: 0, x: -50, y: 20 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              whileHover={{ y: -6, scale: 1.015 }}
-              className="journey-card-box left-box"
-            >
-              {/* Date Badge */}
-              <div className="card-date-badge" style={{ backgroundColor: timelineData[0].color }}>
-                {timelineData[0].date}
+          {timelineData.map((item) => {
+            const Icon = item.cardIcon;
+            const NodeIcon = item.nodeIcon;
+            const isLeft = item.side === "left";
+
+            return (
+              <div
+                key={item.id}
+                className={`journey-row-item ${isLeft ? "row-left" : "row-right"}`}
+              >
+                {isLeft ? (
+                  <>
+                    {/* LEFT CARD */}
+                    <motion.div
+                      initial={{ opacity: 0, x: -50, y: 20 }}
+                      whileInView={{ opacity: 1, x: 0, y: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      whileHover={{ y: -6, scale: 1.015 }}
+                      className="journey-card-box left-box"
+                    >
+                      {/* Step Number Badge */}
+                      <div
+                        className="card-date-badge"
+                        style={{ backgroundColor: item.color }}
+                      >
+                        टप्पा {item.stepNo}
+                      </div>
+
+                      <div className="card-inner flex items-start justify-between gap-4 p-5 sm:p-6 bg-white rounded-3xl shadow-xl border-2 border-slate-100">
+                        <div className="card-text-content space-y-2 text-left">
+                          <h3 className="card-title text-lg sm:text-xl font-black text-slate-900 leading-snug">
+                            {item.id}. <HighlightText text={item.title} />
+                          </h3>
+                          <p className="card-desc text-xs sm:text-sm text-slate-700 font-extrabold leading-relaxed">
+                            <HighlightText text={item.description} />
+                          </p>
+                        </div>
+
+                        {/* Floating Icon Box */}
+                        <div
+                          className="card-icon-wrapper p-3.5 rounded-2xl shrink-0 shadow-md"
+                          style={{ backgroundColor: item.bgColor }}
+                        >
+                          <Icon className="size-6 sm:size-7" style={{ color: item.color }} />
+                        </div>
+                      </div>
+
+                      <div
+                        className="arrow-right"
+                        style={{ borderLeftColor: item.color }}
+                      />
+                    </motion.div>
+
+                    {/* Center Node */}
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.1 }}
+                      className="center-node-box relative"
+                      style={{ borderColor: item.color }}
+                    >
+                      <NodeIcon className="size-5 sm:size-6" style={{ color: item.color }} />
+                    </motion.div>
+
+                    <div className="journey-row-empty" />
+                  </>
+                ) : (
+                  <>
+                    <div className="journey-row-empty" />
+
+                    {/* Center Node */}
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.1 }}
+                      className="center-node-box relative"
+                      style={{ borderColor: item.color }}
+                    >
+                      <NodeIcon className="size-5 sm:size-6" style={{ color: item.color }} />
+                    </motion.div>
+
+                    {/* RIGHT CARD */}
+                    <motion.div
+                      initial={{ opacity: 0, x: 50, y: 20 }}
+                      whileInView={{ opacity: 1, x: 0, y: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                      whileHover={{ y: -6, scale: 1.015 }}
+                      className="journey-card-box right-box"
+                    >
+                      {/* Step Number Badge */}
+                      <div
+                        className="card-date-badge"
+                        style={{ backgroundColor: item.color }}
+                      >
+                        टप्पा {item.stepNo}
+                      </div>
+
+                      <div className="card-inner flex items-start justify-between gap-4 p-5 sm:p-6 bg-white rounded-3xl shadow-xl border-2 border-slate-100">
+                        {/* Floating Icon Box */}
+                        <div
+                          className="card-icon-wrapper p-3.5 rounded-2xl shrink-0 shadow-md"
+                          style={{ backgroundColor: item.bgColor }}
+                        >
+                          <Icon className="size-6 sm:size-7" style={{ color: item.color }} />
+                        </div>
+
+                        <div className="card-text-content space-y-2 text-left flex-1">
+                          <h3 className="card-title text-lg sm:text-xl font-black text-slate-900 leading-snug">
+                            {item.id}. <HighlightText text={item.title} />
+                          </h3>
+                          <p className="card-desc text-xs sm:text-sm text-slate-700 font-extrabold leading-relaxed">
+                            <HighlightText text={item.description} />
+                          </p>
+                        </div>
+                      </div>
+
+                      <div
+                        className="arrow-left"
+                        style={{ borderRightColor: item.color }}
+                      />
+                    </motion.div>
+                  </>
+                )}
               </div>
-
-              <div className="card-inner flex items-center justify-between gap-4">
-                <div className="card-text-content">
-                  <h3 className="card-title">
-                    {timelineData[0].titleNormal}{" "}
-                    <span style={{ color: timelineData[0].color }}>
-                      {timelineData[0].titleHighlight}
-                    </span>
-                  </h3>
-                  <p className="card-desc">{timelineData[0].description}</p>
-                </div>
-
-                {/* Right Floating Icon Box */}
-                <div
-                  className="card-icon-wrapper"
-                  style={{ backgroundColor: timelineData[0].bgColor }}
-                >
-                  <HeartHandshake className="size-7 sm:size-8" style={{ color: timelineData[0].color }} />
-                </div>
-              </div>
-
-              {/* Triangle Arrow */}
-              <div className="arrow-right" style={{ borderLeftColor: timelineData[0].color }} />
-            </motion.div>
-
-            {/* Center Node 1 */}
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="center-node-box relative"
-              style={{ borderColor: timelineData[0].color }}
-            >
-              <Sprout className="size-6" style={{ color: timelineData[0].color }} />
-            </motion.div>
-
-            <div className="journey-row-empty" />
-          </div>
-
-          {/* ROW 2: Card 2 (Right) */}
-          <div className="journey-row-item row-right">
-            <div className="journey-row-empty" />
-
-            {/* Center Node 2 */}
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="center-node-box relative"
-              style={{ borderColor: timelineData[1].color }}
-            >
-              <Users className="size-6" style={{ color: timelineData[1].color }} />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50, y: 20 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              whileHover={{ y: -6, scale: 1.015 }}
-              className="journey-card-box right-box"
-            >
-              {/* Date Badge */}
-              <div className="card-date-badge" style={{ backgroundColor: timelineData[1].color }}>
-                {timelineData[1].date}
-              </div>
-
-              <div className="card-inner flex items-center justify-between gap-4">
-                {/* Left Floating Icon Box */}
-                <div
-                  className="card-icon-wrapper"
-                  style={{ backgroundColor: timelineData[1].bgColor }}
-                >
-                  <Users className="size-7 sm:size-8" style={{ color: timelineData[1].color }} />
-                </div>
-
-                <div className="card-text-content">
-                  <h3 className="card-title">
-                    {timelineData[1].titleNormal}{" "}
-                    <span style={{ color: timelineData[1].color }}>
-                      {timelineData[1].titleHighlight}
-                    </span>
-                  </h3>
-                  <p className="card-desc">{timelineData[1].description}</p>
-                </div>
-              </div>
-
-              {/* Triangle Arrow */}
-              <div className="arrow-left" style={{ borderRightColor: timelineData[1].color }} />
-            </motion.div>
-          </div>
-
-          {/* ROW 3: Card 3 (Left) */}
-          <div className="journey-row-item row-left">
-            <motion.div
-              initial={{ opacity: 0, x: -50, y: 20 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              whileHover={{ y: -6, scale: 1.015 }}
-              className="journey-card-box left-box"
-            >
-              {/* Date Badge */}
-              <div className="card-date-badge" style={{ backgroundColor: timelineData[2].color }}>
-                {timelineData[2].date}
-              </div>
-
-              <div className="card-inner flex items-center justify-between gap-4">
-                <div className="card-text-content">
-                  <h3 className="card-title">
-                    {timelineData[2].titleNormal}{" "}
-                    <span style={{ color: timelineData[2].color }}>
-                      {timelineData[2].titleHighlight}
-                    </span>
-                  </h3>
-                  <p className="card-desc">{timelineData[2].description}</p>
-                </div>
-
-                {/* Right Floating Icon Box */}
-                <div
-                  className="card-icon-wrapper"
-                  style={{ backgroundColor: timelineData[2].bgColor }}
-                >
-                  <Building2 className="size-7 sm:size-8" style={{ color: timelineData[2].color }} />
-                </div>
-              </div>
-
-              {/* Triangle Arrow */}
-              <div className="arrow-right" style={{ borderLeftColor: timelineData[2].color }} />
-            </motion.div>
-
-            {/* Center Node 3 */}
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="center-node-box relative"
-              style={{ borderColor: timelineData[2].color }}
-            >
-              <Building2 className="size-6" style={{ color: timelineData[2].color }} />
-            </motion.div>
-
-          </div>
+            );
+          })}
         </div>
 
-        {/* DEDICATED BOTTOM STANDALONE QUOTE CARD (FURTHER DOWN BELOW ALL CARDS) */}
+        {/* DEDICATED BOTTOM STANDALONE QUOTE CARD */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
           whileHover={{ y: -6, scale: 1.01 }}
-          className="quote-standalone-container"
+          className="quote-standalone-container mt-12"
         >
           <div className="quote-standalone-card">
             <div className="quote-mark quote-start">“</div>
             <p className="quote-text">
               आनंदात जगायचं, आरोग्य जपायचं,<br />
-              आनंदशाळेत येऊन स्वप्न साकारायचं.
+              <HighlightText text="आनंदशाळेत" /> येऊन स्वप्न साकारायचं.
             </p>
             <p className="quote-author">– डॉ. नितीन ओक, अभिनेते</p>
             <div className="quote-mark quote-end">”</div>

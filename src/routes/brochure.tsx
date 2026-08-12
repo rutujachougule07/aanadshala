@@ -71,10 +71,10 @@ const Brochure: React.FC = () => {
       title: "खेळ, व्यायाम व मनोरंजन",
       category: "क्रीडा व मनोरंजन",
       img: "/images/aandmelava4.jpg",
-      mrDesc: "कॅरम, बुद्धिबळ, टेबल टेनिस, वातानुकूलित जिम, झुम्बा, स्विमिंग पूल व १५ विशेष उपक्रम हॉलमध्ये मनसोक्त मनोरंजन.",
-      enDesc: "Enjoy indoor games, AC gym, Zumba, swimming pool, and 15 specialized activity halls.",
+      mrDesc: "कॅरम, बुद्धिबळ, टेबल टेनिस, वातानुकूलित जिम, झुम्बा, स्विमिंग पूल व १८ विशेष उपक्रम हॉलमध्ये मनसोक्त मनोरंजन.",
+      enDesc: "Enjoy indoor games, AC gym, Zumba, swimming pool, and 18 specialized activity halls.",
       highlights: [
-        "१५ विशेष उपक्रम हॉल",
+        "१८ विशेष उपक्रम हॉल",
         "बैठे खेळ व वातानुकूलित जिम",
         "स्विमिंग पूल व झुम्बा क्लासेस"
       ]

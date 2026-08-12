@@ -9,12 +9,12 @@ interface HighlightTextProps {
 export const HighlightText: React.FC<HighlightTextProps> = ({
   text,
   className = "",
-  pinkClass = "text-pink-500 font-bold",
+  pinkClass = "text-[#db2777] font-black drop-shadow-xs",
 }) => {
   if (!text) return null;
 
-  const splitRegex = /(आनंदशाळा|आनंदशाळेत|आनंदशाळेची|आनंदशाळेचे|आनंदशाळेच्या|आनंदशाळेतील|आनंदआश्रम|आनंदधाम|Anandshala|Anandashram|Aandshala)/gi;
-  const matchRegex = /^(आनंदशाळा|आनंदशाळेत|आनंदशाळेची|आनंदशाळेचे|आनंदशाळेच्या|आनंदशाळेतील|आनंदआश्रम|आनंदधाम|Anandshala|Anandashram|Aandshala)$/i;
+  const splitRegex = /(आनंद\s*शाळा|आनंदशाळा|आनंदशाळेत|आनंदशाळेची|आनंदशाळेचे|आनंदशाळेच्या|आनंदशाळेतील|आनंदशाळेस|आनंदशाळेकडून|आनंद\s*निवास|आनंदनिवास|Anandshala|Aanandshala|AnandShala|AanandShala)/gi;
+  const matchRegex = /^(आनंद\s*शाळा|आनंदशाळा|आनंदशाळेत|आनंदशाळेची|आनंदशाळेचे|आनंदशाळेच्या|आनंदशाळेतील|आनंदशाळेस|आनंदशाळेकडून|आनंद\s*निवास|आनंदनिवास|Anandshala|Aanandshala|AnandShala|AanandShala)$/i;
 
   const parts = text.split(splitRegex);
 

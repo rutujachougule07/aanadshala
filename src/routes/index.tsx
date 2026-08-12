@@ -16,6 +16,7 @@ import SportsPricingSection from "@/components/SportsPricingSection/SportsPricin
 import ScheduleSection from "@/components/ScheduleSection";
 import ActivityHallsSection from "@/components/ActivityHallsSection/ActivityHallsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import JourneyTimeline from "@/components/journey-v2/JourneyTimeline";
 
 
 const publicImages = [
@@ -341,7 +342,7 @@ function IndexComponent() {
     <div className="min-h-screen bg-gradient-to-br from-[#1a0429] via-[#2d0739] to-[#150424] animate-fade-up">
 
       <AnimatePresence>
-        {showIntroBanner && store.siteData.showWelcomePoster !== false && (
+        {showIntroBanner && (
           <motion.div
             key="preetam-intro"
 
@@ -637,6 +638,9 @@ function IndexComponent() {
         <div id="aanandshala-section" className="animate-fade-up">
           {/* HOME HERO BANNER WITH PHOTO SLIDER */}
           <HomeHero />
+
+          {/* 8 MILESTONES TIMELINE SLIDER (PROJECT TAPPE DIRECTLY BELOW SLIDER) */}
+          <JourneyTimeline />
 
 
 
