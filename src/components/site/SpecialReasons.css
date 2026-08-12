@@ -549,24 +549,26 @@ BOTTOM MESSAGE
 
 .bottomMessage {
   max-width: 930px;
-  min-height: 75px;
+  width: calc(100% - 2rem);
+  min-height: 65px;
   margin: 15px auto 0;
-  padding: 10px 24px;
+  padding: 12px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 12px;
   background: linear-gradient(180deg, #ffffff, #fffefa);
-  border-radius: 38px 38px 20px 20px;
+  border-radius: 38px;
   box-shadow: 0 8px 18px rgba(70, 44, 20, 0.08);
   border: 1px solid rgba(212, 156, 63, 0.3);
+  box-sizing: border-box;
 }
 
 .bottomMessage p {
   margin: 0;
   color: #1e293b;
   text-align: center;
-  font-size: clamp(17px, 1.35vw, 21px);
+  font-size: clamp(14px, 3.8vw, 20px);
   line-height: 1.5;
   font-weight: 800;
 }
