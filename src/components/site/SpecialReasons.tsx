@@ -357,7 +357,7 @@ export default function SpecialReasons() {
           <span>{isEn ? "Special Reasons" : "विशेष कारणे"}</span>
           <span className="miniDiamond">◆</span>
         </div>
-        <h2>
+        <h2 className="text-[26px] sm:text-[36px] md:text-[42px] font-black text-[#0044cc]">
           {isEn ? <>Why Join <span className="text-pink-600 font-extrabold">Anandshala</span>?</> : <><span className="text-pink-600 font-extrabold">आनंदशाळेतच</span> प्रवेश का घ्यायचा?</>}
         </h2>
         <div className="headingOrnament">
