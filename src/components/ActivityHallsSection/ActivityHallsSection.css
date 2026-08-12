@@ -39,10 +39,10 @@
 }
 
 .ah-header-title {
-  color: #f472b6;
-  font-size: 3.5rem;
+  color: #0044cc;
+  font-size: clamp(26px, 4vw, 42px);
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.25;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -52,6 +52,7 @@
 
 .ah-header-title span.blue-text {
   color: #0044cc;
+  font-size: inherit;
 }
 
 .ah-header-desc {

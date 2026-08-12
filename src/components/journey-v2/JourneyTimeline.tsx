@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
-import { 
-  Lightbulb, 
-  Flag, 
-  Heart, 
-  Building2, 
-  HeartHandshake, 
-  Sparkles, 
-  Palette, 
-  Clock 
+import {
+  Lightbulb,
+  Flag,
+  Heart,
+  Building2,
+  HeartHandshake,
+  Sparkles,
+  Palette,
+  Clock
 } from "lucide-react";
 import { HighlightText } from "@/components/HighlightText";
 import "./journey.css";
@@ -53,7 +53,7 @@ const timelineData = [
     id: 4,
     stepNo: "४",
     title: "विविध सुविधांची उभारणी",
-    description: "आनंद निवास, नियोजित गोशाळा, नियोजित श्रीकृष्ण मंदिर, जलतरण तलाव, आनंदशाळा इमारत, फिटनेस व स्पोर्ट्स कॉम्प्लेक्स, फूड कोर्ट, प्युअर व्हेज हॉटेल, कार्यक्रम स्टेज, गार्डन, लॉन आणि क्रिकेट व इतर खेळांसाठी मैदान.",
+    description: "आनंद निवास, नियोजित गोशाळा, नियोजित श्रीकृष्ण मंदिर, जलतरण (swimming), आनंदशाळा इमारत, फिटनेस व स्पोर्ट्स कॉम्प्लेक्स, फूड कोर्ट, कार्यक्रम स्टेज, गार्डन, लॉन आणि क्रिकेट व इतर खेळांसाठी मैदान.",
     color: "#059669",
     bgColor: "#ECFDF5",
     borderColor: "#A7F3D0",
@@ -65,7 +65,7 @@ const timelineData = [
     id: 5,
     stepNo: "५",
     title: "ज्येष्ठ नागरिकांसाठी सेवा व सुविधा",
-    description: "जाण्या-येण्याची सुविधा, राहण्याची व्यवस्था, कला शिक्षण, चहा, नाश्ता, जेवण, दवाखाना, वाचनालय, गार्डन, जलतरण तलाव, बॅडमिंटन, जिम, टेनिस, विविध इनडोअर व आउटडोअर खेळ, मंदिर, गोशाळा, कमाईच्या संधी आणि रोजगार सुविधा.",
+    description: "जाण्या-येण्याची सुविधा, राहण्याची व्यवस्था, कला शिक्षण, चहा, नाश्ता, जेवण, दवाखाना (रोज २ तास सकाळी १० ते १२ आणि सायंकाळी ४ ते ६), वाचनालय, गार्डन, जलतरण (swimming), बॅडमिंटन, जिम, टेबल टेनिस, पूल टेबल, पिकलबॉल, विविध इनडोअर व आउटडोअर खेळ, नियोजित श्रीकृष्ण मंदिर आणि नियोजित गोशाळा.",
     color: "#7C3AED",
     bgColor: "#F5F3FF",
     borderColor: "#DDD6FE",
@@ -101,7 +101,7 @@ const timelineData = [
     id: 8,
     stepNo: "८",
     title: "आनंदशाळेचे वेळापत्रक",
-    description: "सकाळी ११ ते संध्याकाळी ५ या वेळेत विविध तास व उपक्रमांचे नियोजन करण्यात आले आहे. गरजेनुसार वेळापत्रक दर महिन्याला बदलता येते.",
+    description: "सकाळी ११ ते सायंकाळी ५ या वेळेत विविध तास व उपक्रमांचे नियोजन करण्यात आले आहे. गरजेनुसार वेळापत्रक दर महिन्याला बदलता येते.",
     color: "#D97706",
     bgColor: "#FEF3C7",
     borderColor: "#FDE68A",
@@ -137,9 +137,9 @@ export default function JourneyTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
             viewport={{ once: true }}
-            className="journey-exact-title text-lg sm:text-2xl md:text-3xl font-black text-slate-900 leading-snug tracking-tight"
+            className="journey-exact-title text-[26px] sm:text-[36px] md:text-[42px] font-black text-[#0044cc] leading-snug tracking-tight"
           >
-            प्रकल्पाची वाटचाल व <span className="text-[#db2777]">महत्त्वाचे टप्पे</span>
+            प्रकल्पाची वाटचाल व महत्त्वाचे टप्पे
           </motion.h2>
 
           <motion.p
@@ -147,7 +147,7 @@ export default function JourneyTimeline() {
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
             viewport={{ once: true }}
-            className="journey-exact-subtitle text-xs sm:text-sm md:text-base font-extrabold text-slate-600 mt-2 tracking-wide"
+            className="journey-exact-subtitle text-xs sm:text-sm md:text-base font-medium text-slate-500 mt-2 tracking-wide"
           >
             संकल्पनेपासून ते भव्य शुभारंभापर्यंतचा प्रेरणादायी प्रवास...
           </motion.p>
@@ -321,7 +321,7 @@ export default function JourneyTimeline() {
               आनंदात जगायचं, आरोग्य जपायचं,<br />
               <HighlightText text="आनंदशाळेत" /> येऊन स्वप्न साकारायचं.
             </p>
-            <p className="quote-author">– डॉ. नितीन ओक, अभिनेते</p>
+            <p className="quote-author">– डॉ. गिरीश ओक, अभिनेते व ब्रँड ॲम्बेसेडर</p>
             <div className="quote-mark quote-end">”</div>
           </div>
         </motion.div>

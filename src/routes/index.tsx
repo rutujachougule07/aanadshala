@@ -458,8 +458,8 @@ function IndexComponent() {
 
           {/* BRAND HEADER */}
           <div className="animate-fade-up text-center max-w-5xl mx-auto mb-2 sm:mb-4 relative z-10 px-2">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-pink-500/20 to-purple-500/20 backdrop-blur-xl border border-amber-300/40 text-amber-200 font-black text-xs sm:text-sm shadow-[0_0_25px_rgba(251,191,36,0.3)] tracking-wide">
-              <span className="inline-block size-2 rounded-full bg-amber-400 animate-ping" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-pink-500/20 to-purple-500/20 backdrop-blur-xl border border-amber-300/40 text-amber-200 font-black text-sm sm:text-base md:text-lg shadow-[0_0_25px_rgba(251,191,36,0.3)] tracking-wide">
+              <span className="inline-block size-2.5 rounded-full bg-amber-400 animate-ping" />
               <span>✨ {isEn ? <>India's First &amp; Only <span className="text-pink-400 font-black">Anandshala</span></> : <>भारतातील पहिली आणि एकमेव <span className="text-pink-400 font-black">आनंदशाळा</span></>}</span>
             </div>
             <h1 className="font-display font-black text-lg sm:text-3xl lg:text-4xl tracking-tight bg-gradient-to-r from-amber-300 via-yellow-200 via-rose-200 to-emerald-200 bg-clip-text text-transparent drop-shadow-[0_4px_25px_rgba(251,191,36,0.7)] leading-snug py-0.5 mt-2.5 sm:mt-5 max-w-3xl mx-auto">

@@ -35,9 +35,6 @@ export default function TestimonialsSection() {
       <div className="max-w-7xl mx-auto relative z-10 space-y-12">
         {/* HEADER AREA */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-rose-50 border border-rose-200 text-[#810B38] text-xs sm:text-sm font-black uppercase tracking-wider shadow-xs">
-            <span>🎬 व्हिडिओ व सदस्यांचे मनोगत</span>
-          </div>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-[#810B38] tracking-tight drop-shadow-xs">
             मान्यवर व सभासदांचे <span className="text-[#db2777]">व्हिडिओ अभिप्राय</span>
           </h2>
@@ -98,7 +95,9 @@ export default function TestimonialsSection() {
                   <div className="pt-3 border-t border-rose-100 flex items-center justify-between gap-3">
                     <div>
                       <h4 className="font-black text-sm sm:text-base text-slate-900 group-hover:text-[#db2777] transition-colors">
-                        {item.name}
+                        {item.name.includes("गिरीश ओक") 
+                          ? "डॉ. गिरीश ओक (अभिनेते व ब्रँड ॲम्बेसेडर)" 
+                          : item.name}
                       </h4>
                       {item.role && (
                         <p className="text-xs font-bold text-[#810B38]">{item.role}</p>

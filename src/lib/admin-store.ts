@@ -466,7 +466,7 @@ const initialInquiries: InquiryItem[] = [
 const initialTestimonials: TestimonialItem[] = [
   {
     id: "vtest-1",
-    name: "डॉ. गिरीश ओक (अभिनेते)",
+    name: "डॉ. गिरीश ओक (अभिनेते व ब्रँड ॲम्बेसेडर)",
     role: "प्रसिद्ध अभिनेते व ज्येष्ठ नागरिक मार्गदर्शक",
     text: "आनंदात जगायचं, आरोग्य जपायचं, प्रीतम आनंदशाळेत येऊन स्वप्न साकारायचं! सांगलीतील हा पहिलाच जागतिक दर्जाचा प्रकल्प आहे.",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
@@ -559,14 +559,14 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
       morningTea: "7 ते 9",
       morningBreakfast: "पावभाजी किंवा मिसळ",
       afternoonLunch: "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
-      eveningTeaSnack: "चहा + बिस्कीट",
+      eveningTeaSnack: "चहा व बिस्किट",
       nightDinner: "चपाती + भाजी + आमटी + वरण + भात"
     },
     {
       srNo: 4,
       day: "गुरुवार",
       morningTea: "7 ते 9",
-      morningBreakfast: "उतपा + डोसा + भाजी + चटणी",
+      morningBreakfast: "उत्तपा + डोसा + भाजी + चटणी",
       afternoonLunch: "चपाती, धपाटा, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
       eveningTeaSnack: "चहा + चुरमुरे चिवडा",
       nightDinner: "चपाती + भाजी + भाकरी + खिचडी + कढी"
@@ -575,7 +575,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
       srNo: 5,
       day: "शुक्रवार",
       morningTea: "7 ते 9",
-      morningBreakfast: "उपीट + भेळ किंवा दडपे पोहे",
+      morningBreakfast: "उत्तपा + भेळ किंवा दडपे पोहे",
       afternoonLunch: "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
       eveningTeaSnack: "चहा + भजी",
       nightDinner: "चपाती + भाजी + आमटी + भात"
@@ -627,7 +627,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
     { name: "आईस्क्रीम / कुल्फी", price: "20/-" },
     { name: "श्रीखंड / बासुंदी", price: "30/-" },
     { name: "खिर", price: "30/-" },
-    { name: "फ्रूट सलाद", price: "30/-", daySpecial: "सोमवार" },
+    { name: "फ्रूट सॅलड", price: "30/-", daySpecial: "सोमवार" },
     { name: "पुरण पोळी", price: "30/-", daySpecial: "मंगळवार" },
     { name: "शेंगा पोळी", price: "30/-", daySpecial: "गुरुवार" },
     { name: "खवा पोळी", price: "30/-", daySpecial: "शनिवार" }

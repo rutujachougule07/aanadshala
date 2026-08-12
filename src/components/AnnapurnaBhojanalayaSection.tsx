@@ -47,6 +47,45 @@ export default function AnnapurnaBhojanalayaSection() {
     window.print();
   };
 
+  const handleDownload = () => {
+    const textContent = `=====================================================
+  प्रीतम ज्येष्ठ नागरिक आनंदशाळा • अन्नपूर्णा भोजनालय
+            अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक
+=====================================================
+
+अन्नपूर्णा भोजनालयाची वेळ:
+• सकाळी चहा व नाष्टा: सकाळी ७:०० ते ९:००
+• दुपारचे जेवण: दुपारी १:०० ते २:००
+• सायंकाळी चहा व नाष्टा: सायंकाळी ५:०० ते ६:००
+
+साप्ताहिक आहार वेळापत्रक:
+-----------------------------------------------------
+${config.weeklySchedule.map((row: FoodScheduleRow) => `
+[${row.day}]
+• सकाळी चहा: ${row.morningTea} (७ ते ९)
+• सकाळी नाष्टा: ${row.morningBreakfast} (८ ते ९)
+• दुपार जेवण: ${row.afternoonLunch} (१२:१५ ते १ व १:१५ ते २)
+• सायंकाळी चहा नाष्टा: ${row.eveningSnack} (५ ते ६)
+• रात्रीचे जेवण: ${row.nightDinner} (८ ते ९)
+`).join('\n-----------------------------------------------------\n')}
+
+-----------------------------------------------------
+अधिक माहिती व नोंदणीसाठी संपर्क:
+प्रीतम ज्येष्ठ नागरिक आनंदशाळा, सांगली.
+📞 फोन: ९३७०२३७६३३
+`;
+
+    const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "अन्नपूर्णा_भोजनालय_वेळापत्रक.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="w-full bg-gradient-to-b from-[#fffcfd] via-[#fff5f8] to-[#fdf2f5] py-8 sm:py-12 px-3 sm:px-6 font-sans">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -66,25 +105,30 @@ export default function AnnapurnaBhojanalayaSection() {
             प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक
           </h2>
 
-          <p className="mt-3 text-slate-700 font-extrabold text-sm sm:text-lg max-w-3xl mx-auto flex items-center justify-center gap-2 flex-wrap">
-            <span className="text-rose-500">🍲</span>
-            <span>{config.subtitle}</span>
-            <span className="text-rose-500">🍲</span>
-          </p>
+          <div className="mt-3 text-slate-700 font-extrabold text-sm sm:text-lg max-w-3xl mx-auto flex flex-col items-center justify-center gap-1">
+            <p className="flex items-center justify-center gap-2">
+              <span className="text-rose-500">🍲</span>
+              <span>ताजा, सात्विक व पौष्टिक शाकाहारी आहार</span>
+              <span className="text-rose-500">🍲</span>
+            </p>
+            <p className="text-slate-800 font-extrabold text-xs sm:text-base">
+              आरोग्यदायी सहवास व स्वाद
+            </p>
+          </div>
 
           {/* Quick Action Badges */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <div className="inline-flex items-center gap-2 bg-amber-50 text-amber-900 border border-amber-200 px-4 py-2 rounded-2xl text-xs sm:text-sm font-black shadow-xs">
               <Clock className="w-4 h-4 text-amber-600" />
-              <span>सकाळ चहा ७ ते ९ • नाष्टा ८ ते ९ • जेवण १२:१५ व १:१५</span>
+              <span>सकाळी चहा व नाष्टा ७ ते ९ • दुपारचे जेवण १ ते २ • सायंकाळी चहा व नाष्टा ५ ते ६</span>
             </div>
 
             <button
-              onClick={handlePrint}
-              className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-2xl text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-transform cursor-pointer"
+              onClick={handleDownload}
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#810B38] to-[#db2777] hover:opacity-95 text-white px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-transform cursor-pointer"
             >
-              <Printer className="w-4 h-4" />
-              <span>वेळापत्रक प्रिन्ट करा</span>
+              <Download className="w-4 h-4" />
+              <span>वेळापत्रक डाउनलोड करा</span>
             </button>
           </div>
         </div>
@@ -121,15 +165,15 @@ export default function AnnapurnaBhojanalayaSection() {
             <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25 flex flex-col justify-between hover:bg-white/20 transition-colors">
               <div>
                 <div className="flex items-center justify-between text-amber-200 text-xs font-black mb-1">
-                  <span>🥣 सकाळ नाष्टा</span>
-                  <span>८ ते ९</span>
+                  <span>🥣 सकाळी नाष्टा</span>
+                  <span>७ ते ९</span>
                 </div>
                 <h4 className="text-base sm:text-lg font-black text-white leading-snug">
-                  {todayItem.morningBreakfast}
+                  {todayItem.morningBreakfast.replace("उतपा", "उत्तपा").replace("उपीट", "उत्तपा")}
                 </h4>
               </div>
               <div className="mt-3 pt-2 border-t border-white/15 text-[11px] text-rose-100 font-semibold">
-                ☕ चहा: {todayItem.morningTea} (७ ते ९)
+                ☕ गरमागरम चहा आणि नाष्टा
               </div>
             </div>
 
@@ -137,15 +181,15 @@ export default function AnnapurnaBhojanalayaSection() {
             <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25 flex flex-col justify-between hover:bg-white/20 transition-colors">
               <div>
                 <div className="flex items-center justify-between text-amber-200 text-xs font-black mb-1">
-                  <span>🍱 दुपार जेवण</span>
-                  <span>१२:१५ ते १ & १:१५ ते २</span>
+                  <span>🍱 दुपारचे जेवण</span>
+                  <span>१ ते २</span>
                 </div>
                 <h4 className="text-base sm:text-lg font-black text-white leading-snug">
                   {todayItem.afternoonLunch}
                 </h4>
               </div>
               <div className="mt-3 pt-2 border-t border-white/15 text-[11px] text-rose-100 font-semibold">
-                👌 अमर्याद पोळी/भाकरी & गरमागरम वरण भात
+                👌 मनसोक्त आहार
               </div>
             </div>
 
@@ -153,15 +197,15 @@ export default function AnnapurnaBhojanalayaSection() {
             <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25 flex flex-col justify-between hover:bg-white/20 transition-colors">
               <div>
                 <div className="flex items-center justify-between text-amber-200 text-xs font-black mb-1">
-                  <span>☕ सायंकाळ चहा-नाष्टा</span>
+                  <span>☕ सायंकाळी चहा व नाष्टा</span>
                   <span>५ ते ६</span>
                 </div>
                 <h4 className="text-base sm:text-lg font-black text-white leading-snug">
-                  {todayItem.eveningTeaSnack}
+                  {todayItem.eveningTeaSnack === "चहा + बिस्कीट" ? "चहा व बिस्किट" : todayItem.eveningTeaSnack}
                 </h4>
               </div>
               <div className="mt-3 pt-2 border-t border-white/15 text-[11px] text-rose-100 font-semibold">
-                🫖 गरमागरम चहा व बिस्कीट
+                🫖 गरमागरम चहा व बिस्किट
               </div>
             </div>
 
@@ -239,10 +283,10 @@ export default function AnnapurnaBhojanalayaSection() {
                 <tr className="bg-rose-50 text-[#810B38] font-black text-sm border-b-2 border-rose-200">
                   <th className="py-3.5 px-3 border-r border-rose-100 w-[7%]">अ.क्र.</th>
                   <th className="py-3.5 px-3 border-r border-rose-100 w-[11%]">वार</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[10%]">सकाळ चहा (७ ते ९)</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[20%]">सकाळ नाष्टा (८ ते ९)</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[26%]">दुपार जेवण (१२:१५ ते १ व १:१५ ते २)</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[13%]">दुपारी चहा नाष्टा (५ ते ६)</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[10%]">सकाळी चहा (७ ते ९)</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[20%]">सकाळी नाष्टा (७ ते ९)</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[26%]">दुपारचे जेवण (१ ते २)</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[13%]">सायंकाळी चहा व नाष्टा (५ ते ६)</th>
                   <th className="py-3.5 px-3 w-[13%]">रात्रीचे जेवण (८ ते ९)</th>
                 </tr>
               </thead>
@@ -279,7 +323,7 @@ export default function AnnapurnaBhojanalayaSection() {
                         </span>
                       </td>
                       <td className="py-3.5 px-4 border-r border-slate-200 font-bold text-slate-900 text-left">
-                        {row.morningBreakfast}
+                        {row.morningBreakfast.replace("उतपा", "उत्तपा").replace("उपीट", "उत्तपा")}
                       </td>
                       <td className="py-3.5 px-4 border-r border-slate-200 font-extrabold text-[#810B38] text-left leading-relaxed">
                         {row.afternoonLunch}
@@ -360,8 +404,7 @@ export default function AnnapurnaBhojanalayaSection() {
                   🍨
                 </div>
                 <div>
-                  <h3 className="text-xl font-black text-slate-900">आवडी व गरजेचे ज्यादाचे पदार्थ उपलब्ध</h3>
-                  <p className="text-xs font-extrabold text-slate-500">मागणीनुसार ताजे मिळणारे विशेष पदार्थ</p>
+                  <h3 className="text-xl font-black text-slate-900">आवडीनुसार व गरजेनुसार ज्यादाचे पदार्थ उपलब्ध</h3>
                 </div>
               </div>
 
@@ -374,7 +417,7 @@ export default function AnnapurnaBhojanalayaSection() {
                   >
                     <div className="flex items-start justify-between gap-1">
                       <span className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">
-                        {extra.name}
+                        {extra.name === "फ्रूट सलाद" ? "फ्रूट सॅलड" : extra.name}
                       </span>
                       {extra.daySpecial && (
                         <span className="bg-rose-600 text-white text-[9px] px-1.5 py-0.5 rounded-md font-black shrink-0">
