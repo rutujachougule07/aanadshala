@@ -436,16 +436,7 @@ function IndexComponent() {
 
 
 
-            {/* BOTTOM ENTER WEBSITE CTA BUTTON */}
-            <div className="relative z-20 pb-4 sm:pb-8 text-center animate-fade-up w-full px-4 flex justify-center">
-              <button
-                onClick={() => setShowIntroBanner(false)}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-[#db2777] via-pink-600 to-[#1A05A2] text-white font-black text-sm sm:text-base shadow-[0_10px_35px_rgba(219,39,119,0.5)] border-2 border-white/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer"
-              >
-                <span>🏛️ संकेतस्थळ पहा (Enter Website)</span>
-                <span className="text-amber-300">➔</span>
-              </button>
-            </div>
+
 
 
 
