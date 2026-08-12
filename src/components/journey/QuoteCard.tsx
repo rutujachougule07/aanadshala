@@ -1,4 +1,4 @@
-﻿import { memo, useState } from "react";
+import { memo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Quote, Sparkles, Heart, ShieldCheck, Award, ArrowRight, ArrowDown } from "lucide-react";
 
@@ -118,7 +118,7 @@ function QuoteCard() {
               <div className="rounded-2xl bg-white/10 border border-[#f472b6]/20 p-5 sm:p-6 backdrop-blur-sm text-center shadow-inner">
                 <h3 className="text-lg font-bold text-[#FF66B2] mb-2">आमच्याबद्दल अधिक...</h3>
                 <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-2xl mx-auto">
-                  आनंदशाळा हा केवळ एक प्रकल्प नसून, ज्येष्ठांसाठी तयार केलेले एक हक्काचे आणि प्रेमाचे घर आहे. येथे शारीरिक, मानसिक आणि भावनिक आरोग्याची विशेष काळजी घेतली जाते. भक्ती-सत्संग, योग-प्राणायाम, करमणूक आणि अद्ययावत वैद्यकीय सुविधेसह एक परिपूर्ण व आनंदी जीवनशैली आम्ही प्रदान करतो.
+                  आनंदशाळा हा केवळ एक प्रकल्प नसून, ज्येष्ठांसाठी तयार केलेले एक हक्काचे आणि प्रेमाचे निवास स्थान आहे. येथे शारीरिक, मानसिक आणि भावनिक आरोग्याची विशेष काळजी घेतली जाते. भक्ती-सत्संग, योग-प्राणायाम, करमणूक आणि अद्ययावत वैद्यकीय सुविधेसह एक परिपूर्ण व आनंदी जीवनशैली आम्ही प्रदान करतो.
                 </p>
                 <div className="mt-4 flex justify-center gap-4">
                   <div className="flex items-center gap-2 text-xs text-[#66B2FF] font-medium bg-[#66B2FF]/10 px-3 py-1.5 rounded-full border border-[#66B2FF]/20">

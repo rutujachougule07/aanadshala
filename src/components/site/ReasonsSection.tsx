@@ -330,7 +330,7 @@ export function ReasonsSection() {
             <span>
               {isEn
                 ? "The gateway to healthy & blissful golden years opens right here at Anandshala..."
-                : "वरिष्ठ नागरिकांच्या निरोगी आरोग्य व सुखद जीवनाचे दार येथेच उघडते — आनंदशाळा..."}
+                : "ज्येष्ठ नागरिकांच्या निरोगी आरोग्य व सुखद जीवनाचे दार येथेच उघडते — आनंदशाळा..."}
             </span>
             <span className="text-amber-500 text-lg">★ 🌾</span>
           </span>

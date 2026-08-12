@@ -390,7 +390,7 @@ export default function SpecialReasons() {
         <p>
           {isEn
             ? <>The gateway to healthy &amp; blissful golden years opens right here at <span className="text-pink-500 font-bold">Anandshala</span>...</>
-            : <>वरिष्ठ नागरिकांच्या निरोगी आरोग्य व सुखद जीवनाचे दार येथेच उघडते — <span className="text-pink-500 font-bold">आनंदशाळा</span>...</>}
+            : <>ज्येष्ठ नागरिकांच्या निरोगी आरोग्य व सुखद जीवनाचे दार येथेच उघडते — <span className="text-pink-500 font-bold">आनंदशाळा</span>...</>}
         </p>
         <span className="goldStar">★</span>
         <div className="goldLeaf rightLeaf">❧</div>
@@ -444,11 +444,11 @@ export default function SpecialReasons() {
               <div className="reason-modal-features">
                 <div className="modal-feat-row">
                   <CheckCircle2 size={18} className="text-emerald-600 flex-shrink-0" />
-                  <span>आनंदशाळा सांगली • १.५ एकर निसर्गरम्य हक्काचे घर</span>
+                  <span>आनंदशाळा सांगली • १.५ एकर निसर्गरम्य हक्काचे निवास स्थान</span>
                 </div>
                 <div className="modal-feat-row">
                   <CheckCircle2 size={18} className="text-emerald-600 flex-shrink-0" />
-                  <span>२४×७ डॉक्टर्स, सुरक्षा, पौष्टिक आहार व आपुलकीचे नाते</span>
+                  <span>२४x७ डॉक्टर on call, सुरक्षा, पौष्टिक आहार व आपुलकीचे नाते</span>
                 </div>
                 <div className="modal-feat-row">
                   <CheckCircle2 size={18} className="text-emerald-600 flex-shrink-0" />

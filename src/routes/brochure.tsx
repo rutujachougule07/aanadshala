@@ -51,7 +51,7 @@ const Brochure: React.FC = () => {
       enDesc: "Fresh air, organic meals, daily yoga, pranayama, and 24x7 medical care in a 1.5-acre green environment.",
       highlights: [
         "निसर्गरम्य १५ एकर परिसर",
-        "वैद्यकीय निगराणी व डॉक्टर्स सेवा",
+        "वैद्यकीय निगराणी व २४x७ डॉक्टर on call सेवा",
         "आनंदी व निरोगी जीवनशैली"
       ]
     },
@@ -438,7 +438,7 @@ const Brochure: React.FC = () => {
                 enDesc: "India's 1st 1.5-acre dedicated senior citizen landmark hub.",
                 highlights: [
                   "१.५ एकर भव्य निसर्गरम्य परिसर",
-                  "२४×७ वैद्यकीय निगराणी व सुसज्ज हॉटेल",
+                  "२४x७ डॉक्टर on call वैद्यकीय निगराणी",
                   "सर्व सुविधायुक्त वातानुकूलित दालने"
                 ]
               })}

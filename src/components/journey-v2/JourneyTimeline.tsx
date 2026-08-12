@@ -119,13 +119,13 @@ export default function JourneyTimeline() {
 
       <div className="journey-exact-container">
         {/* HEADER */}
-        <div className="journey-exact-header text-center max-w-4xl mx-auto mb-10">
+        <div className="journey-exact-header text-center max-w-3xl mx-auto mb-8">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="journey-exact-badge inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-50 border border-pink-200 text-[#810B38] font-black text-xs sm:text-sm mb-4 shadow-xs"
+            transition={{ duration: 0.5 }}
+            className="journey-exact-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-[#810B38] font-black text-xs sm:text-sm mb-3 shadow-xs"
           >
             <span>🌿</span>
             <span>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span> — प्रकल्पाचे टप्पे</span>
@@ -133,11 +133,11 @@ export default function JourneyTimeline() {
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
             viewport={{ once: true }}
-            className="journey-exact-title text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight"
+            className="journey-exact-title text-lg sm:text-2xl md:text-3xl font-black text-slate-900 leading-snug tracking-tight"
           >
             प्रकल्पाची वाटचाल व <span className="text-[#db2777]">महत्त्वाचे टप्पे</span>
           </motion.h2>
@@ -145,9 +145,9 @@ export default function JourneyTimeline() {
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
             viewport={{ once: true }}
-            className="journey-exact-subtitle text-slate-600 font-extrabold text-sm sm:text-lg mt-3"
+            className="journey-exact-subtitle text-xs sm:text-sm md:text-base font-extrabold text-slate-600 mt-2 tracking-wide"
           >
             संकल्पनेपासून ते भव्य शुभारंभापर्यंतचा प्रेरणादायी प्रवास...
           </motion.p>
@@ -156,13 +156,13 @@ export default function JourneyTimeline() {
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
             viewport={{ once: true }}
-            className="journey-ornament flex items-center justify-center gap-3 mt-4"
+            className="journey-ornament flex items-center justify-center gap-3 mt-3"
           >
-            <span className="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#db2777]"></span>
-            <span className="text-[#db2777] font-black text-sm">❖</span>
-            <span className="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#db2777]"></span>
+            <span className="w-12 h-[2px] bg-gradient-to-r from-transparent to-[#db2777]"></span>
+            <span className="text-[#db2777] font-black text-xs">❖</span>
+            <span className="w-12 h-[2px] bg-gradient-to-l from-transparent to-[#db2777]"></span>
           </motion.div>
         </div>
 

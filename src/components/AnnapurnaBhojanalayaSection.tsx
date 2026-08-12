@@ -310,7 +310,6 @@ export default function AnnapurnaBhojanalayaSection() {
                 </div>
                 <div>
                   <h3 className="text-xl font-black text-[#810B38]">पदार्थ दरपत्रक</h3>
-                  <p className="text-xs font-extrabold text-slate-500">१ वेळ व १ महिना आकारणी</p>
                 </div>
               </div>
 
