@@ -412,16 +412,16 @@ function IndexComponent() {
             {/* ========================================= */}
             {/* WELCOME HEADER TEXT (BABY PINK & MODERN)  */}
             {/* ========================================= */}
-            <div className="relative z-20 text-center px-2 sm:px-4 max-w-4xl sm:max-w-5xl w-full pt-2 sm:pt-6 animate-fade-up">
-              <div className="inline-block rounded-3xl bg-black/75 backdrop-blur-xl px-5 py-3 sm:px-10 sm:py-4.5 border-2 border-white/25 shadow-[0_12px_45px_rgba(0,0,0,0.85)]">
+            <div className="relative z-20 text-center px-3 sm:px-4 max-w-4xl sm:max-w-5xl w-full pt-4 sm:pt-8 animate-fade-up">
+              <div className="inline-block rounded-3xl bg-black/85 backdrop-blur-2xl px-5 py-4 sm:px-10 sm:py-5 border-2 border-white/35 shadow-[0_15px_50px_rgba(0,0,0,0.9)]">
                 <h2
                   onClick={() => setShowIntroBanner(false)}
-                  className="font-sans font-black text-xs sm:text-xl lg:text-2xl tracking-normal leading-snug cursor-pointer"
+                  className="font-sans font-black text-base sm:text-2xl lg:text-3xl tracking-normal leading-relaxed cursor-pointer"
                 >
-                  <span className="block text-amber-100 drop-shadow-md">
-                    Welcome to Preetam Senior Citizen <span className="text-[#f7a8d8] font-black drop-shadow-[0_0_15px_rgba(247,168,216,0.95)]">Anandshala</span> &amp;
+                  <span className="block text-white drop-shadow-md">
+                    Welcome to Preetam Senior Citizen <span className="text-[#ff7ec7] font-black drop-shadow-[0_0_15px_rgba(255,126,199,0.95)]">Anandshala</span> &amp;
                   </span>
-                  <span className="block text-amber-300 font-extrabold drop-shadow-md mt-1">
+                  <span className="block text-amber-300 font-black drop-shadow-md mt-1.5">
                     Preetam Sports and Fitness Club
                   </span>
                 </h2>
