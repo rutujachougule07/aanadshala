@@ -41,8 +41,8 @@ HEADING
   align-items: center;
   justify-content: center;
   gap: 11px;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 19px;
+  font-weight: 800;
   letter-spacing: 4px;
   color: #f472b6;
 }
@@ -59,7 +59,7 @@ HEADING
 
 .miniDiamond {
   color: #f472b6;
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .reasonsHeading h2 {
@@ -99,9 +99,9 @@ HEADING
 
 .reasonsHeading > p {
   margin: 0;
-  color: #44413f;
-  font-size: clamp(15px, 1.1vw, 19px);
-  font-weight: 500;
+  color: #334155;
+  font-size: clamp(17px, 1.3vw, 21px);
+  font-weight: 700;
 }
 
 /* =====================================================
@@ -564,11 +564,11 @@ BOTTOM MESSAGE
 
 .bottomMessage p {
   margin: 0;
-  color: #262d37;
+  color: #1e293b;
   text-align: center;
-  font-size: clamp(14px, 1.15vw, 18px);
+  font-size: clamp(17px, 1.35vw, 21px);
   line-height: 1.5;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .goldStar {

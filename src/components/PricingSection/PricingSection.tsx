@@ -191,7 +191,7 @@ export const PricingSection: React.FC = () => {
         ))}
       </div>
 
-      <p className="text-center font-extrabold text-slate-700 text-xs sm:text-sm mt-4">
+      <p className="text-center font-black text-slate-800 text-base sm:text-lg md:text-xl mt-4">
         * ज्येष्ठ नागरिकांना निरोगी, आनंदी आणि निवांतपणे सोनेरी सायंकाळ अनुभवण्यासाठी.
       </p>
 
