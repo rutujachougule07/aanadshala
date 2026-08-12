@@ -313,16 +313,16 @@ export default function JourneyTimeline() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
           whileHover={{ y: -6, scale: 1.01 }}
-          className="quote-standalone-container mt-12"
+          className="quote-standalone-container mt-12 px-4"
         >
           <div className="quote-standalone-card">
-            <div className="quote-mark quote-start">“</div>
-            <p className="quote-text">
+            <div className="quote-mark quote-start text-left">“</div>
+            <p className="quote-text text-center">
               आनंदात जगायचं, आरोग्य जपायचं,<br />
               <HighlightText text="आनंदशाळेत" /> येऊन स्वप्न साकारायचं.
             </p>
-            <p className="quote-author">– डॉ. गिरीश ओक, अभिनेते व ब्रँड ॲम्बेसेडर</p>
-            <div className="quote-mark quote-end">”</div>
+            <p className="quote-author text-center mt-3">– डॉ. गिरीश ओक, अभिनेते व ब्रँड ॲम्बेसेडर</p>
+            <div className="quote-mark quote-end text-right">”</div>
           </div>
         </motion.div>
       </div>
