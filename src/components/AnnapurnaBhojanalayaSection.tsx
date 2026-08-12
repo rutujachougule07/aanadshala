@@ -357,7 +357,7 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
                 </div>
               </div>
 
-              <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-xs">
+              <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-xs">
                 <table className="w-full text-left text-xs sm:text-sm">
                   <thead>
                     <tr className="bg-gradient-to-r from-[#810B38] to-rose-700 text-white font-black">
