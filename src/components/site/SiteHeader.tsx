@@ -58,25 +58,25 @@ export function SiteHeader() {
             window.scrollTo({ top: 0, behavior: "smooth" });
             window.dispatchEvent(new CustomEvent("reset-section"));
           }}
-          className="group flex items-center gap-2.5 cursor-pointer shrink-0"
+          className="group flex items-center gap-2 cursor-pointer min-w-0"
         >
-          <div className="leading-tight">
+          <div className="leading-tight min-w-0">
             <span
-              className="block font-display text-xs sm:text-base lg:text-base font-black tracking-tight"
+              className="block font-display text-[11px] sm:text-sm lg:text-base font-black tracking-tight leading-tight truncate sm:whitespace-normal"
               style={{ color: "#1A05A2" }}
             >
               {isMr ? (
                 <>
-                  प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span> व स्पोर्ट्स अँड फिटनेस क्लब
+                  प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span>
                 </>
               ) : (
                 <>
-                  Preetam <span className="text-[#db2777]">Anandshala</span> & Sports Fitness Club
+                  Preetam <span className="text-[#db2777]">Anandshala</span>
                 </>
               )}
             </span>
             <span
-              className="block text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-black mt-0.5"
+              className="block text-[8px] sm:text-[10px] uppercase tracking-wider font-black mt-0.5"
               style={{ color: "#db2777" }}
             >
               SANGLI • MAHARASHTRA
@@ -139,36 +139,32 @@ export function SiteHeader() {
         </nav>
 
         {/* MOBILE ACTIONS */}
-        <div className="flex items-center gap-3 lg:hidden">
+        <div className="flex items-center gap-1.5 sm:gap-3 lg:hidden shrink-0">
           {/* MOBILE LANGUAGE TOGGLE BUTTON */}
           <button
             onClick={toggleLanguage}
-            className="inline-flex items-center gap-1.5 rounded-full border-2 px-3 py-1.5 text-xs font-black cursor-pointer shadow-sm hover:scale-105 transition-all"
+            className="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-black cursor-pointer shadow-xs bg-white text-[#1A05A2]"
             style={{
               borderColor: "rgba(12, 35, 112, 0.3)",
-              background: "#FFFFFF",
-              color: "#1A05A2",
             }}
             title="Switch Language / भाषा बदला"
           >
-            <span className="text-sm">🌐</span>
-            <span className={isEn ? "text-[#db2777] font-black underline" : "text-slate-500 font-bold"}>ENG</span>
+            <span className="text-xs">🌐</span>
+            <span className={isEn ? "text-[#db2777] font-black underline" : "text-slate-600 font-bold"}>ENG</span>
             <span className="text-slate-300">|</span>
-            <span className={isMr ? "text-[#db2777] font-black underline" : "text-slate-500 font-bold"}>मराठी</span>
+            <span className={isMr ? "text-[#db2777] font-black underline" : "text-slate-600 font-bold"}>मराठी</span>
           </button>
 
           {/* MOBILE TOGGLE BUTTON */}
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
-            className="grid size-11 place-items-center rounded-2xl transition-all duration-200 cursor-pointer shadow-sm"
+            className="grid size-9 sm:size-10 place-items-center rounded-xl transition-all duration-200 cursor-pointer shadow-xs bg-white text-[#1A05A2]"
             style={{
-              border: "2px solid rgba(12, 35, 112, 0.25)",
-              background: "#FFFFFF",
-              color: "#1A05A2",
+              border: "1.5px solid rgba(12, 35, 112, 0.25)",
             }}
           >
-            <span className="text-xl font-black">{open ? "✕" : "☰"}</span>
+            <span className="text-base font-black">{open ? "✕" : "☰"}</span>
           </button>
         </div>
       </div>
