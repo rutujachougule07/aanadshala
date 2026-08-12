@@ -390,7 +390,7 @@ function IndexComponent() {
               sm:p-8
             "
           >
-            {/* FULL SCREEN EDGE-TO-EDGE COVER IMAGE (WIDE 100% WIDTH) */}
+            {/* FULL SCREEN EDGE-TO-EDGE COVER IMAGE */}
             <img
               src={welcomePosterUrl}
               alt="Preetam Anandshala Real Building Photo"
@@ -400,29 +400,29 @@ function IndexComponent() {
                 inset-0
                 w-full
                 h-full
+                min-w-full
+                min-h-full
                 object-cover
                 object-center
                 select-none
                 filter
-                brightness-95
-                contrast-[1.03]
+                brightness-90
+                contrast-[1.05]
                 cursor-pointer
               "
             />
 
             {/* LIGHT SOFT GRADIENT OVERLAY FOR CRISP TEXT & BUTTON READABILITY */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/20 to-black/85 pointer-events-none" />
-
-
+            <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 pointer-events-none" />
 
             {/* ========================================= */}
             {/* WELCOME HEADER TEXT (BABY PINK & MODERN)  */}
             {/* ========================================= */}
-            <div className="relative z-20 text-center px-4 max-w-4xl sm:max-w-5xl w-full pt-3 sm:pt-6 animate-fade-up">
-              <div className="inline-block rounded-3xl bg-black/70 backdrop-blur-xl px-6 py-3.5 sm:px-10 sm:py-4.5 border-2 border-white/25 shadow-[0_12px_45px_rgba(0,0,0,0.85)]">
+            <div className="relative z-20 text-center px-2 sm:px-4 max-w-4xl sm:max-w-5xl w-full pt-2 sm:pt-6 animate-fade-up">
+              <div className="inline-block rounded-3xl bg-black/75 backdrop-blur-xl px-5 py-3 sm:px-10 sm:py-4.5 border-2 border-white/25 shadow-[0_12px_45px_rgba(0,0,0,0.85)]">
                 <h2
                   onClick={() => setShowIntroBanner(false)}
-                  className="font-sans font-black text-sm sm:text-xl lg:text-2xl tracking-normal leading-snug cursor-pointer"
+                  className="font-sans font-black text-xs sm:text-xl lg:text-2xl tracking-normal leading-snug cursor-pointer"
                 >
                   <span className="block text-amber-100 drop-shadow-md">
                     Welcome to Preetam Senior Citizen <span className="text-[#f7a8d8] font-black drop-shadow-[0_0_15px_rgba(247,168,216,0.95)]">Anandshala</span> &amp;
@@ -432,6 +432,31 @@ function IndexComponent() {
                   </span>
                 </h2>
               </div>
+            </div>
+
+            {/* CENTER TAGLINE */}
+            <div 
+              onClick={() => setShowIntroBanner(false)}
+              className="relative z-20 text-center px-4 max-w-2xl my-auto cursor-pointer animate-fade-up space-y-2"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/20 border border-pink-400/40 text-pink-200 font-extrabold text-xs sm:text-sm backdrop-blur-md">
+                <span>✨ भारतातील पहिली व एकमेव आनंदशाळा ✨</span>
+              </div>
+              <h3 className="text-white font-black text-lg sm:text-2xl md:text-3xl leading-snug drop-shadow-lg">
+                आनंदात जगायचं, आरोग्य जपायचं, <br className="hidden sm:block" />
+                <span className="text-amber-300">आनंदशाळेत</span> येऊन स्वप्न साकारायचं!
+              </h3>
+            </div>
+
+            {/* BOTTOM ENTER WEBSITE CTA BUTTON */}
+            <div className="relative z-20 pb-4 sm:pb-8 text-center animate-fade-up w-full px-4 flex justify-center">
+              <button
+                onClick={() => setShowIntroBanner(false)}
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-[#db2777] via-pink-600 to-[#1A05A2] text-white font-black text-sm sm:text-base shadow-[0_10px_35px_rgba(219,39,119,0.5)] border-2 border-white/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer"
+              >
+                <span>🏛️ संकेतस्थळ पहा (Enter Website)</span>
+                <span className="text-amber-300">➔</span>
+              </button>
             </div>
 
 
