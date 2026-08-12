@@ -434,19 +434,7 @@ function IndexComponent() {
               </div>
             </div>
 
-            {/* CENTER TAGLINE */}
-            <div 
-              onClick={() => setShowIntroBanner(false)}
-              className="relative z-20 text-center px-4 max-w-2xl my-auto cursor-pointer animate-fade-up space-y-2"
-            >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/20 border border-pink-400/40 text-pink-200 font-extrabold text-xs sm:text-sm backdrop-blur-md">
-                <span>✨ भारतातील पहिली व एकमेव आनंदशाळा ✨</span>
-              </div>
-              <h3 className="text-white font-black text-lg sm:text-2xl md:text-3xl leading-snug drop-shadow-lg">
-                आनंदात जगायचं, आरोग्य जपायचं, <br className="hidden sm:block" />
-                <span className="text-amber-300">आनंदशाळेत</span> येऊन स्वप्न साकारायचं!
-              </h3>
-            </div>
+
 
             {/* BOTTOM ENTER WEBSITE CTA BUTTON */}
             <div className="relative z-20 pb-4 sm:pb-8 text-center animate-fade-up w-full px-4 flex justify-center">
