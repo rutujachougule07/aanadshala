@@ -250,7 +250,7 @@
 .as-img-overlay-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(15, 23, 42, 0.4) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgba(15, 23, 42, 0.4) 100%);
 }
 
 .as-overlap-img-box {
@@ -280,6 +280,7 @@
   .as-main-img-box {
     height: 280px;
   }
+
   .as-overlap-img-box {
     width: 270px;
     height: 190px;
@@ -295,6 +296,7 @@
     height: 240px;
     border-radius: 1.25rem;
   }
+
   .as-overlap-img-box {
     width: 230px;
     height: 165px;
@@ -303,6 +305,7 @@
     border-radius: 1rem;
     border-width: 3px;
   }
+
   .as-story-text-card {
     padding: 1.5rem 1.25rem;
   }
@@ -320,7 +323,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(15,23,42,0.9) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(15, 23, 42, 0.9) 100%);
   padding: 1rem 0.75rem 0.6rem 0.75rem;
   color: #ffffff;
   text-align: center;

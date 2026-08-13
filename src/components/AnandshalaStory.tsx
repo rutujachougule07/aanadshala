@@ -47,15 +47,15 @@ const AnandshalaStory: React.FC = () => {
       color: "from-pink-500 to-rose-600",
       details: isEn
         ? [
-            "Foundation laid on 26 January 2000 by Mr. Abhinav Kakani.",
-            "26+ years of continuous social, medical & community service.",
-            "Enthusiastic annual participation of thousands of senior citizens."
-          ]
+          "Foundation laid on 26 January 2000 by Mr. Abhinav Kakani.",
+          "26+ years of continuous social, medical & community service.",
+          "Enthusiastic annual participation of thousands of senior citizens."
+        ]
         : [
-            "२६ जानेवारी २००० रोजी श्री. अभिनव काकाणी यांच्या हस्ते पायाभरणी.",
-            "गेल्या २६ वर्षांपासून अविरत सामाजिक, वैद्यकीय व सेवा कार्य.",
-            "दरवर्षी हजारो ज्येष्ठ नागरिकांचा उत्स्फूर्त सहभाग सोहळा."
-          ]
+          "२६ जानेवारी २००० रोजी श्री. अभिनव काकाणी यांच्या हस्ते पायाभरणी.",
+          "गेल्या २६ वर्षांपासून अविरत सामाजिक, वैद्यकीय व सेवा कार्य.",
+          "दरवर्षी हजारो ज्येष्ठ नागरिकांचा उत्स्फूर्त सहभाग सोहळा."
+        ]
     },
     {
       id: "service",
@@ -70,15 +70,15 @@ const AnandshalaStory: React.FC = () => {
       color: "from-purple-500 to-indigo-600",
       details: isEn
         ? [
-            "24×7 trained nurse & caretaker staff service.",
-            "Nutritious, organic, home-cooked pure vegetarian food.",
-            "Warm, affectionate & family-like trustworthy atmosphere."
-          ]
+          "24×7 trained nurse & caretaker staff service.",
+          "Nutritious, organic, home-cooked pure vegetarian food.",
+          "Warm, affectionate & family-like trustworthy atmosphere."
+        ]
         : [
-            "२४×७ प्रशिक्षित नर्स व केअरटेकर स्टाफ सेवा.",
-            "सकस, सेंद्रिय, घरगुती पद्धतीचा शाकाहारी आहार.",
-            "मायेचे, आपुलकीचे व कौटुंबिक विश्वासाचे वातावरण."
-          ]
+          "२४×७ प्रशिक्षित नर्स व केअरटेकर स्टाफ सेवा.",
+          "सकस, सेंद्रिय, घरगुती पद्धतीचा शाकाहारी आहार.",
+          "मायेचे, आपुलकीचे व कौटुंबिक विश्वासाचे वातावरण."
+        ]
     },
     {
       id: "participation",
@@ -93,15 +93,15 @@ const AnandshalaStory: React.FC = () => {
       color: "from-blue-500 to-cyan-600",
       details: isEn
         ? [
-            "Daily indoor games, chess, carrom & music sessions.",
-            "Festivals, cultural events, bhajan & spiritual gatherings.",
-            "Joyful living with like-minded friends of your age."
-          ]
+          "Daily indoor games, chess, carrom & music sessions.",
+          "Festivals, cultural events, bhajan & spiritual gatherings.",
+          "Joyful living with like-minded friends of your age."
+        ]
         : [
-            "दररोज इनडोअर गेम्स, बुद्धिबळ, कॅरम व संगीत.",
-            "सण, उत्सव, भजने, कीर्तने व संस्कृती सोहळे.",
-            "समविचारी मित्र-मैत्रिणींसोबत आनंदी जीवन."
-          ]
+          "दररोज इनडोअर गेम्स, बुद्धिबळ, कॅरम व संगीत.",
+          "सण, उत्सव, भजने, कीर्तने व संस्कृती सोहळे.",
+          "समविचारी मित्र-मैत्रिणींसोबत आनंदी जीवन."
+        ]
     },
     {
       id: "mission",
@@ -116,15 +116,15 @@ const AnandshalaStory: React.FC = () => {
       color: "from-amber-500 to-pink-600",
       details: isEn
         ? [
-            "1.5-acre scenic digital sanctuary campus.",
-            "55-foot grand Radha Krishna idol & Satsang center.",
-            "Dignity, self-respect & happiness for every senior citizen."
-          ]
+          "1.5-acre scenic digital sanctuary campus.",
+          "55-foot grand Radha Krishna idol & Satsang center.",
+          "Dignity, self-respect & happiness for every senior citizen."
+        ]
         : [
-            "१.५ एकर निसर्गरम्य हक्काचा डिजिटल प्रकल्प परिसर.",
-            "५५ फुटांची भव्य राधाकृष्ण मूर्ती व सत्संग केंद्र.",
-            "ज्येष्ठ नागरिकांचा सन्मान, स्वाभिमान व आनंद."
-          ]
+          "१.५ एकर निसर्गरम्य हक्काचा डिजिटल प्रकल्प परिसर.",
+          "५५ फुटांची भव्य राधाकृष्ण मूर्ती व सत्संग केंद्र.",
+          "ज्येष्ठ नागरिकांचा सन्मान, स्वाभिमान व आनंद."
+        ]
     }
   ];
 
@@ -158,12 +158,12 @@ const AnandshalaStory: React.FC = () => {
       <div className="as-bg-glow-2" />
 
       <div className="as-container">
-        
+
         {/* ====================================
             1. SECTION HEADER
         ==================================== */}
         <div className="as-header-section">
-          <motion.div 
+          <motion.div
             className="as-badge-pill"
             initial={{ opacity: 0, y: -15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -174,7 +174,7 @@ const AnandshalaStory: React.FC = () => {
             <span>{isEn ? "Our Legacy • Our Inspiration" : "आपली परंपरा • आमची प्रेरणा"}</span>
           </motion.div>
 
-          <motion.h2 
+          <motion.h2
             className="as-hero-title"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -195,7 +195,7 @@ const AnandshalaStory: React.FC = () => {
         ==================================== */}
         <div className="as-story-grid">
           {/* Left Side: Story Text & Highlights Card with Rich Animations */}
-          <motion.div 
+          <motion.div
             className="as-story-text-card"
             initial={{ opacity: 0, x: -50, scale: 0.96 }}
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
@@ -203,7 +203,7 @@ const AnandshalaStory: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <motion.div 
+            <motion.div
               className="as-card-tag"
               initial={{ opacity: 0, y: -10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -219,7 +219,7 @@ const AnandshalaStory: React.FC = () => {
               <span>{isEn ? "A World Built From Dreams" : "स्वप्नातून साकारलेली सृष्टी"}</span>
             </motion.div>
 
-            <motion.h3 
+            <motion.h3
               className="as-story-subheading"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -229,32 +229,32 @@ const AnandshalaStory: React.FC = () => {
               ज्येष्ठ नागरिकांच्या जीवनात <span className="as-highlight-pink">नवा आनंद</span> पेरण्याचा ध्यास
             </motion.h3>
 
-            <motion.p 
+            <motion.p
               className="as-story-paragraph"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              माझ्या जन्माची बीजे रुजली ती <strong>श्री. अभिनव जगन्नाथ काकाणी</strong> (ता. सांगली) यांच्या स्वप्नातून. 
-              अभिनव यांनी <strong>२६ जानेवारी २०००</strong> रोजी व्यवसायाची सुरुवात केली. 
+              माझ्या जन्माची बीजे रुजली ती <strong>श्री. अभिनव जगन्नाथ काकाणी</strong> (ता. सांगली) यांच्या स्वप्नातून.
+              अभिनव यांनी <strong>२६ जानेवारी २०००</strong> रोजी व्यवसायाची सुरुवात केली.
               दरवर्षी वाढदिवस दिन, स्नेहमेळावा व ज्येष्ठ नागरिक मेळावा आयोजित करून तो अत्यंत उत्साहात व प्रेमाने साजरा केला जातो.
             </motion.p>
 
-            <motion.p 
+            <motion.p
               className="as-story-paragraph"
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              ज्येष्ठ नागरिकांना हक्काचे व्यासपीठ, आरोग्यदायी वातावरण आणि विरंगुळा मिळावा या उद्देशाने सांगली शहरात 
+              ज्येष्ठ नागरिकांना हक्काचे व्यासपीठ, आरोग्यदायी वातावरण आणि विरंगुळा मिळावा या उद्देशाने सांगली शहरात
               <strong> १.५ एकर निसर्गरम्य जागेवर </strong> हा भव्य प्रकल्प साकारला आहे.
             </motion.p>
 
             {/* Animated Trust Badges */}
             <div className="as-trust-pills">
-              <motion.div 
+              <motion.div
                 className="as-trust-item"
                 initial={{ opacity: 0, scale: 0.9, y: 10 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -266,7 +266,7 @@ const AnandshalaStory: React.FC = () => {
                 <span>१००% सुरक्षित व आपुलकीचे वातावरण</span>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 className="as-trust-item"
                 initial={{ opacity: 0, scale: 0.9, y: 10 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -281,7 +281,7 @@ const AnandshalaStory: React.FC = () => {
           </motion.div>
 
           {/* Right Side: Visual Overlapping Image Showcase */}
-          <motion.div 
+          <motion.div
             className="as-visual-wrapper"
             initial={{ opacity: 0, x: 50, scale: 0.95 }}
             whileInView={{ opacity: 1, x: 0, scale: 1 }}
@@ -290,21 +290,21 @@ const AnandshalaStory: React.FC = () => {
           >
             <div className="as-image-frame-container">
               {/* Building Image */}
-              <motion.div 
+              <motion.div
                 className="as-main-img-box"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.4 }}
               >
-                <img 
-                  src={buildingImage} 
-                  alt="प्रीतम आनंदशाळा इमारत" 
-                  className="as-main-img" 
+                <img
+                  src={buildingImage}
+                  alt="प्रीतम आनंदशाळा इमारत"
+                  className="as-main-img"
                 />
                 <div className="as-img-overlay-gradient" />
               </motion.div>
 
               {/* Overlapping Event Image with Entrance & Hover Animations */}
-              <motion.div 
+              <motion.div
                 className="as-overlap-img-box"
                 initial={{ opacity: 0, scale: 0.8, y: 40 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -312,9 +312,9 @@ const AnandshalaStory: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: 0.3 }}
               >
-                <img 
-                  src="/images/imgever.JPG" 
-                  alt="आनंदशाळा स्नेहमिलन व दीपप्रज्वलन सोहळा" 
+                <img
+                  src="/images/imgever.JPG"
+                  alt="आनंदशाळा स्नेहमिलन व दीपप्रज्वलन सोहळा"
                   className="as-overlap-img"
                   onError={(e) => { e.currentTarget.src = buildingImage; }}
                 />
@@ -325,13 +325,13 @@ const AnandshalaStory: React.FC = () => {
               </motion.div>
 
               {/* Floating Glass Badge with Continuous Motion */}
-              <motion.div 
+              <motion.div
                 className="as-floating-glass-badge"
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 animate={{ y: [0, -10, 0], rotate: [0, 1, 0] }}
-                transition={{ 
+                transition={{
                   y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
                   rotate: { duration: 4, repeat: Infinity, ease: "easeInOut" },
                   opacity: { duration: 0.5, delay: 0.5 },
@@ -353,7 +353,7 @@ const AnandshalaStory: React.FC = () => {
         {/* ====================================
             3. STATS STRIP
         ==================================== */}
-        <motion.div 
+        <motion.div
           className="as-stats-strip"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -378,7 +378,7 @@ const AnandshalaStory: React.FC = () => {
         ==================================== */}
         <div className="as-pillars-section w-full max-w-[1600px] mx-auto bg-gradient-to-b from-slate-50/90 via-pink-50/50 to-purple-50/60 p-5 sm:p-8 lg:p-10 rounded-[3rem] border-2 border-pink-200/80 shadow-2xl my-12">
           <div className="as-pillars-header text-center mb-8">
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -388,7 +388,7 @@ const AnandshalaStory: React.FC = () => {
               <span>आमची प्रमुख वैशिष्ट्ये</span>
             </motion.span>
 
-            <motion.h3 
+            <motion.h3
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -421,14 +421,14 @@ const AnandshalaStory: React.FC = () => {
                   <div>
                     {/* HUGE 320px IMAGE CONTAINER WITH ZOOM HOVER */}
                     <div className="as-pillar-img-box overflow-hidden relative h-64 sm:h-80 lg:h-[320px]">
-                      <img 
-                        src={item.image} 
-                        alt={item.title} 
-                        className="as-pillar-img w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700" 
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="as-pillar-img w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
                         onError={(e) => { e.currentTarget.src = buildingImage; }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-85 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none" />
-                      
+
                       <span className="as-pillar-img-badge absolute top-5 right-5 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white text-sm sm:text-base font-black px-5 py-2.5 rounded-full shadow-2xl border border-white/30 backdrop-blur-md">
                         ✨ {item.badge}
                       </span>
@@ -453,7 +453,7 @@ const AnandshalaStory: React.FC = () => {
                       <p className="as-pillar-desc text-base sm:text-lg font-extrabold text-slate-700 leading-relaxed">
                         {item.desc}
                       </p>
-                      
+
                       <div className="mt-4 text-xs sm:text-sm font-black text-pink-600 flex items-center gap-1">
                         <span>सविस्तर माहिती पहा</span>
                         <span>→</span>
@@ -473,15 +473,15 @@ const AnandshalaStory: React.FC = () => {
             PILLAR CLICK DETAILS MODAL POPUP
            ══════════════════════════════════════════════════════════════ */}
         {selectedPillar && typeof document !== "undefined" && createPortal(
-          <div 
+          <div
             className="fixed inset-0 z-[999999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
             onClick={() => setSelectedPillar(null)}
           >
-            <div 
+            <div
               className="bg-white rounded-[2.5rem] max-w-lg w-full p-6 sm:p-8 relative shadow-2xl border-4 border-pink-200 overflow-hidden text-slate-800 animate-in fade-in zoom-in-95 duration-300"
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
+              <button
                 onClick={() => setSelectedPillar(null)}
                 className="absolute top-4 right-4 size-10 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition font-black cursor-pointer z-20 shadow-md"
                 aria-label="Close"
@@ -514,7 +514,7 @@ const AnandshalaStory: React.FC = () => {
                 ))}
               </div>
 
-              <button 
+              <button
                 onClick={() => setSelectedPillar(null)}
                 className="w-full py-4 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white font-black text-sm sm:text-base shadow-xl hover:scale-[1.02] transition cursor-pointer"
               >
@@ -528,7 +528,7 @@ const AnandshalaStory: React.FC = () => {
         {/* ====================================
             5. HEARTFELT VISION QUOTE BANNER
         ==================================== */}
-        <motion.div 
+        <motion.div
           className="as-quote-banner"
           initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
