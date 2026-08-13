@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { useLanguage } from "@/lib/use-language";
+import { useAdminStore } from "@/lib/admin-store";
 import { HighlightText } from "@/components/HighlightText";
 import "./ActivityHallsSection.css";
 
@@ -196,6 +197,20 @@ const hallsData: HallDetail[] = [
 const ActivityHallsSection = () => {
   const [selectedHall, setSelectedHall] = useState<HallDetail | null>(null);
   const { isEn } = useLanguage();
+  const store = useAdminStore();
+
+  const activeHalls: HallDetail[] =
+    store.siteData.activityHalls && store.siteData.activityHalls.length > 0
+      ? store.siteData.activityHalls.map((h, idx) => ({
+          id: String(idx + 1).padStart(2, "0"),
+          title: h.title,
+          category: h.category,
+          desc: h.desc,
+          icon: hallsData[idx]?.icon || <Sparkles size={28} />,
+          image: h.imageUrl || hallsData[idx]?.image || "/images/slider1.JPG",
+          theme: hallsData[idx]?.theme || (idx % 2 === 0 ? "theme-pink" : "theme-blue"),
+        }))
+      : hallsData;
 
   return (
     <section className="ah-section" id="activity-halls">
@@ -233,7 +248,7 @@ const ActivityHallsSection = () => {
       <div className="ah-container">
         {/* Grid of Clean Cards */}
         <div className="ah-grid">
-          {hallsData.map((hall, index) => (
+          {activeHalls.map((hall, index) => (
             <Reveal key={hall.id} delay={index * 60}>
               <div
                 className={`ah-card-clean ${hall.theme}`}

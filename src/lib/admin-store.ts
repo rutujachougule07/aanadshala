@@ -3,19 +3,101 @@ import { db, storage } from "@/firebase";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+export function compressImageFile(file: File, maxDimension = 1920, quality = 0.85): Promise<Blob> {
+  return new Promise((resolve) => {
+    if (file.type === "image/svg+xml" || file.size < 300 * 1024) {
+      resolve(file);
+      return;
+    }
+
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+
+      let width = img.width;
+      let height = img.height;
+
+      if (width > maxDimension || height > maxDimension) {
+        if (width > height) {
+          height = Math.round((height * maxDimension) / width);
+          width = maxDimension;
+        } else {
+          width = Math.round((width * maxDimension) / height);
+          height = maxDimension;
+        }
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        resolve(file);
+        return;
+      }
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(
+        (blob) => {
+          if (blob && blob.size < file.size) {
+            resolve(blob);
+          } else {
+            resolve(file);
+          }
+        },
+        file.type === "image/png" ? "image/png" : "image/jpeg",
+        quality
+      );
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      resolve(file);
+    };
+
+    img.src = url;
+  });
+}
+
 export async function uploadImageToFirebase(file: File, pathFolder = "admin_uploads"): Promise<string> {
+  // 1. Instant client compression (max 800px, 0.65 quality => ~20KB lightweight file)
+  const compressedBlob = await compressImageFile(file, 800, 0.65);
+  const uploadPayload =
+    compressedBlob instanceof File
+      ? compressedBlob
+      : new File([compressedBlob], file.name, { type: compressedBlob.type || file.type });
+
+  // 2. Generate immediate ~20KB DataURL fallback in 0.01 seconds
+  const localDataUrl = await new Promise<string>((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve((e.target?.result as string) || "");
+    reader.onerror = () => resolve("");
+    reader.readAsDataURL(uploadPayload);
+  });
+
+  // 3. Try Firebase Storage with a strict 1-second timeout so spinner never hangs
   try {
-    const fileRef = ref(storage, `${pathFolder}/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, "_")}`);
-    const snapshot = await uploadBytes(fileRef, file);
-    const downloadUrl = await getDownloadURL(snapshot.ref);
-    return downloadUrl;
+    const cleanName = file.name.replace(/[^a-zA-Z0-9.]/g, "_");
+    const fileRef = ref(storage, `${pathFolder}/${Date.now()}_${cleanName}`);
+
+    const uploadTask = uploadBytes(fileRef, uploadPayload)
+      .then((snapshot) => getDownloadURL(snapshot.ref))
+      .catch(() => localDataUrl);
+
+    const timeoutTask = new Promise<string>((resolve) =>
+      setTimeout(() => resolve(localDataUrl), 1000)
+    );
+
+    const resultUrl = await Promise.race([uploadTask, timeoutTask]);
+    return resultUrl || localDataUrl;
   } catch (err) {
-    console.warn("Firebase Storage Upload fallback to base64:", err);
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target?.result as string);
-      reader.readAsDataURL(file);
-    });
+    return localDataUrl;
   }
 }
 
@@ -91,9 +173,20 @@ export type SportsPackageItem = {
   features: string[];
 };
 
+export type ActivityHallItem = {
+  id: string;
+  title: string;
+  category: string;
+  desc: string;
+  imageUrl: string;
+};
+
 export type SiteData = {
   nameMr: string;
   tagline: string;
+  heroTitle: string;
+  heroSub: string;
+  heroImages: string[];
   announcement: string;
   launchDate: string;
   phone1: string;
@@ -104,6 +197,7 @@ export type SiteData = {
   anandshalaDesc: string;
   sportsDesc: string;
   welcomePosterUrl?: string;
+  welcomePosterTitle?: string;
   showWelcomePoster?: boolean;
   aanandshalaTitle?: string;
   aanandshalaBadge?: string;
@@ -116,6 +210,7 @@ export type SiteData = {
   sportsFacilities?: SportsFacilityItem[];
   sportsPackages?: SportsPackageItem[];
   sportsGallery?: string[];
+  activityHalls?: ActivityHallItem[];
 };
 
 export type HomeNewsItem = {
@@ -132,11 +227,10 @@ export type PackageItem = {
   id: string;
   title: string;
   price: string;
-  sub: string;
-  badge: string;
-  periodType: "days" | "month" | "year";
+  subtitle?: string;
   features: string[];
-  featured?: boolean;
+  highlighted?: boolean;
+  badge?: string;
 };
 
 export type AboutHighlightItem = {
@@ -159,8 +253,8 @@ export type AboutData = {
   storyP2: string;
   storyP3: string;
   awardNotice: string;
-  photos?: string[];
-  highlights?: AboutHighlightItem[];
+  photos: string[];
+  highlights: AboutHighlightItem[];
   paragraphs?: AboutParagraphItem[];
 };
 
@@ -183,9 +277,8 @@ export const initialPackages: PackageItem[] = [
     id: "pkg-1",
     title: "एक दिवस सहल भेट पास",
     price: "₹ ६०० /-",
-    sub: "वेळ: सकाळी ११ ते सायं. ५ (एका व्यक्तीसाठी)",
+    subtitle: "वेळ: सकाळी ११ ते सायं. ५ (एका व्यक्तीसाठी)",
     badge: "१ दिवस सहल भेट पास",
-    periodType: "days",
     features: [
       "चहा, नाश्ता व चवदार प्युअर व्हेज जेवण",
       "संपूर्ण १.५ एकर विहंगम परिसर दर्शन",
@@ -197,9 +290,8 @@ export const initialPackages: PackageItem[] = [
     id: "pkg-2",
     title: "फक्त आनंदशाळा (डे-केअर)",
     price: "₹ ३,००० /-",
-    sub: "प्रति महिना पासून (मानसिक फी)",
+    subtitle: "प्रति महिना पासून (मानसिक फी)",
     badge: "डे-केअर पर्याय",
-    periodType: "month",
     features: [
       "वेळ: सकाळी ११ ते सायं. ५",
       "दैनंदिन ५ तासांचे १५ हॉल्समधील उपक्रम",
@@ -211,10 +303,9 @@ export const initialPackages: PackageItem[] = [
     id: "pkg-3",
     title: "आनंदनिवास (राहण्यासह)",
     price: "₹ ११,००० /-",
-    sub: "प्रति महिना पासून (*GST Extra)",
+    subtitle: "प्रति महिना पासून (*GST Extra)",
     badge: "संपूर्ण निवासाचा पर्याय",
-    periodType: "month",
-    featured: true,
+    highlighted: true,
     features: [
       "फुल फर्निश्ड निवास + आनंदशाळा",
       "नाश्ता २ वेळ, जेवण २ वेळ, चहा २ वेळ",
@@ -226,10 +317,9 @@ export const initialPackages: PackageItem[] = [
     id: "pkg-4",
     title: "प्रीतम एलिट लाईफटाईम मेंबरशिप",
     price: "₹ १,५०,००० /-",
-    sub: "१० वर्षांचे फॅमिली मेंबरशिप",
+    subtitle: "१० वर्षांचे फॅमिली मेंबरशिप",
     badge: "वार्षिक व १० वर्षे योजना",
-    periodType: "year",
-    featured: true,
+    highlighted: true,
     features: [
       "४ सदस्यांच्या कुटुंबासाठी प्रीमियम क्लब प्रवेश",
       "स्विमिंग पूल, इनडोअर बॅडमिंटन व जिम मोफत",
@@ -239,9 +329,16 @@ export const initialPackages: PackageItem[] = [
   },
 ];
 
-const initialSiteData: SiteData = {
-  nameMr: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा",
-  tagline: "ज्येष्ठ नागरिकांच्या निरोगी आरोग्य व आनंददायी आयुष्याचे दार येथेच उघडते....",
+export const initialSiteData: SiteData = {
+  nameMr: "प्रीतम आनंदशाळा व स्पोर्ट्स क्लब",
+  tagline: "ज्येष्ठ नागरिक आनंदशाळा व अद्ययावत स्पोर्ट्स संकुल • सांगली",
+  heroTitle: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा व निवारा",
+  heroSub: "भारतातील पहिला व एकमेव १.५ एकर निसर्गरम्य हक्काचा डिजिटल प्रकल्प परिसर",
+  heroImages: [
+    "/images/slider4.JPG",
+    "/images/slider3.png",
+    "/images/slider1.JPG",
+  ],
   announcement: "सांगली · महाराष्ट्र · सवलतीच्या दरात ॲडव्हान्स बुकिंग सुरू",
   launchDate: "शुभारंभ : २६ / २७ / २८ जानेवारी २०२६ पासून",
   phone1: "99 7007 9090",
@@ -249,12 +346,13 @@ const initialSiteData: SiteData = {
   email: "preetamanandshala@gmail.com",
   address: "सर्व्हे नं. ३९/१,२,३, माधवनगर - धनंजय गार्डन रोड, रेल्वे गेट शेजारी, सांगली",
   girishOakQuote: "आनंदात जगायचं, आरोग्य जपायचं, आनंदशाळेत येऊन स्वप्न साकारायचं",
-  anandshalaDesc: "भारतातील पहिली ज्येष्ठ नागरिक आनंदशाळा! निवास, सकस जेवण, २४x७ डॉक्टर on call, ५५ फुटांची राधाकृष्ण मूर्ती, मंदिर, गोशाळा, १८ उपक्रम हॉल्स व सर्व सोयी सुविधा.",
-  sportsDesc: "सांगलीतील १.५ एकर भव्य अद्ययावत क्रीडा संकुल! ओलंपिक स्टाईल स्विमिंग पूल, इनडोअर बॅडमिंटन, टेनिस कोर्ट, वातानुकूलित जीम व रेस्टॉरंट.",
+  anandshalaDesc: "ज्येष्ठ नागरिकांसाठी विरंगुळा, १८ उपक्रम हॉल्स, दैनिक वेळापत्रक व संपूर्ण मोफत/सवलत सोयी.",
+  sportsDesc: "अद्ययावत जीम, ऑलिंपिक साईज स्विमिंग पूल, इनडोअर बॅडमिंटन व पिकलबॉल कोर्ट संकुल.",
   welcomePosterUrl: "/images/welcome-building.jpg",
+  welcomePosterTitle: "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club",
   showWelcomePoster: true,
   aanandshalaTitle: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा व निवारा",
-  aanandshalaBadge: "भारतातील पहिली ज्येष्ठ नागरिक आनंदशाळा",
+  aanandshalaBadge: "भारतातील पहिला व अद्वितीय प्रकल्प",
   aanandshalaImages: [
     "/images/slider4.JPG",
     "/images/slider3.png",
@@ -284,6 +382,25 @@ const initialSiteData: SiteData = {
     "/images/Screenshot 2026-07-31 103659.png",
     "/images/pickleball-court.png",
     "/images/sports_club_building_card.png",
+  ],
+  activityHalls: [
+    { id: "hall-1", title: "बैठे खेळ हॉल", category: "इनडोअर गेम्स", desc: "कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.", imageUrl: "/images/subimg/baithe khel.png" },
+    { id: "hall-2", title: "कला दालन", category: "हस्तकला & चित्रकला", desc: "चित्रकला, हस्तकला आणि विणकाम शिकणे.", imageUrl: "/images/subimg/aart hall.png" },
+    { id: "hall-3", title: "संगीत वाद्य दालन", category: "गायन व वाद्यवृंद", desc: "तबला, गिटार, पेटी, पियानो, वीणा, ढोलकी, बासरी शिकणे आणि संगीताचा आनंद घेणे.", imageUrl: "/images/subimg/sangit hall.png" },
+    { id: "hall-4", title: "माहिती तंत्रज्ञान हॉल", category: "डिजिटल लर्निंग & IT", desc: "संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.", imageUrl: "/images/subimg/mahiti tantradyan hall.png" },
+    { id: "hall-5", title: "करमणूक हॉल", category: "करमणूक & अंताक्षरी", desc: "गप्पा-गोष्टी करणे, अंताक्षरी, पझल गेम्स, जोक्स व समूह खेळ खेळणे.", imageUrl: "/images/subimg/karmnuk hall.png" },
+    { id: "hall-6", title: "स्विमिंग पूल", category: "जलतरण & क्रिडा", desc: "स्विमिंग पूलमध्ये जाऊन पोहणे व पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.", imageUrl: "/images/subimg/swimming hall.png" },
+    { id: "hall-7", title: "संस्कार व संप्रदाय हॉल", category: "संस्कार & अध्यात्म", desc: "विविध सांस्कृतिक कार्यक्रम आणि व्हिडिओ पाहणे.", imageUrl: "/images/subimg/sanskar sampraday hall.png" },
+    { id: "hall-8", title: "टेबल टेनिस हॉल", category: "टेबल टेनिस", desc: "टेबल टेनिस खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal tenis.png" },
+    { id: "hall-9", title: "बॅडमिंटन हॉल", category: "बॅडमिंटन", desc: "बॅडमिंटन कोर्टवर जाऊन बॅडमिंटन खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal tenis.png" },
+    { id: "hall-10", title: "स्नूकर हॉल", category: "स्नूकर", desc: "स्नूकर हॉलमध्ये जाऊन स्नूकर व बिलियर्ड्स खेळणे.", imageUrl: "/images/subimg/tebal tenis.png" },
+    { id: "hall-11", title: "स्कॅश हॉल", category: "स्कॅश कोर्ट", desc: "स्कॅश कोर्टवर जाऊन स्कॅश खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal tenis.png" },
+    { id: "hall-12", title: "जिम हॉल", category: "व्यायाम & फिटनेस", desc: "आधुनिक उपकरणांनी सुसज्ज जिम हॉलमध्ये जाऊन व्यायाम व फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam hall.png" },
+    { id: "hall-13", title: "योगा हॉल", category: "योग व प्राणायाम", desc: "तज्ज्ञांच्या मार्गदर्शनाखाली दररोज योगासने व प्राणायाम करणे.", imageUrl: "/images/subimg/vyayam hall.png" },
+    { id: "hall-14", title: "झुम्बा हॉल", category: "झुम्बा & फिटनेस", desc: "संगीताच्या तालावर झुम्बा आणि फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam hall.png" },
+    { id: "hall-15", title: "भोजन कक्ष", category: "भोजन & आस्वाद", desc: "चहा, नाश्ता आणि चविष्ट जेवण करणे.", imageUrl: "/images/subimg/pakruti hall.png" },
+    { id: "hall-16", title: "विश्रांती हॉल", category: "वाचन & विश्रांती", desc: "आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.", imageUrl: "/images/subimg/vishranti hall.png" },
+    { id: "hall-17", title: "थिएटर हॉल", category: "थिएटर & सिनेमा", desc: "टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.", imageUrl: "/images/subimg/karmnuk hall.png" }
   ],
 };
 
@@ -787,8 +904,26 @@ export const initialSportsScheduleConfig: ScheduleConfig = {
 };
 
 // ============================================================================
-// HELPER FUNCTIONS FOR LOCALSTORAGE
+// HELPER FUNCTIONS FOR LOCALSTORAGE & CLEANUP
 // ============================================================================
+
+function sanitizeBlobUrls(obj: any): any {
+  if (!obj) return obj;
+  if (typeof obj === "string") {
+    return obj.startsWith("blob:") ? "" : obj;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map(sanitizeBlobUrls).filter((x) => x !== "");
+  }
+  if (typeof obj === "object") {
+    const clean: any = {};
+    for (const k of Object.keys(obj)) {
+      clean[k] = sanitizeBlobUrls(obj[k]);
+    }
+    return clean;
+  }
+  return obj;
+}
 
 const STORAGE_KEYS = {
   site: "anandshala_site_data",
@@ -807,7 +942,9 @@ export function getStoredData<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
   try {
     const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : fallback;
+    if (!item) return fallback;
+    const parsed = JSON.parse(item);
+    return sanitizeBlobUrls(parsed) as T;
   } catch (e) {
     return fallback;
   }
@@ -815,18 +952,21 @@ export function getStoredData<T>(key: string, fallback: T): T {
 
 export function setStoredData<T>(key: string, data: T): void {
   if (typeof window === "undefined") return;
+  const cleanData = sanitizeBlobUrls(data);
+  if (typeof cleanData === "object" && cleanData !== null) {
+    (cleanData as any).updatedAt = Date.now();
+  }
   try {
-    localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(key, JSON.stringify(cleanData));
     window.dispatchEvent(new Event("admin_store_updated"));
   } catch (e: any) {
-    console.error("LocalStorage save error:", e);
-    window.dispatchEvent(new Event("admin_store_updated"));
+    console.error("LocalStorage save warning:", e);
   }
 
   // Asynchronously sync to Firestore Database
   try {
     const docRef = doc(db, "app_data", key);
-    setDoc(docRef, { data }, { merge: true }).catch((err) => {
+    setDoc(docRef, { data: cleanData }, { merge: true }).catch((err) => {
       console.warn("Firestore sync warning for", key, err);
     });
   } catch (err) {
@@ -834,9 +974,86 @@ export function setStoredData<T>(key: string, data: T): void {
   }
 }
 
+export async function resetFirebaseDatabase(): Promise<void> {
+  if (typeof window !== "undefined") {
+    Object.values(STORAGE_KEYS).forEach((key) => {
+      try {
+        localStorage.removeItem(key);
+      } catch (e) {}
+    });
+  }
+
+  try {
+    await setDoc(doc(db, "app_data", STORAGE_KEYS.site), { data: initialSiteData });
+    await setDoc(doc(db, "app_data", STORAGE_KEYS.gallery), { data: [] });
+    await setDoc(doc(db, "app_data", STORAGE_KEYS.about), { data: initialAboutData });
+    await setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: [] });
+  } catch (e) {
+    console.warn("Firestore reset warning:", e);
+  }
+
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("admin_store_updated"));
+  }
+}
+
+export function restoreBaitheKhelHall(): void {
+  const currentSite = getStoredData<SiteData>(STORAGE_KEYS.site, initialSiteData);
+  let halls = currentSite.activityHalls || initialSiteData.activityHalls || [];
+  
+  // Guarantee Hall 1 is 'बैठे खेळ हॉल'
+  const baitheKhelItem: ActivityHallItem = {
+    id: "hall-1",
+    title: "बैठे खेळ हॉल",
+    category: "इनडोअर गेम्स",
+    desc: "कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.",
+    imageUrl: halls.find(h => h.title === "बैठे खेळ हॉल")?.imageUrl || "/images/subimg/baithe khel.png",
+  };
+
+  // Remove existing hall-1 or duplicate 'बैठे खेळ हॉल'
+  const otherHalls = halls.filter((h) => h.id !== "hall-1" && h.title !== "बैठे खेळ हॉल");
+  const newHalls = [baitheKhelItem, ...otherHalls];
+
+  const updatedSite = { ...currentSite, activityHalls: newHalls };
+  setStoredData(STORAGE_KEYS.site, updatedSite);
+}
+
 // ============================================================================
 // REACT HOOKS FOR LIVE REACTIVE DATA
 // ============================================================================
+
+function mergeSiteData(prev: SiteData, incoming: any): SiteData {
+  if (!incoming || typeof incoming !== "object") return prev;
+
+  const prevTime = (prev as any).updatedAt || 0;
+  const incomingTime = incoming.updatedAt || 0;
+
+  // If local prev is newer than incoming Firestore snapshot, PRESERVE local edits!
+  if (prevTime > incomingTime && prev.activityHalls && prev.activityHalls.length > 0) {
+    return {
+      ...incoming,
+      ...prev,
+      activityHalls: prev.activityHalls,
+    };
+  }
+
+  const merged = { ...prev, ...incoming };
+  if (incoming.activityHalls && Array.isArray(incoming.activityHalls) && incoming.activityHalls.length > 0) {
+    // Merge at hall level: preserve desc/category/etc from prev if incoming hall doesn't have them
+    merged.activityHalls = incoming.activityHalls.map((incomingHall: any, idx: number) => {
+      const prevHall = prev.activityHalls && prev.activityHalls[idx];
+      return {
+        ...(prevHall || {}),         // spread prev hall first (has desc, category etc)
+        ...incomingHall,             // overwrite with incoming values
+        desc: incomingHall.desc || prevHall?.desc || "",       // always preserve desc
+        category: incomingHall.category || prevHall?.category || "",
+      };
+    });
+  } else if (prev.activityHalls && prev.activityHalls.length > 0) {
+    merged.activityHalls = prev.activityHalls;
+  }
+  return merged;
+}
 
 export function useAdminStore() {
   const [siteData, setSiteDataState] = useState<SiteData>(() =>
@@ -872,6 +1089,12 @@ export function useAdminStore() {
   );
 
   useEffect(() => {
+    if (!siteData.activityHalls || siteData.activityHalls.length === 0 || siteData.activityHalls[0]?.title !== "बैठे खेळ हॉल") {
+      restoreBaitheKhelHall();
+    }
+  }, []);
+
+  useEffect(() => {
     // 1. Listen to LocalStorage updates
     const handleUpdate = () => {
       setSiteDataState(getStoredData(STORAGE_KEYS.site, initialSiteData));
@@ -893,46 +1116,59 @@ export function useAdminStore() {
 
     try {
       const siteUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.site), (snapshot) => {
-        if (snapshot.exists() && snapshot.data()?.data) {
-          const val = snapshot.data().data;
-          setSiteDataState(val);
-          try { localStorage.setItem(STORAGE_KEYS.site, JSON.stringify(val)); } catch (e) { }
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const val = sanitizeBlobUrls(snapshot.data().data);
+          if (val && typeof val === "object") {
+            setSiteDataState((prev) => {
+              const merged = mergeSiteData(prev, val);
+              try { localStorage.setItem(STORAGE_KEYS.site, JSON.stringify(merged)); } catch (e) { }
+              return merged;
+            });
+          }
         }
       });
       unsubscribes.push(siteUnsub);
 
       const aboutUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.about), (snapshot) => {
-        if (snapshot.exists() && snapshot.data()?.data) {
-          const val = snapshot.data().data;
-          setAboutDataState(val);
-          try { localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(val)); } catch (e) { }
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const val = sanitizeBlobUrls(snapshot.data().data);
+          if (val && typeof val === "object") {
+            setAboutDataState((prev) => ({ ...prev, ...val }));
+            try { localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(val)); } catch (e) { }
+          }
         }
       });
       unsubscribes.push(aboutUnsub);
 
       const galleryUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.gallery), (snapshot) => {
-        if (snapshot.exists() && snapshot.data()?.data) {
-          const val = snapshot.data().data;
-          setGalleryState(val);
-          try { localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(val)); } catch (e) { }
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const val = sanitizeBlobUrls(snapshot.data().data);
+          if (Array.isArray(val) && val.length > 0) {
+            setGalleryState(val);
+            try { localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(val)); } catch (e) { }
+          }
         }
       });
       unsubscribes.push(galleryUnsub);
 
       const inquiriesUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.inquiries), (snapshot) => {
-        if (snapshot.exists() && snapshot.data()?.data) {
-          const val = snapshot.data().data;
-          setInquiriesState(val);
-          try { localStorage.setItem(STORAGE_KEYS.inquiries, JSON.stringify(val)); } catch (e) { }
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const val = sanitizeBlobUrls(snapshot.data().data);
+          if (Array.isArray(val)) {
+            setInquiriesState(val);
+            try { localStorage.setItem(STORAGE_KEYS.inquiries, JSON.stringify(val)); } catch (e) { }
+          }
         }
       });
       unsubscribes.push(inquiriesUnsub);
 
       const brochuresUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.brochures), (snapshot) => {
-        if (snapshot.exists() && snapshot.data()?.data) {
-          const val = snapshot.data().data;
-          setBrochuresState(val);
-          try { localStorage.setItem(STORAGE_KEYS.brochures, JSON.stringify(val)); } catch (e) { }
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const val = sanitizeBlobUrls(snapshot.data().data);
+          if (Array.isArray(val) && val.length > 0) {
+            setBrochuresState(val);
+            try { localStorage.setItem(STORAGE_KEYS.brochures, JSON.stringify(val)); } catch (e) { }
+          }
         }
       });
       unsubscribes.push(brochuresUnsub);
@@ -947,9 +1183,14 @@ export function useAdminStore() {
   }, []);
 
   const updateSiteData = (newSite: Partial<SiteData>) => {
-    const updated = { ...siteData, ...newSite };
+    const updated = { ...siteData, ...newSite, updatedAt: Date.now() };
     setSiteDataState(updated);
     setStoredData(STORAGE_KEYS.site, updated);
+    // Also write to Firebase so desc/changes persist across sessions
+    try {
+      setDoc(doc(db, "app_data", STORAGE_KEYS.site), { data: updated }, { merge: true })
+        .catch(() => {}); // silent fail if offline
+    } catch (_) {}
   };
 
   const updateAboutData = (newAbout: Partial<AboutData>) => {

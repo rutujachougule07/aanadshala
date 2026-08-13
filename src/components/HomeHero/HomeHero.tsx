@@ -6,8 +6,7 @@ import {
   Users, Calendar, Award, ShieldCheck, 
   ArrowRight, Landmark, Flower2, 
   Dumbbell, BookOpen, Music, Utensils, 
-  Bus, HeartHandshake, PhoneCall, Sparkles,
-  ChevronLeft, ChevronRight
+  Bus, HeartHandshake, PhoneCall, Sparkles
 } from "lucide-react";
 
 export const HomeHero: React.FC = () => {
@@ -53,14 +52,6 @@ export const HomeHero: React.FC = () => {
     return () => clearInterval(timer);
   }, [heroSlides.length]);
 
-  const handleNext = () => {
-    setActiveSlide((prev) => (prev + 1) % heroSlides.length);
-  };
-
-  const handlePrev = () => {
-    setActiveSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
-  };
-
   return (
     <div className="hero-section-clean">
 
@@ -79,22 +70,6 @@ export const HomeHero: React.FC = () => {
             className={`hero-slide-photo ${idx === activeSlide ? "slide-active" : "slide-hidden"}`}
           />
         ))}
-
-        {/* PREV / NEXT NAV ARROWS */}
-        <button 
-          onClick={handlePrev}
-          className="hero-arrow-btn left-arrow cursor-pointer"
-          aria-label="Previous Slide"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <button 
-          onClick={handleNext}
-          className="hero-arrow-btn right-arrow cursor-pointer"
-          aria-label="Next Slide"
-        >
-          <ChevronRight size={24} />
-        </button>
 
         {/* FLOATING TOP OVERLAY DOTS ON PHOTO */}
         <div className="hero-slide-top-bar justify-end">

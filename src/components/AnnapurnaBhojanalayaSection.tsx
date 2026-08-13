@@ -65,7 +65,7 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
 • सकाळी चहा: ${row.morningTea} (७ ते ९)
 • सकाळी नाष्टा: ${row.morningBreakfast} (८ ते ९)
 • दुपार जेवण: ${row.afternoonLunch} (१२:१५ ते १ व १:१५ ते २)
-• सायंकाळी चहा नाष्टा: ${row.eveningSnack} (५ ते ६)
+• सायंकाळी चहा नाष्टा: ${row.eveningTeaSnack} (५ ते ६)
 • रात्रीचे जेवण: ${row.nightDinner} (८ ते ९)
 `).join('\n-----------------------------------------------------\n')}
 

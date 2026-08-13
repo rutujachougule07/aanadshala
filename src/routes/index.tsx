@@ -208,20 +208,18 @@ function IndexComponent() {
   const store = useAdminStore();
 
 
-  // Clean Pure Architectural Renders & Photos (ZERO brochure/poster text)
+  // Clean Pure Architectural Renders & Photos from Admin Store
   const card1Images = useMemo(() => {
-    return [
-      "/images/slider4.JPG",
-      "/images/slider3.png"
-    ];
-  }, []);
+    return store.siteData.aanandshalaImages && store.siteData.aanandshalaImages.length > 0
+      ? store.siteData.aanandshalaImages
+      : ["/images/slider4.JPG", "/images/slider3.png"];
+  }, [store.siteData.aanandshalaImages]);
 
   const card2Images = useMemo(() => {
-    return [
-      "/images/sports img.png",
-      "/images/pickleball-court.png"
-    ];
-  }, []);
+    return store.siteData.sportsImages && store.siteData.sportsImages.length > 0
+      ? store.siteData.sportsImages
+      : ["/images/sports img.png", "/images/pickleball-court.png"];
+  }, [store.siteData.sportsImages]);
 
   const [card1Idx, setCard1Idx] = useState(0);
   const [card2Idx, setCard2Idx] = useState(0);
@@ -409,21 +407,40 @@ function IndexComponent() {
               "
             />
 
-            {/* ========================================= */}
-            {/* WELCOME HEADER TEXT (BABY PINK & MODERN)  */}
-            {/* ========================================= */}
+            {/* WELCOME HEADER TEXT (NEON PINK ANANDSHALA & AMBER SPORTS) */}
             <div className="relative z-20 text-center px-3 sm:px-4 max-w-4xl sm:max-w-5xl w-full pt-4 sm:pt-6 animate-fade-up">
               <div className="inline-block rounded-3xl bg-black/85 backdrop-blur-xl px-5 py-4 sm:px-8 sm:py-4 border-2 border-white/35 shadow-[0_15px_50px_rgba(0,0,0,0.9)]">
                 <h2
                   onClick={() => setShowIntroBanner(false)}
-                  className="font-sans font-black text-lg sm:text-lg lg:text-2xl tracking-normal leading-relaxed cursor-pointer"
+                  className="font-sans font-black text-base sm:text-xl lg:text-2xl tracking-normal leading-relaxed cursor-pointer"
                 >
-                  <span className="block text-white drop-shadow-md">
-                    Welcome to Preetam Senior Citizen <span className="text-[#ff7ec7] font-black drop-shadow-[0_0_15px_rgba(255,126,199,0.95)]">Anandshala</span> &amp;
-                  </span>
-                  <span className="block text-amber-300 font-black drop-shadow-md mt-1.5">
-                    Preetam Sports and Fitness Club
-                  </span>
+                  {(() => {
+                    const rawTitle = store.siteData.welcomePosterTitle || "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club";
+                    if (rawTitle.includes("&")) {
+                      const [line1, line2] = rawTitle.split("&");
+                      const line1Parts = line1.split(/(Anandshala|Anandashala|आनंदशाळा)/gi);
+                      return (
+                        <>
+                          <span className="block text-white drop-shadow-md">
+                            {line1Parts.map((part, i) =>
+                              /Anandshala|Anandashala|आनंदशाळा/i.test(part) ? (
+                                <span key={i} className="text-[#ff7ec7] font-black drop-shadow-[0_0_15px_rgba(255,126,199,0.95)] px-1">
+                                  {part}
+                                </span>
+                              ) : (
+                                part
+                              )
+                            )}
+                            {" &"}
+                          </span>
+                          <span className="block text-amber-300 font-black drop-shadow-md mt-1">
+                            {line2.trim()}
+                          </span>
+                        </>
+                      );
+                    }
+                    return <span className="text-white drop-shadow-md">{rawTitle}</span>;
+                  })()}
                 </h2>
               </div>
             </div>
@@ -439,50 +456,50 @@ function IndexComponent() {
       </AnimatePresence>
       {/* ============================================================== */}
       {selectedSection === null && !showIntroBanner && (
-        <section id="sections" className="relative py-4 sm:py-7 px-3 sm:px-4 overflow-hidden bg-gradient-to-br from-[#1a0429] via-[#2d0739] to-[#150424] min-h-screen min-h-[100dvh] w-full flex flex-col justify-center items-center">
+        <section id="sections" className="relative h-screen h-[100dvh] max-h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f8] via-[#f8fafc] to-[#f0f4ff] p-3 sm:p-5 flex flex-col justify-between items-center select-none">
           {/* FLOATING RICH AMBIENT LIGHT ORBS */}
-          <div className="pointer-events-none absolute top-10 left-10 size-[450px] rounded-full bg-[#db2777]/25 blur-[120px] animate-pulse" />
-          <div className="pointer-events-none absolute bottom-10 right-10 size-[450px] rounded-full bg-[#7c3aed]/25 blur-[120px] animate-float" />
-          <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[600px] rounded-full bg-[#f472b6]/15 blur-[140px]" />
+          <div className="pointer-events-none absolute top-5 left-5 size-[350px] sm:size-[450px] rounded-full bg-pink-300/35 blur-[130px] animate-pulse" />
+          <div className="pointer-events-none absolute bottom-5 right-5 size-[350px] sm:size-[450px] rounded-full bg-indigo-300/35 blur-[130px] animate-float" />
+          <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[500px] rounded-full bg-rose-200/25 blur-[140px]" />
 
-          {/* ONLY 1 BACK ARROW BUTTON (NO TEXT) */}
+          {/* BACK ARROW BUTTON */}
           <button
             onClick={() => setShowIntroBanner(true)}
             aria-label="Back to Welcome Page"
-            className="absolute top-3 left-3 sm:top-5 sm:left-6 z-30 size-10 sm:size-12 rounded-full bg-white/15 hover:bg-pink-600 active:scale-90 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-110 cursor-pointer group"
+            className="absolute top-2.5 left-2.5 sm:top-4 sm:left-5 z-30 size-9 sm:size-11 rounded-full bg-white/90 hover:bg-rose-100 active:scale-90 backdrop-blur-md border border-rose-200 text-[#1A05A2] flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 cursor-pointer group"
           >
-            <span className="text-base sm:text-xl group-hover:-translate-x-0.5 transition-transform">⬅️</span>
+            <span className="text-sm sm:text-lg group-hover:-translate-x-0.5 transition-transform">⬅️</span>
           </button>
 
-          {/* BRAND HEADER */}
-          <div className="animate-fade-up text-center max-w-5xl mx-auto mb-2 sm:mb-4 relative z-10 px-2">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-pink-500/20 to-purple-500/20 backdrop-blur-xl border border-amber-300/40 text-amber-200 font-black text-sm sm:text-base md:text-lg shadow-[0_0_25px_rgba(251,191,36,0.3)] tracking-wide">
-              <span className="inline-block size-2.5 rounded-full bg-amber-400 animate-ping" />
-              <span>✨ {isEn ? <>India's First &amp; Only <span className="text-pink-400 font-black">Anandshala</span></> : <>भारतातील पहिली आणि एकमेव <span className="text-pink-400 font-black">आनंदशाळा</span></>}</span>
+          {/* BRAND HEADER (SPACIOUS, PROMINENT & BOLD) */}
+          <div className="animate-fade-up text-center max-w-4xl mx-auto relative z-10 px-2 shrink-0 pt-2 pb-1">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-xl border border-rose-200 text-[#1A05A2] font-black text-xs sm:text-sm md:text-base shadow-sm tracking-wide">
+              <span className="inline-block size-2.5 rounded-full bg-[#db2777] animate-ping" />
+              <span>✨ {isEn ? <>India's First &amp; Only <span className="text-[#db2777] font-black">Anandshala</span></> : <>भारतातील पहिली आणि एकमेव <span className="text-[#db2777] font-black">आनंदशाळा</span></>}</span>
             </div>
-            <h1 className="font-display font-black text-lg sm:text-3xl lg:text-4xl tracking-tight bg-gradient-to-r from-amber-300 via-yellow-200 via-rose-200 to-emerald-200 bg-clip-text text-transparent drop-shadow-[0_4px_25px_rgba(251,191,36,0.7)] leading-snug py-0.5 mt-2.5 sm:mt-5 max-w-3xl mx-auto">
+            <h1 className="font-display font-black text-xl sm:text-3xl lg:text-4xl tracking-tight text-[#1A05A2] leading-tight my-2 max-w-3xl mx-auto drop-shadow-sm">
               {isEn ? (
                 <>
-                  <span className="block">Preetam Senior Citizen <span className="text-pink-400 font-black">Anandshala</span></span>
-                  <span className="block text-amber-200 mt-0.5">& Sports Fitness Club</span>
+                  <span className="block text-[#1A05A2]">Preetam Senior Citizen <span className="text-[#db2777] font-black drop-shadow-xs">Anandshala</span></span>
+                  <span className="block text-[#810B38] mt-1">&amp; Sports Fitness Club</span>
                 </>
               ) : (
                 <>
-                  <span className="block">प्रीतम ज्येष्ठ नागरिक <span className="text-pink-400 font-black">आनंदशाळा</span></span>
-                  <span className="block text-amber-200 mt-0.5">व स्पोर्ट्स अँड फिटनेस क्लब</span>
+                  <span className="block text-[#1A05A2]">प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black drop-shadow-xs">आनंदशाळा</span></span>
+                  <span className="block text-[#810B38] mt-1">व स्पोर्ट्स अँड फिटनेस क्लब</span>
                 </>
               )}
             </h1>
-            <div className="flex items-center justify-center gap-1.5 pt-1">
-              <span className="text-amber-300 text-sm sm:text-base animate-bounce">📍</span>
-              <span className="font-display font-black text-lg sm:text-2xl lg:text-3xl bg-gradient-to-r from-yellow-300 via-amber-200 to-rose-300 bg-clip-text text-transparent tracking-widest drop-shadow-[0_2px_10px_rgba(251,191,36,0.6)] uppercase">
+            <div className="flex items-center justify-center gap-1.5 pt-0.5">
+              <span className="text-[#db2777] text-sm sm:text-base animate-bounce">📍</span>
+              <span className="font-display font-black text-sm sm:text-xl text-[#db2777] tracking-widest uppercase">
                 {isEn ? "Sangli" : "सांगली"}
               </span>
             </div>
           </div>
 
-          {/* 2 MAIN LUXURY FEATURE CARDS - TIGHT GAP WITH TEXT */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch gap-3 lg:gap-6 max-w-7xl w-full mx-auto relative z-10 py-0.5 px-2 my-auto">
+          {/* 2 MAIN CARDS - COMPACT PROPORTIONS & HIGH CONTRAST CLEAR TEXT */}
+          <div className="flex-1 w-full max-w-5xl sm:max-w-6xl mx-auto my-2 grid grid-cols-1 lg:grid-cols-2 items-center gap-4 lg:gap-6 relative z-10 min-h-0 overflow-hidden px-2">
 
             {/* SECTION 1 CARD: PREETAM AANANDASHRAM */}
             <motion.div
@@ -491,7 +508,7 @@ function IndexComponent() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
               onClick={() => handleSectionSelect("aanandshala")}
-              className={`group relative overflow-hidden rounded-[1.8rem] sm:rounded-[2.2rem] h-[300px] sm:h-[360px] lg:h-[395px] bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-pink-400 flex flex-col justify-between p-4 sm:p-6 ${selectedSection === "aanandshala" ? "ring-4 ring-pink-500 scale-[1.02]" : ""
+              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-[250px] sm:h-[300px] lg:h-[335px] w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-pink-400 flex flex-col justify-between p-4 sm:p-6 ${selectedSection === "aanandshala" ? "ring-4 ring-pink-500 scale-[1.02]" : ""
                 }`}
             >
               {/* ANIMATED IMAGE SLIDER BACKGROUND */}
@@ -516,14 +533,11 @@ function IndexComponent() {
                 />
               </AnimatePresence>
 
-              {/* RICH DARK GRADIENT OVERLAY FOR READABILITY */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2a0410]/95 via-[#2a0410]/40 to-black/30 pointer-events-none transition-opacity duration-500 group-hover:opacity-90" />
+              {/* SUBTLE BOTTOM GRADIENT FOR MAXIMUM IMAGE CLARITY & BRIGHTNESS */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent pointer-events-none" />
 
-              {/* TOP BADGES & SLIDER DOTS */}
-              <div className="relative z-10 flex items-center justify-between gap-2 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-md px-3.5 py-1.5 text-xs sm:text-sm font-black text-[#541A1A] shadow-lg group-hover:bg-pink-600 group-hover:text-white transition-all duration-300">
-                  🏠 {isEn ? "Section 1" : "विभाग १"}
-                </span>
+              {/* TOP SLIDER DOTS */}
+              <div className="relative z-10 flex items-center justify-end gap-2">
                 <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                   {card1Images.map((_, i) => (
                     <button
@@ -536,24 +550,15 @@ function IndexComponent() {
                 </div>
               </div>
 
-              {/* BOTTOM TITLE & BUTTON */}
-              <div className="relative z-10 space-y-2 pt-2">
-                <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
+              {/* BOTTOM TITLE (PROMINENT & SUFFICIENTLY SPACIOUS) */}
+              <div className="relative z-10 space-y-1 pt-2">
+                <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight leading-tight drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)]">
                   {isEn ? (
                     <>Preetam Senior Citizen <span className="text-pink-400">Anandshala</span></>
                   ) : (
                     <>प्रीतम ज्येष्ठ नागरिक <span className="text-pink-400">आनंदशाळा</span></>
                   )}
                 </h3>
-
-                <div className="pt-0.5 flex items-center justify-between gap-4">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 px-5 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-black text-white shadow-xl group-hover:shadow-pink-500/60 group-hover:scale-105 transition-all duration-300 border border-white/30">
-                    <span>{isEn ? "Open Anandashram Details" : "आनंदआश्रम माहिती उघडा"}</span>
-                    <span className="grid size-5 place-items-center rounded-full bg-white text-pink-600 text-xs font-black group-hover:translate-x-1 transition-transform">
-                      →
-                    </span>
-                  </span>
-                </div>
               </div>
             </motion.div>
 
@@ -564,7 +569,7 @@ function IndexComponent() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               onClick={() => handleSectionSelect("sports")}
-              className={`group relative overflow-hidden rounded-[1.8rem] sm:rounded-[2.2rem] h-[300px] sm:h-[360px] lg:h-[395px] bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-purple-400 flex flex-col justify-between p-4 sm:p-6 ${selectedSection === "sports" ? "ring-4 ring-purple-500 scale-[1.02]" : ""
+              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-[250px] sm:h-[300px] lg:h-[335px] w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-purple-400 flex flex-col justify-between p-4 sm:p-6 ${selectedSection === "sports" ? "ring-4 ring-purple-500 scale-[1.02]" : ""
                 }`}
             >
               {/* ANIMATED IMAGE SLIDER BACKGROUND */}
@@ -589,14 +594,11 @@ function IndexComponent() {
                 />
               </AnimatePresence>
 
-              {/* RICH DARK GRADIENT OVERLAY FOR READABILITY */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#12042b]/90 via-black/25 to-black/10 pointer-events-none transition-opacity duration-500 group-hover:opacity-80" />
+              {/* SUBTLE BOTTOM GRADIENT FOR MAXIMUM IMAGE CLARITY & BRIGHTNESS */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent pointer-events-none" />
 
-              {/* TOP BADGES & SLIDER DOTS */}
-              <div className="relative z-10 flex items-center justify-between gap-2 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-md px-3.5 py-1.5 text-xs sm:text-sm font-black text-[#541A1A] shadow-lg group-hover:bg-purple-600 group-hover:text-white transition-all duration-300">
-                  🏋️‍♂️ {isEn ? "Section 2" : "विभाग २"}
-                </span>
+              {/* TOP SLIDER DOTS */}
+              <div className="relative z-10 flex items-center justify-end gap-2">
                 <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                   {card2Images.map((_, i) => (
                     <button
@@ -609,20 +611,11 @@ function IndexComponent() {
                 </div>
               </div>
 
-              {/* BOTTOM TITLE & BUTTON */}
-              <div className="relative z-10 space-y-2 pt-2">
-                <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight leading-tight drop-shadow-lg">
+              {/* BOTTOM TITLE (PROMINENT & SUFFICIENTLY SPACIOUS) */}
+              <div className="relative z-10 space-y-1 pt-2">
+                <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight leading-tight drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)]">
                   {isEn ? sportsClub.nameEn : sportsClub.nameMr}
                 </h3>
-
-                <div className="pt-0.5 flex items-center justify-between gap-4">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 px-5 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-black text-white shadow-xl group-hover:shadow-purple-500/60 group-hover:scale-105 transition-all duration-300 border border-white/30">
-                    <span>{isEn ? "Open Sports Club Details" : "क्रीडा संकुल माहिती उघडा"}</span>
-                    <span className="grid size-5 place-items-center rounded-full bg-white text-purple-600 text-xs font-black group-hover:translate-x-1 transition-transform">
-                      →
-                    </span>
-                  </span>
-                </div>
               </div>
             </motion.div>
 

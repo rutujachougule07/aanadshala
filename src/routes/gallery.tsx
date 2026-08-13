@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/lib/use-language";
+import { useAdminStore } from "@/lib/admin-store";
 import {
   ChevronLeft,
   ChevronRight,
@@ -59,6 +60,7 @@ const categoryList = [
 
 function Gallery() {
   const { isEn } = useLanguage();
+  const store = useAdminStore();
   const [selectedKey, setSelectedKey] = useState("all");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -67,12 +69,25 @@ function Gallery() {
 
   const selectedCatObj = categoryList.find(c => c.key === selectedKey);
 
+  const activeGalleryImages =
+    store.gallery && store.gallery.length > 0
+      ? store.gallery.map((item, idx) => ({
+          id: item.id || idx + 1,
+          titleEn: item.caption || "Anandshala Photo",
+          titleMr: item.caption || "आनंदशाळा फोटो",
+          categoryEn: item.category?.[0] || "Senior Citizen Anandshala",
+          categoryMr: item.category?.[0] || "ज्येष्ठ नागरिक आनंदशाळा",
+          date: "२०२६",
+          image: item.url,
+        }))
+      : galleryImages;
+
   const filteredImages =
     selectedKey === "all"
-      ? galleryImages
-      : galleryImages.filter((item) => {
+      ? activeGalleryImages
+      : activeGalleryImages.filter((item) => {
           if (!selectedCatObj) return true;
-          return item.categoryMr === selectedCatObj.labelMr || item.categoryEn === selectedCatObj.labelEn;
+          return item.categoryMr.includes(selectedCatObj.labelMr) || item.categoryEn.includes(selectedCatObj.labelEn);
         });
 
   const openImage = (index: number) => {

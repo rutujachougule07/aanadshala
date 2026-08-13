@@ -13,13 +13,13 @@ import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "fire
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC9Po0SIP54I9Ndd__v5-CZUarqgKK8c_4",
-  authDomain: "aanadshala-website.firebaseapp.com",
-  projectId: "aanadshala-website",
-  storageBucket: "aanadshala-website.firebasestorage.app",
-  messagingSenderId: "331013694735",
-  appId: "1:331013694735:web:d603f6e89aa66418740a7a",
-  measurementId: "G-Y48LXNV8DG"
+  apiKey: "AIzaSyBd6uEvdjjSmqFZvHgsd9BxZbq9rwz9atI",
+  authDomain: "aandshala.firebaseapp.com",
+  projectId: "aandshala",
+  storageBucket: "aandshala.firebasestorage.app",
+  messagingSenderId: "741352199611",
+  appId: "1:741352199611:web:a52046b2723844b132e09e",
+  measurementId: "G-9XD74224H0"
 };
 
 // Initialize Firebase
