@@ -226,7 +226,7 @@ function IndexComponent() {
 
   const c1Len = card1Images.length;
   const c2Len = card2Images.length;
-  const welcomePosterUrl = "/images/welcome-building.jpg";
+  const welcomePosterUrl = store.siteData.welcomePosterUrl || "/images/welcome-building.jpg";
 
   // Preload all slider images instantly in browser memory for zero delay
   useEffect(() => {

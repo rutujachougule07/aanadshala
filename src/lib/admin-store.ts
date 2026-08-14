@@ -66,38 +66,45 @@ export function compressImageFile(file: File, maxDimension = 1920, quality = 0.8
 }
 
 export async function uploadImageToFirebase(file: File, pathFolder = "admin_uploads"): Promise<string> {
-  // 1. Instant client compression (max 800px, 0.65 quality => ~20KB lightweight file)
-  const compressedBlob = await compressImageFile(file, 800, 0.65);
-  const uploadPayload =
-    compressedBlob instanceof File
-      ? compressedBlob
-      : new File([compressedBlob], file.name, { type: compressedBlob.type || file.type });
-
-  // 2. Generate immediate ~20KB DataURL fallback in 0.01 seconds
-  const localDataUrl = await new Promise<string>((resolve) => {
-    const reader = new FileReader();
-    reader.onload = (e) => resolve((e.target?.result as string) || "");
-    reader.onerror = () => resolve("");
-    reader.readAsDataURL(uploadPayload);
-  });
-
-  // 3. Try Firebase Storage with a strict 1-second timeout so spinner never hangs
   try {
-    const cleanName = file.name.replace(/[^a-zA-Z0-9.]/g, "_");
-    const fileRef = ref(storage, `${pathFolder}/${Date.now()}_${cleanName}`);
+    // 1. Instant client compression (800px max dimension, quality 0.65 => ~20KB lightweight payload)
+    const compressedBlob = await compressImageFile(file, 800, 0.65);
+    const uploadPayload =
+      compressedBlob instanceof File
+        ? compressedBlob
+        : new File([compressedBlob], file.name, { type: compressedBlob.type || file.type || "image/jpeg" });
 
-    const uploadTask = uploadBytes(fileRef, uploadPayload)
-      .then((snapshot) => getDownloadURL(snapshot.ref))
-      .catch(() => localDataUrl);
+    // 2. Generate immediate DataURL (Base64) fallback (~20KB) in 0.05 seconds
+    const localDataUrl = await new Promise<string>((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve((e.target?.result as string) || "");
+      reader.onerror = () => resolve("");
+      reader.readAsDataURL(uploadPayload);
+    });
 
-    const timeoutTask = new Promise<string>((resolve) =>
-      setTimeout(() => resolve(localDataUrl), 1000)
-    );
+    // 3. Try Firebase Storage with a 5-second timeout window
+    try {
+      const cleanName = file.name.replace(/[^a-zA-Z0-9.]/g, "_");
+      const fileRef = ref(storage, `${pathFolder}/${Date.now()}_${cleanName}`);
 
-    const resultUrl = await Promise.race([uploadTask, timeoutTask]);
-    return resultUrl || localDataUrl;
+      const uploadTask = uploadBytes(fileRef, uploadPayload).then(async (snapshot) => {
+        const downloadUrl = await getDownloadURL(snapshot.ref);
+        return downloadUrl;
+      });
+
+      const timeoutTask = new Promise<string>((resolve) =>
+        setTimeout(() => resolve(localDataUrl), 5000)
+      );
+
+      const resultUrl = await Promise.race([uploadTask, timeoutTask]);
+      return resultUrl || localDataUrl;
+    } catch (err) {
+      console.warn("Firebase Storage upload fallback to DataURL:", err);
+      return localDataUrl;
+    }
   } catch (err) {
-    return localDataUrl;
+    console.error("Image processing error:", err);
+    return "";
   }
 }
 
@@ -925,7 +932,7 @@ function sanitizeBlobUrls(obj: any): any {
   return obj;
 }
 
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
   site: "anandshala_site_data",
   about: "anandshala_about_data",
   gallery: "anandshala_gallery_distinguished_v3",

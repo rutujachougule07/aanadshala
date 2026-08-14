@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useAdminStore, uploadImageToFirebase, resetFirebaseDatabase } from "@/lib/admin-store";
+import { useAdminStore, uploadImageToFirebase, resetFirebaseDatabase, setStoredData, STORAGE_KEYS } from "@/lib/admin-store";
 import { auth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "@/firebase";
 import {
   Home,
@@ -970,9 +970,9 @@ export default function AdminPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
-                { title: "आनंदशाळा मुख्य इमारत", src: "/images/aandshala_img.png", tag: "History & Foundation" },
-                { title: "आनंद सहल उपक्रम फोटो", src: "/images/aandshala sahal 1.jpeg", tag: "Culture & Care" },
-                { title: "ज्येष्ठ नागरिक आनंद मेळावा", src: "/images/aandmelav 10.jpeg", tag: "Community Gathering" },
+                { title: "आनंदशाळा मुख्य इमारत", src: aboutForm.photos?.[0] || "/images/aandshala_img.png", tag: "History & Foundation", idx: 0 },
+                { title: "आनंद सहल उपक्रम फोटो", src: aboutForm.photos?.[1] || "/images/aandshala sahal 1.jpeg", tag: "Culture & Care", idx: 1 },
+                { title: "ज्येष्ठ नागरिक आनंद मेळावा", src: aboutForm.photos?.[2] || "/images/aandmelav 10.jpeg", tag: "Community Gathering", idx: 2 },
               ].map((item, i) => (
                 <div key={i} className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group">
                   <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-48">
@@ -989,7 +989,13 @@ export default function AdminPage() {
                           title: item.title,
                           imageUrl: item.src,
                           onSave: (newTitle, newUrl) => {
-                            showToast(`✅ ${newTitle} saved!`);
+                            const defaultPhotos = ["/images/aandshala_img.png", "/images/aandshala sahal 1.jpeg", "/images/aandmelav 10.jpeg"];
+                            const currentPhotos = [...(aboutForm.photos && aboutForm.photos.length > 0 ? aboutForm.photos : defaultPhotos)];
+                            currentPhotos[item.idx] = newUrl;
+                            const updatedAbout = { ...aboutForm, photos: currentPhotos };
+                            setAboutForm(updatedAbout);
+                            store.updateAboutData(updatedAbout);
+                            showToast(`✅ ${newTitle} photo saved!`);
                           },
                         })
                       }
@@ -1137,8 +1143,8 @@ export default function AdminPage() {
                                 const updated = store.gallery.map((g) =>
                                   g.id === item.id ? { ...g, caption: newTitle, url: newUrl } : g
                                 );
-                                localStorage.setItem("anandshala_gallery_data_v1", JSON.stringify(updated));
-                                window.dispatchEvent(new Event("admin_store_updated"));
+                                setStoredData(STORAGE_KEYS.gallery, updated);
+                                showToast(`✅ Photo updated!`);
                               },
                             })
                           }
@@ -1264,6 +1270,10 @@ export default function AdminPage() {
                           title: item.title,
                           imageUrl: item.fileUrl,
                           onSave: (newTitle, newUrl) => {
+                            const updated = store.brochures.map((b) =>
+                              b.id === item.id ? { ...b, title: newTitle, fileUrl: newUrl } : b
+                            );
+                            setStoredData(STORAGE_KEYS.brochures, updated);
                             showToast(`✅ ${newTitle} updated!`);
                           },
                         })

@@ -133,12 +133,6 @@ export default function SpecialReasons() {
               );
             })}
           </div>
-          <div className="reasonsCounter">
-            <span>{filteredReasons.length}</span>{" "}
-            {isEn
-              ? `${activeCat.en} reason${filteredReasons.length !== 1 ? "s" : ""}`
-              : `${activeCat.mr} कारणे`}
-          </div>
         </div>
       </div>
 
