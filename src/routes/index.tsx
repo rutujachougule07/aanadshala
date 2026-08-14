@@ -310,9 +310,9 @@ function IndexComponent() {
 
   const sportsHeroImages = [
     sportsHeroImage,
-    sportsClub.gallery[0] || "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357638128.jpg",
-    sportsClub.facilities[0]?.images[0] || "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184848892.jpg",
-    sportsClub.gallery[1] || "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357638129.jpg",
+    sportsClub.gallery[0] || "/images/sports img.png",
+    sportsClub.facilities[0]?.images[0] || "/images/pickleball-court.png",
+    sportsClub.gallery[1] || "/images/epic_sports_gym_bg.png",
   ].filter(Boolean);
 
   const [sportsBgIdx, setSportsBgIdx] = useState(0);

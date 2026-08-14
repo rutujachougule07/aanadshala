@@ -304,7 +304,6 @@ const Brochure: React.FC = () => {
                   className="bcol-photo-item"
                   key={idx}
                   onClick={() => setSelectedDetail(item)}
-                  title={isEn ? "Click to view details" : "माहिती पाहण्यासाठी क्लीक करा"}
                 >
                   <img 
                     src={item.img} 
@@ -318,7 +317,7 @@ const Brochure: React.FC = () => {
 
             {/* Facilities Header */}
             <div className="bcol-section-header-red">
-              {isEn ? "Available Campus Facilities (Click Any)" : "आमच्याकडे उपलब्ध सुविधा (क्लीक करा)"}
+              {isEn ? "Available Campus Facilities" : "आमच्याकडे उपलब्ध सुविधा"}
             </div>
 
             {/* 13 Facilities Grid - CLICKABLE */}
@@ -330,7 +329,6 @@ const Brochure: React.FC = () => {
                     className="bcol-facility-box" 
                     key={name}
                     onClick={() => setSelectedDetail(fac)}
-                    title={`${fac.title} - माहिती पाहण्यासाठी क्लीक करा`}
                   >
                     <div className="bcol-facility-icon-wrap">
                       {fac.icon}
@@ -392,11 +390,10 @@ const Brochure: React.FC = () => {
                   "आनंदविलास निवास फी किमान रु. १२,०००/- *GST Extra."
                 ]
               })}
-              title="प्रवेश योजनेची सविस्तर माहिती पाहण्यासाठी इथे क्लीक करा"
             >
               <div className="flex items-center justify-between mb-3 border-b border-pink-100 pb-2">
                 <h3 className="bcol-rules-title text-base sm:text-lg font-black text-[#881337] m-0">प्रवेश कसा घ्याल ?</h3>
-                <span className="text-xs font-black text-pink-600 bg-pink-100 px-2.5 py-1 rounded-full border border-pink-300 shadow-sm">माहिती पहा →</span>
+                <span className="text-xs font-black text-pink-600 bg-pink-100 px-2.5 py-1 rounded-full border border-pink-300 shadow-sm">माहिती</span>
               </div>
               
               <ul className="space-y-2.5 list-none p-0 m-0">
@@ -442,7 +439,6 @@ const Brochure: React.FC = () => {
                   "सर्व सुविधायुक्त वातानुकूलित दालने"
                 ]
               })}
-              title="माहिती पाहण्यासाठी क्लीक करा"
             >
               <img 
                 src="/images/founderimg.png" 
@@ -451,7 +447,7 @@ const Brochure: React.FC = () => {
                 onError={(e) => { e.currentTarget.src = buildingImage; }} 
               />
               <div className="bcol-founder-badge-text">
-                भारतातील पहिलेच ज्येष्ठ नागरिकांची 'आनंदशाळा' (माहिती पहा →)
+                भारतातील पहिलेच ज्येष्ठ नागरिकांची 'आनंदशाळा'
               </div>
             </div>
           </div>

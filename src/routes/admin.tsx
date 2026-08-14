@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useAdminStore, uploadImageToFirebase, resetFirebaseDatabase, setStoredData, STORAGE_KEYS } from "@/lib/admin-store";
+import { useState, useEffect, useRef } from "react";
+import { useAdminStore, uploadImageToFirebase, uploadVideoToFirebase, useResolvedVideoUrl, resetFirebaseDatabase, setStoredData, STORAGE_KEYS } from "@/lib/admin-store";
 import { auth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "@/firebase";
 import {
   Home,
@@ -21,17 +21,24 @@ import {
   Menu,
   X,
   Building2,
-  Save
+  Save,
+  Film,
+  Video
 } from "lucide-react";
+import { HighlightText } from "@/components/HighlightText";
 
 type TabKey =
   | "home"
   | "halls"
   | "about"
   | "gallery"
-  | "sports"
   | "brochure"
-  | "inquiries";
+  | "inquiries"
+  | "sports_home"
+  | "sports_facilities"
+  | "sports_gallery"
+  | "sports_brochure"
+  | "sports_inquiries";
 
 type EditModalData = {
   id?: string;
@@ -68,10 +75,147 @@ function ImageDropzone({
 }) {
   const [isDragging, setIsDragging] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    e.dataTransfer.dropEffect = "copy";
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+
+    const files = e.dataTransfer.files;
+    if (files && files.length > 0) {
+      setIsUploading(true);
+      Promise.resolve(onFileSelected(files[0])).finally(() => setIsUploading(false));
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setIsUploading(true);
+      Promise.resolve(onFileSelected(files[0])).finally(() => setIsUploading(false));
+    }
+  };
+
+  return (
+    <div
+      onClick={() => inputRef.current?.click()}
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${
+        isDragging
+          ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
+          : "border-rose-300 hover:border-pink-600 bg-rose-50/50 hover:bg-rose-50/90"
+      } ${compact ? "p-3" : "p-5"}`}
+    >
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*,.png,.jpg,.jpeg,.webp"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+      {isUploading ? (
+        <div className="flex items-center gap-2 text-xs font-black text-pink-600 animate-pulse py-3">
+          <span className="size-4 rounded-full border-2 border-pink-600 border-t-transparent animate-spin" />
+          <span>फोटो अपलोड होत आहे (Uploading Photo)...</span>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center text-center space-y-1 py-1 pointer-events-none">
+          <div className="size-12 rounded-2xl bg-gradient-to-r from-pink-600 via-purple-600 to-[#1A05A2] flex items-center justify-center text-white shadow-md shadow-pink-500/20">
+            <UploadCloud size={24} />
+          </div>
+          <p className="text-xs sm:text-sm font-black text-[#1A05A2] mt-1.5">
+            📸 इथे फोटो Drag & Drop करा (Drag & Drop Photo Here)
+          </p>
+          <p className="text-[10px] font-extrabold text-slate-500">
+            संगणकावरून फोटो ड्रॅग करा किंवा निवडण्यासाठी क्लिक करा (PNG, JPG, WEBP)
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function AdminVideoThumbnail({ embedUrl, thumbnail, title }: { embedUrl: string; thumbnail?: string; title: string }) {
+  const resolvedUrl = useResolvedVideoUrl(embedUrl);
+  const isDirect =
+    resolvedUrl.startsWith("data:") ||
+    resolvedUrl.startsWith("blob:") ||
+    resolvedUrl.startsWith("idb:") ||
+    resolvedUrl.endsWith(".mp4") ||
+    resolvedUrl.endsWith(".webm") ||
+    resolvedUrl.endsWith(".mov") ||
+    resolvedUrl.includes("firebasestorage.googleapis.com");
+
+  if (isDirect && resolvedUrl) {
+    return (
+      <video
+        src={resolvedUrl}
+        className="w-full h-full object-cover"
+        muted
+        preload="metadata"
+      />
+    );
+  }
+
+  return (
+    <img
+      src={thumbnail && !thumbnail.includes("Screenshot") ? thumbnail : "/images/gallery imgage1.JPG"}
+      alt={title}
+      className="w-full h-full object-cover"
+      onError={(e) => {
+        (e.target as HTMLImageElement).src = "/images/gallery imgage1.JPG";
+      }}
+    />
+  );
+}
+
+// REUSABLE DRAG & DROP VIDEO UPLOAD ZONE COMPONENT
+function VideoDropzone({
+  onFileSelected,
+  label = "Drag & drop video file here or click to browse",
+  compact = false,
+}: {
+  onFileSelected: (file: File) => void;
+  label?: string;
+  compact?: boolean;
+}) {
+  const [isDragging, setIsDragging] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.dataTransfer.dropEffect = "copy";
     setIsDragging(true);
   };
 
@@ -89,53 +233,59 @@ function ImageDropzone({
     const files = e.dataTransfer.files;
     if (files && files.length > 0) {
       const file = files[0];
-      if (file.type.startsWith("image/")) {
-        setIsUploading(true);
-        Promise.resolve(onFileSelected(file)).finally(() => setIsUploading(false));
-      } else {
-        alert("Please select a valid image file (JPG, PNG, WEBP).");
-      }
+      setIsUploading(true);
+      Promise.resolve(onFileSelected(file)).finally(() => setIsUploading(false));
     }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
+      const file = files[0];
       setIsUploading(true);
-      Promise.resolve(onFileSelected(files[0])).finally(() => setIsUploading(false));
+      Promise.resolve(onFileSelected(file)).finally(() => setIsUploading(false));
     }
   };
 
   return (
-    <label
+    <div
+      onClick={() => inputRef.current?.click()}
+      onDragEnter={handleDragEnter}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${isDragging
-        ? "border-[#db2777] bg-pink-100/90 scale-[1.01] shadow-lg shadow-pink-500/20"
-        : "border-rose-300 hover:border-[#db2777] bg-rose-50/50 hover:bg-rose-50/90"
-        } ${compact ? "p-3" : "p-5"}`}
+      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${
+        isDragging
+          ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
+          : "border-purple-300 hover:border-pink-600 bg-purple-50/50 hover:bg-pink-50/80"
+      } ${compact ? "p-3" : "p-4"}`}
     >
-      <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+      <input
+        ref={inputRef}
+        type="file"
+        accept="video/*,.mp4,.webm,.mov,.avi,.mkv,.m4v,.wmv,.3gp"
+        className="hidden"
+        onChange={handleFileChange}
+      />
       {isUploading ? (
-        <div className="flex items-center gap-2 text-xs font-black text-[#db2777] animate-pulse py-3">
-          <span className="size-4 rounded-full border-2 border-[#db2777] border-t-transparent animate-spin" />
-          <span>फोटो अपलोड होत आहे (Uploading Photo)...</span>
+        <div className="flex items-center gap-2 text-xs font-black text-pink-600 animate-pulse py-3">
+          <span className="size-4 rounded-full border-2 border-pink-600 border-t-transparent animate-spin" />
+          <span>व्हिडिओ अपलोड होत आहे (Uploading Video)...</span>
         </div>
       ) : (
-        <div className="flex flex-col items-center text-center space-y-1 py-1">
-          <div className="size-12 rounded-2xl bg-gradient-to-r from-[#db2777] via-purple-600 to-[#1A05A2] flex items-center justify-center text-white shadow-md shadow-pink-500/20">
-            <UploadCloud size={24} />
+        <div className="flex flex-col items-center text-center space-y-1 py-1 pointer-events-none">
+          <div className="size-11 rounded-2xl bg-gradient-to-r from-pink-600 via-purple-600 to-[#1A05A2] flex items-center justify-center text-white shadow-md shadow-pink-500/20">
+            <Film size={22} />
           </div>
-          <p className="text-xs sm:text-sm font-black text-[#1A05A2] mt-1.5">
-            📸 इथे फोटो Drag & Drop करा (Drag & Drop Photo Here)
+          <p className="text-xs font-black text-[#1A05A2] mt-1">
+            🎥 इथे व्हिडिओ फाईल Drag & Drop करा (Drag & Drop Video Here)
           </p>
           <p className="text-[10px] font-extrabold text-slate-500">
-            संगणकावरून फोटो ड्रॅग करा किंवा निवडण्यासाठी क्लिक करा (PNG, JPG, WEBP)
+            संगणकावरून व्हिडिओ फाईल ड्रॅग करा किंवा निवडण्यासाठी क्लिक करा (MP4, WEBM, MOV)
           </p>
         </div>
       )}
-    </label>
+    </div>
   );
 }
 
@@ -165,7 +315,7 @@ export default function AdminPage() {
   const saveHallDesc = (hallId: string, desc: string) => {
     const updated = { ...hallDescOverrides, [hallId]: desc };
     setHallDescOverrides(updated);
-    try { localStorage.setItem(HALL_DESCS_KEY, JSON.stringify(updated)); } catch (_) {}
+    try { localStorage.setItem(HALL_DESCS_KEY, JSON.stringify(updated)); } catch (_) { }
   };
   const getHallDesc = (hallId: string, fallback = "") => hallDescOverrides[hallId] ?? fallback;
 
@@ -225,12 +375,21 @@ export default function AdminPage() {
     setAboutForm(store.aboutData);
   }, [store.aboutData]);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState("");
+  const [isSyncingCloud, setIsSyncingCloud] = useState(false);
+  const [activeModule, setActiveModule] = useState<"anandshala" | "sports">("anandshala");
 
   // Gallery Form State
   const [newGalleryUrl, setNewGalleryUrl] = useState("");
   const [newGalleryCaption, setNewGalleryCaption] = useState("");
   const [newGalleryCategory, setNewGalleryCategory] = useState("ज्येष्ठ नागरिक आनंदशाळा");
   const [galleryFilter, setGalleryFilter] = useState("सर्व");
+
+  // Video Gallery Form State
+  const [newVideoTitle, setNewVideoTitle] = useState("");
+  const [newVideoCategory, setNewVideoCategory] = useState("विशेष मनोगत");
+  const [newVideoEmbedUrl, setNewVideoEmbedUrl] = useState("");
+  const [newVideoThumb, setNewVideoThumb] = useState("");
+  const [newVideoDesc, setNewVideoDesc] = useState("");
 
   const showToast = (msg: string) => {
     setSaveSuccessMsg(msg);
@@ -245,7 +404,19 @@ export default function AdminPage() {
         showToast("✅ फोटो यशस्वीरित्या अपडेट झाला!");
       }
     } catch (err) {
-      alert("फोटो अपलोड करताना त्रुटी आली.");
+      showToast("⚠️ फोटो अपलोड करताना त्रुटी आली.");
+    }
+  };
+
+  const handleVideoUpload = async (file: File, onSuccess: (url: string) => void) => {
+    try {
+      const url = await uploadVideoToFirebase(file, "admin_videos");
+      if (url) {
+        onSuccess(url);
+        showToast("✅ व्हिडिओ यशस्वीरित्या अपलोड झाला!");
+      }
+    } catch (err) {
+      showToast("⚠️ व्हिडिओ अपलोड करताना त्रुटी आली.");
     }
   };
 
@@ -344,58 +515,82 @@ export default function AdminPage() {
     );
   }
 
-  // Sidebar Menu Items
-  const menuItems = [
+  // Sidebar Menu Items filtered by selected module
+  const anandshalaMenuItems = [
     {
       id: "home" as TabKey,
-      label: "Home Page",
-      subLabel: "Welcome Poster Image",
+      label: "Home Page Photos",
+      subLabel: "Poster & Sliders",
       icon: Home,
-      count: 1,
     },
     {
       id: "halls" as TabKey,
-      label: "Activity Halls",
-      subLabel: "12 Halls Images",
+      label: "Activity Halls Photos",
+      subLabel: "17 Activity Halls Images",
       icon: Building2,
-      count: 12,
     },
     {
       id: "about" as TabKey,
-      label: "About Us",
-      subLabel: "About Page Images",
+      label: "About Us Photos",
+      subLabel: "Building & Event Photos",
       icon: BookOpen,
-      count: (aboutForm.photos?.length || 0) + 3,
     },
     {
       id: "gallery" as TabKey,
       label: "Photo Gallery",
-      subLabel: "9 Categories Gallery",
+      subLabel: "Anandshala Gallery Photos",
       icon: ImageIcon,
-      count: store.gallery.length,
-    },
-    {
-      id: "sports" as TabKey,
-      label: "Sports Club",
-      subLabel: "Facilities Images",
-      icon: Dumbbell,
-      count: (siteForm.sportsFacilities?.length || 0) + (siteForm.sportsGallery?.length || 0),
     },
     {
       id: "brochure" as TabKey,
       label: "Brochure Scans",
       subLabel: "Brochure Page Scans",
       icon: FileText,
-      count: store.brochures.length,
     },
     {
       id: "inquiries" as TabKey,
-      label: "Inquiries",
-      subLabel: "Customer Messages",
+      label: "Inquiries Messages",
+      subLabel: "Customer Inquiries",
       icon: Mail,
-      count: store.inquiries.filter((i) => !i.read).length,
+      count: store.anandshalaInquiries.filter((i) => !i.read).length,
     },
   ];
+
+  const sportsMenuItems = [
+    {
+      id: "sports_home" as TabKey,
+      label: "Sports Home Card",
+      subLabel: "Main Section Photo",
+      icon: Dumbbell,
+    },
+    {
+      id: "sports_facilities" as TabKey,
+      label: "Sports Facilities",
+      subLabel: "Gym, Pool & Courts",
+      icon: Dumbbell,
+    },
+    {
+      id: "sports_gallery" as TabKey,
+      label: "Sports Gallery",
+      subLabel: "Sports Club Photos",
+      icon: ImageIcon,
+    },
+    {
+      id: "sports_brochure" as TabKey,
+      label: "Sports Brochure",
+      subLabel: "Club Brochure Scan",
+      icon: FileText,
+    },
+    {
+      id: "sports_inquiries" as TabKey,
+      label: "Sports Inquiries",
+      subLabel: "Sports Club Messages",
+      icon: Mail,
+      count: store.sportsInquiries.filter((i) => !i.read).length,
+    },
+  ];
+
+  const menuItems = activeModule === "anandshala" ? anandshalaMenuItems : sportsMenuItems;
 
   return (
     <div className="h-screen bg-gradient-to-br from-[#f8fafc] via-[#fff8fb] to-[#f0f4ff] text-slate-800 font-sans flex flex-col lg:flex-row relative overflow-hidden">
@@ -417,7 +612,7 @@ export default function AdminPage() {
             <div className="flex items-center justify-between border-b border-rose-100 pb-3 mb-4">
               <h3 className="font-black text-sm text-[#1A05A2] flex items-center gap-2">
                 <Edit className="size-4 text-[#db2777]" />
-                <span>Hall Edit करा</span>
+                <span>{editingModal?.type === "video" ? "व्हिडिओ Edit करा" : "आयटम Edit करा"}</span>
               </h3>
               <button
                 onClick={() => setEditingModal(null)}
@@ -428,17 +623,34 @@ export default function AdminPage() {
             </div>
 
             <div className="space-y-3">
-              {/* COMPACT UPLOAD ZONE */}
-              <div>
-                <label className="block text-[11px] font-black text-slate-500 mb-1">📸 फोटो बदला</label>
-                <ImageDropzone
-                  compact
-                  label="Drag & Drop Photo Here"
-                  onFileSelected={(file) =>
-                    handleFileUpload(file, (url) => setModalImageUrl(url))
-                  }
-                />
-              </div>
+              {editingModal?.type === "video" ? (
+                <div>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">🎥 व्हिडिओ फाईल बदला (Drag & Drop Video File)</label>
+                  <VideoDropzone
+                    compact
+                    onFileSelected={(file) =>
+                      handleVideoUpload(file, (url) => setModalSubtitle(url))
+                    }
+                  />
+                  {modalSubtitle && (
+                    <div className="mt-1 flex items-center gap-1.5 p-2 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700 truncate">
+                      <CheckCircle size={13} className="shrink-0 text-emerald-600" />
+                      <span className="truncate">व्हिडिओ अपलोड झाला! (Video Uploaded)</span>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">📸 फोटो बदला</label>
+                  <ImageDropzone
+                    compact
+                    label="Drag & Drop Photo Here"
+                    onFileSelected={(file) =>
+                      handleFileUpload(file, (url) => setModalImageUrl(url))
+                    }
+                  />
+                </div>
+              )}
 
               {/* PREVIEW after upload */}
               {modalImageUrl && (
@@ -452,24 +664,24 @@ export default function AdminPage() {
 
               {/* TITLE INPUT */}
               <div>
-                <label className="block text-[11px] font-black text-slate-500 mb-1">🏷️ Hall चे नाव</label>
+                <label className="block text-[11px] font-black text-slate-500 mb-1">🏷️ नाव / शीर्षक (Title)</label>
                 <input
                   type="text"
                   value={modalTitle}
                   onChange={(e) => setModalTitle(e.target.value)}
-                  placeholder="Hall चे नाव लिहा..."
+                  placeholder="नाव लिहा..."
                   className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-bold focus:border-[#db2777] focus:outline-none"
                 />
               </div>
 
               {/* DESCRIPTION TEXTAREA */}
-              {editingModal?.type === "hall" && (
+              {(editingModal?.type === "hall" || editingModal?.type === "video") && (
                 <div>
                   <label className="block text-[11px] font-black text-slate-500 mb-1">📝 माहिती / Description</label>
                   <textarea
                     value={modalDesc}
                     onChange={(e) => setModalDesc(e.target.value)}
-                    placeholder="Hall ची माहिती लिहा..."
+                    placeholder="माहिती लिहा..."
                     rows={2}
                     className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-bold focus:border-[#db2777] focus:outline-none resize-none"
                   />
@@ -486,10 +698,15 @@ export default function AdminPage() {
                 Cancel
               </button>
               <button
-                onClick={() => {
+                onClick={async () => {
                   editingModal.onSave(modalTitle, modalImageUrl, modalSubtitle, undefined, modalDesc);
                   setEditingModal(null);
-                  showToast("✅ Saved!");
+                  showToast("✅ फोटो सेव्ह होऊन फायरबेसवर क्लाउडवर अपडेट झाला!");
+                  try {
+                    await store.syncAllToFirebaseCloud();
+                  } catch (e) {
+                    console.warn("Auto-sync background warning:", e);
+                  }
                 }}
                 className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-xs font-black text-white shadow-md cursor-pointer hover:scale-105 transition-transform flex items-center gap-2"
               >
@@ -544,7 +761,7 @@ export default function AdminPage() {
           {/* SIDEBAR TABS */}
           <div className="space-y-2">
             <p className="text-xs font-black text-[#810B38] uppercase tracking-widest px-3 py-1">
-              Image Pages
+              {activeModule === "anandshala" ? "🌸 आनंदशाळा पेजेस" : "🏋️‍♂️ स्पोर्ट्स क्लब पेजेस"}
             </p>
             {menuItems.map((item) => {
               const Icon = item.icon;
@@ -573,27 +790,6 @@ export default function AdminPage() {
 
         {/* SIDEBAR FOOTER */}
         <div className="pt-6 border-t border-rose-100 space-y-2.5">
-          <Link
-            to="/"
-            target="_blank"
-            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-50 hover:bg-rose-50 text-xs font-black text-[#1A05A2] border border-rose-200 transition-all shadow-xs"
-          >
-            <span>🌐</span>
-            <span>View Main Site</span>
-          </Link>
-          <button
-            onClick={async () => {
-              if (window.confirm("तुम्हाला फायरबेसमधील सर्व जुने फोटो व डेटा पूर्णपणे हटवून नवीन क्लीन सेट करायचा आहे का?")) {
-                await resetFirebaseDatabase();
-                showToast("✅ जुना डेटा पूर्णपणे हटवून फायबेस रीसेट झाला!");
-                setTimeout(() => window.location.reload(), 1000);
-              }
-            }}
-            className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-xs font-black text-amber-700 border border-amber-200 transition-all cursor-pointer"
-          >
-            <span>🧹</span>
-            <span>Clear & Reset Old Firebase</span>
-          </button>
           <button
             onClick={handleLogout}
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-xs font-black text-rose-600 border border-rose-200 transition-all cursor-pointer"
@@ -606,6 +802,53 @@ export default function AdminPage() {
 
       {/* MAIN CONTENT AREA */}
       <main className="flex-1 p-4 sm:p-8 max-w-7xl mx-auto overflow-y-auto h-screen w-full">
+
+        {/* TOP PRIMARY MODULE SWITCHER BUTTONS BAR */}
+        <div className="bg-white border-2 border-rose-100/90 rounded-3xl p-4 mb-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="size-10 rounded-2xl bg-gradient-to-r from-[#db2777] to-[#1A05A2] flex items-center justify-center text-white text-lg font-black shadow-md shrink-0">
+              {activeModule === "anandshala" ? "🌸" : "🏋️‍♂️"}
+            </div>
+            <div>
+              <h2 className="text-sm font-black text-[#1A05A2] tracking-tight">
+                {activeModule === "anandshala" ? "🌸 प्रीतम आनंदशाळा ॲडमिन फोटो पॅनेल" : "🏋️‍♂️ प्रीतम स्पोर्ट्स अँड फिटनेस क्लब"}
+              </h2>
+              <p className="text-[11px] text-slate-500 font-extrabold">
+                {activeModule === "anandshala" ? "आनंदशाळेचे फोटो बदलण्यासाठी सेक्‍शन निवडा" : "स्पोर्ट्स क्लबचे फोटो बदलण्यासाठी सेक्‍शन निवडा"}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+            <button
+              onClick={() => {
+                setActiveModule("anandshala");
+                setActiveTab("home");
+              }}
+              className={`flex-1 sm:flex-initial px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm ${activeModule === "anandshala"
+                  ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-rose-200 scale-102"
+                  : "bg-rose-50 text-slate-700 hover:bg-rose-100 border-2 border-rose-200"
+                }`}
+            >
+              <span>🌸</span>
+              <span>प्रीतम आनंदशाळा</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setActiveModule("sports");
+                setActiveTab("sports_home");
+              }}
+              className={`flex-1 sm:flex-initial px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm ${activeModule === "sports"
+                  ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-rose-200 scale-102"
+                  : "bg-rose-50 text-slate-700 hover:bg-rose-100 border-2 border-rose-200"
+                }`}
+            >
+              <span>🏋️‍♂️</span>
+              <span>प्रीतम स्पोर्ट्स अँड फिटनेस क्लब</span>
+            </button>
+          </div>
+        </div>
 
         {/* ================================================================== */}
         {/* TAB 1: HOME PAGE IMAGES                                           */}
@@ -768,8 +1011,8 @@ export default function AdminPage() {
                     </div>
 
                     <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
-                      <p className="font-black text-xs drop-shadow-md truncate">
-                        {siteForm.aanandshalaTitle || "प्रीतम ज्येष्ठ नागरिक आनंदशाळा व निवारा"}
+                      <p className="font-black text-xs text-[#60a5fa] drop-shadow-md truncate">
+                        <HighlightText text={siteForm.aanandshalaTitle || "प्रीतम ज्येष्ठ नागरिक आनंदशाळा व निवारा"} />
                       </p>
                     </div>
                   </div>
@@ -839,6 +1082,7 @@ export default function AdminPage() {
                 </div>
               </div>
             </div>
+
           </div>
         )}
 
@@ -920,7 +1164,7 @@ export default function AdminPage() {
                                 // Save desc to dedicated localStorage (Firebase-proof)
                                 saveHallDesc(hallId, newDesc || "");
                                 // Also update the store (title + imageUrl)
-                                const updatedHalls = store.siteData.activityHalls.map((h, i) =>
+                                const updatedHalls = (store.siteData.activityHalls || []).map((h, i) =>
                                   i === idx
                                     ? { ...h, title: newTitle, imageUrl: newUrl, desc: newDesc || h.desc || "" }
                                     : h
@@ -939,7 +1183,7 @@ export default function AdminPage() {
                         </button>
 
                         <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
-                          <p className="font-black text-xs drop-shadow-md truncate">{hall.title}</p>
+                          <p className="font-black text-xs text-[#60a5fa] drop-shadow-md truncate"><HighlightText text={hall.title} /></p>
                           <p className="text-[10px] text-rose-200 opacity-90 truncate">{hall.category}</p>
                         </div>
                       </div>
@@ -1068,7 +1312,7 @@ export default function AdminPage() {
 
                   <button
                     onClick={() => {
-                      if (!newGalleryUrl) return alert("Please select or drop a photo.");
+                      if (!newGalleryUrl) return showToast("⚠️ कृपया फोटो निवडा!");
                       store.addGalleryItem({
                         url: newGalleryUrl,
                         caption: newGalleryCaption || "Preetam Anandshala Photo",
@@ -1172,13 +1416,276 @@ export default function AdminPage() {
                   </div>
                 ))}
             </div>
+
+            {/* ============================================================ */}
+            {/* VIDEO GALLERY MANAGER                                        */}
+            {/* ============================================================ */}
+            <div className="bg-white border-2 border-rose-200 rounded-3xl p-5 sm:p-6 space-y-5 shadow-sm mt-8">
+              <div className="flex items-center justify-between border-b border-rose-100 pb-3">
+                <h2 className="text-base font-black text-[#810B38] flex items-center gap-2">
+                  <span>🎥</span>
+                  <span>व्हिडिओ गॅलरी मॅनेजर (Video Gallery Manager)</span>
+                </h2>
+                <span className="text-xs font-bold text-pink-600 bg-pink-50 px-3 py-1 rounded-full border border-pink-200">
+                  एकूण {store.videos.length} व्हिडिओ
+                </span>
+              </div>
+
+              {/* ADD NEW VIDEO FORM */}
+              <div className="bg-rose-50/50 border border-rose-200 p-4 sm:p-5 rounded-2xl space-y-4">
+                <h3 className="text-xs font-black text-[#1A05A2] flex items-center gap-1.5">
+                  <Plus size={16} /> <span>नवीन व्हिडिओ जोडा (+ Add New Video)</span>
+                </h3>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">व्हिडिओ शीर्षक (Title)</label>
+                  <input
+                    type="text"
+                    placeholder="उदा. डॉ. गिरीश ओक मनोगत"
+                    value={newVideoTitle}
+                    onChange={(e) => setNewVideoTitle(e.target.value)}
+                    className="w-full rounded-xl bg-white border border-slate-200 p-2.5 text-xs text-slate-800 font-medium"
+                  />
+                </div>
+
+                {/* DRAG & DROP VIDEO FILE */}
+                <div className="space-y-1.5">
+                  <label className="block text-[11px] font-bold text-slate-700">
+                    🎥 व्हिडिओ फाईल ड्रॅग & ड्रॉप करा (Drag & Drop Video File)
+                  </label>
+                  <VideoDropzone
+                    compact
+                    onFileSelected={(file) => {
+                      if (!newVideoTitle.trim()) {
+                        const cleanTitle = file.name.replace(/\.[^/.]+$/, "").replace(/[_]/g, " ");
+                        setNewVideoTitle(cleanTitle);
+                      }
+                      handleVideoUpload(file, (url) => setNewVideoEmbedUrl(url));
+                    }}
+                  />
+                  {newVideoEmbedUrl ? (
+                    <div className="flex items-center gap-2 p-2 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-700 truncate">
+                      <CheckCircle size={14} className="shrink-0 text-emerald-600" />
+                      <span className="truncate">व्हिडिओ फाईल तयार आहे! (Video Uploaded Successfully)</span>
+                    </div>
+                  ) : (
+                    <div className="pt-1">
+                      <input
+                        type="text"
+                        placeholder="किंवा YouTube Link / URL प्रविष्ट करा..."
+                        value={newVideoEmbedUrl}
+                        onChange={(e) => setNewVideoEmbedUrl(e.target.value)}
+                        className="w-full rounded-xl bg-white border border-slate-200 p-2 text-[11px] text-slate-700 font-medium placeholder:text-slate-400"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">व्हिडिओ माहिती (Description)</label>
+                  <input
+                    type="text"
+                    placeholder="व्हिडिओबद्दल संक्षिप्त माहिती..."
+                    value={newVideoDesc}
+                    onChange={(e) => setNewVideoDesc(e.target.value)}
+                    className="w-full rounded-xl bg-white border border-slate-200 p-2.5 text-xs text-slate-800 font-medium"
+                  />
+                </div>
+
+                <div className="flex justify-end pt-1">
+                  <button
+                    onClick={() => {
+                      if (!newVideoEmbedUrl.trim()) {
+                        showToast("⚠️ कृपया आधी व्हिडिओ फाईल ड्रॅग & ड्रॉप करा!");
+                        return;
+                      }
+                      const finalTitle = newVideoTitle.trim() || "आनंदशाळा विशेष व्हिडिओ";
+                      let finalEmbed = newVideoEmbedUrl.trim();
+                      if (finalEmbed.includes("watch?v=")) {
+                        finalEmbed = finalEmbed.replace("watch?v=", "embed/");
+                      }
+                      store.addVideoItem({
+                        title: finalTitle,
+                        category: "विशेष मनोगत",
+                        embedUrl: finalEmbed,
+                        thumbnail: newVideoThumb.trim() || "/images/Screenshot 2026-07-31 103107.png",
+                        desc: newVideoDesc.trim() || "",
+                        duration: "०३:०० मिनिटे",
+                        date: "२०२६",
+                      });
+                      store.syncAllToFirebaseCloud();
+                      setNewVideoTitle("");
+                      setNewVideoEmbedUrl("");
+                      setNewVideoThumb("");
+                      setNewVideoDesc("");
+                      showToast("✅ नवीन व्हिडिओ सेव्ह झाला!");
+                    }}
+                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white font-black text-xs shadow-md hover:scale-105 transition cursor-pointer"
+                  >
+                    + व्हिडिओ सेव्ह करा
+                  </button>
+                </div>
+              </div>
+
+              {/* EXISTING VIDEOS LIST WITH EDIT & DELETE BUTTONS */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {store.videos.map((item) => (
+                  <div key={item.id} className="relative group rounded-2xl overflow-hidden bg-white border-2 border-rose-100 p-3 space-y-2 shadow-xs">
+                    <div className="relative rounded-xl overflow-hidden bg-slate-900 h-44">
+                      <AdminVideoThumbnail embedUrl={item.embedUrl} thumbnail={item.thumbnail} title={item.title} />
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <div className="size-10 rounded-full bg-pink-600/95 text-white flex items-center justify-center border border-white shadow-md">
+                          ▶
+                        </div>
+                      </div>
+
+                      {/* EDIT & DELETE BUTTONS DIRECTLY ON VIDEO IMAGE */}
+                      <div className="absolute top-2 right-2 flex items-center gap-1.5 z-20">
+                        <button
+                          onClick={() =>
+                            openEditModal({
+                              type: "video",
+                              id: item.id,
+                              title: item.title,
+                              imageUrl: item.thumbnail,
+                              desc: item.desc || "",
+                              subtitle: item.embedUrl,
+                              onSave: (newTitle, newThumb, newEmbed, _cat, newDesc) => {
+                                let finalUrl = newEmbed || item.embedUrl;
+                                if (finalUrl.includes("watch?v=")) {
+                                  finalUrl = finalUrl.replace("watch?v=", "embed/");
+                                }
+                                store.updateVideoItem(item.id, {
+                                  title: newTitle,
+                                  thumbnail: newThumb,
+                                  embedUrl: finalUrl,
+                                  desc: newDesc,
+                                });
+                                store.syncAllToFirebaseCloud();
+                                showToast("✅ व्हिडिओ अपडेट झाला!");
+                              },
+                            })
+                          }
+                          className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1 cursor-pointer border border-rose-200"
+                        >
+                          <Edit size={12} className="text-[#db2777]" />
+                          <span>Edit</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            store.deleteVideoItem(item.id);
+                            store.syncAllToFirebaseCloud();
+                            showToast("🗑️ व्हिडिओ हटवला!");
+                          }}
+                          className="px-3 py-1 rounded-full bg-rose-600/95 backdrop-blur-md text-[11px] font-black text-white shadow-md hover:bg-rose-700 flex items-center gap-1 cursor-pointer"
+                        >
+                          <Trash2 size={12} />
+                          <span>Delete</span>
+                        </button>
+                      </div>
+
+                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-pink-600 text-white text-[9px] font-black shadow-xs">
+                        {item.category}
+                      </span>
+                    </div>
+
+                    <div className="space-y-0.5">
+                      <h4 className="text-xs font-black text-[#1A05A2] truncate">
+                        <HighlightText text={item.title} />
+                      </h4>
+                      <p className="text-[10px] text-slate-500 truncate">{item.desc || item.embedUrl}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
         {/* ================================================================== */}
-        {/* TAB 5: SPORTS CLUB PAGE IMAGES                                     */}
+        {/* SPORTS TAB 1: SPORTS HOME CARD                                      */}
         {/* ================================================================== */}
-        {activeTab === "sports" && (
+        {activeTab === "sports_home" && (
+          <div className="space-y-6 animate-fade-up">
+            <div className="flex items-center justify-between border-b border-rose-200 pb-4">
+              <div>
+                <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
+                  <Dumbbell className="text-[#db2777]" />
+                  <span>Sports Club Main Section Photo</span>
+                </h1>
+                <p className="text-xs text-slate-500 mt-1 font-semibold">
+                  Manage homepage sports club main section image.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 sm:p-6 space-y-4 shadow-sm max-w-xl">
+              <h2 className="text-base font-black text-[#810B38] flex items-center gap-2">
+                <span>🏋️‍♂️</span>
+                <span>Sports Club Main Card Photo</span>
+              </h2>
+
+              <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md">
+                <img
+                  src={siteForm.sportsImages?.[0] || "/images/sports img.png"}
+                  alt="Sports Club Card"
+                  className="w-full h-64 object-cover"
+                />
+
+                <div className="absolute top-3 right-3 flex items-center gap-2 z-20">
+                  <button
+                    onClick={() =>
+                      openEditModal({
+                        type: "sportsCard",
+                        title: siteForm.sportsTitle || "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब",
+                        imageUrl: siteForm.sportsImages?.[0] || "/images/sports img.png",
+                        onSave: (newTitle, newUrl) => {
+                          const updatedImages = [newUrl, ...(siteForm.sportsImages?.slice(1) || [])];
+                          const newForm = {
+                            ...siteForm,
+                            sportsTitle: newTitle,
+                            sportsImages: updatedImages,
+                          };
+                          setSiteForm(newForm);
+                          store.updateSiteData(newForm);
+                        },
+                      })
+                    }
+                    className="px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-black text-[#1A05A2] shadow-lg hover:bg-rose-50 hover:scale-105 transition-all flex items-center gap-1.5 border border-rose-200 cursor-pointer"
+                  >
+                    <Edit size={13} className="text-[#db2777]" />
+                    <span>Edit</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      const updatedImages = siteForm.sportsImages?.slice(1) || [];
+                      const newForm = { ...siteForm, sportsImages: updatedImages };
+                      setSiteForm(newForm);
+                      store.updateSiteData(newForm);
+                      showToast("फोटो हटवला गेला!");
+                    }}
+                    className="px-3.5 py-1.5 rounded-full bg-rose-600/95 backdrop-blur-md text-xs font-black text-white shadow-lg hover:bg-rose-700 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer border border-white/20"
+                  >
+                    <Trash2 size={13} />
+                    <span>Delete</span>
+                  </button>
+                </div>
+
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
+                  <p className="font-black text-xs drop-shadow-md truncate">
+                    {siteForm.sportsTitle || "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================== */}
+        {/* SPORTS TAB 2: SPORTS FACILITIES                                     */}
+        {/* ================================================================== */}
+        {activeTab === "sports_facilities" && (
           <div className="space-y-6 animate-fade-up">
             <div className="flex items-center justify-between border-b border-rose-200 pb-4">
               <div>
@@ -1201,7 +1708,6 @@ export default function AdminPage() {
                       {fac.icon}
                     </span>
 
-                    {/* CLEAN SINGLE ICON EDIT BUTTON ON IMAGE */}
                     <button
                       onClick={() =>
                         openEditModal({
@@ -1229,6 +1735,157 @@ export default function AdminPage() {
                       <p className="font-black text-xs drop-shadow-md truncate">{fac.title}</p>
                     </div>
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================== */}
+        {/* SPORTS TAB 3: SPORTS GALLERY                                        */}
+        {/* ================================================================== */}
+        {activeTab === "sports_gallery" && (
+          <div className="space-y-6 animate-fade-up">
+            <div className="flex items-center justify-between border-b border-rose-200 pb-4">
+              <div>
+                <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
+                  <ImageIcon className="text-[#db2777]" />
+                  <span>Sports Club Photo Gallery</span>
+                </h1>
+                <p className="text-xs text-slate-500 mt-1 font-semibold">
+                  Manage sports club gallery photos with Edit and Delete options.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {(siteForm.sportsGallery || []).map((url, idx) => (
+                <div key={idx} className="relative group rounded-2xl overflow-hidden bg-white border border-slate-200 p-2 shadow-xs">
+                  <div className="relative rounded-xl overflow-hidden bg-slate-50 border h-48">
+                    <img src={url} alt={`Sports Gallery ${idx + 1}`} className="w-full h-full object-cover" />
+
+                    <div className="absolute top-2 right-2 flex items-center gap-1.5 z-20">
+                      <button
+                        onClick={() =>
+                          openEditModal({
+                            type: "sportsGallery",
+                            title: `Sports Photo #${idx + 1}`,
+                            imageUrl: url,
+                            onSave: (_newTitle, newUrl) => {
+                              const currentGal = [...(siteForm.sportsGallery || [])];
+                              currentGal[idx] = newUrl;
+                              const newForm = { ...siteForm, sportsGallery: currentGal };
+                              setSiteForm(newForm);
+                              store.updateSiteData(newForm);
+                              showToast(`✅ Sports Photo updated!`);
+                            },
+                          })
+                        }
+                        className="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1 cursor-pointer border border-rose-200"
+                      >
+                        <Edit size={12} className="text-[#db2777]" />
+                        <span>Edit</span>
+                      </button>
+                    </div>
+
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2 text-white">
+                      <p className="font-black text-xs drop-shadow-md truncate">Sports Photo #{idx + 1}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================== */}
+        {/* SPORTS TAB 4: SPORTS BROCHURE                                      */}
+        {/* ================================================================== */}
+        {activeTab === "sports_brochure" && (
+          <div className="space-y-6 animate-fade-up">
+            <div className="flex items-center justify-between border-b border-rose-200 pb-4">
+              <div>
+                <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
+                  <FileText className="text-[#db2777]" />
+                  <span>Sports Club Brochure Scan</span>
+                </h1>
+                <p className="text-xs text-slate-500 mt-1 font-semibold">
+                  Manage sports club official brochure scan photo.
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 space-y-4 shadow-sm max-w-md">
+              <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-64">
+                <img
+                  src={siteForm.sportsBrochureUrl || "/images/Screenshot 2026-07-31 103659.png"}
+                  alt="Sports Brochure"
+                  className="w-full h-full object-cover"
+                />
+
+                <div className="absolute top-2 right-2 flex items-center gap-1.5 z-20">
+                  <button
+                    onClick={() =>
+                      openEditModal({
+                        type: "sportsBrochure",
+                        title: "Sports Club Brochure",
+                        imageUrl: siteForm.sportsBrochureUrl || "/images/Screenshot 2026-07-31 103659.png",
+                        onSave: (_newTitle, newUrl) => {
+                          const newForm = { ...siteForm, sportsBrochureUrl: newUrl };
+                          setSiteForm(newForm);
+                          store.updateSiteData(newForm);
+                          showToast("✅ Sports Brochure saved!");
+                        },
+                      })
+                    }
+                    className="px-3.5 py-1.5 rounded-full bg-white/95 text-xs font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1.5 border border-rose-200 cursor-pointer"
+                  >
+                    <Edit size={13} className="text-[#db2777]" />
+                    <span>Edit</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================== */}
+        {/* SPORTS TAB 5: SPORTS INQUIRIES                                     */}
+        {/* ================================================================== */}
+        {activeTab === "sports_inquiries" && (
+          <div className="space-y-6 animate-fade-up">
+            <div className="flex items-center justify-between border-b border-rose-200 pb-4">
+              <div>
+                <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
+                  <Mail className="text-[#db2777]" />
+                  <span>Sports Club Inquiries Messages</span>
+                </h1>
+                <p className="text-xs text-slate-500 mt-1 font-semibold">
+                  Messages received from website for sports club memberships & queries.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {store.sportsInquiries.map((inq) => (
+                <div key={inq.id} className="bg-white border-2 border-rose-100 rounded-2xl p-4 flex items-center justify-between gap-4 shadow-sm">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-black text-sm text-slate-900">{inq.name}</span>
+                      <span className="text-xs font-black text-[#db2777]">📞 {inq.phone}</span>
+                    </div>
+                    <p className="text-xs text-slate-600 font-medium">{inq.message}</p>
+                    <span className="text-[10px] text-slate-400 font-mono">{inq.date}</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      store.deleteInquiry(inq.id);
+                      showToast("Message deleted!");
+                    }}
+                    className="p-2 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl cursor-pointer"
+                  >
+                    <Trash2 size={16} />
+                  </button>
                 </div>
               ))}
             </div>

@@ -1,32 +1,32 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/lib/use-language";
-import { useAdminStore } from "@/lib/admin-store";
+import { useAdminStore, VideoItem, useResolvedVideoUrl } from "@/lib/admin-store";
 import {
   ChevronLeft,
   ChevronRight,
   X,
   Play,
-  Pause,
   Sparkles,
   Calendar,
-  Maximize2,
   ZoomIn,
   ZoomOut,
-  RotateCcw
+  RotateCcw,
 } from "lucide-react";
+import { HighlightText } from "@/components/HighlightText";
 
 // ===== Gallery Data =====
 const galleryImages = [
-  { id: 1,  titleEn: "Anandshala Campus Gallery 1", titleMr: "आनंदशाळा संकुल गॅलरी १", categoryEn: "Senior Citizen Anandshala", categoryMr: "ज्येष्ठ नागरिक आनंदशाळा", date: "26 Jan 2026", image: "/images/gallery imgage1.JPG" },
-  { id: 2,  titleEn: "Anandshala Campus View 2", titleMr: "आनंदशाळा परिसर चित्र २", categoryEn: "Senior Citizen Anandshala", categoryMr: "ज्येष्ठ नागरिक आनंदशाळा", date: "26 Jan 2026", image: "/images/gallery image2.JPG" },
-  { id: 3,  titleEn: "Anandshala Activity Photo 3", titleMr: "आनंदशाळा उपक्रम चित्र ३", categoryEn: "Special Events", categoryMr: "विशेष कार्यक्रम", date: "26 Jan 2026", image: "/images/gallery image3.JPG" },
-  { id: 4,  titleEn: "Anandshala Event Celebration 4", titleMr: "आनंदशाळा सोहळा चित्र ४", categoryEn: "Annual Function", categoryMr: "वार्षिक स्नेहसंमेलन", date: "26 Jan 2026", image: "/images/gallery image4.JPG" },
-  { id: 5,  titleEn: "Anandshala Gathering 5", titleMr: "आनंदशाळा कार्यक्रम ५", categoryEn: "Joy Festival", categoryMr: "आनंद मेळावा", date: "26 Jan 2026", image: "/images/gallery image5.JPG" },
-  { id: 6,  titleEn: "Sports & Gallery 6", titleMr: "आनंदशाळा क्रीडा & गॅलरी ६", categoryEn: "Special Events", categoryMr: "विशेष कार्यक्रम", date: "26 Jan 2026", image: "/images/gallery image6.JPG" },
-  { id: 7,  titleEn: "Anandshala Campus View 7", titleMr: "आनंदशाळा परिसर दृश्य ७", categoryEn: "Construction", categoryMr: "बांधकाम", date: "26 Jan 2026", image: "/images/gallery image7.JPG" },
-  { id: 8,  titleEn: "Anandshala Special Meet 8", titleMr: "आनंदशाळा विशेष सोहळा ८", categoryEn: "Dignitaries Visit", categoryMr: "मान्यवर भेट", date: "26 Jan 2026", image: "/images/gallery image8.JPG" },
-  { id: 9,  titleEn: "Anandbhavan Campus", titleMr: "आनंदभवन परिसर", categoryEn: "Senior Citizen Anandshala", categoryMr: "ज्येष्ठ नागरिक आनंदशाळा", date: "26 Jan 2024", image: "/images/Screenshot 2026-07-31 103107.png" },
+  { id: 1, titleEn: "Anandshala Campus Gallery 1", titleMr: "आनंदशाळा संकुल गॅलरी १", categoryEn: "Senior Citizen Anandshala", categoryMr: "ज्येष्ठ नागरिक आनंदशाळा", date: "26 Jan 2026", image: "/images/gallery imgage1.JPG" },
+  { id: 2, titleEn: "Anandshala Campus View 2", titleMr: "आनंदशाळा परिसर चित्र २", categoryEn: "Senior Citizen Anandshala", categoryMr: "ज्येष्ठ नागरिक आनंदशाळा", date: "26 Jan 2026", image: "/images/gallery image2.JPG" },
+  { id: 3, titleEn: "Anandshala Activity Photo 3", titleMr: "आनंदशाळा उपक्रम चित्र ३", categoryEn: "Special Events", categoryMr: "विशेष कार्यक्रम", date: "26 Jan 2026", image: "/images/gallery image3.JPG" },
+  { id: 4, titleEn: "Anandshala Event Celebration 4", titleMr: "आनंदशाळा सोहळा चित्र ४", categoryEn: "Annual Function", categoryMr: "वार्षिक स्नेहसंमेलन", date: "26 Jan 2026", image: "/images/gallery image4.JPG" },
+  { id: 5, titleEn: "Anandshala Gathering 5", titleMr: "आनंदशाळा कार्यक्रम ५", categoryEn: "Joy Festival", categoryMr: "आनंद मेळावा", date: "26 Jan 2026", image: "/images/gallery image5.JPG" },
+  { id: 6, titleEn: "Sports & Gallery 6", titleMr: "आनंदशाळा क्रीडा & गॅलरी ६", categoryEn: "Special Events", categoryMr: "विशेष कार्यक्रम", date: "26 Jan 2026", image: "/images/gallery image6.JPG" },
+  { id: 7, titleEn: "Anandshala Campus View 7", titleMr: "आनंदशाळा परिसर दृश्य ७", categoryEn: "Construction", categoryMr: "बांधकाम", date: "26 Jan 2026", image: "/images/gallery image7.JPG" },
+  { id: 8, titleEn: "Anandshala Special Meet 8", titleMr: "आनंदशाळा विशेष सोहळा ८", categoryEn: "Dignitaries Visit", categoryMr: "मान्यवर भेट", date: "26 Jan 2026", image: "/images/gallery image8.JPG" },
+  { id: 9, titleEn: "Anandbhavan Campus", titleMr: "आनंदभवन परिसर", categoryEn: "Senior Citizen Anandshala", categoryMr: "ज्येष्ठ नागरिक आनंदशाळा", date: "26 Jan 2024", image: "/images/Screenshot 2026-07-31 103107.png" },
   { id: 10, titleEn: "Joy Festival Celebration", titleMr: "आनंद मेळावा सोहळा", categoryEn: "Joy Festival", categoryMr: "आनंद मेळावा", date: "15 Aug 2023", image: "/images/aandmelav 10.jpeg" },
   { id: 11, titleEn: "Bhumipujan Ceremony", titleMr: "भूमिपूजन कार्यक्रम", categoryEn: "Bhumipujan", categoryMr: "भूमिपूजन", date: "09 Jan 2024", image: "/images/ropya mahotsv1.jpg" },
   { id: 12, titleEn: "Annual Gathering Meetup", titleMr: "वार्षिक स्नेहसंमेलन", categoryEn: "Annual Function", categoryMr: "वार्षिक स्नेहसंमेलन", date: "25 Dec 2023", image: "/images/aandshala sahal 1.jpeg" },
@@ -58,14 +58,16 @@ const categoryList = [
   { key: "special", labelEn: "Special Events", labelMr: "विशेष कार्यक्रम" },
 ];
 
+const videoGalleryItems: VideoItem[] = [];
+
 function Gallery() {
   const { isEn } = useLanguage();
   const store = useAdminStore();
+  const [activeGalleryType, setActiveGalleryType] = useState<"photos" | "videos">("photos");
   const [selectedKey, setSelectedKey] = useState("all");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const selectedCatObj = categoryList.find(c => c.key === selectedKey);
 
@@ -82,6 +84,8 @@ function Gallery() {
         }))
       : galleryImages;
 
+  const activeVideos = store.videos || [];
+
   const filteredImages =
     selectedKey === "all"
       ? activeGalleryImages
@@ -90,15 +94,8 @@ function Gallery() {
           return item.categoryMr.includes(selectedCatObj.labelMr) || item.categoryEn.includes(selectedCatObj.labelEn);
         });
 
-  const openImage = (index: number) => {
-    setSelectedIndex(index);
-    setIsPlaying(false);
-    setZoomLevel(1);
-  };
-
   const closeImage = () => {
     setSelectedIndex(null);
-    setIsPlaying(false);
     setZoomLevel(1);
   };
 
@@ -130,25 +127,10 @@ function Gallery() {
     return () => window.removeEventListener("keydown", handleKey);
   }, [selectedIndex, filteredImages.length]);
 
-  // Slideshow auto-play effect
-  useEffect(() => {
-    if (isPlaying && selectedIndex !== null) {
-      timerRef.current = setInterval(() => {
-        nextImage();
-      }, 3000);
-    } else if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isPlaying, selectedIndex, filteredImages.length]);
-
   const activePhoto = selectedIndex !== null ? filteredImages[selectedIndex] : null;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#f8fafc] via-[#f1f5f9] to-[#ffffff]">
-
       {/* Ambient background glows */}
       <div className="fixed top-0 left-0 w-96 h-96 bg-pink-200/30 rounded-full blur-[120px] pointer-events-none" />
       <div className="fixed bottom-0 right-0 w-96 h-96 bg-purple-200/30 rounded-full blur-[120px] pointer-events-none" />
@@ -179,140 +161,174 @@ function Gallery() {
           box-shadow: 0 20px 45px rgba(236, 72, 153, 0.3), 0 0 25px rgba(139, 92, 246, 0.2);
           animation-duration: 2.5s;
         }
-        .gal-img-wrapper::after {
-          content: "";
-          position: absolute;
-          top: -50%;
-          left: -60%;
-          width: 50%;
-          height: 200%;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.45),
-            transparent
-          );
-          transform: rotate(25deg);
-          transition: all 0.75s ease;
-          pointer-events: none;
-          opacity: 0;
-          z-index: 10;
-        }
-        .gallery-card-anim:hover .gal-img-wrapper::after {
-          left: 130%;
-          opacity: 1;
-        }
       `}</style>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
-
         {/* ===== HEADING ===== */}
-        <div className="text-center mb-8 sm:mb-12">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-sm border border-pink-200 text-pink-600 font-bold text-xs sm:text-sm">
-            <Sparkles size={16} />
-            {isEn ? "Photo Gallery • GALLERY" : "फोटो गॅलरी • GALLERY"}
-          </span>
-
-          <h1 className="mt-3 text-3xl sm:text-5xl font-black text-[#541A1A]">
-            {isEn ? <><span className="text-pink-600">Anandshala</span> Photo Gallery</> : <><span className="text-pink-600">आनंदशाळा</span> फोटो गॅलरी</>}
+        <div className="text-center mb-8 sm:mb-10">
+          <h1 className="text-3xl sm:text-5xl font-black text-[#541A1A]">
+            {isEn ? <><span className="text-pink-600">Anandshala</span> Gallery</> : <><span className="text-pink-600">आनंदशाळा</span> गॅलरी</>}
           </h1>
 
           <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto font-medium">
-            सांगलीच्या कुशीत, निसर्गरम्य १५ एकर परिसरात साकारलेल्या आनंदी क्षणांची सुंदर चित्रे.
+            सांगलीच्या कुशीत, निसर्गरम्य १५ एकर परिसरात साकारलेल्या आनंदी क्षणांची सुंदर चित्रे व व्हिडीओ.
           </p>
 
           <div className="mt-6 w-24 h-1 rounded-full mx-auto bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500" />
         </div>
 
-        {/* ===== CATEGORY FILTER BUTTONS ===== */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
-          {categoryList.map((category) => {
-            const isActive = selectedKey === category.key;
-            return (
-              <button
-                key={category.key}
-                onClick={() => {
-                  setSelectedKey(category.key);
-                  setSelectedIndex(null);
-                }}
-                className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
-                  isActive
-                    ? "bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md scale-105"
-                    : "bg-white text-slate-700 border border-slate-200 hover:border-pink-300 hover:text-pink-600 hover:shadow-sm"
-                }`}
-              >
-                {isEn ? category.labelEn : category.labelMr}
-              </button>
-            );
-          })}
+        {/* ===== 2 MAIN GALLERY MODE SWITCHER BUTTONS (PHOTOS vs VIDEOS) ===== */}
+        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-10">
+          <button
+            onClick={() => {
+              setActiveGalleryType("photos");
+              setSelectedVideo(null);
+            }}
+            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
+              activeGalleryType === "photos"
+                ? "bg-[#810B38] text-white shadow-md"
+                : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
+            }`}
+          >
+            {isEn ? "Photo Gallery" : "फोटो गॅलरी"}
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveGalleryType("videos");
+              setSelectedIndex(null);
+            }}
+            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
+              activeGalleryType === "videos"
+                ? "bg-[#810B38] text-white shadow-md"
+                : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
+            }`}
+          >
+            {isEn ? "Video Gallery" : "व्हिडिओ गॅलरी"}
+          </button>
         </div>
 
-        {/* ===== PHOTO COUNT INFO ===== */}
-        <p className="text-center text-xs sm:text-sm font-semibold text-slate-500 mb-8">
-          {isEn
-            ? <>Total <span className="text-pink-600 font-extrabold">{filteredImages.length}</span> photos available (Click any photo to view in fullscreen slider)</>
-            : <>एकूण <span className="text-pink-600 font-extrabold">{filteredImages.length}</span> फोटो उपलब्ध (फोटोवर क्लीक करून मोठ्या स्क्रीनवर स्लाइडर पहा)</>}
-        </p>
+        {/* ===== VIEW 1: PHOTO GALLERY ===== */}
+        {activeGalleryType === "photos" && (
+          <div className="space-y-6">
+            {/* CATEGORY FILTER BUTTONS */}
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
+              {categoryList.map((category) => {
+                const isActive = selectedKey === category.key;
+                return (
+                  <button
+                    key={category.key}
+                    onClick={() => {
+                      setSelectedKey(category.key);
+                      setSelectedIndex(null);
+                    }}
+                    className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
+                      isActive
+                        ? "bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md scale-105"
+                        : "bg-white text-slate-700 border border-slate-200 hover:border-pink-300 hover:text-pink-600 hover:shadow-sm"
+                    }`}
+                  >
+                    {isEn ? category.labelEn : category.labelMr}
+                  </button>
+                );
+              })}
+            </div>
 
-        {/* ===== GALLERY CARDS GRID ===== */}
-        {filteredImages.length === 0 ? (
-          <div className="text-center py-16 text-slate-400 font-semibold">
-            {isEn ? "No photos available in this category." : "या श्रेणीत फोटो उपलब्ध नाहीत."}
+            {/* GALLERY CARDS GRID */}
+            {filteredImages.length === 0 ? (
+              <div className="text-center py-16 text-slate-400 font-semibold">
+                {isEn ? "No photos available in this category." : "या श्रेणीत फोटो उपलब्ध नाहीत."}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredImages.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.03 }}
+                    onClick={() => {
+                      setSelectedIndex(index);
+                      setZoomLevel(1);
+                    }}
+                    className="gallery-card-anim group cursor-pointer relative w-full h-[260px] sm:h-[300px] rounded-2xl overflow-hidden shadow-md"
+                  >
+                    <img
+                      src={item.image}
+                      alt={isEn ? item.titleEn : item.titleMr}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "/images/gallery imgage1.JPG";
+                      }}
+                    />
+
+                    <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none z-10" />
+
+                    <div className="absolute top-3 left-3 z-20">
+                      <span className="bg-pink-600/95 text-white text-[11px] font-extrabold px-3 py-1 rounded-full shadow-md border border-white/20">
+                        {isEn ? item.categoryEn : item.categoryMr}
+                      </span>
+                    </div>
+
+                    <div className="absolute top-3 right-3 z-20">
+                      <span className="bg-black/60 text-white text-[10.5px] font-bold px-2.5 py-1 rounded-full border border-white/20">
+                        📸 HD
+                      </span>
+                    </div>
+
+                    <div className="absolute bottom-2.5 inset-x-3 text-white z-20">
+                      <div className="flex items-center gap-1.5 text-pink-300 text-[11px] font-bold mb-0.5">
+                        <Calendar size={12} />
+                        <span>{item.date}</span>
+                      </div>
+                      <h3 className="text-sm sm:text-base font-black text-[#60a5fa] line-clamp-1 group-hover:text-blue-300 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                        <HighlightText text={isEn ? item.titleEn : item.titleMr} />
+                      </h3>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredImages.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.03 }}
-                onClick={() => {
-                  setSelectedIndex(index);
-                  setIsPlaying(false);
-                  setZoomLevel(1);
-                }}
-                className="gallery-card-anim gal-img-wrapper group cursor-pointer relative w-full h-[260px] sm:h-[300px] rounded-2xl overflow-hidden shadow-md"
-              >
-                {/* 100% PURE FULL-COVERAGE CRYSTAL CLEAR PHOTO */}
-                <img
-                  src={item.image}
-                  alt={isEn ? item.titleEn : item.titleMr}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/images/gallery imgage1.JPG";
-                  }}
-                />
+        )}
 
-                {/* MINIMAL SLIM BOTTOM GRADIENT OVERLAY ONLY FOR TEXT READABILITY */}
-                <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none z-10" />
+        {/* ===== VIEW 2: VIDEO GALLERY ===== */}
+        {activeGalleryType === "videos" && (
+          <div className="space-y-6">
+            {activeVideos.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {activeVideos.map((item) => (
+                    <div
+                      key={item.id}
+                      onClick={() => setSelectedVideo(item)}
+                      className="bg-white border-2 border-pink-100 rounded-3xl p-4 space-y-3 shadow-md hover:border-pink-300 hover:shadow-xl transition-all cursor-pointer group relative overflow-hidden"
+                    >
+                      <div className="relative rounded-2xl overflow-hidden bg-slate-900 h-52">
+                        <VideoCardThumbnail embedUrl={item.embedUrl} thumbnail={item.thumbnail} title={item.title} />
+                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                          <div className="size-14 rounded-full bg-pink-600/95 text-white flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform border-2 border-white">
+                            <Play size={24} className="ml-1 fill-white" />
+                          </div>
+                        </div>
+                        <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-pink-600 text-white text-[10px] font-black shadow-md">
+                          {item.category || "विशेष मनोगत"}
+                        </span>
+                        <span className="absolute bottom-2 right-2 px-2.5 py-1 rounded-full bg-black/70 text-white text-[10px] font-bold border border-white/20">
+                          ⏱️ {item.duration || "०३:०० मिनिटे"}
+                        </span>
+                      </div>
 
-                {/* TOP BADGES */}
-                <div className="absolute top-3 left-3 z-20">
-                  <span className="bg-pink-600/95 text-white text-[11px] font-extrabold px-3 py-1 rounded-full shadow-md border border-white/20">
-                    {isEn ? item.categoryEn : item.categoryMr}
-                  </span>
+                      <div className="space-y-1">
+                        <h3 className="text-sm font-black text-[#1A05A2] group-hover:text-pink-600 transition-colors line-clamp-2">
+                          <HighlightText text={item.title} />
+                        </h3>
+                        <p className="text-xs text-slate-500 font-medium line-clamp-2 leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-
-                <div className="absolute top-3 right-3 z-20">
-                  <span className="bg-black/60 text-white text-[10.5px] font-bold px-2.5 py-1 rounded-full border border-white/20">
-                    📸 HD
-                  </span>
-                </div>
-
-                {/* CRISP MINIMALIST TEXT OVERLAY AT BOTTOM EDGE */}
-                <div className="absolute bottom-2.5 inset-x-3 text-white z-20">
-                  <div className="flex items-center gap-1.5 text-pink-300 text-[11px] font-bold mb-0.5">
-                    <Calendar size={12} />
-                    <span>{item.date}</span>
-                  </div>
-                  <h3 className="text-sm sm:text-base font-extrabold text-white line-clamp-1 group-hover:text-pink-300 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-                    {isEn ? item.titleEn : item.titleMr}
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
+            )}
           </div>
         )}
       </div>
@@ -430,6 +446,104 @@ function Gallery() {
         )}
       </AnimatePresence>
 
+      {/* ===== VIDEO MODAL PLAYER ===== */}
+      {selectedVideo && typeof document !== "undefined" && createPortal(
+        <VideoModalPlayer selectedVideo={selectedVideo} onClose={() => setSelectedVideo(null)} />,
+        document.body
+      )}
+
+    </div>
+  );
+}
+
+function VideoCardThumbnail({ embedUrl, thumbnail, title }: { embedUrl: string; thumbnail?: string; title: string }) {
+  const resolvedUrl = useResolvedVideoUrl(embedUrl);
+  const isDirect =
+    resolvedUrl.startsWith("data:") ||
+    resolvedUrl.startsWith("blob:") ||
+    resolvedUrl.startsWith("idb:") ||
+    resolvedUrl.endsWith(".mp4") ||
+    resolvedUrl.endsWith(".webm") ||
+    resolvedUrl.endsWith(".mov") ||
+    resolvedUrl.includes("firebasestorage.googleapis.com");
+
+  if (isDirect && resolvedUrl) {
+    return (
+      <video
+        src={resolvedUrl}
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        muted
+        preload="metadata"
+      />
+    );
+  }
+
+  return (
+    <img
+      src={thumbnail && !thumbnail.includes("Screenshot") ? thumbnail : "/images/gallery imgage1.JPG"}
+      alt={title}
+      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      onError={(e) => {
+        (e.target as HTMLImageElement).src = "/images/gallery imgage1.JPG";
+      }}
+    />
+  );
+}
+
+function VideoModalPlayer({ selectedVideo, onClose }: { selectedVideo: VideoItem; onClose: () => void }) {
+  const resolvedUrl = useResolvedVideoUrl(selectedVideo.embedUrl);
+  const isDirect =
+    resolvedUrl.startsWith("data:") ||
+    resolvedUrl.startsWith("blob:") ||
+    resolvedUrl.startsWith("idb:") ||
+    resolvedUrl.endsWith(".mp4") ||
+    resolvedUrl.endsWith(".webm") ||
+    resolvedUrl.endsWith(".mov") ||
+    resolvedUrl.includes("firebasestorage.googleapis.com");
+
+  return (
+    <div
+      className="fixed inset-0 z-[999999] bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div
+        className="bg-slate-900 border-2 border-pink-500 rounded-3xl max-w-3xl w-full p-4 sm:p-6 relative shadow-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 size-10 rounded-full bg-white/20 hover:bg-rose-600 text-white flex items-center justify-center transition cursor-pointer z-30"
+        >
+          <X size={20} />
+        </button>
+
+        <h3 className="text-base sm:text-lg font-black text-white pr-12 mb-3">
+          <HighlightText text={selectedVideo.title} />
+        </h3>
+
+        <div className="relative rounded-2xl overflow-hidden bg-black aspect-video w-full shadow-xl border border-white/10">
+          {isDirect ? (
+            <video
+              src={resolvedUrl}
+              controls
+              autoPlay
+              className="w-full h-full object-contain"
+            />
+          ) : (
+            <iframe
+              src={`${selectedVideo.embedUrl.includes("watch?v=") ? selectedVideo.embedUrl.replace("watch?v=", "embed/") : selectedVideo.embedUrl}?autoplay=1`}
+              title={selectedVideo.title}
+              className="w-full h-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          )}
+        </div>
+
+        <p className="text-xs text-slate-300 font-semibold mt-3">
+          {selectedVideo.desc}
+        </p>
+      </div>
     </div>
   );
 }

@@ -414,7 +414,6 @@ const AnandshalaStory: React.FC = () => {
                 whileHover={{ y: -14 }}
                 className="group relative p-[3.5px] rounded-[2.6rem] bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-pink-400 hover:via-purple-400 hover:to-rose-500 shadow-xl hover:shadow-[0_25px_80px_rgba(219,39,119,0.45)] transition-all duration-500 cursor-pointer"
                 onClick={() => setSelectedPillar(item)}
-                title={`${item.title} - सविस्तर माहिती पाहण्यासाठी क्लीक करा`}
               >
                 {/* INNER CARD BODY */}
                 <div className="as-pillar-card bg-white rounded-[2.35rem] overflow-hidden size-full flex flex-col justify-between">
@@ -453,11 +452,6 @@ const AnandshalaStory: React.FC = () => {
                       <p className="as-pillar-desc text-base sm:text-lg font-extrabold text-slate-700 leading-relaxed">
                         {item.desc}
                       </p>
-
-                      <div className="mt-4 text-xs sm:text-sm font-black text-pink-600 flex items-center gap-1">
-                        <span>सविस्तर माहिती पहा</span>
-                        <span>→</span>
-                      </div>
                     </div>
                   </div>
 

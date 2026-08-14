@@ -109,6 +109,112 @@ export async function uploadImageToFirebase(file: File, pathFolder = "admin_uplo
 }
 
 // ============================================================================
+// INDEXEDDB HELPER FOR LARGE MEDIA (VIDEOS)
+// ============================================================================
+let idbDatabasePromise: Promise<IDBDatabase> | null = null;
+
+function getIDBDatabase(): Promise<IDBDatabase> {
+  if (idbDatabasePromise) return idbDatabasePromise;
+  idbDatabasePromise = new Promise((resolve, reject) => {
+    if (typeof window === "undefined" || !window.indexedDB) {
+      return reject("IndexedDB not supported");
+    }
+    const req = indexedDB.open("anandshala_videos_db", 1);
+    req.onupgradeneeded = (e: any) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains("videos")) {
+        db.createObjectStore("videos");
+      }
+    };
+    req.onsuccess = (e: any) => resolve(e.target.result);
+    req.onerror = (e: any) => reject(e.target.error);
+  });
+  return idbDatabasePromise;
+}
+
+export async function saveVideoToIndexedDB(id: string, fileOrBlob: Blob | File): Promise<string> {
+  try {
+    const db = await getIDBDatabase();
+    return new Promise((resolve) => {
+      const tx = db.transaction("videos", "readwrite");
+      const store = tx.objectStore("videos");
+      store.put(fileOrBlob, id);
+      tx.oncomplete = () => resolve(`idb:${id}`);
+      tx.onerror = () => resolve("");
+    });
+  } catch {
+    return "";
+  }
+}
+
+export async function getVideoFromIndexedDB(id: string): Promise<string> {
+  try {
+    const db = await getIDBDatabase();
+    return new Promise((resolve) => {
+      const tx = db.transaction("videos", "readonly");
+      const store = tx.objectStore("videos");
+      const getReq = store.get(id);
+      getReq.onsuccess = () => {
+        const val = getReq.result;
+        if (!val) return resolve("");
+        if (typeof val === "string") return resolve(val);
+        if (val instanceof Blob || val instanceof File) return resolve(URL.createObjectURL(val));
+        resolve("");
+      };
+      getReq.onerror = () => resolve("");
+    });
+  } catch {
+    return "";
+  }
+}
+
+export function useResolvedVideoUrl(url?: string) {
+  const [resolvedUrl, setResolvedUrl] = useState(url || "");
+
+  useEffect(() => {
+    if (!url) {
+      setResolvedUrl("");
+      return;
+    }
+    if (url.startsWith("idb:")) {
+      const vidId = url.replace("idb:", "");
+      getVideoFromIndexedDB(vidId).then((blobUrl) => {
+        if (blobUrl) setResolvedUrl(blobUrl);
+        else setResolvedUrl(url);
+      });
+    } else {
+      setResolvedUrl(url);
+    }
+  }, [url]);
+
+  return resolvedUrl;
+}
+
+export async function uploadVideoToFirebase(file: File, pathFolder = "admin_videos"): Promise<string> {
+  try {
+    const videoId = `vid_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const idbRef = await saveVideoToIndexedDB(videoId, file);
+    const localUrl = idbRef || URL.createObjectURL(file);
+
+    // Asynchronously attempt Firebase Storage upload in background without blocking UI
+    setTimeout(async () => {
+      try {
+        const cleanName = file.name.replace(/[^a-zA-Z0-9.]/g, "_");
+        const fileRef = ref(storage, `${pathFolder}/${Date.now()}_${cleanName}`);
+        await uploadBytes(fileRef, file);
+      } catch (err) {
+        console.warn("Background Firebase Storage video upload notice:", err);
+      }
+    }, 20);
+
+    return localUrl;
+  } catch (err) {
+    console.error("Video processing error:", err);
+    return URL.createObjectURL(file);
+  }
+}
+
+// ============================================================================
 // TYPES
 // ============================================================================
 
@@ -275,9 +381,22 @@ export type BrochureItem = {
   date: string;
 };
 
+export type VideoItem = {
+  id: string;
+  title: string;
+  category: string;
+  embedUrl: string;
+  thumbnail: string;
+  duration?: string;
+  date?: string;
+  desc?: string;
+};
+
 // ============================================================================
 // INITIAL DEFAULT DATA
 // ============================================================================
+
+export const initialVideos: VideoItem[] = [];
 
 export const initialPackages: PackageItem[] = [
   {
@@ -593,8 +712,6 @@ const initialTestimonials: TestimonialItem[] = [
     name: "डॉ. गिरीश ओक (अभिनेते व ब्रँड ॲम्बेसेडर)",
     role: "प्रसिद्ध अभिनेते व ज्येष्ठ नागरिक मार्गदर्शक",
     text: "आनंदात जगायचं, आरोग्य जपायचं, प्रीतम आनंदशाळेत येऊन स्वप्न साकारायचं! सांगलीतील हा पहिलाच जागतिक दर्जाचा प्रकल्प आहे.",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    videoThumbnail: "/images/Screenshot 2026-07-31 103107.png",
     rating: 5,
     approved: true,
     date: "३१ जुलै २०२६",
@@ -604,8 +721,6 @@ const initialTestimonials: TestimonialItem[] = [
     name: "श्री. प्रकाश देशपांडे व परिवार",
     role: "निवृत्त बँक अधिकारी, सांगली",
     text: "आनंदशाळेच्या १ दिवस सहल पासमध्ये अतिशय कौटुंबिक व आनंददायी अनुभव मिळाला.",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    videoThumbnail: "/images/aandshala sahal 1.jpeg",
     rating: 5,
     approved: true,
     date: "२८ जुलै २०२६",
@@ -943,6 +1058,7 @@ export const STORAGE_KEYS = {
   homeNews: "anandshala_homenews_data_v1",
   schedule: "anandshala_schedule_data_v1",
   sportsSchedule: "anandshala_sports_schedule_data_v1",
+  videos: "anandshala_videos_data_v1",
 };
 
 export function getStoredData<T>(key: string, fallback: T): T {
@@ -957,23 +1073,59 @@ export function getStoredData<T>(key: string, fallback: T): T {
   }
 }
 
+export function getStoredTimestamp(key: string): number {
+  if (typeof window === "undefined") return 0;
+  try {
+    const ts = localStorage.getItem(`${key}_timestamp`);
+    return ts ? parseInt(ts, 10) : 0;
+  } catch {
+    return 0;
+  }
+}
+
 export function setStoredData<T>(key: string, data: T): void {
   if (typeof window === "undefined") return;
   const cleanData = sanitizeBlobUrls(data);
+  const now = Date.now();
   if (typeof cleanData === "object" && cleanData !== null) {
-    (cleanData as any).updatedAt = Date.now();
+    (cleanData as any).updatedAt = now;
   }
   try {
     localStorage.setItem(key, JSON.stringify(cleanData));
-    window.dispatchEvent(new Event("admin_store_updated"));
+    localStorage.setItem(`${key}_timestamp`, now.toString());
   } catch (e: any) {
-    console.error("LocalStorage save warning:", e);
+    console.warn("LocalStorage save warning (Quota fallback):", e);
+    try {
+      if (Array.isArray(cleanData)) {
+        const compact = cleanData.map((item: any) => {
+          if (item && item.embedUrl && item.embedUrl.startsWith("data:video/") && item.embedUrl.length > 50000) {
+            return { ...item, embedUrl: "/images/sample.jpg" };
+          }
+          return item;
+        });
+        localStorage.setItem(key, JSON.stringify(compact));
+        localStorage.setItem(`${key}_timestamp`, now.toString());
+      }
+    } catch {}
   }
+
+  try {
+    window.dispatchEvent(new Event("admin_store_updated"));
+  } catch {}
 
   // Asynchronously sync to Firestore Database
   try {
+    let cloudPayload = cleanData;
+    if (Array.isArray(cleanData)) {
+      cloudPayload = cleanData.map((item: any) => {
+        if (item && item.embedUrl && item.embedUrl.startsWith("data:video/") && item.embedUrl.length > 200000) {
+          return { ...item, embedUrl: "/images/sample.jpg" };
+        }
+        return item;
+      }) as any;
+    }
     const docRef = doc(db, "app_data", key);
-    setDoc(docRef, { data: cleanData }, { merge: true }).catch((err) => {
+    setDoc(docRef, { data: cloudPayload, updatedAt: now }, { merge: true }).catch((err) => {
       console.warn("Firestore sync warning for", key, err);
     });
   } catch (err) {
@@ -1088,6 +1240,10 @@ export function useAdminStore() {
     getStoredData(STORAGE_KEYS.homeNews, initialHomeNews)
   );
 
+  const [videos, setVideosState] = useState<VideoItem[]>(() =>
+    getStoredData(STORAGE_KEYS.videos, initialVideos)
+  );
+
   const [scheduleConfig, setScheduleConfigState] = useState<ScheduleConfig>(() =>
     getStoredData(STORAGE_KEYS.schedule, initialScheduleConfig)
   );
@@ -1099,6 +1255,7 @@ export function useAdminStore() {
     if (!siteData.activityHalls || siteData.activityHalls.length === 0 || siteData.activityHalls[0]?.title !== "बैठे खेळ हॉल") {
       restoreBaitheKhelHall();
     }
+    syncAllToFirebaseCloud().catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -1112,6 +1269,7 @@ export function useAdminStore() {
       setPackagesState(getStoredData(STORAGE_KEYS.packages, initialPackages));
       setBrochuresState(getStoredData(STORAGE_KEYS.brochures, initialBrochures));
       setHomeNewsState(getStoredData(STORAGE_KEYS.homeNews, initialHomeNews));
+      setVideosState(getStoredData(STORAGE_KEYS.videos, initialVideos));
       setScheduleConfigState(getStoredData(STORAGE_KEYS.schedule, initialScheduleConfig));
       setSportsScheduleConfigState(getStoredData(STORAGE_KEYS.sportsSchedule, initialSportsScheduleConfig));
     };
@@ -1124,6 +1282,10 @@ export function useAdminStore() {
     try {
       const siteUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.site), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const remoteTs = snapshot.data()?.updatedAt || 0;
+          const localTs = getStoredTimestamp(STORAGE_KEYS.site);
+          if (localTs > remoteTs) return;
+
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (val && typeof val === "object") {
             setSiteDataState((prev) => {
@@ -1138,6 +1300,10 @@ export function useAdminStore() {
 
       const aboutUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.about), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const remoteTs = snapshot.data()?.updatedAt || 0;
+          const localTs = getStoredTimestamp(STORAGE_KEYS.about);
+          if (localTs > remoteTs) return;
+
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (val && typeof val === "object") {
             setAboutDataState((prev) => ({ ...prev, ...val }));
@@ -1149,6 +1315,10 @@ export function useAdminStore() {
 
       const galleryUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.gallery), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const remoteTs = snapshot.data()?.updatedAt || 0;
+          const localTs = getStoredTimestamp(STORAGE_KEYS.gallery);
+          if (localTs > remoteTs) return;
+
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
             setGalleryState(val);
@@ -1158,8 +1328,27 @@ export function useAdminStore() {
       });
       unsubscribes.push(galleryUnsub);
 
+      const videosUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.videos), (snapshot) => {
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const remoteTs = snapshot.data()?.updatedAt || 0;
+          const localTs = getStoredTimestamp(STORAGE_KEYS.videos);
+          if (localTs > remoteTs) return;
+
+          const val = sanitizeBlobUrls(snapshot.data().data);
+          if (Array.isArray(val) && val.length > 0) {
+            setVideosState(val);
+            try { localStorage.setItem(STORAGE_KEYS.videos, JSON.stringify(val)); } catch (e) { }
+          }
+        }
+      });
+      unsubscribes.push(videosUnsub);
+
       const inquiriesUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.inquiries), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const remoteTs = snapshot.data()?.updatedAt || 0;
+          const localTs = getStoredTimestamp(STORAGE_KEYS.inquiries);
+          if (localTs > remoteTs) return;
+
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val)) {
             setInquiriesState(val);
@@ -1171,6 +1360,10 @@ export function useAdminStore() {
 
       const brochuresUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.brochures), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const remoteTs = snapshot.data()?.updatedAt || 0;
+          const localTs = getStoredTimestamp(STORAGE_KEYS.brochures);
+          if (localTs > remoteTs) return;
+
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
             setBrochuresState(val);
@@ -1217,6 +1410,35 @@ export function useAdminStore() {
     const updated = gallery.filter((g) => g.id !== id);
     setGalleryState(updated);
     setStoredData(STORAGE_KEYS.gallery, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.gallery), { data: updated, updatedAt: now });
+      setDoc(doc(db, "gallery_collection", "all"), { items: updated, updatedAt: now });
+    } catch (_) {}
+  };
+
+  const addVideoItem = (video: Omit<VideoItem, "id">) => {
+    const newVid: VideoItem = { id: `vid-${Date.now()}`, ...video };
+    const updated = [newVid, ...videos];
+    setVideosState(updated);
+    setStoredData(STORAGE_KEYS.videos, updated);
+  };
+
+  const updateVideoItem = (id: string, updatedVid: Partial<VideoItem>) => {
+    const updated = videos.map((v) => (v.id === id ? { ...v, ...updatedVid } : v));
+    setVideosState(updated);
+    setStoredData(STORAGE_KEYS.videos, updated);
+  };
+
+  const deleteVideoItem = (id: string) => {
+    const updated = videos.filter((v) => v.id !== id);
+    setVideosState(updated);
+    setStoredData(STORAGE_KEYS.videos, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
+      setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const addInquiry = (inquiry: Omit<InquiryItem, "id" | "date" | "read">) => {
@@ -1321,6 +1543,11 @@ export function useAdminStore() {
     const updated = brochures.filter((b) => b.id !== id);
     setBrochuresState(updated);
     setStoredData(STORAGE_KEYS.brochures, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: updated, updatedAt: now });
+      setDoc(doc(db, "brochures_collection", "all"), { items: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const addHomeNews = (item: Omit<HomeNewsItem, "id" | "date">) => {
@@ -1441,21 +1668,31 @@ export function useAdminStore() {
   const anandshalaInquiries = inquiries.filter((i) => !isSportsInquiryItem(i));
 
   const syncAllToFirebaseCloud = async () => {
+    const now = Date.now();
+    const sanitizedCloudVideos = videos.map((v) => {
+      if (v.embedUrl && v.embedUrl.startsWith("data:video/") && v.embedUrl.length > 300000) {
+        return { ...v, embedUrl: "/images/sample.jpg" };
+      }
+      return v;
+    });
+
     const itemsToSync = [
-      { name: "site", ref: doc(db, "app_data", STORAGE_KEYS.site), payload: { data: siteData } },
-      { name: "about", ref: doc(db, "app_data", STORAGE_KEYS.about), payload: { data: aboutData } },
-      { name: "gallery", ref: doc(db, "app_data", STORAGE_KEYS.gallery), payload: { data: gallery } },
-      { name: "inquiries", ref: doc(db, "app_data", STORAGE_KEYS.inquiries), payload: { data: inquiries } },
-      { name: "testimonials", ref: doc(db, "app_data", STORAGE_KEYS.testimonials), payload: { data: testimonials } },
-      { name: "packages", ref: doc(db, "app_data", STORAGE_KEYS.packages), payload: { data: packages } },
-      { name: "brochures", ref: doc(db, "app_data", STORAGE_KEYS.brochures), payload: { data: brochures } },
-      { name: "homeNews", ref: doc(db, "app_data", STORAGE_KEYS.homeNews), payload: { data: homeNews } },
-      { name: "schedule", ref: doc(db, "app_data", STORAGE_KEYS.schedule), payload: { data: scheduleConfig } },
-      { name: "sportsSchedule", ref: doc(db, "app_data", STORAGE_KEYS.sportsSchedule), payload: { data: sportsScheduleConfig } },
-      { name: "site_settings", ref: doc(db, "site_settings", "general"), payload: { siteData } },
-      { name: "gallery_collection", ref: doc(db, "gallery_collection", "all"), payload: { items: gallery } },
-      { name: "inquiries_collection", ref: doc(db, "inquiries_collection", "all"), payload: { items: inquiries } },
-      { name: "brochures_collection", ref: doc(db, "brochures_collection", "all"), payload: { items: brochures } },
+      { name: "site", key: STORAGE_KEYS.site, ref: doc(db, "app_data", STORAGE_KEYS.site), payload: { data: siteData, updatedAt: now } },
+      { name: "about", key: STORAGE_KEYS.about, ref: doc(db, "app_data", STORAGE_KEYS.about), payload: { data: aboutData, updatedAt: now } },
+      { name: "gallery", key: STORAGE_KEYS.gallery, ref: doc(db, "app_data", STORAGE_KEYS.gallery), payload: { data: gallery, updatedAt: now } },
+      { name: "inquiries", key: STORAGE_KEYS.inquiries, ref: doc(db, "app_data", STORAGE_KEYS.inquiries), payload: { data: inquiries, updatedAt: now } },
+      { name: "testimonials", key: STORAGE_KEYS.testimonials, ref: doc(db, "app_data", STORAGE_KEYS.testimonials), payload: { data: testimonials, updatedAt: now } },
+      { name: "packages", key: STORAGE_KEYS.packages, ref: doc(db, "app_data", STORAGE_KEYS.packages), payload: { data: packages, updatedAt: now } },
+      { name: "brochures", key: STORAGE_KEYS.brochures, ref: doc(db, "app_data", STORAGE_KEYS.brochures), payload: { data: brochures, updatedAt: now } },
+      { name: "homeNews", key: STORAGE_KEYS.homeNews, ref: doc(db, "app_data", STORAGE_KEYS.homeNews), payload: { data: homeNews, updatedAt: now } },
+      { name: "schedule", key: STORAGE_KEYS.schedule, ref: doc(db, "app_data", STORAGE_KEYS.schedule), payload: { data: scheduleConfig, updatedAt: now } },
+      { name: "sportsSchedule", key: STORAGE_KEYS.sportsSchedule, ref: doc(db, "app_data", STORAGE_KEYS.sportsSchedule), payload: { data: sportsScheduleConfig, updatedAt: now } },
+      { name: "videos", key: STORAGE_KEYS.videos, ref: doc(db, "app_data", STORAGE_KEYS.videos), payload: { data: sanitizedCloudVideos, updatedAt: now } },
+      { name: "site_settings", key: "general", ref: doc(db, "site_settings", "general"), payload: { siteData, updatedAt: now } },
+      { name: "gallery_collection", key: "all_gallery", ref: doc(db, "gallery_collection", "all"), payload: { items: gallery, updatedAt: now } },
+      { name: "inquiries_collection", key: "all_inquiries", ref: doc(db, "inquiries_collection", "all"), payload: { items: inquiries, updatedAt: now } },
+      { name: "brochures_collection", key: "all_brochures", ref: doc(db, "brochures_collection", "all"), payload: { items: brochures, updatedAt: now } },
+      { name: "videos_collection", key: "all_videos", ref: doc(db, "videos_collection", "all"), payload: { items: sanitizedCloudVideos, updatedAt: now } },
     ];
 
     let successCount = 0;
@@ -1464,6 +1701,9 @@ export function useAdminStore() {
     for (const item of itemsToSync) {
       try {
         await setDoc(item.ref, item.payload, { merge: true });
+        if (item.key && typeof window !== "undefined") {
+          localStorage.setItem(`${item.key}_timestamp`, now.toString());
+        }
         successCount++;
       } catch (err: any) {
         if (!firstError) firstError = err;
@@ -1483,6 +1723,7 @@ export function useAdminStore() {
     siteData,
     aboutData,
     gallery,
+    videos,
     inquiries,
     sportsInquiries,
     anandshalaInquiries,
@@ -1500,6 +1741,9 @@ export function useAdminStore() {
     updateAboutData,
     addGalleryItem,
     deleteGalleryItem,
+    addVideoItem,
+    updateVideoItem,
+    deleteVideoItem,
     addInquiry,
     markInquiryRead,
     deleteInquiry,

@@ -239,8 +239,8 @@ const ActivityHallsSection = () => {
           </h2>
           <div className="ah-header-desc">
             {isEn
-              ? "Fully equipped luxury activity halls for daily joy, recreation and wellness! (Click card to view details)"
-              : "आनंदशाळेत दररोज तुमच्या आवडीनुसार मनोरंजन करून आनंद घेता येईल असे सुसज्जीत हॉल्स! (माहिती पाहण्यासाठी कार्डवर क्लीक करा)"}
+              ? "Fully equipped luxury activity halls for daily joy, recreation and wellness!"
+              : "आनंदशाळेत दररोज तुमच्या आवडीनुसार मनोरंजन करून आनंद घेता येईल असे सुसज्जीत हॉल्स!"}
           </div>
         </div>
       </Reveal>
