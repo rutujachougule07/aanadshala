@@ -293,8 +293,8 @@ const Brochure: React.FC = () => {
 
             <p className="bcol-2-intro">
               {isEn
-                ? "Founded from the dream of Mr. Abhinav Kakani, Sangli. Founded on 26 January 2000, organizing annual foundation day & senior citizen meetups."
-                : "माझ्या जन्माची बीजे रुजली ती श्री. अभिनव जननायक काकाणी, ता. सांगली यांच्या स्वप्नातून. अभिनव यांनी 26 जानेवारी 2000 रोजी व्यवसाय सुरू केला आणि दरवर्षी वाढदिवस दिन, <span>ज्येष्ठ नागरिक मेळावा व वाढदिवस आयोजन</span> करून तो साजरा करतात."}
+                ? "Founded from the dream of Mr. Abhinay Kamaji, Sangli. Founded on 26 January 2000, organizing annual foundation day & senior citizen meetups."
+                : "माझ्या जन्माची बीजे रुजली ती श्री. अभिनय जगन्नाथ कामाजी (सांगली) यांच्या स्वप्नातून. अभिनय यांनी 26 जानेवारी 2000 रोजी व्यवसाय सुरू केला आणि दरवर्षी वाढदिवस दिन, <span>ज्येष्ठ नागरिक मेळावा व वाढदिवस आयोजन</span> करून तो साजरा करतात."}
             </p>
 
             {/* 6 Photo Grid - CLICKABLE */}

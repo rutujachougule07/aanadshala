@@ -36,13 +36,13 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 inset-x-0 z-[999999] transition-all duration-500 ${
         scrolled
-          ? "shadow-[0_6px_28px_rgba(12,35,112,0.15)] border-b"
+          ? "shadow-[0_6px_28px_rgba(12,35,112,0.18)] border-b"
           : "border-b"
       }`}
       style={{
-        background: scrolled ? "rgba(255, 255, 255, 0.97)" : "rgba(240, 246, 255, 0.95)",
+        background: scrolled ? "rgba(255, 255, 255, 0.98)" : "rgba(240, 246, 255, 0.96)",
         backdropFilter: "blur(20px)",
         borderColor: "rgba(12, 35, 112, 0.15)",
       }}

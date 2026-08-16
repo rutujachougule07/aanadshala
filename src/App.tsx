@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -13,11 +13,26 @@ import AdminPage from "./routes/admin";
 export default function App() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
+
+  useEffect(() => {
+    const checkNav = () => {
+      setIsHeaderHidden(
+        location.pathname === "/" && document.body.classList.contains("hide-nav-links")
+      );
+    };
+    checkNav();
+    const observer = new MutationObserver(checkNav);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
+  const shouldPadTop = !isAdmin && !isHeaderHidden;
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       {!isAdmin && <SiteHeader />}
-      <main className="flex-1">
+      <main className={`flex-1 ${shouldPadTop ? "pt-[56px] sm:pt-[62px]" : ""}`}>
         <Routes>
           <Route path="/" element={<IndexComponent />} />
           <Route path="/about" element={<AboutPage />} />

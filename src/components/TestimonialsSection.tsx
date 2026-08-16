@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useAdminStore, TestimonialItem } from "@/lib/admin-store";
+import { useLanguage } from "@/lib/use-language";
 import { Star, Play, X, Quote } from "lucide-react";
 import { HighlightText } from "@/components/HighlightText";
 
 export default function TestimonialsSection() {
   const store = useAdminStore();
+  const { isEn } = useLanguage();
   const [activeVideo, setActiveVideo] = useState<TestimonialItem | null>(null);
 
   // Filter approved testimonials
@@ -35,11 +37,17 @@ export default function TestimonialsSection() {
       <div className="max-w-7xl mx-auto relative z-10 space-y-12">
         {/* HEADER AREA */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-[#810B38] tracking-tight drop-shadow-xs">
-            मान्यवर व सभासदांचे <span className="text-[#db2777]">व्हिडिओ अभिप्राय</span>
+          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2] tracking-tight drop-shadow-xs">
+            {isEn ? (
+              <>Member &amp; Guest <span className="text-[#db2777]">Video Testimonials</span></>
+            ) : (
+              <>मान्यवर व सभासदांचे <span className="text-[#db2777]">व्हिडिओ अभिप्राय</span></>
+            )}
           </h2>
           <p className="text-slate-700 text-sm sm:text-base font-extrabold leading-relaxed">
-            प्रीतम <HighlightText text="आनंदशाळा" /> व स्पोर्ट्स क्लबबद्दल प्रसिद्ध अभिनेते, क्रीडापटू व सभासदांचे उत्स्फूर्त अनुभव व संदेश.
+            {isEn
+              ? "Heartfelt experiences & messages from famous actors, sports champions and members about Preetam Anandshala!"
+              : "प्रीतम आनंदशाळा व स्पोर्ट्स क्लबबद्दल प्रसिद्ध अभिनेते, क्रीडापटू व सभासदांचे उत्स्फूर्त अनुभव व संदेश."}
           </p>
         </div>
 
@@ -75,7 +83,7 @@ export default function TestimonialsSection() {
                       </div>
                     </div>
                     <span className="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-black text-amber-300 border border-white/20 flex items-center gap-1.5 shadow-md">
-                      <span>▶️</span> व्हिडिओ पहा
+                      <span>▶️</span> {isEn ? "Watch Video" : "व्हिडिओ पहा"}
                     </span>
                   </div>
                 ) : (
@@ -96,7 +104,7 @@ export default function TestimonialsSection() {
                     <div>
                       <h4 className="font-black text-sm sm:text-base text-slate-900 group-hover:text-[#db2777] transition-colors">
                         {item.name.includes("गिरीश ओक") 
-                          ? "डॉ. गिरीश ओक (अभिनेते व ब्रँड ॲम्बेसेडर)" 
+                          ? (isEn ? "Dr. Girish Oak (Actor & Brand Ambassador)" : "डॉ. गिरीश ओक (अभिनेते व ब्रँड ॲम्बेसेडर)")
                           : item.name}
                       </h4>
                       {item.role && (

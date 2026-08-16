@@ -1,23 +1,14 @@
 import React, { useState } from "react";
 import { 
   Utensils, 
-  Coffee, 
-  Sun, 
-  Moon, 
   Clock, 
-  Heart, 
   Sparkles, 
-  Printer, 
-  Calendar, 
-  CheckCircle2, 
-  Info,
-  ChevronRight,
-  Download,
-  Share2
+  Download
 } from "lucide-react";
 import { initialBhojanalayaConfig, FoodScheduleRow, FoodRateItem, ExtraFoodItem } from "@/lib/admin-store";
+import { useLanguage } from "@/lib/use-language";
 
-const DAYS_MAP: Record<number, string> = {
+const DAYS_MAP_MR: Record<number, string> = {
   0: "रविवार",
   1: "सोमवार",
   2: "मंगळवार",
@@ -27,15 +18,106 @@ const DAYS_MAP: Record<number, string> = {
   6: "शनिवार",
 };
 
+const DAYS_MAP_EN: Record<number, string> = {
+  0: "Sunday",
+  1: "Monday",
+  2: "Tuesday",
+  3: "Wednesday",
+  4: "Thursday",
+  5: "Friday",
+  6: "Saturday",
+};
+
+const FOOD_TRANSLATIONS: Record<string, string> = {
+  // Morning Tea
+  "7 ते 9": "7 to 9 AM",
+
+  // Breakfast / Meals
+  "उडीद वडा + सांभार + चटणी": "Udid Vada + Sambar + Chutney",
+  "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण": "Chapati, Bhakri, Bhaji, Pulses Usal, Amti, Rice, Varan",
+  "चहा + पोहे चिवडा": "Tea + Pohe Chivda",
+  "चपाती + भाजी + पुलाव + आमटी": "Chapati + Bhaji + Pulao + Amti",
+  "पोहे + शेव + शिरा पांढरा": "Pohe + Shev + White Sheera",
+  "चपाती, पराठा, भाजी, कडधान्य उसळ, आमटी, भात, वरण": "Chapati, Paratha, Bhaji, Pulses Usal, Amti, Rice, Varan",
+  "चहा + भाजके पोहे चिवडा": "Tea + Roasted Pohe Chivda",
+  "चपाती + भाजी + थालीपीठ + भात": "Chapati + Bhaji + Thalipeeth + Rice",
+  "पावभाजी किंवा मिसळ": "Pav Bhaji or Misal",
+  "चहा व बिस्किट": "Tea & Biscuits",
+  "चपाती + भाजी + आमटी + वरण + भात": "Chapati + Bhaji + Amti + Varan + Rice",
+  "उत्तपा + डोसा + भाजी + चटणी": "Uttapam + Dosa + Bhaji + Chutney",
+  "चपाती, धपाटा, भाजी, कडधान्य उसळ, आमटी, भात, वरण": "Chapati, Dhapata, Bhaji, Pulses Usal, Amti, Rice, Varan",
+  "चहा + चुरमुरे चिवडा": "Tea + Murmura Chivda",
+  "चपाती + भाजी + भाकरी + खिचडी + कढी": "Chapati + Bhaji + Bhakri + Khichdi + Kadhi",
+  "उत्तपा + भेळ किंवा दडपे पोहे": "Uttapam + Bhel or Dadpe Pohe",
+  "चहा + भजी": "Tea + Bhaji (Pakoda)",
+  "चपाती + भाजी + आमटी + भात": "Chapati + Bhaji + Amti + Rice",
+  "इडली + सांभार + चटणी": "Idli + Sambar + Chutney",
+  "चपाती, थालीपीठ, भाजी, कडधान्य उसळ, आमटी, वरण भात": "Chapati, Thalipeeth, Bhaji, Pulses Usal, Amti, Varan Rice",
+  "चहा + भडंग": "Tea + Bhadang",
+  "भाकरी + चपाती + भाजी + आमटी + भात": "Bhakri + Chapati + Bhaji + Amti + Rice",
+  "शेवयाचे उपीट + ढोकळा + चटणी": "Vermicelli Upma + Dhokla + Chutney",
+  "चपाती, भाकरी, आमटी, मसाले भात, भाजी, स्वीट": "Chapati, Bhakri, Amti, Masala Rice, Bhaji, Sweet",
+  "चहा + मक्काचिवडा": "Tea + Corn Chivda",
+  "चपाती + भाजी + भात + आमटी": "Chapati + Bhaji + Rice + Amti",
+
+  // Rate items
+  "चहा": "Tea",
+  "स्पेशल चहा": "Special Tea",
+  "नेस कॅफे": "Nescafe Coffee",
+  "नाष्टा": "Breakfast",
+  "जेवण": "Lunch / Dinner Meal",
+  "दुध कप": "Cup of Milk",
+  "मसाला दुध": "Masala Milk",
+  "हळद दुध": "Turmeric Milk",
+  "1 चहा, 1 नाष्टा, 1 जेवण (मासिक कॉम्बो)": "1 Tea, 1 Snack, 1 Meal (Monthly Combo)",
+
+  // Extra items
+  "दही / ताक वाटी": "Curd / Buttermilk Bowl",
+  "पापड": "Papad",
+  "कोशिंबीर": "Koshimbir (Salad)",
+  "ग्रीन सॅलड": "Green Salad",
+  "लाडू": "Laddu",
+  "शेंगदाणा चटणी": "Shengdana Chutney",
+  "सूप": "Soup",
+  "केक": "Cake",
+  "डींक लाडू": "Dink Laddu",
+  "गुलाबजामून": "Gulab Jamun",
+  "मसाला पान": "Masala Paan",
+  "चिवडा": "Chivda",
+  "मसाला पापड": "Masala Papad",
+  "आईस्क्रीम / कुल्फी": "Ice Cream / Kulfi",
+  "श्रीखंड / बासुंदी": "Shrikhand / Basundi",
+  "खिर": "Kheer",
+  "फ्रूट सॅलड": "Fruit Salad",
+  "पुरण पोळी": "Puran Poli",
+  "शेंगा पोळी": "Shenga Poli",
+  "खवा पोळी": "Khawa Poli",
+
+  // Day Specials
+  "सोमवार": "Monday",
+  "मंगळवार": "Tuesday",
+  "बुधवार": "Wednesday",
+  "गुरुवार": "Thursday",
+  "शुक्रवार": "Friday",
+  "शनिवार": "Saturday",
+  "रविवार": "Sunday",
+};
+
 export default function AnnapurnaBhojanalayaSection() {
+  const { isEn, formatNum } = useLanguage();
   const config = initialBhojanalayaConfig;
   const [selectedDay, setSelectedDay] = useState<string>("ALL");
-  const [showOriginalPoster, setShowOriginalPoster] = useState<boolean>(false);
 
-  // Get current day of week in Marathi
+  const trFood = (text?: string) => {
+    if (!text) return "";
+    if (!isEn) return text;
+    const trimmed = text.trim();
+    return FOOD_TRANSLATIONS[trimmed] || text;
+  };
+
   const todayDate = new Date();
   const currentDayIndex = todayDate.getDay();
-  const todayMarathi = DAYS_MAP[currentDayIndex] || "सोमवार";
+  const todayMarathi = DAYS_MAP_MR[currentDayIndex] || "सोमवार";
 
   const todayItem = config.weeklySchedule.find((item: FoodScheduleRow) => item.day === todayMarathi) || config.weeklySchedule[0];
 
@@ -43,12 +125,20 @@ export default function AnnapurnaBhojanalayaSection() {
     ? config.weeklySchedule 
     : config.weeklySchedule.filter((item: FoodScheduleRow) => item.day === selectedDay);
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   const handleDownload = () => {
-    const textContent = `=====================================================
+    const textContent = isEn ? `=====================================================
+  Preetam Senior Citizen Anandshala • Annapurna Bhojanalaya
+             Dining Timetable & Rate Chart
+=====================================================
+
+Timings:
+• Morning Tea & Breakfast: 7:00 AM to 9:00 AM
+• Afternoon Lunch: 1:00 PM to 2:00 PM
+• Evening Tea & Snacks: 5:00 PM to 6:00 PM
+
+Contact: Preetam Senior Citizen Anandshala, Sangli.
+📞 Phone: 9370237633
+` : `=====================================================
   प्रीतम ज्येष्ठ नागरिक आनंदशाळा • अन्नपूर्णा भोजनालय
             अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक
 =====================================================
@@ -58,20 +148,7 @@ export default function AnnapurnaBhojanalayaSection() {
 • दुपारचे जेवण: दुपारी १:०० ते २:००
 • सायंकाळी चहा व नाष्टा: सायंकाळी ५:०० ते ६:००
 
-साप्ताहिक आहार वेळापत्रक:
------------------------------------------------------
-${config.weeklySchedule.map((row: FoodScheduleRow) => `
-[${row.day}]
-• सकाळी चहा: ${row.morningTea} (७ ते ९)
-• सकाळी नाष्टा: ${row.morningBreakfast} (८ ते ९)
-• दुपार जेवण: ${row.afternoonLunch} (१२:१५ ते १ व १:१५ ते २)
-• सायंकाळी चहा नाष्टा: ${row.eveningTeaSnack} (५ ते ६)
-• रात्रीचे जेवण: ${row.nightDinner} (८ ते ९)
-`).join('\n-----------------------------------------------------\n')}
-
------------------------------------------------------
-अधिक माहिती व नोंदणीसाठी संपर्क:
-प्रीतम ज्येष्ठ नागरिक आनंदशाळा, सांगली.
+संपर्क: प्रीतम ज्येष्ठ नागरिक आनंदशाळा, सांगली.
 📞 फोन: ९३७०२३७६३३
 `;
 
@@ -79,7 +156,7 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "अन्नपूर्णा_भोजनालय_वेळापत्रक.txt";
+    link.download = isEn ? "Annapurna_Bhojanalaya_Timetable.txt" : "अन्नपूर्णा_भोजनालय_वेळापत्रक.txt";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -92,27 +169,36 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
 
         {/* ── MAIN DECORATIVE HEADER CARD ── */}
         <div className="relative overflow-hidden bg-white rounded-3xl sm:rounded-[32px] p-6 sm:p-10 shadow-xl border-4 border-rose-200 text-center">
-          {/* Top Decorative Border Pattern */}
           <div className="absolute top-0 inset-x-0 h-3 bg-gradient-to-r from-rose-500 via-amber-400 via-pink-500 to-rose-600" />
           
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-rose-50 border border-rose-200 text-[#810B38] font-black text-xs sm:text-sm mb-4 shadow-xs">
             <span className="text-amber-500 text-base">🌸</span>
-            <span>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> • अन्नपूर्णा भोजनालय</span>
+            <span>
+              {isEn ? (
+                <>Preetam Senior Citizen <span className="text-[#db2777] font-black">Anandshala</span> • Annapurna Food Court</>
+              ) : (
+                <>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> • अन्नपूर्णा भोजनालय</>
+              )}
+            </span>
             <span className="text-amber-500 text-base">🌸</span>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-[#810B38] tracking-tight leading-tight drop-shadow-sm max-w-4xl mx-auto">
-            प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2] tracking-tight leading-tight max-w-4xl mx-auto">
+            {isEn ? (
+              <>Annapurna Food Court <span className="text-[#db2777] font-black">Weekly Menu &amp; Rate Chart</span></>
+            ) : (
+              <>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> <span className="text-[#1A05A2]">अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक</span></>
+            )}
           </h2>
 
           <div className="mt-3 text-slate-700 font-extrabold text-sm sm:text-lg max-w-3xl mx-auto flex flex-col items-center justify-center gap-1">
             <p className="flex items-center justify-center gap-2">
               <span className="text-rose-500">🍲</span>
-              <span>ताजा, सात्विक व पौष्टिक शाकाहारी आहार</span>
+              <span>{isEn ? "Fresh, Nutritious & Pure Vegetarian Meals" : "ताजा, सात्विक व पौष्टिक शाकाहारी आहार"}</span>
               <span className="text-rose-500">🍲</span>
             </p>
             <p className="text-slate-800 font-extrabold text-xs sm:text-base">
-              आरोग्यदायी सहवास व स्वाद
+              {isEn ? "Healthy Living & Delicious Taste" : "आरोग्यदायी सहवास व स्वाद"}
             </p>
           </div>
 
@@ -120,7 +206,11 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <div className="inline-flex items-center gap-2 bg-amber-50 text-amber-900 border border-amber-200 px-4 py-2 rounded-2xl text-xs sm:text-sm font-black shadow-xs">
               <Clock className="w-4 h-4 text-amber-600" />
-              <span>सकाळी चहा व नाष्टा ७ ते ९ • दुपारचे जेवण १ ते २ • सायंकाळी चहा व नाष्टा ५ ते ६</span>
+              <span>
+                {isEn
+                  ? "Morning Tea & Breakfast 7 to 9 AM • Lunch 1 to 2 PM • Evening Tea & Snacks 5 to 6 PM"
+                  : "सकाळी चहा व नाष्टा ७ ते ९ • दुपारचे जेवण १ ते २ • सायंकाळी चहा व नाष्टा ५ ते ६"}
+              </span>
             </div>
 
             <button
@@ -128,7 +218,7 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
               className="inline-flex items-center gap-2 bg-gradient-to-r from-[#810B38] to-[#db2777] hover:opacity-95 text-white px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-transform cursor-pointer"
             >
               <Download className="w-4 h-4" />
-              <span>वेळापत्रक डाउनलोड करा</span>
+              <span>{isEn ? "Download Timetable" : "वेळापत्रक डाउनलोड करा"}</span>
             </button>
           </div>
         </div>
@@ -143,37 +233,36 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
             <div>
               <div className="inline-flex items-center gap-2 bg-amber-400 text-slate-950 px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-2 shadow-sm">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>आजचा विशेष आहार मेनू</span>
+                <span>{isEn ? "Today's Special Menu" : "आजचा विशेष आहार मेनू"}</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-black flex items-center gap-3">
-                <span>🌟 आजचा दिवस:</span>
+                <span>{isEn ? "🌟 Today:" : "🌟 आजचा दिवस:"}</span>
                 <span className="text-amber-300 underline decoration-amber-400 decoration-wavy underline-offset-4">
-                  {todayMarathi}
+                  {isEn ? DAYS_MAP_EN[currentDayIndex] : todayMarathi}
                 </span>
               </h3>
             </div>
 
             <div className="text-xs sm:text-sm font-bold bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20">
-              📅 {todayDate.toLocaleDateString("mr-IN", { day: "numeric", month: "long", year: "numeric" })}
+              📅 {todayDate.toLocaleDateString(isEn ? "en-IN" : "mr-IN", { day: "numeric", month: "long", year: "numeric" })}
             </div>
           </div>
 
           {/* Today's Meals Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
-            
             {/* Morning Breakfast */}
             <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25 flex flex-col justify-between hover:bg-white/20 transition-colors">
               <div>
                 <div className="flex items-center justify-between text-amber-200 text-xs font-black mb-1">
-                  <span>🥣 सकाळी नाष्टा</span>
-                  <span>७ ते ९</span>
+                  <span>{isEn ? "🥣 Morning Breakfast" : "🥣 सकाळी नाष्टा"}</span>
+                  <span>7 to 9 AM</span>
                 </div>
                 <h4 className="text-base sm:text-lg font-black text-white leading-snug">
-                  {todayItem.morningBreakfast.replace("उतपा", "उत्तपा").replace("उपीट", "उत्तपा")}
+                  {trFood(todayItem.morningBreakfast)}
                 </h4>
               </div>
               <div className="mt-3 pt-2 border-t border-white/15 text-[11px] text-rose-100 font-semibold">
-                ☕ गरमागरम चहा आणि नाष्टा
+                ☕ {isEn ? "Hot Tea & Fresh Breakfast" : "गरमागरम चहा आणि नाष्टा"}
               </div>
             </div>
 
@@ -181,15 +270,15 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
             <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25 flex flex-col justify-between hover:bg-white/20 transition-colors">
               <div>
                 <div className="flex items-center justify-between text-amber-200 text-xs font-black mb-1">
-                  <span>🍱 दुपारचे जेवण</span>
-                  <span>१ ते २</span>
+                  <span>{isEn ? "🍱 Lunch" : "🍱 दुपारचे जेवण"}</span>
+                  <span>1 to 2 PM</span>
                 </div>
                 <h4 className="text-base sm:text-lg font-black text-white leading-snug">
-                  {todayItem.afternoonLunch}
+                  {trFood(todayItem.afternoonLunch)}
                 </h4>
               </div>
               <div className="mt-3 pt-2 border-t border-white/15 text-[11px] text-rose-100 font-semibold">
-                👌 मनसोक्त आहार
+                👌 {isEn ? "Pure Veg Delicacies" : "मनसोक्त आहार"}
               </div>
             </div>
 
@@ -197,15 +286,15 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
             <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25 flex flex-col justify-between hover:bg-white/20 transition-colors">
               <div>
                 <div className="flex items-center justify-between text-amber-200 text-xs font-black mb-1">
-                  <span>☕ सायंकाळी चहा व नाष्टा</span>
-                  <span>५ ते ६</span>
+                  <span>{isEn ? "☕ Evening Tea & Snacks" : "☕ सायंकाळी चहा व नाष्टा"}</span>
+                  <span>5 to 6 PM</span>
                 </div>
                 <h4 className="text-base sm:text-lg font-black text-white leading-snug">
-                  {todayItem.eveningTeaSnack === "चहा + बिस्कीट" ? "चहा व बिस्किट" : todayItem.eveningTeaSnack}
+                  {trFood(todayItem.eveningTeaSnack)}
                 </h4>
               </div>
               <div className="mt-3 pt-2 border-t border-white/15 text-[11px] text-rose-100 font-semibold">
-                🫖 गरमागरम चहा व बिस्किट
+                🫖 {isEn ? "Hot Tea & Biscuits" : "गरमागरम चहा व बिस्किट"}
               </div>
             </div>
 
@@ -213,15 +302,15 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
             <div className="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/25 flex flex-col justify-between hover:bg-white/20 transition-colors">
               <div>
                 <div className="flex items-center justify-between text-amber-200 text-xs font-black mb-1">
-                  <span>🌙 रात्रीचे जेवण</span>
-                  <span>८ ते ९</span>
+                  <span>{isEn ? "🌙 Night Dinner" : "🌙 रात्रीचे जेवण"}</span>
+                  <span>8 to 9 PM</span>
                 </div>
                 <h4 className="text-base sm:text-lg font-black text-white leading-snug">
-                  {todayItem.nightDinner}
+                  {trFood(todayItem.nightDinner)}
                 </h4>
               </div>
               <div className="mt-3 pt-2 border-t border-white/15 text-[11px] text-rose-100 font-semibold">
-                ✨ पचनास हलका व सात्विक आहार
+                ✨ {isEn ? "Light & Healthy Dinner" : "पचनास हलका व सात्विक आहार"}
               </div>
             </div>
 
@@ -238,10 +327,11 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
                 : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
             }`}
           >
-            🗓️ संपूर्ण ७ दिवसांचे वेळापत्रक
+            🗓️ {isEn ? "Full 7 Days Weekly Timetable" : "संपूर्ण ७ दिवसांचे वेळापत्रक"}
           </button>
-          {config.weeklySchedule.map((item: FoodScheduleRow) => {
+          {config.weeklySchedule.map((item: FoodScheduleRow, i: number) => {
             const isToday = item.day === todayMarathi;
+            const dayText = isEn ? (DAYS_MAP_EN[i % 7] || item.day) : item.day;
             return (
               <button
                 key={item.day}
@@ -254,10 +344,10 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
                     : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
                 }`}
               >
-                <span>{item.day}</span>
+                <span>{dayText}</span>
                 {isToday && (
                   <span className="bg-amber-500 text-slate-950 text-[10px] px-1.5 py-0.2 rounded-md font-black">
-                    आज
+                    {isEn ? "Today" : "आज"}
                   </span>
                 )}
               </button>
@@ -270,10 +360,10 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
           <div className="bg-gradient-to-r from-[#810B38] via-rose-700 to-[#810B38] px-6 py-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3">
             <h3 className="text-lg sm:text-xl font-black flex items-center gap-2">
               <span>📅</span>
-              <span>अन्नपूर्णा भोजनालय साप्ताहिक वेळापत्रक</span>
+              <span>{isEn ? "Annapurna Food Court Weekly Timetable" : "अन्नपूर्णा भोजनालय साप्ताहिक वेळापत्रक"}</span>
             </h3>
             <span className="text-xs bg-white/20 text-white font-extrabold px-3 py-1 rounded-full border border-white/30">
-              सोमवार ते रविवार नियमित सेवा
+              {isEn ? "Monday to Sunday Regular Service" : "सोमवार ते रविवार नियमित सेवा"}
             </span>
           </div>
 
@@ -281,18 +371,20 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
             <table className="w-full min-w-[900px] text-center border-collapse">
               <thead>
                 <tr className="bg-rose-50 text-[#810B38] font-black text-sm border-b-2 border-rose-200">
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[7%]">अ.क्र.</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[11%]">वार</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[10%]">सकाळी चहा (७ ते ९)</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[20%]">सकाळी नाष्टा (७ ते ९)</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[26%]">दुपारचे जेवण (१ ते २)</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[13%]">सायंकाळी चहा व नाष्टा (५ ते ६)</th>
-                  <th className="py-3.5 px-3 w-[13%]">रात्रीचे जेवण (८ ते ९)</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[7%]">{isEn ? "Sr." : "अ.क्र."}</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[11%]">{isEn ? "Day" : "वार"}</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[10%]">{isEn ? "Morning Tea (7-9 AM)" : "सकाळी चहा (७ ते ९)"}</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[20%]">{isEn ? "Breakfast (7-9 AM)" : "सकाळी नाष्टा (७ ते ९)"}</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[26%]">{isEn ? "Lunch (1-2 PM)" : "दुपारचे जेवण (१ ते २)"}</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[13%]">{isEn ? "Evening Tea/Snack (5-6 PM)" : "सायंकाळी चहा व नाष्टा (५ ते ६)"}</th>
+                  <th className="py-3.5 px-3 w-[13%]">{isEn ? "Dinner (8-9 PM)" : "रात्रीचे जेवण (८ ते ९)"}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 text-xs sm:text-sm">
-                {filteredSchedule.map((row: FoodScheduleRow) => {
+                {filteredSchedule.map((row: FoodScheduleRow, idx: number) => {
                   const isToday = row.day === todayMarathi;
+                  const dayDisplay = isEn ? (DAYS_MAP_EN[(row.srNo - 1) % 7] || row.day) : row.day;
+
                   return (
                     <tr
                       key={row.srNo}
@@ -305,34 +397,34 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
                       }`}
                     >
                       <td className="py-3.5 px-3 font-black text-slate-500 border-r border-slate-200">
-                        {row.srNo}
+                        {formatNum(row.srNo)}
                       </td>
                       <td className="py-3.5 px-3 border-r border-slate-200 font-black text-[#810B38]">
                         <div className="flex flex-col items-center">
-                          <span>{row.day}</span>
+                          <span>{dayDisplay}</span>
                           {isToday && (
                             <span className="mt-1 bg-amber-500 text-slate-950 text-[10px] px-2 py-0.5 rounded-full font-black shadow-xs animate-pulse">
-                              आजचा मेनू
+                              {isEn ? "Today's Menu" : "आजचा मेनू"}
                             </span>
                           )}
                         </div>
                       </td>
                       <td className="py-3.5 px-3 border-r border-slate-200 text-slate-800 font-bold">
                         <span className="inline-block px-2.5 py-1 rounded-lg bg-amber-100/70 text-amber-900 text-xs font-black">
-                          {row.morningTea}
+                          {trFood(row.morningTea)}
                         </span>
                       </td>
                       <td className="py-3.5 px-4 border-r border-slate-200 font-bold text-slate-900 text-left">
-                        {row.morningBreakfast.replace("उतपा", "उत्तपा").replace("उपीट", "उत्तपा")}
+                        {trFood(row.morningBreakfast)}
                       </td>
                       <td className="py-3.5 px-4 border-r border-slate-200 font-extrabold text-[#810B38] text-left leading-relaxed">
-                        {row.afternoonLunch}
+                        {trFood(row.afternoonLunch)}
                       </td>
                       <td className="py-3.5 px-3 border-r border-slate-200 font-bold text-slate-900 text-left">
-                        {row.eveningTeaSnack}
+                        {trFood(row.eveningTeaSnack)}
                       </td>
                       <td className="py-3.5 px-3 font-bold text-slate-900 text-left">
-                        {row.nightDinner}
+                        {trFood(row.nightDinner)}
                       </td>
                     </tr>
                   );
@@ -345,7 +437,7 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
         {/* ── TABLES 2 & 3: RATE LIST & EXTRA ITEMS (2-COLUMN GRID) ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-          {/* LEFT COLUMN: BASIC RATE CARD (पदार्थ दरपत्रक) */}
+          {/* LEFT COLUMN: BASIC RATE CARD */}
           <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-xl border-2 border-rose-200 space-y-5 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 border-b border-rose-100 pb-4 mb-4">
@@ -353,7 +445,9 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
                   💰
                 </div>
                 <div>
-                  <h3 className="text-xl font-black text-[#810B38]">पदार्थ दरपत्रक</h3>
+                  <h3 className="text-xl font-black text-[#810B38]">
+                    {isEn ? "Item Rate Chart" : "पदार्थ दरपत्रक"}
+                  </h3>
                 </div>
               </div>
 
@@ -361,9 +455,9 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
                 <table className="w-full text-left text-xs sm:text-sm">
                   <thead>
                     <tr className="bg-gradient-to-r from-[#810B38] to-rose-700 text-white font-black">
-                      <th className="py-2.5 px-4">पदार्थ (Item)</th>
-                      <th className="py-2.5 px-3 text-center">१ वेळ</th>
-                      <th className="py-2.5 px-3 text-center">१ महिना</th>
+                      <th className="py-2.5 px-4">{isEn ? "Item Name" : "पदार्थ (Item)"}</th>
+                      <th className="py-2.5 px-3 text-center">{isEn ? "1 Time" : "१ वेळ"}</th>
+                      <th className="py-2.5 px-3 text-center">{isEn ? "1 Month" : "१ महिना"}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200 font-bold text-slate-800">
@@ -376,14 +470,14 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
                         >
                           <td className="py-2.5 px-4">
                             <span className={isCombo ? "text-[#810B38] font-black" : ""}>
-                              {rate.item}
+                              {trFood(rate.item)}
                             </span>
                           </td>
                           <td className="py-2.5 px-3 text-center font-black text-rose-700">
-                            {rate.oneTime}
+                            {formatNum(rate.oneTime)}
                           </td>
                           <td className="py-2.5 px-3 text-center font-black text-emerald-700">
-                            {rate.oneMonth !== "—" ? rate.oneMonth : "—"}
+                            {rate.oneMonth !== "—" ? formatNum(rate.oneMonth) : "—"}
                           </td>
                         </tr>
                       );
@@ -393,10 +487,9 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
               </div>
             </div>
 
-
           </div>
 
-          {/* RIGHT COLUMN: EXTRA ITEMS AVAILABLE (आवडी व गरजेचे ज्यादाचे पदार्थ) */}
+          {/* RIGHT COLUMN: EXTRA ITEMS AVAILABLE */}
           <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-xl border-2 border-amber-200 space-y-5 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 border-b border-amber-100 pb-4 mb-4">
@@ -404,7 +497,9 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
                   🍨
                 </div>
                 <div>
-                  <h3 className="text-xl font-black text-slate-900">आवडीनुसार व गरजेनुसार ज्यादाचे पदार्थ उपलब्ध</h3>
+                  <h3 className="text-xl font-black text-slate-900">
+                    {isEn ? "Extra Delicacies & Snacks Available" : "आवडीनुसार व गरजेनुसार ज्यादाचे पदार्थ उपलब्ध"}
+                  </h3>
                 </div>
               </div>
 
@@ -417,24 +512,23 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
                   >
                     <div className="flex items-start justify-between gap-1">
                       <span className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">
-                        {extra.name === "फ्रूट सलाद" ? "फ्रूट सॅलड" : extra.name}
+                        {trFood(extra.name)}
                       </span>
                       {extra.daySpecial && (
                         <span className="bg-rose-600 text-white text-[9px] px-1.5 py-0.5 rounded-md font-black shrink-0">
-                          {extra.daySpecial}
+                          {trFood(extra.daySpecial)}
                         </span>
                       )}
                     </div>
                     <div className="mt-2 text-right">
                       <span className="inline-block bg-white text-[#810B38] font-black text-xs px-2.5 py-1 rounded-xl shadow-xs border border-rose-200">
-                        {extra.price}
+                        {formatNum(extra.price)}
                       </span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-
 
           </div>
 
@@ -444,10 +538,10 @@ ${config.weeklySchedule.map((row: FoodScheduleRow) => `
         <div className="bg-gradient-to-r from-rose-600 via-pink-600 to-[#810B38] rounded-3xl p-6 sm:p-8 text-white shadow-xl text-center relative overflow-hidden">
           <div className="max-w-3xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-amber-200 px-4 py-1.5 rounded-full text-xs font-black border border-white/30">
-              ❤️ आरोग्यदायी आहाराचा संदेश ❤️
+              ❤️ {isEn ? "Healthy Living Advice" : "आरोग्यदायी आहाराचा संदेश"} ❤️
             </div>
             <h3 className="text-xl sm:text-2xl md:text-3xl font-black leading-relaxed tracking-wide drop-shadow-md">
-              “{config.healthNote}”
+              “{isEn ? "Nutritious organic meals for a healthy and joyful golden life." : config.healthNote}”
             </h3>
           </div>
         </div>

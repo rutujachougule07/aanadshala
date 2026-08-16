@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { useAdminStore } from "@/lib/admin-store";
+import { useLanguage } from "@/lib/use-language";
 import { 
   CalendarDays, 
   Activity, 
@@ -44,6 +45,7 @@ interface PackageDetail {
 
 const SportsPricingSection = () => {
   const store = useAdminStore();
+  const { isEn } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>("12 Months Package");
   const [selectedDetail, setSelectedDetail] = useState<PackageDetail | null>(null);
@@ -84,95 +86,147 @@ const SportsPricingSection = () => {
 
   // Package Data Objects for easy re-use
   const pkgDayPass: PackageDetail = {
-    title: "स्पोर्ट्स क्लब डे पास (Day Pass)",
-    duration: "१ दिवस (Day Pass)",
-    rackRate: "₹ ५००",
-    offerPrice: "₹ ३००",
-    savings: "सर्व क्रीडा सोयी एका दिवसासाठी!",
-    facilityNote: "ऑलिंपिक स्विमिंग पूल, २४x७ जीम व सर्व इनडोअर गेम्स एका दिवसासाठी वापरा",
-    benefits: [
-      "ऑलिंपिक स्विमिंग पूल अमर्याद १ दिवस वापर",
-      "२४x७ जिम व इनडोअर गेम्स वापर",
-      "चहा व अल्पोपहार सोय विनामूल्य"
-    ]
+    title: isEn ? "Sports Club Day Pass" : "स्पोर्ट्स क्लब डे पास (Day Pass)",
+    duration: isEn ? "1 Day Pass" : "१ दिवस (Day Pass)",
+    rackRate: isEn ? "₹ 500" : "₹ ५००",
+    offerPrice: isEn ? "₹ 300" : "₹ ३००",
+    savings: isEn ? "All sports facilities for 1 Day!" : "सर्व क्रीडा सोयी एका दिवसासाठी!",
+    facilityNote: isEn
+      ? "Access Olympic Swimming Pool, 24x7 Gym & all indoor games for 1 day."
+      : "ऑलिंपिक स्विमिंग पूल, २४x७ जीम व सर्व इनडोअर गेम्स एका दिवसासाठी वापरा",
+    benefits: isEn
+      ? [
+          "Unlimited 1-day access to Olympic Swimming Pool",
+          "24x7 Gym & indoor games access",
+          "Complimentary tea & light snacks"
+        ]
+      : [
+          "ऑलिंपिक स्विमिंग पूल अमर्याद १ दिवस वापर",
+          "२४x७ जिम व इनडोअर गेम्स वापर",
+          "चहा व अल्पोपहार सोय विनामूल्य"
+        ]
   };
 
   const pkgFreeTrialPass: PackageDetail = {
-    title: "१-दिवसाचा फ्री ट्रायअल पास (Free 1-Day Trial Pass)",
-    duration: "१ दिवस (विनामूल्य १-दिवस ट्रायल डेमो पास)",
-    rackRate: "₹ ५००",
-    offerPrice: "₹ ० (मोफत १-दिवस ट्रायअल)",
-    savings: "१००% मोफत पास • शून्य शुल्क, शून्य अट!",
-    facilityNote: "ऑलिंपिक स्विमिंग पूल, २४x७ जीम व क्रीडा सोयींचा प्रत्यक्ष विनामूल्य अनुभव घ्या",
-    benefits: [
-      "विनामूल्य ऑलिंपिक स्विमिंग पूल अमर्याद entry",
-      "२४x७ हायटेक AC जिम व फिटनेस असेसमेंट मोफत",
-      "प्रमाणित फिटनेस तज्ञांसोबत १-ऑन-१ विनामूल्य सल्लागार",
-      "ग्रंथालय, जॉगिंग ट्रॅक व म्युझिक हॉल ॲक्सेस विनामूल्य",
-      "चहा व अल्पोपहार सोय विनामूल्य"
-    ]
+    title: isEn ? "Free 1-Day Trial Pass" : "१-दिवसाचा फ्री ट्रायअल पास (Free 1-Day Trial Pass)",
+    duration: isEn ? "1 Day (Free 1-Day Demo Pass)" : "१ दिवस (विनामूल्य १-दिवस ट्रायल डेमो पास)",
+    rackRate: isEn ? "₹ 500" : "₹ ५००",
+    offerPrice: isEn ? "₹ 0 (Free 1-Day Trial)" : "₹ ० (मोफत १-दिवस ट्रायअल)",
+    savings: isEn ? "100% Free Pass • Zero Fee, Zero Conditions!" : "१००% मोफत पास • शून्य शुल्क, शून्य अट!",
+    facilityNote: isEn
+      ? "Experience Olympic Swimming Pool, 24x7 Gym & sports facilities firsthand for free."
+      : "ऑलिंपिक स्विमिंग पूल, २४x७ जीम व क्रीडा सोयींचा प्रत्यक्ष विनामूल्य अनुभव घ्या",
+    benefits: isEn
+      ? [
+          "Free unlimited entry to Olympic Swimming Pool",
+          "24x7 Hi-Tech AC Gym & fitness assessment free",
+          "Free 1-on-1 consultation with certified trainers",
+          "Free access to Library, Jogging Track & Music Hall",
+          "Complimentary tea & snacks"
+        ]
+      : [
+          "विनामूल्य ऑलिंपिक स्विमिंग पूल अमर्याद entry",
+          "२४x७ हायटेक AC जिम व फिटनेस असेसमेंट मोफत",
+          "प्रमाणित फिटनेस तज्ञांसोबत १-ऑन-१ विनामूल्य सल्लागार",
+          "ग्रंथालय, जॉगिंग ट्रॅक व म्युझिक हॉल ॲक्सेस विनामूल्य",
+          "चहा व अल्पोपहार सोय विनामूल्य"
+        ]
   };
 
   const pkg12Months: PackageDetail = {
-    title: "१२ महिने (१ वर्ष) मेंबरशिप पॅकेज",
-    duration: "१२ महिने (12 Months / 1 Year)",
-    rackRate: "₹ १८,०००",
-    offerPrice: "₹ ११,९९९",
-    savings: "₹ ६,००१ ची भरघोस बचत! (33% OFF)",
-    facilityNote: "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
-    benefits: [
-      "निवडलेल्या एका मुख्य सोयीचा (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT) अमर्याद प्रवेश",
-      "ग्रंथालय (Library) व म्युझिक हॉल (Music Hall) मोफत विनामूल्य प्रवेश",
-      "फिटनेस गार्डन व जागतिक दर्जाचा जॉगिंग ट्रॅक मोफत प्रवेश",
-      "स्टीम बाथ (Steam Bath) सुविधा मोफत उपलब्ध",
-      "प्रमाणित वैयक्तिक फिटनेस ट्रेनर्सचे मोफत मार्गदर्शन",
-      "मोफत फिटनेस असेसमेंट व डाएट चार्ट सेशन"
-    ]
+    title: isEn ? "12 Months (1 Year) Membership Package" : "१२ महिने (१ वर्ष) मेंबरशिप पॅकेज",
+    duration: isEn ? "12 Months (1 Year)" : "१२ महिने (12 Months / 1 Year)",
+    rackRate: isEn ? "₹ 18,000" : "₹ १८,०००",
+    offerPrice: isEn ? "₹ 11,999" : "₹ ११,९९९",
+    savings: isEn ? "Save ₹ 6,001! (33% OFF)" : "₹ ६,००१ ची भरघोस बचत! (33% OFF)",
+    facilityNote: isEn
+      ? "Access to 1 chosen facility (Gym, Olympic Pool, Pickleball, Badminton, Squash, Snooker, or TT)"
+      : "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
+    benefits: isEn
+      ? [
+          "Unlimited access to 1 chosen facility (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT)",
+          "Free unlimited access to Library & Music Hall",
+          "Free access to Fitness Garden & World-Class Jogging Track",
+          "Complimentary Steam Bath facility",
+          "Free guidance from certified personal trainers",
+          "Free fitness assessment & diet chart session"
+        ]
+      : [
+          "निवडलेल्या एका मुख्य सोयीचा (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT) अमर्याद प्रवेश",
+          "ग्रंथालय (Library) व म्युझिक हॉल (Music Hall) मोफत विनामूल्य प्रवेश",
+          "फिटनेस गार्डन व जागतिक दर्जाचा जॉगिंग ट्रॅक मोफत प्रवेश",
+          "स्टीम बाथ (Steam Bath) सुविधा मोफत उपलब्ध",
+          "प्रमाणित वैयक्तिक फिटनेस ट्रेनर्सचे मोफत मार्गदर्शन",
+          "मोफत फिटनेस असेसमेंट व डाएट चार्ट सेशन"
+        ]
   };
 
   const pkg6Months: PackageDetail = {
-    title: "६ महिने मेंबरशिप पॅकेज",
-    duration: "६ महिने (6 Months)",
-    rackRate: "₹ १२,०००",
-    offerPrice: "₹ ६,९९९",
-    savings: "₹ ५,००१ ची भरघोस बचत! (42% OFF)",
-    facilityNote: "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
-    benefits: [
-      "निवडलेल्या एका मुख्य सोयीचा (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT) अमर्याद प्रवेश",
-      "ग्रंथालय (Library) व म्युझिक हॉल (Music Hall) मोफत विनामूल्य प्रवेश",
-      "फिटनेस गार्डन व जागतिक दर्जाचा जॉगिंग ट्रॅक मोफत प्रवेश",
-      "स्टीम बाथ (Steam Bath) सुविधा उपलब्ध",
-      "प्रमाणित फिटनेस ट्रेनर्सचे मोफत मार्गदर्शन"
-    ]
+    title: isEn ? "6 Months Membership Package" : "६ महिने मेंबरशिप पॅकेज",
+    duration: isEn ? "6 Months" : "६ महिने (6 Months)",
+    rackRate: isEn ? "₹ 12,000" : "₹ १२,०००",
+    offerPrice: isEn ? "₹ 6,999" : "₹ ६,९९९",
+    savings: isEn ? "Save ₹ 5,001! (42% OFF)" : "₹ ५,००१ ची भरघोस बचत! (42% OFF)",
+    facilityNote: isEn
+      ? "Access to 1 chosen facility"
+      : "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
+    benefits: isEn
+      ? [
+          "Unlimited 6-month access to 1 main facility",
+          "Free access to Library & Music Hall",
+          "Free access to Fitness Garden & Jogging Track",
+          "Steam Bath facility available",
+          "Free consultation from certified fitness trainers"
+        ]
+      : [
+          "निवडलेल्या एका मुख्य सोयीचा (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT) अमर्याद प्रवेश",
+          "ग्रंथालय (Library) व म्युझिक हॉल (Music Hall) मोफत विनामूल्य प्रवेश",
+          "फिटनेस गार्डन व जागतिक दर्जाचा जॉगिंग ट्रॅक मोफत प्रवेश",
+          "स्टीम बाथ (Steam Bath) सुविधा उपलब्ध",
+          "प्रमाणित फिटनेस ट्रेनर्सचे मोफत मार्गदर्शन"
+        ]
   };
 
   const pkg3Months: PackageDetail = {
-    title: "३ महिने मेंबरशिप पॅकेज",
-    duration: "३ महिने (3 Months)",
-    rackRate: "₹ ७,५००",
-    offerPrice: "₹ ३,९९९",
-    savings: "₹ ३,५०१ ची भरघोस बचत! (47% OFF)",
-    facilityNote: "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
-    benefits: [
-      "निवडलेल्या एका मुख्य सोयीचा अमर्याद प्रवेश",
-      "ग्रंथालय व म्युझिक हॉल मोफत प्रवेश",
-      "फिटनेस गार्डन व जॉगिंग ट्रॅक मोफत प्रवेश",
-      "इनडोअर सिटिंग गेम्स सोयी मोफत"
-    ]
+    title: isEn ? "3 Months Membership Package" : "३ महिने मेंबरशिप पॅकेज",
+    duration: isEn ? "3 Months" : "३ महिने (3 Months)",
+    rackRate: isEn ? "₹ 7,500" : "₹ ७,५००",
+    offerPrice: isEn ? "₹ 3,999" : "₹ ३,९९९",
+    savings: isEn ? "Save ₹ 3,501! (47% OFF)" : "₹ ३,५०१ ची भरघोस बचत! (47% OFF)",
+    facilityNote: isEn ? "Access to 1 chosen facility" : "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
+    benefits: isEn
+      ? [
+          "Unlimited 3-month access to 1 chosen facility",
+          "Free Library & Music Hall access",
+          "Free Fitness Garden & Jogging Track access",
+          "Free indoor sitting games"
+        ]
+      : [
+          "निवडलेल्या एका मुख्य सोयीचा अमर्याद प्रवेश",
+          "ग्रंथालय व म्युझिक हॉल मोफत प्रवेश",
+          "फिटनेस गार्डन व जॉगिंग ट्रॅक मोफत प्रवेश",
+          "इनडोअर सिटिंग गेम्स सोयी मोफत"
+        ]
   };
 
   const pkg1Month: PackageDetail = {
-    title: "१ महिना ट्रायलर पॅकेज",
-    duration: "१ महिना (1 Month)",
-    rackRate: "₹ ३,५००",
-    offerPrice: "₹ १,४९९",
-    savings: "₹ २,००१ ची बचत! (57% OFF)",
-    facilityNote: "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
-    benefits: [
-      "निवडलेल्या एका मुख्य सोयीचा १ महिना अमर्याद प्रवेश",
-      "ग्रंथालय व म्युझिक हॉल मोफत प्रवेश",
-      "आउटडोअर फिटनेस गार्डन व जॉगिंग ट्रॅक मोफत"
-    ]
+    title: isEn ? "1 Month Trial Package" : "१ महिना ट्रायलर पॅकेज",
+    duration: isEn ? "1 Month" : "१ महिना (1 Month)",
+    rackRate: isEn ? "₹ 3,500" : "₹ ३,५००",
+    offerPrice: isEn ? "₹ 1,499" : "₹ १,४९९",
+    savings: isEn ? "Save ₹ 2,001! (57% OFF)" : "₹ २,००१ ची बचत! (57% OFF)",
+    facilityNote: isEn ? "Access to 1 chosen facility" : "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
+    benefits: isEn
+      ? [
+          "Unlimited 1-month access to 1 main facility",
+          "Free Library & Music Hall access",
+          "Free Outdoor Fitness Garden & Jogging Track"
+        ]
+      : [
+          "निवडलेल्या एका मुख्य सोयीचा १ महिना अमर्याद प्रवेश",
+          "ग्रंथालय व म्युझिक हॉल मोफत प्रवेश",
+          "आउटडोअर फिटनेस गार्डन व जॉगिंग ट्रॅक मोफत"
+        ]
   };
 
   return (
@@ -317,36 +371,30 @@ const SportsPricingSection = () => {
               onClick={() => handleOpenDetailModal(pkgDayPass)}
             >
               <div className="sp-pop-badge bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md z-10">
-                🔥 विशेष डे-पास ऑफर
+                🔥 {isEn ? "Special Day Pass Offer" : "विशेष डे-पास ऑफर"}
               </div>
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-emerald-900 font-black text-lg mb-1">
                   <CalendarDays className="text-emerald-600 shrink-0" size={22}/>
-                  <span>१ दिवस (Day Pass)</span>
+                  <span>{pkgDayPass.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  मूळ दर: <span className="sp-rack-num line-through text-slate-400">₹ ५००</span>
+                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkgDayPass.rackRate}</span>
                 </div>
                 <div className="sp-offer-price text-2xl sm:text-3xl font-black text-emerald-600 mb-2">
-                  ₹ ३०० <span className="text-xs text-slate-500 font-bold">/ दिवस</span>
+                  {pkgDayPass.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ day" : "/ दिवस"}</span>
                 </div>
                 <div className="sp-save-badge bg-emerald-100 text-emerald-800 border border-emerald-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> सर्व क्रीडा सोयी वापरा!
+                  <Sparkles size={13}/> {pkgDayPass.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
-                    <span>ऑलिंपिक स्विमिंग पूल अमर्याद १ दिवस</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
-                    <span>२४x७ जिम व इनडोअर गेम्स</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
-                    <span>चहा व अल्पोपहार सोय विनामूल्य</span>
-                  </li>
+                  {pkgDayPass.benefits.map((b, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -356,7 +404,7 @@ const SportsPricingSection = () => {
                   className="w-full py-2.5 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
                   <Info size={15}/>
-                  <span>संपूर्ण माहिती व नोंदणी उघडा 👁️</span>
+                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
             </div>
@@ -371,31 +419,25 @@ const SportsPricingSection = () => {
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-blue-900 font-black text-lg mb-1">
                   <CalendarDays className="text-blue-500 shrink-0" size={22}/>
-                  <span>१ महिना मेंबरशिप</span>
+                  <span>{pkg1Month.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  मूळ दर: <span className="sp-rack-num line-through text-slate-400">₹ ३,५००</span>
+                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkg1Month.rackRate}</span>
                 </div>
                 <div className="sp-offer-price text-2xl sm:text-3xl font-black text-blue-600 mb-2">
-                  ₹ १,४९९ <span className="text-xs text-slate-500 font-bold">/ महिना</span>
+                  {pkg1Month.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ month" : "/ महिना"}</span>
                 </div>
                 <div className="sp-save-badge bg-blue-100 text-blue-800 border border-blue-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> ₹ २,००१ ची बचत! (57% OFF)
+                  <Sparkles size={13}/> {pkg1Month.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-blue-600 shrink-0" />
-                    <span>निवडलेल्या एका मुख्य सोयीचा १ महिना वापर</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-blue-600 shrink-0" />
-                    <span>ग्रंथालय व म्युझिक हॉल मोफत</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-blue-600 shrink-0" />
-                    <span>फिटनेस गार्डन व जॉगिंग ट्रॅक मोफत</span>
-                  </li>
+                  {pkg1Month.benefits.map((b, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-blue-600 shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -405,7 +447,7 @@ const SportsPricingSection = () => {
                   className="w-full py-2.5 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
                   <Info size={15}/>
-                  <span>संपूर्ण माहिती व नोंदणी उघडा 👁️</span>
+                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
             </div>
@@ -420,31 +462,25 @@ const SportsPricingSection = () => {
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-indigo-900 font-black text-lg mb-1">
                   <CalendarDays className="text-indigo-500 shrink-0" size={22}/>
-                  <span>३ महिने मेंबरशिप</span>
+                  <span>{pkg3Months.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  मूळ दर: <span className="sp-rack-num line-through text-slate-400">₹ ७,५००</span>
+                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkg3Months.rackRate}</span>
                 </div>
                 <div className="sp-offer-price text-2xl sm:text-3xl font-black text-indigo-600 mb-2">
-                  ₹ ३,९९९ <span className="text-xs text-slate-500 font-bold">/ ३ महिने</span>
+                  {pkg3Months.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ 3 months" : "/ ३ महिने"}</span>
                 </div>
                 <div className="sp-save-badge bg-indigo-100 text-indigo-800 border border-indigo-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> ₹ ३,५०१ ची बचत! (47% OFF)
+                  <Sparkles size={13}/> {pkg3Months.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-indigo-600 shrink-0" />
-                    <span>निवडलेल्या एका सोयीचा ३ महिने अमर्याद प्रवेश</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-indigo-600 shrink-0" />
-                    <span>ग्रंथालय व म्युझिक हॉल मोफत</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-indigo-600 shrink-0" />
-                    <span>इनडोअर गेम्स सोयी मोफत</span>
-                  </li>
+                  {pkg3Months.benefits.map((b, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-indigo-600 shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -454,7 +490,7 @@ const SportsPricingSection = () => {
                   className="w-full py-2.5 rounded-full bg-indigo-100 hover:bg-indigo-200 text-indigo-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
                   <Info size={15}/>
-                  <span>संपूर्ण माहिती व नोंदणी उघडा 👁️</span>
+                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
             </div>
@@ -469,31 +505,25 @@ const SportsPricingSection = () => {
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-purple-900 font-black text-lg mb-1">
                   <CalendarDays className="text-purple-500 shrink-0" size={22}/>
-                  <span>६ महिने मेंबरशिप</span>
+                  <span>{pkg6Months.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  मूळ दर: <span className="sp-rack-num line-through text-slate-400">₹ १२,०००</span>
+                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkg6Months.rackRate}</span>
                 </div>
                 <div className="sp-offer-price text-2xl sm:text-3xl font-black text-purple-600 mb-2">
-                  ₹ ६,९९९ <span className="text-xs text-slate-500 font-bold">/ ६ महिने</span>
+                  {pkg6Months.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ 6 months" : "/ ६ महिने"}</span>
                 </div>
                 <div className="sp-save-badge bg-purple-100 text-purple-800 border border-purple-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> ₹ ५,००१ ची बचत! (42% OFF)
+                  <Sparkles size={13}/> {pkg6Months.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-purple-600 shrink-0" />
-                    <span>मुख्य सोयीचा ६ महिने अमर्याद प्रवेश</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-purple-600 shrink-0" />
-                    <span>स्टीम बाथ सुविधा उपलब्ध</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-purple-600 shrink-0" />
-                    <span>प्रमाणित फिटनेस ट्रेनर्स सल्ला</span>
-                  </li>
+                  {pkg6Months.benefits.map((b, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-purple-600 shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -503,7 +533,7 @@ const SportsPricingSection = () => {
                   className="w-full py-2.5 rounded-full bg-purple-100 hover:bg-purple-200 text-purple-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
                   <Info size={15}/>
-                  <span>संपूर्ण माहिती व नोंदणी उघडा 👁️</span>
+                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
             </div>
@@ -516,36 +546,30 @@ const SportsPricingSection = () => {
               onClick={() => handleOpenDetailModal(pkg12Months)}
             >
               <div className="sp-pop-badge bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md z-10">
-                🔥 सर्वोत्कृष्ट बचत • MOST POPULAR
+                🔥 {isEn ? "MOST POPULAR • BEST SAVINGS" : "सर्वोत्कृष्ट बचत • MOST POPULAR"}
               </div>
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-pink-900 font-black text-lg mb-1">
                   <CalendarDays className="text-pink-600 shrink-0" size={22}/>
-                  <span>१२ महिने (१ वर्ष)</span>
+                  <span>{pkg12Months.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  मूळ दर: <span className="sp-rack-num line-through text-slate-400">₹ १८,०००</span>
+                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkg12Months.rackRate}</span>
                 </div>
                 <div className="sp-offer-price text-2xl sm:text-3xl font-black text-pink-600 mb-2">
-                  ₹ ११,९९९ <span className="text-xs text-slate-500 font-bold">/ वर्ष</span>
+                  {pkg12Months.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ year" : "/ वर्ष"}</span>
                 </div>
                 <div className="sp-save-badge bg-pink-100 text-pink-800 border border-pink-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> ₹ ६,००१ ची बचत! (33% OFF)
+                  <Sparkles size={13}/> {pkg12Months.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-pink-600 shrink-0" />
-                    <span>मुख्य सोयीचा १ वर्ष अमर्याद प्रवेश</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-pink-600 shrink-0" />
-                    <span>ग्रंथालय, म्युझिक हॉल व स्टीम बाथ मोफत</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-pink-600 shrink-0" />
-                    <span>पर्सनल फिटनेस ट्रेनर व डाएट चार्ट</span>
-                  </li>
+                  {pkg12Months.benefits.map((b, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-pink-600 shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -555,7 +579,7 @@ const SportsPricingSection = () => {
                   className="w-full py-2.5 rounded-full bg-pink-100 hover:bg-pink-200 text-pink-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
                   <Info size={15}/>
-                  <span>संपूर्ण माहिती व नोंदणी उघडा 👁️</span>
+                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
             </div>

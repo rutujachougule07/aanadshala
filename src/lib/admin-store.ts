@@ -853,7 +853,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
     { name: "दही / ताक वाटी", price: "10/-" },
     { name: "पापड", price: "10/-" },
     { name: "कोशिंबीर", price: "10/-" },
-    { name: "ग्रीन सलाद", price: "10/-" },
+    { name: "ग्रीन सॅलड", price: "10/-" },
     { name: "लाडू", price: "10/-" },
     { name: "शेंगदाणा चटणी", price: "10/-" },
     { name: "सूप", price: "20/-" },

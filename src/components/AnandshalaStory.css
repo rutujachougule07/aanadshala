@@ -7,7 +7,7 @@
   position: relative;
   background: linear-gradient(180deg, #FAF8F5 0%, #FFFFFF 50%, #F9F5F0 100%);
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  padding: 5rem 1.5rem 6rem 1.5rem;
+  padding: 2.5rem 1.5rem 5rem 1.5rem;
   color: #1e293b;
   overflow: hidden;
 }
@@ -48,7 +48,7 @@
 .as-header-section {
   text-align: center;
   max-width: 800px;
-  margin: 0 auto 4rem auto;
+  margin: 0 auto 2rem auto;
 }
 
 .as-badge-pill {
@@ -74,24 +74,23 @@
 }
 
 .as-hero-title {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 800;
-  line-height: 1.25;
-  color: #0f172a;
+  line-height: 1.3;
+  color: #1A05A2;
   margin-bottom: 1rem;
 }
 
 @media (min-width: 768px) {
   .as-hero-title {
-    font-size: 3.25rem;
+    font-size: 2.3rem;
   }
 }
 
 .as-title-gradient {
-  background: linear-gradient(135deg, #e11d48 0%, #be185d 50%, #a21caf 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #1A05A2;
+  background: none;
+  -webkit-text-fill-color: initial;
 }
 
 .as-title-underline {
