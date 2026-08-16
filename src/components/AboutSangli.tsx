@@ -516,16 +516,21 @@ export function AboutSangli() {
 
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-amber-300 font-extrabold text-xs tracking-wider uppercase border border-white/20">
-                <Smile size={14} /> {isEn ? "Tailored for Anandshala Seniors" : "आनंदशाळा ज्येष्ठांसाठी विशेष शिफारस"}
+              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-white font-extrabold text-xs tracking-wider uppercase border border-white/30">
+                <Smile size={14} className="text-amber-300" />
+                {isEn ? (
+                  <>Tailored for <span className="text-[#db2777] font-black bg-white px-2 py-0.5 rounded-full shadow-sm">Anandshala</span> Seniors</>
+                ) : (
+                  <><span className="text-[#db2777] font-black bg-white px-2 py-0.5 rounded-full shadow-sm">आनंदशाळा</span> ज्येष्ठांसाठी विशेष शिफारस</>
+                )}
               </span>
               <h3 className="text-2xl sm:text-3xl font-black leading-tight text-white">
                 {isEn ? "Comfortable & Easy Excursions (Zero Steep Climbs)" : "ज्येष्ठांसाठी अत्यंत सोयीस्कर व विनासायास दर्शन सहली"}
               </h3>
               <p className="text-sm sm:text-base font-semibold text-pink-100 max-w-3xl leading-relaxed">
                 {isEn
-                  ? "We especially recommend 10 easy, comfortable outings near Sangli with direct vehicle access, wheelchair assistance, and shaded seating area."
-                  : "सांगली व परिसरातील १० अतिशय सोयीस्कर ठिकाणे जिथे पायऱ्यांची अडचण नाही, गाड्या थेट जवळ जातात व निवांत बसण्यासाठी झाडीची उत्तम सावली आहे."}
+                  ? "We especially recommend easy, comfortable outings near Sangli with direct vehicle access, wheelchair assistance, and shaded seating area."
+                  : "सांगली व परिसरातील अतिशय सोयीस्कर ठिकाणे जिथे पायऱ्यांची अडचण नाही, गाड्या थेट जवळ जातात व निवांत बसण्यासाठी झाडांची उत्तम सावली आहे."}
               </p>
             </div>
 
@@ -598,7 +603,7 @@ export function AboutSangli() {
             onClick={() => setActiveTab("senior-friendly")}
             className={`as-sangli-tab-btn ${activeTab === "senior-friendly" ? "active" : ""}`}
           >
-            <span>{isEn ? "👴 Senior Friendly (Seniors Top 10)" : "👴 ज्येष्ठांसाठी सुलभ (टॉप १०)"}</span>
+            <span>{isEn ? "👴 Senior Friendly Places" : "👴 ज्येष्ठांसाठी सुलभ ठिकाणे"}</span>
           </button>
           <button
             onClick={() => setActiveTab("close")}
@@ -794,77 +799,76 @@ export function AboutSangli() {
       {/* ── MODAL POPUP FOR SELECTED PLACE ── */}
       {selectedPlace && typeof document !== "undefined" && createPortal(
         <div
-          className="fixed inset-0 z-[999999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
+          className="fixed inset-0 z-[999999] bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-hidden"
           onClick={() => setSelectedPlace(null)}
         >
           <div
-            className="bg-white rounded-[2.5rem] max-w-xl w-full p-6 sm:p-8 relative shadow-2xl border-4 border-pink-200 overflow-hidden text-slate-800 animate-in fade-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-[2rem] max-w-lg w-full p-4 sm:p-5 relative shadow-2xl border-4 border-pink-200 text-slate-800 space-y-3.5 my-auto h-[75vh] max-h-[480px] sm:max-h-[520px] overflow-y-scroll shadow-pink-500/20"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setSelectedPlace(null)}
-              className="absolute top-4 right-4 size-10 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition font-black cursor-pointer z-20 shadow-md"
-              aria-label="Close"
-            >
-              <X size={20} />
-            </button>
-
-            <div className="relative h-64 sm:h-72 rounded-2xl overflow-hidden mb-5 border-2 border-pink-100 shadow-md">
-              <img src={selectedPlace.image} alt={selectedPlace.titleMr} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-
-              {selectedPlace.isSeniorFriendly ? (
-                <div className="absolute top-3 left-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-black text-xs px-3.5 py-1.5 rounded-full shadow-md">
-                  👴 {isEn ? "Senior Friendly" : "ज्येष्ठांसाठी सुलभ सोय"}
-                </div>
-              ) : (
-                <div className="absolute top-3 left-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-black text-xs px-3.5 py-1.5 rounded-full shadow-md">
-                  🧗 {isEn ? "Involves Climbing Steps" : "पायऱ्यांचा मार्ग"}
-                </div>
-              )}
-
-              <div className="absolute top-3 right-3 bg-black/80 backdrop-blur-sm text-amber-400 font-extrabold text-xs px-3 py-1.5 rounded-full border border-amber-400/40">
-                📍 {isEn ? selectedPlace.distanceEn : selectedPlace.distanceMr}
-              </div>
-              <h3 className="absolute bottom-3 left-4 right-4 text-2xl sm:text-3xl font-black text-white drop-shadow-md leading-tight">
-                {isEn ? selectedPlace.titleEn : selectedPlace.titleMr}
-              </h3>
-            </div>
-
-            <p className="text-sm sm:text-base font-extrabold text-slate-700 leading-relaxed mb-5">
-              {isEn ? selectedPlace.fullDescEn : selectedPlace.fullDescMr}
-            </p>
-
-            <div className="space-y-2.5 mb-6 bg-pink-50/70 p-4.5 rounded-2xl border border-pink-100">
-              <h4 className="font-black text-pink-700 text-sm flex items-center gap-1.5">
-                <Sparkles size={16} />
-                <span>{isEn ? "Highlights & Elder Friendly Features:" : "वैशिष्ट्ये व ज्येष्ठ नागरिकांसाठी सोयी:"}</span>
-              </h4>
-              {(isEn ? selectedPlace.highlightsEn : selectedPlace.highlightsMr).map((h, i) => (
-                <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm font-bold text-slate-800">
-                  <ShieldCheck size={16} className="text-emerald-600 shrink-0 mt-0.5" />
-                  <span>{h}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href="tel:9370237633"
-                className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-sm shadow-lg flex items-center justify-center gap-2 hover:opacity-95 transition"
-              >
-                <PhoneCall size={16} />
-                <span>{isEn ? "Inquire Transportation Assistance" : "गाडी / सहल माहितीसाठी कॉल करा"}</span>
-              </a>
               <button
                 onClick={() => setSelectedPlace(null)}
-                className="py-3.5 px-6 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 font-black text-sm cursor-pointer hover:bg-slate-200 transition"
+                className="absolute top-4 right-4 size-9 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition font-black cursor-pointer z-30 shadow-md"
+                aria-label="Close"
               >
-                {isEn ? "Close" : "बंद करा"}
+                <X size={18} />
               </button>
-            </div>
 
-          </div>
+              <div className="flex items-center gap-2 pr-10">
+                <span className="text-amber-700 font-extrabold text-xs px-3 py-1 rounded-full bg-amber-50 border border-amber-200 flex items-center gap-1">
+                  <MapPin size={12} />
+                  <span>{isEn ? selectedPlace.distanceEn : selectedPlace.distanceMr}</span>
+                </span>
+                {selectedPlace.isSeniorFriendly ? (
+                  <span className="text-emerald-700 font-extrabold text-xs px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                    👴 {isEn ? "Senior Friendly" : "ज्येष्ठांसाठी सुलभ"}
+                  </span>
+                ) : (
+                  <span className="text-amber-700 font-extrabold text-xs px-3 py-1 rounded-full bg-amber-50 border border-amber-200">
+                    🧗 {isEn ? "Steps" : "पायऱ्यांचा मार्ग"}
+                  </span>
+                )}
+              </div>
+
+              <div className="relative h-44 sm:h-52 rounded-2xl overflow-hidden border border-pink-100 shadow-sm shrink-0">
+                <img
+                  src={selectedPlace.image}
+                  alt=""
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop";
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                <h3 className="absolute bottom-3 left-4 right-4 text-xl sm:text-2xl font-black text-white drop-shadow-md leading-tight">
+                  {isEn ? selectedPlace.titleEn : selectedPlace.titleMr}
+                </h3>
+              </div>
+
+              <p className="text-xs sm:text-sm font-extrabold text-slate-700 leading-relaxed">
+                {isEn ? selectedPlace.fullDescEn : selectedPlace.fullDescMr}
+              </p>
+
+              <div className="space-y-2 bg-pink-50/80 p-3.5 sm:p-4 rounded-2xl border border-pink-200/60 shadow-inner">
+                {(isEn ? selectedPlace.highlightsEn : selectedPlace.highlightsMr).map((h, i) => (
+                  <div key={i} className="flex items-start gap-2 text-xs font-bold text-slate-800 leading-snug">
+                    <ShieldCheck size={15} className="text-emerald-600 shrink-0 mt-0.5" />
+                    <span>{h}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-2">
+                <a
+                  href="tel:9370237633"
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 hover:opacity-95 transition"
+                >
+                  <PhoneCall size={15} />
+                  <span>{isEn ? "Inquire Transportation" : "माहितीसाठी कॉल करा"}</span>
+                </a>
+              </div>
+
+            </div>
         </div>,
         document.body
       )}

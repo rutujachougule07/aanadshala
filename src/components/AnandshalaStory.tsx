@@ -87,9 +87,9 @@ const AnandshalaStory: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             {isEn ? (
-              <><span className="text-[#db2777]">Anandshala's</span> <span className="text-[#1A05A2]">Inspiring Story</span></>
+              <>Preetam <span className="text-[#db2777]">Anandshala</span> : <span className="text-[#1A05A2]">Introduction &amp; Vision</span></>
             ) : (
-              <><span className="text-[#db2777]">आनंदशाळेची</span> <span className="text-[#1A05A2]">प्रेरणादायी कहाणी</span></>
+              <>प्रीतम <span className="text-[#db2777]">आनंदशाळा</span> : <span className="text-[#1A05A2]">एक परिचय व संकल्पना</span></>
             )}
           </motion.h2>
 
@@ -128,7 +128,7 @@ const AnandshalaStory: React.FC = () => {
 
           {/* Right Side: Clear Ceremony Photo Card (All faces 100% visible) */}
           <motion.div
-            className="lg:col-span-6 relative rounded-3xl overflow-hidden shadow-xl border border-pink-100 bg-slate-900 group"
+            className="lg:col-span-6 relative rounded-3xl overflow-hidden shadow-xl border border-pink-100 group"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -140,18 +140,6 @@ const AnandshalaStory: React.FC = () => {
               className="w-full h-[280px] sm:h-[340px] md:h-[380px] object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
               onError={(e) => { e.currentTarget.src = buildingImage; }}
             />
-            {/* Soft subtle bottom gradient for badge legibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-90" />
-
-            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between pointer-events-none">
-              <div className="bg-slate-950/80 backdrop-blur-md px-4 py-2 rounded-xl border border-pink-500/30 text-white text-xs font-bold shadow-lg">
-                ✨ {isEn ? (
-                  <><span className="text-[#db2777] font-black">Anandshala</span> Ceremony &amp; Gathering</>
-                ) : (
-                  <><span className="text-[#db2777] font-black">आनंदशाळा</span> सोहळा व स्नेहमिलन</>
-                )}
-              </div>
-            </div>
           </motion.div>
         </div>
 

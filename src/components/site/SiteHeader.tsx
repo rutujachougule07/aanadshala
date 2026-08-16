@@ -71,7 +71,7 @@ export function SiteHeader() {
                 </>
               ) : (
                 <>
-                  Preetam <span className="text-[#db2777]">Anandshala</span>
+                  Preetam Senior Citizen <span className="text-[#db2777]">Anandshala</span>
                 </>
               )}
             </span>
