@@ -265,24 +265,14 @@ function Gallery() {
 
                     <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none z-10" />
 
-                    <div className="absolute top-3 left-3 z-20">
-                      <span className="bg-pink-600/95 text-white text-[11px] font-extrabold px-3 py-1 rounded-full shadow-md border border-white/20">
-                        {isEn ? item.categoryEn : item.categoryMr}
-                      </span>
-                    </div>
 
-                    <div className="absolute top-3 right-3 z-20">
-                      <span className="bg-black/60 text-white text-[10.5px] font-bold px-2.5 py-1 rounded-full border border-white/20">
-                        📸 HD
-                      </span>
-                    </div>
 
                     <div className="absolute bottom-2.5 inset-x-3 text-white z-20">
                       <div className="flex items-center gap-1.5 text-pink-300 text-[11px] font-bold mb-0.5">
                         <Calendar size={12} />
                         <span>{item.date}</span>
                       </div>
-                      <h3 className="text-sm sm:text-base font-black text-[#60a5fa] line-clamp-1 group-hover:text-blue-300 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                      <h3 className="text-sm sm:text-base font-black text-white line-clamp-1 group-hover:text-pink-200 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                         <HighlightText text={isEn ? item.titleEn : item.titleMr} />
                       </h3>
                     </div>

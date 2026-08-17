@@ -67,7 +67,7 @@ export default function Hero() {
           </h1>
 
           <p className="mt-8 text-lg leading-8 text-gray-600 max-w-xl">
-            प्रीतम ज्येष्ठ नागरिक आनंदशाळा ही ज्येष्ठांसाठी प्रेम, सुरक्षितता,
+            प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> ही ज्येष्ठांसाठी प्रेम, सुरक्षितता,
             आरोग्य, सहवास आणि आनंदाने भरलेले आयुष्य देणारे दुसरे घर आहे.
           </p>
 
@@ -132,7 +132,7 @@ export default function Hero() {
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
             className="absolute -left-10 top-12 bg-white rounded-3xl shadow-2xl p-7 w-72"
           >
-            <h3 className="font-bold text-xl mb-5">आनंदशाळेचा प्रवास</h3>
+            <h3 className="font-bold text-xl mb-5"><span className="text-[#db2777] font-black">आनंदशाळेचा</span> प्रवास</h3>
             <div className="space-y-5">
               {stats.map((item, i) => (
                 <div key={i} className="flex justify-between border-b pb-3">

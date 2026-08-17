@@ -113,7 +113,7 @@ export function SiteHeader() {
           {/* LANGUAGE TOGGLE BUTTON */}
           <button
             onClick={toggleLanguage}
-            className="ml-2 inline-flex items-center gap-1.5 rounded-full border-2 px-3.5 py-1.5 text-xs font-black transition-all duration-300 cursor-pointer shadow-sm hover:scale-105"
+            className="ml-2 inline-flex items-center justify-center rounded-full border-2 px-4 py-1.5 text-xs font-black transition-all duration-300 cursor-pointer shadow-sm hover:scale-105"
             style={{
               borderColor: "rgba(12, 35, 112, 0.3)",
               background: "#FFFFFF",
@@ -121,7 +121,6 @@ export function SiteHeader() {
             }}
             title="Switch Language / भाषा बदला"
           >
-            <span className="text-sm">🌐</span>
             <span>{isMr ? "मराठी | ENG" : "ENG | मराठी"}</span>
           </button>
 
@@ -143,15 +142,14 @@ export function SiteHeader() {
           {/* MOBILE LANGUAGE TOGGLE BUTTON */}
           <button
             onClick={toggleLanguage}
-            className="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-black cursor-pointer shadow-xs bg-white text-[#1A05A2]"
+            className="inline-flex items-center justify-center rounded-full border px-3 py-1 text-[11px] font-black cursor-pointer shadow-xs bg-white text-[#1A05A2]"
             style={{
               borderColor: "rgba(12, 35, 112, 0.3)",
             }}
             title="Switch Language / भाषा बदला"
           >
-            <span className="text-xs">🌐</span>
             <span className={isEn ? "text-[#db2777] font-black underline" : "text-slate-600 font-bold"}>ENG</span>
-            <span className="text-slate-300">|</span>
+            <span className="text-slate-300 mx-0.5">|</span>
             <span className={isMr ? "text-[#db2777] font-black underline" : "text-slate-600 font-bold"}>मराठी</span>
           </button>
 

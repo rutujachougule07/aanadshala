@@ -367,6 +367,7 @@ function IndexComponent() {
               ease: [0.16, 1, 0.3, 1],
             }}
 
+            onClick={() => setShowIntroBanner(false)}
             className="
               fixed
               inset-0
@@ -386,6 +387,7 @@ function IndexComponent() {
               bg-[#0c0216]
               p-4
               sm:p-8
+              cursor-pointer
             "
           >
             {/* FULL SCREEN EDGE-TO-EDGE COVER IMAGE */}
@@ -444,12 +446,6 @@ function IndexComponent() {
                 </h2>
               </div>
             </div>
-
-
-
-
-
-
 
           </motion.div>
         )}

@@ -357,8 +357,7 @@
 }
 
 .as-sangli-modal-body::-webkit-scrollbar {
-  width: 6px !important;
-  height: 0px !important;
+  width: 8px !important;
   display: block !important;
 }
 
@@ -371,6 +370,7 @@
 .as-sangli-modal-body::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #db2777 0%, #9333ea 100%) !important;
   border-radius: 9999px !important;
+  border: 1.5px solid #ffffff !important;
 }
 
 .as-sangli-modal-body::-webkit-scrollbar-thumb:hover {

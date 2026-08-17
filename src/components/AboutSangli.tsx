@@ -46,23 +46,43 @@ interface PlaceItem {
   highlightsEn: string[];
 }
 
+function formatWithPinkAnandshala(text: string) {
+  if (!text) return text;
+  const parts = text.split(/(आनंदशाळेपासून|आनंदशाळेच्या|आनंदशाळेत|आनंदशाळा|Anandshala)/g);
+  return parts.map((part, index) => {
+    if (["आनंदशाळेपासून", "आनंदशाळेच्या", "आनंदशाळेत", "आनंदशाळा", "Anandshala"].includes(part)) {
+      return (
+        <span key={index} className="text-[#db2777] font-black bg-pink-100/90 px-1.5 py-0.5 rounded-md border border-pink-300/80 inline-block shadow-2xs">
+          {part}
+        </span>
+      );
+    }
+    return part;
+  });
+}
+
+import { useAdminStore } from "@/lib/admin-store";
+
 export function AboutSangli() {
   const { isEn } = useLanguage();
+  const store = useAdminStore();
+  const overrides = store.aboutData?.sangliPlacesOverrides || {};
   const [activeTab, setActiveTab] = useState<string>("all");
   const [selectedPlace, setSelectedPlace] = useState<PlaceItem | null>(null);
 
   useEffect(() => {
     if (selectedPlace) {
+      const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+      document.body.style.touchAction = "none";
+      return () => {
+        document.body.style.overflow = originalStyle;
+        document.body.style.touchAction = "";
+      };
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [selectedPlace]);
 
-  const places: PlaceItem[] = [
+  const rawPlaces: PlaceItem[] = [
     // ── WITHIN / VERY CLOSE TO SANGLI (Within 10 km) ──
     {
       id: "sangli-ganpati",
@@ -81,7 +101,7 @@ export function AboutSangli() {
       fullDescEn: "Constructed in 1843 by Patwardhan rulers, this black-stone shrine on Krishna river is Sangli's main landmark. Features smooth level access ideal for senior citizens.",
       highlightsMr: [
         "👴 ज्येष्ठांसाठी सुलभ व सोपे दर्शन (Wheelchair Friendly)",
-        "१८४३ मधील वैभवशाली ऐतिहासिक काळा दगडी वास्तू",
+        "१८४३ मधील वैभवशाली ऐतिहासिक काळी दगडी वास्तू",
         "कृष्णा नदी घाटाचा विलोभनीय परिसर",
         "आनंदशाळेपासून अवघ्या १० मिनिटांच्या अंतरावर"
       ],
@@ -240,14 +260,14 @@ export function AboutSangli() {
       isSeniorFriendly: true,
       catLabelMr: "🚗 २५-५० किमी परिसर",
       catLabelEn: "🚗 25-50 km Radius",
-      titleMr: "७. दांडोबा टेकडी व गुहा शिवमंदिर (भोसे)",
+      titleMr: "७. दंडोबा टेकडी व गुहा शिवमंदिर (भोसे)",
       titleEn: "7. Dandoba Hills & Forest Shrine",
       distanceMr: "२५ किमी (३० मिनिटे)",
       distanceEn: "25 km (30 mins)",
       image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
       shortDescMr: "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.",
       shortDescEn: "Hills, forest reserve, ancient cave temple and scenic views; ideal short morning outing.",
-      fullDescMr: "सांगलीपासून २५ मिनिटांच्या अंतरावर दांडोबा टेकडी आहे. हे राखीव वनक्षेत्र असून येथे प्राचीन गुहेमध्ये भगवान शिवाचे स्थान आहे. गाडीने वरपर्यंत जाता येत असल्याने सकाळी फिरण्यासाठी उत्तम आहे.",
+      fullDescMr: "सांगलीपासून २५ मिनिटांच्या अंतरावर दंडोबा टेकडी आहे. हे राखीव वनक्षेत्र असून येथे प्राचीन गुहेमध्ये भगवान शिवाचे स्थान आहे. गाडीने वरपर्यंत जाता येत असल्याने सकाळी फिरण्यासाठी उत्तम आहे.",
       fullDescEn: "Described as a 25-minute drive from Sangli, Dandoba Hills is a protected forest reserve with an ancient cave Shiva temple. Road reaches right up to temple area.",
       highlightsMr: [
         "👴 गाडी थेट वरपर्यंत जात असल्याने सोयीस्कर",
@@ -324,14 +344,14 @@ export function AboutSangli() {
       isSeniorFriendly: true,
       catLabelMr: "🚗 २५-५० किमी परिसर",
       catLabelEn: "🚗 25-50 km Radius",
-      titleMr: "१०. रामलिंग बेट व राममंदिर (बाहे)",
+      titleMr: "१०. रामलिंग बेट व राममंदिर (बहे)",
       titleEn: "10. Ramling Island, Bahe",
       distanceMr: "३८ किमी (५० मिनिटे)",
       distanceEn: "38 km (50 mins)",
       image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
       shortDescMr: "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.",
       shortDescEn: "Attractive Krishna river island location with ancient Ram temple; ideal for nature outing.",
-      fullDescMr: "वाळवा तालुक्यातील बाहे येथे कृष्णा नदीच्या पात्रात निसर्गरम्य रामलिंग बेट आहे. प्रभू रामचंद्रांच्या वास्तव्याने पुनीत झालेले येथील प्राचीन राममंदिर व सभोवतालचे पाण्याचे पात्र निवांत फिरण्यासाठी अतिशय आनंददायी आहे.",
+      fullDescMr: "वाळवा तालुक्यातील बहे येथे कृष्णा नदीच्या पात्रात निसर्गरम्य रामलिंग बेट आहे. प्रभू रामचंद्रांच्या वास्तव्याने पुनीत झालेले येथील प्राचीन राममंदिर व सभोवतालचे पाण्याचे पात्र निवांत फिरण्यासाठी अतिशय आनंददायी आहे.",
       fullDescEn: "Located in Bahe on Krishna river, Ramling Island is a natural river island housing an ancient Ram temple associated with the Ramayana. Excellent for a scenic nature outing.",
       highlightsMr: [
         "👴 निवांत निसर्ग सहलीसाठी अत्यंत प्रसन्न ठिकाण",
@@ -461,6 +481,19 @@ export function AboutSangli() {
       ]
     }
   ];
+
+  const places = rawPlaces.map((p) => {
+    const ov = overrides[p.id];
+    if (!ov) return p;
+    return {
+      ...p,
+      image: ov.image || p.image,
+      titleMr: ov.titleMr || p.titleMr,
+      titleEn: ov.titleEn || p.titleEn,
+      distanceMr: ov.distanceMr || p.distanceMr,
+      shortDescMr: ov.shortDescMr || p.shortDescMr,
+    };
+  });
 
   const filteredPlaces = places.filter((p) => {
     if (activeTab === "all") return true;
@@ -799,8 +832,9 @@ export function AboutSangli() {
           onClick={() => setSelectedPlace(null)}
         >
           <div
-            className="bg-white rounded-[2rem] sm:rounded-[2.5rem] max-w-lg w-full max-h-[85vh] flex flex-col relative shadow-2xl border-4 border-pink-300 text-slate-800 overflow-hidden shadow-pink-500/30 my-auto"
+            className="bg-white rounded-[2rem] sm:rounded-[2.5rem] max-w-lg w-full h-[84vh] sm:h-[88vh] max-h-[640px] sm:max-h-[700px] flex flex-col relative shadow-2xl border-4 border-pink-300 text-slate-800 overflow-hidden shadow-pink-500/30 my-auto shrink-0"
             onClick={(e) => e.stopPropagation()}
+            onWheel={(e) => e.stopPropagation()}
           >
             {/* Modal Fixed Header (Pills + Close Button) */}
             <div className="flex items-center justify-between gap-2 p-3.5 sm:p-4 border-b border-pink-100 bg-pink-50/50 shrink-0">
@@ -830,7 +864,7 @@ export function AboutSangli() {
             </div>
 
             {/* Modal Scrollable Body */}
-            <div className="as-sangli-modal-body flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+            <div className="as-sangli-modal-body flex-1 min-h-0 overflow-y-auto p-4 sm:p-6 space-y-4">
               {/* Image with Title */}
               <div className="relative h-44 sm:h-52 rounded-2xl overflow-hidden border border-pink-100 shadow-md shrink-0">
                 <img
@@ -849,7 +883,7 @@ export function AboutSangli() {
 
               {/* Full Description */}
               <p className="text-xs sm:text-sm font-extrabold text-slate-700 leading-relaxed">
-                {isEn ? selectedPlace.fullDescEn : selectedPlace.fullDescMr}
+                {formatWithPinkAnandshala(isEn ? selectedPlace.fullDescEn : selectedPlace.fullDescMr)}
               </p>
 
               {/* Highlights Box */}
@@ -861,7 +895,7 @@ export function AboutSangli() {
                 {(isEn ? selectedPlace.highlightsEn : selectedPlace.highlightsMr).map((h, i) => (
                   <div key={i} className="flex items-start gap-2 text-xs sm:text-sm font-bold text-slate-800 leading-snug">
                     <ShieldCheck size={16} className="text-emerald-600 shrink-0 mt-0.5" />
-                    <span>{h}</span>
+                    <span>{formatWithPinkAnandshala(h)}</span>
                   </div>
                 ))}
               </div>

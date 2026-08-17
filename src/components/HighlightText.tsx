@@ -13,8 +13,8 @@ export const HighlightText: React.FC<HighlightTextProps> = ({
 }) => {
   if (!text) return null;
 
-  const splitRegex = /(आनंद\s*शाळा|आनंदशाळा|आनंदशाळेत|आनंदशाळेची|आनंदशाळेचे|आनंदशाळेच्या|आनंदशाळेतील|आनंदशाळेस|आनंदशाळेकडून|आनंद\s*निवास|आनंदनिवास|Anandshala|Aanandshala|AnandShala|AanandShala)/gi;
-  const matchRegex = /^(आनंद\s*शाळा|आनंदशाळा|आनंदशाळेत|आनंदशाळेची|आनंदशाळेचे|आनंदशाळेच्या|आनंदशाळेतील|आनंदशाळेस|आनंदशाळेकडून|आनंद\s*निवास|आनंदनिवास|Anandshala|Aanandshala|AnandShala|AanandShala)$/i;
+  const splitRegex = /(आनंद\s*शाळा[अ-म्ह-्]*|आनंदशाळा[अ-म्ह-्]*|आनंद\s*निवास[अ-म्ह-्]*|आनंदनिवास[अ-म्ह-्]*|Anandshala|Aanandshala|AnandShala|AanandShala)/gi;
+  const matchRegex = /^(आनंद\s*शाळा[अ-म्ह-्]*|आनंदशाळा[अ-म्ह-्]*|आनंद\s*निवास[अ-म्ह-्]*|आनंदनिवास[अ-म्ह-्]*|Anandshala|Aanandshala|AnandShala|AanandShala)$/i;
 
   const parts = text.split(splitRegex);
 

@@ -252,6 +252,17 @@ const ActivityHallsSection = () => {
   const { isEn, formatNum } = useLanguage();
   const store = useAdminStore();
 
+  React.useEffect(() => {
+    if (selectedHall) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedHall]);
+
   const activeHalls: HallDetail[] =
     store.siteData.activityHalls && store.siteData.activityHalls.length > 0
       ? store.siteData.activityHalls.map((h, idx) => {
@@ -291,7 +302,7 @@ const ActivityHallsSection = () => {
           </div>
 
           <div className="ah-header-subtitle">
-            <span style={{ color: '#db2777' }}>❖</span> {isEn ? "Anandshala's" : "आनंदशाळेतील"} <span style={{ color: '#db2777' }}>❖</span>
+            <span style={{ color: '#db2777' }}>❖</span> {isEn ? <><span className="text-[#db2777] font-black">Anandshala's</span></> : <><span className="text-[#db2777] font-black">आनंदशाळेतील</span></>} <span style={{ color: '#db2777' }}>❖</span>
           </div>
           <h2 className="ah-header-title text-[26px] sm:text-[36px] md:text-[42px] text-[#0044cc]">
             <span className="blue-text">{isEn ? "Special Activity Halls" : "विशेष उपक्रम हॉल्स"}</span>
@@ -299,7 +310,7 @@ const ActivityHallsSection = () => {
           <div className="ah-header-desc">
             {isEn
               ? "Fully equipped luxury activity halls for daily joy, recreation and wellness!"
-              : "आनंदशाळेत दररोज तुमच्या आवडीनुसार मनोरंजन करून आनंद घेता येईल असे सुसज्जीत हॉल्स!"}
+              : <><span className="text-[#db2777] font-black">आनंदशाळेत</span> दररोज तुमच्या आवडीनुसार मनोरंजन करून आनंद घेता येईल असे सुसज्जीत हॉल्स!</>}
           </div>
         </div>
       </Reveal>
@@ -387,6 +398,7 @@ const ActivityHallsSection = () => {
           <div
             className="ah-modal-card"
             onClick={(e) => e.stopPropagation()}
+            onWheel={(e) => e.stopPropagation()}
           >
             {/* CLOSE BUTTON */}
             <button
@@ -403,7 +415,13 @@ const ActivityHallsSection = () => {
               <div className="ah-modal-img-gradient" />
               <div className="ah-modal-img-badge">
                 <Sparkles size={16} className="text-amber-300" />
-                <span>{isEn ? `Anandshala Hall ${selectedHall.id}` : `आनंदशाळा उपक्रम हॉल ${selectedHall.id}`}</span>
+                <span>
+                  {isEn ? (
+                    <><span className="text-pink-400 font-black">Anandshala</span> Hall {selectedHall.id}</>
+                  ) : (
+                    <><span className="text-pink-400 font-black">आनंदशाळा</span> उपक्रम हॉल {selectedHall.id}</>
+                  )}
+                </span>
               </div>
             </div>
 

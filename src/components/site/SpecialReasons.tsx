@@ -109,8 +109,8 @@ export default function SpecialReasons() {
         </div>
         <p>
           {isEn
-            ? "Discover the 23 reasons that make Anandshala truly special."
-            : "आनंदशाळा खास का आहे ते जाणा — २३ विशेष कारणे."}
+            ? <>Discover the 23 reasons that make <span style={{ color: "#db2777", fontWeight: 900 }}>Anandshala</span> truly special.</>
+            : <><span style={{ color: "#db2777", fontWeight: 900 }}>आनंदशाळा</span> खास का आहे ते जाणा — २३ विशेष कारणे.</>}
         </p>
       </div>
 

@@ -361,7 +361,21 @@ export type AboutParagraphItem = {
   imageUrl?: string;
 };
 
+export type SangliPlaceOverride = {
+  id: string;
+  image?: string;
+  titleMr?: string;
+  titleEn?: string;
+  distanceMr?: string;
+  shortDescMr?: string;
+};
+
 export type AboutData = {
+  storyTitleMr?: string;
+  storyTitleEn?: string;
+  storyDescMr?: string;
+  storyDescEn?: string;
+  storyMainImage?: string;
   storyP1: string;
   storyP2: string;
   storyP3: string;
@@ -369,6 +383,7 @@ export type AboutData = {
   photos: string[];
   highlights: AboutHighlightItem[];
   paragraphs?: AboutParagraphItem[];
+  sangliPlacesOverrides?: Record<string, SangliPlaceOverride>;
 };
 
 export type BrochureItem = {
@@ -1397,6 +1412,10 @@ export function useAdminStore() {
     const updated = { ...aboutData, ...newAbout };
     setAboutDataState(updated);
     setStoredData(STORAGE_KEYS.about, updated);
+    try {
+      setDoc(doc(db, "app_data", STORAGE_KEYS.about), { data: updated, updatedAt: Date.now() }, { merge: true })
+        .catch(() => {});
+    } catch (_) {}
   };
 
   const addGalleryItem = (item: Omit<GalleryItem, "id">) => {

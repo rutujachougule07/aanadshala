@@ -37,7 +37,7 @@ export default function Navbar() {
             </div>
             <div>
               <h2 className="navbar-logo-title">PREETAM</h2>
-              <p className="navbar-logo-sub">ज्येष्ठ नागरिक आनंदशाळा</p>
+              <p className="navbar-logo-sub">ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span></p>
             </div>
           </Link>
 

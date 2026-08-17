@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { useAdminStore, uploadImageToFirebase, uploadVideoToFirebase, useResolvedVideoUrl, resetFirebaseDatabase, setStoredData, STORAGE_KEYS } from "@/lib/admin-store";
+import { useAdminStore, uploadImageToFirebase, uploadVideoToFirebase, useResolvedVideoUrl, resetFirebaseDatabase, setStoredData, STORAGE_KEYS, SangliPlaceOverride } from "@/lib/admin-store";
 import { auth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "@/firebase";
 import {
   Home,
@@ -595,13 +595,7 @@ export default function AdminPage() {
   return (
     <div className="h-screen bg-gradient-to-br from-[#f8fafc] via-[#fff8fb] to-[#f0f4ff] text-slate-800 font-sans flex flex-col lg:flex-row relative overflow-hidden">
 
-      {/* TOAST NOTIFICATION */}
-      {saveSuccessMsg && (
-        <div className="fixed top-5 right-5 z-[99999] flex items-center gap-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-4 text-sm font-black text-white shadow-2xl animate-bounce border border-white/30">
-          <CheckCircle className="size-5" />
-          <span>{saveSuccessMsg}</span>
-        </div>
-      )}
+
 
       {/* EDIT MODAL OVERLAY */}
       {editingModal && (
@@ -674,16 +668,30 @@ export default function AdminPage() {
                 />
               </div>
 
+              {/* SUBTITLE / DISTANCE INPUT FOR SANGLI ATTRACTION */}
+              {editingModal?.type === "sangliAttraction" && (
+                <div>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">📍 अंतर व वेळ (Distance, e.g. ३ किमी (१० मिनिटे))</label>
+                  <input
+                    type="text"
+                    value={modalSubtitle}
+                    onChange={(e) => setModalSubtitle(e.target.value)}
+                    placeholder="उदा. ३ किमी (१० मिनिटे)"
+                    className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-bold focus:border-[#db2777] focus:outline-none"
+                  />
+                </div>
+              )}
+
               {/* DESCRIPTION TEXTAREA */}
-              {(editingModal?.type === "hall" || editingModal?.type === "video") && (
+              {(editingModal?.type === "hall" || editingModal?.type === "video" || editingModal?.type === "sangliAttraction" || (modalDesc && modalDesc.length > 0)) && (
                 <div>
                   <label className="block text-[11px] font-black text-slate-500 mb-1">📝 माहिती / Description</label>
                   <textarea
                     value={modalDesc}
                     onChange={(e) => setModalDesc(e.target.value)}
                     placeholder="माहिती लिहा..."
-                    rows={2}
-                    className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-bold focus:border-[#db2777] focus:outline-none resize-none"
+                    rows={3}
+                    className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-medium focus:border-[#db2777] focus:outline-none resize-none"
                   />
                 </div>
               )}
@@ -1011,7 +1019,7 @@ export default function AdminPage() {
                     </div>
 
                     <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
-                      <p className="font-black text-xs text-[#60a5fa] drop-shadow-md truncate">
+                      <p className="font-black text-xs text-white drop-shadow-md truncate">
                         <HighlightText text={siteForm.aanandshalaTitle || "प्रीतम ज्येष्ठ नागरिक आनंदशाळा व निवारा"} />
                       </p>
                     </div>
@@ -1183,7 +1191,7 @@ export default function AdminPage() {
                         </button>
 
                         <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
-                          <p className="font-black text-xs text-[#60a5fa] drop-shadow-md truncate"><HighlightText text={hall.title} /></p>
+                          <p className="font-black text-xs text-white drop-shadow-md truncate"><HighlightText text={hall.title} /></p>
                           <p className="text-[10px] text-rose-200 opacity-90 truncate">{hall.category}</p>
                         </div>
                       </div>
@@ -1198,64 +1206,188 @@ export default function AdminPage() {
         {/* ================================================================== */}
         {/* TAB 3: ABOUT US PAGE IMAGES                                       */}
         {/* ================================================================== */}
+        {/* TAB 3: ABOUT US PAGE COMPLETE MANAGEMENT                           */}
+        {/* ================================================================== */}
         {activeTab === "about" && (
-          <div className="space-y-6 animate-fade-up">
+          <div className="space-y-8 animate-fade-up">
             <div className="flex items-center justify-between border-b border-rose-200 pb-4">
               <div>
                 <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
                   <BookOpen className="text-[#db2777]" />
-                  <span>About Us Page Images</span>
+                  <span>About Us Page Manager (माहिती व फोटो नियंत्रण)</span>
                 </h1>
                 <p className="text-xs text-slate-500 mt-1 font-semibold">
-                  Click Edit button directly on any about image to replace photo or text.
+                  Manage About Us intro story, building photos, and Sangli attractions with Edit & Delete buttons.
                 </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {[
-                { title: "आनंदशाळा मुख्य इमारत", src: aboutForm.photos?.[0] || "/images/aandshala_img.png", tag: "History & Foundation", idx: 0 },
-                { title: "आनंद सहल उपक्रम फोटो", src: aboutForm.photos?.[1] || "/images/aandshala sahal 1.jpeg", tag: "Culture & Care", idx: 1 },
-                { title: "ज्येष्ठ नागरिक आनंद मेळावा", src: aboutForm.photos?.[2] || "/images/aandmelav 10.jpeg", tag: "Community Gathering", idx: 2 },
-              ].map((item, i) => (
-                <div key={i} className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group">
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-48">
-                    <img src={item.src} alt={item.title} className="w-full h-full object-cover" />
-                    <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black text-[#810B38] border border-rose-200 shadow-xs">
-                      {item.tag}
-                    </span>
+            {/* SECTION 1: ABOUT US HERO INTRO STORY & CEREMONY PHOTO */}
+            <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 sm:p-6 space-y-5 shadow-sm">
+              <h2 className="text-base font-black text-[#810B38] flex items-center gap-2 border-b border-rose-100 pb-3">
+                <span>📖</span>
+                <span>१. आनंदशाळा : एक परिचय व संकल्पना (Main Story & Photo)</span>
+              </h2>
 
-                    {/* CLEAN SINGLE ICON EDIT BUTTON ON IMAGE */}
-                    <button
-                      onClick={() =>
-                        openEditModal({
-                          type: "about",
-                          title: item.title,
-                          imageUrl: item.src,
-                          onSave: (newTitle, newUrl) => {
-                            const defaultPhotos = ["/images/aandshala_img.png", "/images/aandshala sahal 1.jpeg", "/images/aandmelav 10.jpeg"];
-                            const currentPhotos = [...(aboutForm.photos && aboutForm.photos.length > 0 ? aboutForm.photos : defaultPhotos)];
-                            currentPhotos[item.idx] = newUrl;
-                            const updatedAbout = { ...aboutForm, photos: currentPhotos };
-                            setAboutForm(updatedAbout);
-                            store.updateAboutData(updatedAbout);
-                            showToast(`✅ ${newTitle} photo saved!`);
-                          },
-                        })
-                      }
-                      className="absolute top-2 right-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1.5 cursor-pointer border border-rose-200 z-20"
-                    >
-                      <Edit size={13} className="text-[#db2777]" />
-                      <span>Edit</span>
-                    </button>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                {/* Left Column: Ceremony Main Image */}
+                <div className="lg:col-span-5 space-y-2">
+                  <label className="block text-xs font-black text-slate-700">📸 मुख्य सोहळा / इमारत फोटो (Main Ceremony Photo)</label>
+                  <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md">
+                    <img
+                      src={aboutForm.storyMainImage || "/images/imgever.JPG"}
+                      alt="Story Ceremony Photo"
+                      className="w-full h-64 object-cover"
+                    />
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
-                      <p className="font-black text-xs drop-shadow-md truncate">{item.title}</p>
+                    <div className="absolute top-3 right-3 flex items-center gap-2 z-20">
+                      <button
+                        onClick={() =>
+                          openEditModal({
+                            type: "storyPhoto",
+                            title: "आनंदशाळा मुख्य सोहळा फोटो",
+                            imageUrl: aboutForm.storyMainImage || "/images/imgever.JPG",
+                            onSave: (_t, newUrl) => {
+                              const updatedAbout = { ...aboutForm, storyMainImage: newUrl };
+                              setAboutForm(updatedAbout);
+                              store.updateAboutData(updatedAbout);
+                              showToast("✅ मुख्य सोहळा फोटो अपडेट झाला!");
+                            },
+                          })
+                        }
+                        className="px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-black text-[#1A05A2] shadow-lg hover:bg-rose-50 flex items-center gap-1.5 border border-rose-200 cursor-pointer"
+                      >
+                        <Edit size={13} className="text-[#db2777]" />
+                        <span>Edit Photo</span>
+                      </button>
+                    </div>
+
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
+                      <p className="font-black text-xs drop-shadow-md">आनंदशाळा सोहळा फोटो</p>
                     </div>
                   </div>
                 </div>
-              ))}
+
+                {/* Right Column: Title & Text Inputs */}
+                <div className="lg:col-span-7 space-y-4">
+                  <div>
+                    <label className="block text-xs font-black text-slate-700 mb-1">🏷️ मुख्य शीर्षक (Title - Marathi)</label>
+                    <input
+                      type="text"
+                      value={aboutForm.storyTitleMr || "प्रीतम आनंदशाळा : एक परिचय व संकल्पना"}
+                      onChange={(e) => setAboutForm({ ...aboutForm, storyTitleMr: e.target.value })}
+                      className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 font-bold focus:border-[#db2777] focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-black text-slate-700 mb-1">📝 परिचय माहिती (Description - Marathi)</label>
+                    <textarea
+                      rows={4}
+                      value={aboutForm.storyDescMr || "“प्रीतम सीनियर सिटिझन आनंदशाळा” ही सांगली, महाराष्ट्र, भारत येथे स्थित एक विशेष ज्येष्ठ नागरिक सेवा सुविधा आणि मनोरंजन केंद्र आहे. उद्योजक श्री. अभिनय जगन्नाथ कामाजी यांनी प्रीतम बिझनेस ग्रुपच्या अंतर्गत याची स्थापना केली आहे. ज्येष्ठ नागरिकांसाठी समर्पित केअरटेकर सेवा, सहवास आणि आरोग्यविषयक सहाय्य उपलब्ध करून देणारे एक प्रीमियम केंद्र म्हणून याची ओळख निर्माण झाली आहे."}
+                      onChange={(e) => setAboutForm({ ...aboutForm, storyDescMr: e.target.value })}
+                      className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 font-medium focus:border-[#db2777] focus:outline-none"
+                    />
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      store.updateAboutData(aboutForm);
+                      showToast("✅ About Us माहिती सेव्ह झाली!");
+                    }}
+                    className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-xs font-black text-white shadow-md hover:scale-105 transition-transform cursor-pointer flex items-center gap-2"
+                  >
+                    <Save size={14} />
+                    <span>Save About Us Details</span>
+                  </button>
+                </div>
+              </div>
             </div>
+
+            {/* SECTION 2: SANGLI & NEARBY ATTRACTIONS MANAGEMENT (14 PLACES) */}
+            <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 sm:p-6 space-y-4 shadow-sm">
+              <h2 className="text-base font-black text-[#810B38] flex items-center justify-between border-b border-rose-100 pb-3">
+                <span className="flex items-center gap-2">
+                  <span>🗺️</span>
+                  <span>२. सांगली परिसरातील १४ प्रमुख पर्यटन व तीर्थक्षेत्रे (Sangli 14 Attractions)</span>
+                </span>
+                <span className="text-xs font-bold text-slate-500">14 Places</span>
+              </h2>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {[
+                  { id: "sangli-ganpati", title: "१. सांगली गणपती मंदिर (राजवाडा)", dist: "३ किमी (१० मिनिटे)", desc: " १८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर...", img: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "sangli-fort-rajwada", title: "२. सांगली किल्ला व राजवाडा परिसर", dist: "३.५ किमी (१२ मिनिटे)", desc: "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू...", img: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "sangmeshwar-haripur", title: "३. संगमेश्वर मंदिर (हरिपूर संगम)", dist: "५ किमी (१५ मिनिटे)", desc: "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले शिवमंदिर...", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "krishna-irwin-bridge", title: "४. कृष्णा नदीकाठ व आयर्विन पूल", dist: "४ किमी (१० मिनिटे)", desc: "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल...", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "miraj-dargah", title: "५. मिरज - ख्वाजा मीरासाहेब दर्गाह", dist: "१० किमी (२० मिनिटे)", desc: "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व मिरज सतार-तंबोरा केंद्र...", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "audumbar-temple", title: "६. औदुंबर - श्री दत्त क्षेत्र (दत्त मंदिर)", dist: "२५ किमी (४० मिनिटे)", desc: "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले दत्त मंदिर...", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "dandoba-hills", title: "७. दंडोबा टेकडी व गुहा शिवमंदिर", dist: "२५ किमी (३० मिनिटे)", desc: "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर...", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "sagareshwar-sanctuary", title: "८. सागरेश्वर वन्यजीव अभयारण्य", dist: "३० किमी (४५ मिनिटे)", desc: "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह...", img: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "bahubali-kumbhojgiri", title: "९. बाहुबली कुंभोजगिरी (जैन तीर्थक्षेत्र)", dist: "३५ किमी (५० मिनिटे)", desc: "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील जैन तीर्थक्षेत्र...", img: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "ramling-island-bahe", title: "१०. रामलिंग बेट व राममंदिर (बहे)", dist: "३८ किमी (५० मिनिटे)", desc: "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, राममंदिर...", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "chandoli-national-park", title: "११. चांदोली राष्ट्रीय उद्यान व धरण", dist: "६५ किमी (१.५ तास)", desc: "सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व जंगल परिसर...", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "gokak-waterfall", title: "१२. गोकाक भव्य धबधबा", dist: "७५ किमी (१.५ तास)", desc: "१७७ फूट उंचीवरून कोसळणारा धबधबा व लटकता पूल...", img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "machhindragad-fort", title: "१३. मच्छिंद्रगड किल्ला व मंदिर", dist: "४५ किमी (१ तास)", desc: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला...", img: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "kolhapur-excursion", title: "१४. कोल्हापूर - श्री महालक्ष्मी मंदिर & न्यू पॅलेस", dist: "५० किमी (१ तास)", desc: "श्री अंबाबाई महालक्ष्मी मंदिर, न्यू पॅलेस राजवाडा व रंकाळा...", img: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop" },
+                ].map((attraction) => {
+                  const ov: SangliPlaceOverride = (store.aboutData?.sangliPlacesOverrides?.[attraction.id] || {}) as SangliPlaceOverride;
+                  const currentImage = ov.image || attraction.img;
+                  const currentTitle = ov.titleMr || attraction.title;
+                  const currentDist = ov.distanceMr || attraction.dist;
+                  const currentDesc = ov.shortDescMr || attraction.desc;
+
+                  return (
+                    <div key={attraction.id} className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group">
+                      <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-48">
+                        <img src={currentImage} alt={currentTitle} className="w-full h-full object-cover" />
+                        <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black text-[#810B38] border border-rose-200 shadow-xs">
+                          {currentDist}
+                        </span>
+
+                        <button
+                          onClick={() =>
+                            openEditModal({
+                              type: "sangliAttraction",
+                              title: currentTitle,
+                              imageUrl: currentImage,
+                              subtitle: currentDist,
+                              desc: currentDesc,
+                              onSave: (newTitle, newUrl, newDist, _cat, newDesc) => {
+                                const currentOverrides = store.aboutData?.sangliPlacesOverrides || {};
+                                const updatedOverrides = {
+                                  ...currentOverrides,
+                                  [attraction.id]: {
+                                    id: attraction.id,
+                                    image: newUrl,
+                                    titleMr: newTitle,
+                                    distanceMr: newDist || currentDist,
+                                    shortDescMr: newDesc || currentDesc,
+                                  },
+                                };
+                                const updatedAbout = { ...aboutForm, sangliPlacesOverrides: updatedOverrides };
+                                setAboutForm(updatedAbout);
+                                store.updateAboutData(updatedAbout);
+                                showToast(`✅ ${newTitle} saved!`);
+                              },
+                            })
+                          }
+                          className="absolute top-2 right-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1.5 cursor-pointer border border-rose-200 z-20"
+                        >
+                          <Edit size={13} className="text-[#db2777]" />
+                          <span>Edit</span>
+                        </button>
+
+                        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
+                          <p className="font-black text-xs drop-shadow-md truncate">{currentTitle}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
           </div>
         )}
 

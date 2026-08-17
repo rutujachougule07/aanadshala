@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/use-language";
+import { useAdminStore } from "@/lib/admin-store";
+import { HighlightText } from "@/components/HighlightText";
 import "./AnandshalaStory.css";
 
 import {
@@ -24,6 +26,16 @@ import buildingImage from "../assets/anandshala-building.png";
 
 const AnandshalaStory: React.FC = () => {
   const { isEn } = useLanguage();
+  const store = useAdminStore();
+  const aboutData = store.aboutData || {};
+
+  const mainStoryImage = aboutData.storyMainImage || "/images/imgever.JPG";
+  const titleMr = aboutData.storyTitleMr || "प्रीतम आनंदशाळा : एक परिचय व संकल्पना";
+  const titleEn = aboutData.storyTitleEn || "Preetam Anandshala : Introduction & Vision";
+  const defaultMrText = "“प्रीतम सीनियर सिटिझन आनंदशाळा” ही सांगली, महाराष्ट्र, भारत येथे स्थित एक विशेष ज्येष्ठ नागरिक सेवा सुविधा आणि मनोरंजन केंद्र आहे. उद्योजक श्री. अभिनय जगन्नाथ कामाजी यांनी प्रीतम बिझनेस ग्रुपच्या अंतर्गत याची स्थापना केली आहे. ज्येष्ठ नागरिकांसाठी समर्पित केअरटेकर सेवा, सहवास आणि आरोग्यविषयक सहाय्य उपलब्ध करून देणारे एक प्रीमियम केंद्र म्हणून याची ओळख निर्माण झाली आहे.";
+  const defaultEnText = "Preetam Senior Citizen Anandshala is a specialized elderly care facility and recreational centre located in Sangli, Maharashtra, India. Founded by entrepreneur Shri Abhinay Jagannath Kamaji under the Preetam Business Group, it brands itself as a premier destination offering dedicated senior citizen caretaker services, companionship, and healthcare support.";
+  const descMr = aboutData.storyDescMr || defaultMrText;
+  const descEn = aboutData.storyDescEn || defaultEnText;
 
   const stats = [
     {
@@ -86,11 +98,30 @@ const AnandshalaStory: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            {isEn ? (
-              <>Preetam <span className="text-[#db2777]">Anandshala</span> : <span className="text-[#1A05A2]">Introduction &amp; Vision</span></>
-            ) : (
-              <>प्रीतम <span className="text-[#db2777]">आनंदशाळा</span> : <span className="text-[#1A05A2]">एक परिचय व संकल्पना</span></>
-            )}
+            {(() => {
+              const text = isEn ? titleEn : titleMr;
+              if (text.includes("आनंदशाळा")) {
+                const parts = text.split("आनंदशाळा");
+                return (
+                  <>
+                    {parts[0]}
+                    <span className="text-[#db2777]">आनंदशाळा</span>
+                    {parts.slice(1).join("आनंदशाळा")}
+                  </>
+                );
+              }
+              if (text.includes("Anandshala")) {
+                const parts = text.split("Anandshala");
+                return (
+                  <>
+                    {parts[0]}
+                    <span className="text-[#db2777]">Anandshala</span>
+                    {parts.slice(1).join("Anandshala")}
+                  </>
+                );
+              }
+              return text;
+            })()}
           </motion.h2>
 
           <motion.div className="as-title-underline" />
@@ -110,19 +141,11 @@ const AnandshalaStory: React.FC = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 text-xs font-extrabold uppercase tracking-wider">
               <Sparkles size={14} className="text-pink-600 animate-pulse" />
-              {isEn ? "ABOUT PREETAM ANANDSHALA" : "प्रीतम आनंदशाळा परिचय"}
+              {isEn ? <>ABOUT PREETAM <span className="text-[#db2777]">ANANDSHALA</span></> : <>प्रीतम <span className="text-[#db2777]">आनंदशाळा</span> परिचय</>}
             </span>
 
             <p className="text-slate-700 text-sm sm:text-base font-medium leading-relaxed">
-              {isEn ? (
-                <>
-                  "Preetam Senior Citizen <span className="text-[#db2777] font-black">Anandshala</span> is a specialized elderly care facility and recreational centre located in Sangli, Maharashtra, India. Founded by entrepreneur Shri Abhinay Jagannath Kamaji under the Preetam Business Group, it brands itself as a premier destination offering dedicated senior citizen caretaker services, companionship, and healthcare support."
-                </>
-              ) : (
-                <>
-                  “प्रीतम सीनियर सिटिझन <span className="text-[#db2777] font-black">आनंदशाळा</span>” ही सांगली, महाराष्ट्र, भारत येथे स्थित एक विशेष ज्येष्ठ नागरिक सेवा सुविधा आणि मनोरंजन केंद्र आहे. उद्योजक श्री. अभिनय जगन्नाथ कामाजी यांनी प्रीतम बिझनेस ग्रुपच्या अंतर्गत याची स्थापना केली आहे. ज्येष्ठ नागरिकांसाठी समर्पित केअरटेकर सेवा, सहवास आणि आरोग्यविषयक सहाय्य उपलब्ध करून देणारे एक प्रीमियम केंद्र म्हणून याची ओळख निर्माण झाली आहे.
-                </>
-              )}
+              <HighlightText text={isEn ? descEn : descMr} />
             </p>
           </motion.div>
 
@@ -135,7 +158,7 @@ const AnandshalaStory: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <img
-              src="/images/imgever.JPG"
+              src={mainStoryImage}
               alt={isEn ? "Preetam Anandshala Ceremony" : "प्रीतम आनंदशाळा सोहळा"}
               className="w-full h-[280px] sm:h-[340px] md:h-[380px] object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
               onError={(e) => { e.currentTarget.src = buildingImage; }}

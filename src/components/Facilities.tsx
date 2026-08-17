@@ -167,7 +167,7 @@ export default function Facilities() {
               </h2>
 
               <p className="mt-6 text-white/90 text-lg leading-8 max-w-2xl">
-                प्रीतम ज्येष्ठ नागरिक आनंदशाळा ही केवळ निवासस्थान नाही,
+                प्रीतम ज्येष्ठ नागरिक <span className="text-pink-300 font-black">आनंदशाळा</span> ही केवळ निवासस्थान नाही,
                 तर प्रेम, सन्मान, सुरक्षितता, आरोग्य आणि आनंद देणारे दुसरे घर आहे.
               </p>
             </div>
