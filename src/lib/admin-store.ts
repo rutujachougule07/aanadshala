@@ -582,7 +582,135 @@ const initialAboutData: AboutData = {
       date: "१५ ऑगस्ट २०२३",
     },
   ],
+  sangliPlacesOverrides: {
+    "sangli-ganpati": {
+      id: "sangli-ganpati",
+      titleMr: "१. सांगली गणपती मंदिर (राजवाडा)",
+      titleEn: "1. Sangli Royal Ganapati Temple",
+      distanceMr: "३ किमी (१० मिनिटे)",
+      shortDescMr: "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
+      image: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop",
+    },
+    "sangli-fort-rajwada": {
+      id: "sangli-fort-rajwada",
+      titleMr: "२. सांगली किल्ला व राजवाडा परिसर",
+      titleEn: "2. Sangli Fort & Rajwada Area",
+      distanceMr: "३.५ किमी (१२ मिनिटे)",
+      shortDescMr: "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
+      image: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop",
+    },
+    "sangmeshwar-haripur": {
+      id: "sangmeshwar-haripur",
+      titleMr: "३. संगमेश्वर मंदिर (हरिपूर संगम)",
+      titleEn: "3. Sangmeshwar Temple (Haripur)",
+      distanceMr: "५ किमी (१५ मिनिटे)",
+      shortDescMr: "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
+      image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
+    },
+    "krishna-irwin-bridge": {
+      id: "krishna-irwin-bridge",
+      titleMr: "४. कृष्णा नदीकाठ व आयर्विन पूल",
+      titleEn: "4. Krishna River & Irwin Bridge",
+      distanceMr: "४ किमी (१० मिनिटे)",
+      shortDescMr: "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल व कृष्णा नदीचा सुंदर घाट परिसर.",
+      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
+    },
+    "miraj-dargah": {
+      id: "miraj-dargah",
+      titleMr: "५. मिरज - ख्वाजा मीरासाहेब दर्गाह व संगीत नगरी",
+      titleEn: "5. Miraj Khwaja Meerasaheb Dargah",
+      distanceMr: "१० किमी (२० मिनिटे)",
+      shortDescMr: "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
+      image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
+    },
+    "audumbar-temple": {
+      id: "audumbar-temple",
+      titleMr: "६. औदुंबर - श्री दत्त क्षेत्र (दत्त मंदिर)",
+      titleEn: "6. Audumbar Shri Dattatreya Temple",
+      distanceMr: "२५ किमी (४० मिनिटे)",
+      shortDescMr: "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.",
+      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
+    },
+    "dandoba-hills": {
+      id: "dandoba-hills",
+      titleMr: "७. दंडोबा टेकडी व गुहा शिवमंदिर (भोसे)",
+      titleEn: "7. Dandoba Hills & Forest Shrine",
+      distanceMr: "२५ किमी (३० मिनिटे)",
+      shortDescMr: "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.",
+      image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
+    },
+    "sagareshwar-sanctuary": {
+      id: "sagareshwar-sanctuary",
+      titleMr: "८. सागरेश्वर वन्यजीव अभयारण्य व शिवमंदिर",
+      titleEn: "8. Sagareshwar Wildlife Sanctuary",
+      distanceMr: "३० किमी (४५ मिनिटे)",
+      shortDescMr: "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.",
+      image: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop",
+    },
+    "bahubali-kumbhojgiri": {
+      id: "bahubali-kumbhojgiri",
+      titleMr: "९. बाहुबली कुंभोजगिरी (जैन तीर्थक्षेत्र)",
+      titleEn: "9. Bahubali Hill, Kumbhojgiri",
+      distanceMr: "३५ किमी (५० मिनिटे)",
+      shortDescMr: "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील अतिशय प्रसिद्ध जैन तीर्थक्षेत्र.",
+      image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop",
+    },
+    "ramling-island-bahe": {
+      id: "ramling-island-bahe",
+      titleMr: "१०. रामलिंग बेट व राममंदिर (बहे)",
+      titleEn: "10. Ramling Island, Bahe",
+      distanceMr: "३८ किमी (५० मिनिटे)",
+      shortDescMr: "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.",
+      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
+    },
+    "chandoli-national-park": {
+      id: "chandoli-national-park",
+      titleMr: "११. चांदोली राष्ट्रीय उद्यान व धरण",
+      titleEn: "11. Chandoli National Park & Dam",
+      distanceMr: "६५ किमी (१.५ तास)",
+      shortDescMr: "यूनेस्को जागतिक वारसा सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व निसर्गरम्य जंगल परिसर.",
+      image: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop",
+    },
+    "gokak-waterfall": {
+      id: "gokak-waterfall",
+      titleMr: "१२. गोकाक भव्य धबधबा",
+      titleEn: "12. Gokak Spectacular Waterfall",
+      distanceMr: "७५ किमी (१.५ तास)",
+      shortDescMr: "१७७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).",
+      image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
+    },
+    "machhindragad-fort": {
+      id: "machhindragad-fort",
+      titleMr: "१३. मच्छिंद्रगड किल्ला व मंदिर",
+      titleEn: "13. Machhindragad Fort & Temple",
+      distanceMr: "४५ किमी (१ तास)",
+      shortDescMr: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला व मच्छिंद्रनाथ मंदिर.",
+      image: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop",
+    },
+    "kolhapur-excursion": {
+      id: "kolhapur-excursion",
+      titleMr: "१४. कोल्हापूर - श्री महालक्ष्मी मंदिर, न्यू पॅलेस व रंकाळा",
+      titleEn: "14. Kolhapur Day Tour (Mahalaxmi)",
+      distanceMr: "५० किमी (१ तास)",
+      shortDescMr: "श्री अंबाबाई महालक्ष्मी मंदिर, छत्रपती शाहू न्यू पॅलेस राजवाडा व रंकाळा तलाव एक दिवसीय सहल.",
+      image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop",
+    },
+  },
 };
+
+// Immediate self-executing auto-sync for all 14 Sangli places to Firebase Firestore
+if (typeof window !== "undefined") {
+  setTimeout(() => {
+    try {
+      const now = Date.now();
+      if (initialAboutData.sangliPlacesOverrides) {
+        Object.entries(initialAboutData.sangliPlacesOverrides).forEach(([id, item]) => {
+          setDoc(doc(db, "sangli_attractions", id), { ...item, updatedAt: now }, { merge: true }).catch(() => {});
+        });
+      }
+    } catch (_) {}
+  }, 200);
+}
 
 const initialBrochures: BrochureItem[] = [
   {
@@ -1233,9 +1361,14 @@ export function useAdminStore() {
   const [siteData, setSiteDataState] = useState<SiteData>(() =>
     getStoredData(STORAGE_KEYS.site, initialSiteData)
   );
-  const [aboutData, setAboutDataState] = useState<AboutData>(() =>
-    getStoredData(STORAGE_KEYS.about, initialAboutData)
-  );
+  const [aboutData, setAboutDataState] = useState<AboutData>(() => {
+    const loaded = getStoredData(STORAGE_KEYS.about, initialAboutData);
+    const mergedOverrides = {
+      ...initialAboutData.sangliPlacesOverrides,
+      ...(loaded.sangliPlacesOverrides || {})
+    };
+    return { ...loaded, sangliPlacesOverrides: mergedOverrides };
+  });
   const [gallery, setGalleryState] = useState<GalleryItem[]>(() =>
     getStoredData(STORAGE_KEYS.gallery, initialGallery)
   );
@@ -1409,12 +1542,30 @@ export function useAdminStore() {
   };
 
   const updateAboutData = (newAbout: Partial<AboutData>) => {
-    const updated = { ...aboutData, ...newAbout };
+    const mergedOverrides = {
+      ...initialAboutData.sangliPlacesOverrides,
+      ...(aboutData.sangliPlacesOverrides || {}),
+      ...(newAbout.sangliPlacesOverrides || {}),
+    };
+    const updated = { ...aboutData, ...newAbout, sangliPlacesOverrides: mergedOverrides };
     setAboutDataState(updated);
     setStoredData(STORAGE_KEYS.about, updated);
     try {
-      setDoc(doc(db, "app_data", STORAGE_KEYS.about), { data: updated, updatedAt: Date.now() }, { merge: true })
+      const now = Date.now();
+
+      // Save main site document
+      setDoc(doc(db, "app_data", STORAGE_KEYS.about), { data: updated, updatedAt: now }, { merge: true })
+        .catch((err) => console.warn("Firestore updateAboutData error:", err));
+      setDoc(doc(db, "about_collection", "main"), { ...updated, updatedAt: now }, { merge: true })
         .catch(() => {});
+
+      // Save each attraction as an INDIVIDUAL document in 'sangli_attractions' collection (No 1MB Limit!)
+      setDoc(doc(db, "sangli_attractions", "all"), { places: mergedOverrides, updatedAt: now }, { merge: true })
+        .catch(() => {});
+      Object.entries(mergedOverrides).forEach(([id, item]) => {
+        setDoc(doc(db, "sangli_attractions", id), { ...item, updatedAt: now }, { merge: true })
+          .catch((err) => console.warn(`Error writing sangli_attractions/${id}:`, err));
+      });
     } catch (_) {}
   };
 
@@ -1423,6 +1574,11 @@ export function useAdminStore() {
     const updated = [newItem, ...gallery];
     setGalleryState(updated);
     setStoredData(STORAGE_KEYS.gallery, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.gallery), { data: updated, updatedAt: now });
+      setDoc(doc(db, "gallery_collection", "all"), { items: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const deleteGalleryItem = (id: string) => {
@@ -1441,12 +1597,22 @@ export function useAdminStore() {
     const updated = [newVid, ...videos];
     setVideosState(updated);
     setStoredData(STORAGE_KEYS.videos, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
+      setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const updateVideoItem = (id: string, updatedVid: Partial<VideoItem>) => {
     const updated = videos.map((v) => (v.id === id ? { ...v, ...updatedVid } : v));
     setVideosState(updated);
     setStoredData(STORAGE_KEYS.videos, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
+      setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const deleteVideoItem = (id: string) => {
@@ -1527,6 +1693,10 @@ export function useAdminStore() {
     const updated = [...packages, newPkg];
     setPackagesState(updated);
     setStoredData(STORAGE_KEYS.packages, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const updatePackage = (id: string, updatedPkg: Partial<PackageItem>) => {
@@ -1535,12 +1705,20 @@ export function useAdminStore() {
     );
     setPackagesState(updated);
     setStoredData(STORAGE_KEYS.packages, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const deletePackage = (id: string) => {
     const updated = packages.filter((p) => p.id !== id);
     setPackagesState(updated);
     setStoredData(STORAGE_KEYS.packages, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const addBrochure = (broch: Omit<BrochureItem, "id" | "date">) => {
@@ -1556,6 +1734,11 @@ export function useAdminStore() {
     const updated = [newB, ...brochures];
     setBrochuresState(updated);
     setStoredData(STORAGE_KEYS.brochures, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: updated, updatedAt: now });
+      setDoc(doc(db, "brochures_collection", "all"), { items: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const deleteBrochure = (id: string) => {
@@ -1582,6 +1765,10 @@ export function useAdminStore() {
     const updated = [newNews, ...homeNews];
     setHomeNewsState(updated);
     setStoredData(STORAGE_KEYS.homeNews, updated);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.homeNews), { data: updated, updatedAt: now });
+    } catch (_) {}
   };
 
   const deleteHomeNews = (id: string) => {
@@ -1695,9 +1882,36 @@ export function useAdminStore() {
       return v;
     });
 
+    const masterPlacesList = [
+      { id: "sangli-ganpati", titleMr: "१. सांगली गणपती मंदिर (राजवाडा)", titleEn: "1. Sangli Royal Ganapati Temple", distanceMr: "३ किमी (१० मिनिटे)", shortDescMr: "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.", image: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop" },
+      { id: "sangli-fort-rajwada", titleMr: "२. सांगली किल्ला व राजवाडा परिसर", titleEn: "2. Sangli Fort & Rajwada Area", distanceMr: "३.५ किमी (१२ मिनिटे)", shortDescMr: "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.", image: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop" },
+      { id: "sangmeshwar-haripur", titleMr: "३. संगमेश्वर मंदिर (हरिपूर संगम)", titleEn: "3. Sangmeshwar Temple (Haripur)", distanceMr: "५ किमी (१५ मिनिटे)", shortDescMr: "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.", image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop" },
+      { id: "krishna-irwin-bridge", titleMr: "४. कृष्णा नदीकाठ व आयर्विन पूल", titleEn: "4. Krishna River & Irwin Bridge", distanceMr: "४ किमी (१० मिनिटे)", shortDescMr: "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल व कृष्णा नदीचा सुंदर घाट परिसर.", image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" },
+      { id: "miraj-dargah", titleMr: "५. मिरज - ख्वाजा मीरासाहेब दर्गाह व संगीत नगरी", titleEn: "5. Miraj Khwaja Meerasaheb Dargah", distanceMr: "१० किमी (२० मिनिटे)", shortDescMr: "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop" },
+      { id: "audumbar-temple", titleMr: "६. औदुंबर - श्री दत्त क्षेत्र (दत्त मंदिर)", titleEn: "6. Audumbar Shri Dattatreya Temple", distanceMr: "२५ किमी (४० मिनिटे)", shortDescMr: "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" },
+      { id: "dandoba-hills", titleMr: "७. दंडोबा टेकडी व गुहा शिवमंदिर (भोसे)", titleEn: "7. Dandoba Hills & Forest Shrine", distanceMr: "२५ किमी (३० मिनिटे)", shortDescMr: "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop" },
+      { id: "sagareshwar-sanctuary", titleMr: "८. सागरेश्वर वन्यजीव अभयारण्य व शिवमंदिर", titleEn: "8. Sagareshwar Wildlife Sanctuary", distanceMr: "३० किमी (४५ मिनिटे)", shortDescMr: "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.", image: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop" },
+      { id: "bahubali-kumbhojgiri", titleMr: "९. बाहुबली कुंभोजगिरी (जैन तीर्थक्षेत्र)", titleEn: "9. Bahubali Hill, Kumbhojgiri", distanceMr: "३५ किमी (५० मिनिटे)", shortDescMr: "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील अतिशय प्रसिद्ध जैन तीर्थक्षेत्र.", image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop" },
+      { id: "ramling-island-bahe", titleMr: "१०. रामलिंग बेट व राममंदिर (बहे)", titleEn: "10. Ramling Island, Bahe", distanceMr: "३८ किमी (५० मिनिटे)", shortDescMr: "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" },
+      { id: "chandoli-national-park", titleMr: "११. चांदोली राष्ट्रीय उद्यान व धरण", titleEn: "11. Chandoli National Park & Dam", distanceMr: "६५ किमी (१.५ तास)", shortDescMr: "यूनेस्को जागतिक वारसा सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व निसर्गरम्य जंगल परिसर.", image: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop" },
+      { id: "gokak-waterfall", titleMr: "१२. गोकाक भव्य धबधबा", titleEn: "12. Gokak Spectacular Waterfall", distanceMr: "७५ किमी (१.५ तास)", shortDescMr: "१७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).", image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop" },
+      { id: "machhindragad-fort", titleMr: "१३. मच्छिंद्रगड किल्ला व मंदिर", titleEn: "13. Machhindragad Fort & Temple", distanceMr: "४५ किमी (१ तास)", shortDescMr: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला व मच्छिंद्रनाथ मंदिर.", image: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop" },
+      { id: "kolhapur-excursion", titleMr: "१४. कोल्हापूर - श्री महालक्ष्मी मंदिर, न्यू पॅलेस व रंकाळा", titleEn: "14. Kolhapur Day Tour (Mahalaxmi)", distanceMr: "५० किमी (१ तास)", shortDescMr: "श्री अंबाबाई महालक्ष्मी मंदिर, छत्रपती शाहू न्यू पॅलेस राजवाडा व रंकाळा तलाव एक दिवसीय सहल.", image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop" },
+    ];
+
+    const masterOverrides: Record<string, SangliPlaceOverride> = {};
+    masterPlacesList.forEach((place) => {
+      masterOverrides[place.id] = place;
+    });
+
+    const effectiveOverrides = {
+      ...masterOverrides,
+      ...(aboutData.sangliPlacesOverrides || {})
+    };
+
     const itemsToSync = [
       { name: "site", key: STORAGE_KEYS.site, ref: doc(db, "app_data", STORAGE_KEYS.site), payload: { data: siteData, updatedAt: now } },
-      { name: "about", key: STORAGE_KEYS.about, ref: doc(db, "app_data", STORAGE_KEYS.about), payload: { data: aboutData, updatedAt: now } },
+      { name: "about", key: STORAGE_KEYS.about, ref: doc(db, "app_data", STORAGE_KEYS.about), payload: { data: { ...aboutData, sangliPlacesOverrides: effectiveOverrides }, updatedAt: now } },
       { name: "gallery", key: STORAGE_KEYS.gallery, ref: doc(db, "app_data", STORAGE_KEYS.gallery), payload: { data: gallery, updatedAt: now } },
       { name: "inquiries", key: STORAGE_KEYS.inquiries, ref: doc(db, "app_data", STORAGE_KEYS.inquiries), payload: { data: inquiries, updatedAt: now } },
       { name: "testimonials", key: STORAGE_KEYS.testimonials, ref: doc(db, "app_data", STORAGE_KEYS.testimonials), payload: { data: testimonials, updatedAt: now } },
@@ -1708,11 +1922,22 @@ export function useAdminStore() {
       { name: "sportsSchedule", key: STORAGE_KEYS.sportsSchedule, ref: doc(db, "app_data", STORAGE_KEYS.sportsSchedule), payload: { data: sportsScheduleConfig, updatedAt: now } },
       { name: "videos", key: STORAGE_KEYS.videos, ref: doc(db, "app_data", STORAGE_KEYS.videos), payload: { data: sanitizedCloudVideos, updatedAt: now } },
       { name: "site_settings", key: "general", ref: doc(db, "site_settings", "general"), payload: { siteData, updatedAt: now } },
+      { name: "about_collection", key: "about_main", ref: doc(db, "about_collection", "main"), payload: { ...aboutData, sangliPlacesOverrides: effectiveOverrides, updatedAt: now } },
+      { name: "sangli_attractions_all", key: "sangli_attractions_all", ref: doc(db, "sangli_attractions", "all"), payload: { places: effectiveOverrides, updatedAt: now } },
       { name: "gallery_collection", key: "all_gallery", ref: doc(db, "gallery_collection", "all"), payload: { items: gallery, updatedAt: now } },
       { name: "inquiries_collection", key: "all_inquiries", ref: doc(db, "inquiries_collection", "all"), payload: { items: inquiries, updatedAt: now } },
       { name: "brochures_collection", key: "all_brochures", ref: doc(db, "brochures_collection", "all"), payload: { items: brochures, updatedAt: now } },
       { name: "videos_collection", key: "all_videos", ref: doc(db, "videos_collection", "all"), payload: { items: sanitizedCloudVideos, updatedAt: now } },
     ];
+
+    Object.entries(effectiveOverrides).forEach(([id, item]) => {
+      itemsToSync.push({
+        name: `sangli_place_${id}`,
+        key: `sangli_place_${id}`,
+        ref: doc(db, "sangli_attractions", id),
+        payload: { ...item, updatedAt: now },
+      });
+    });
 
     let successCount = 0;
     let firstError: any = null;

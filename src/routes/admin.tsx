@@ -123,11 +123,10 @@ function ImageDropzone({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${
-        isDragging
+      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${isDragging
           ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
           : "border-rose-300 hover:border-pink-600 bg-rose-50/50 hover:bg-rose-50/90"
-      } ${compact ? "p-3" : "p-5"}`}
+        } ${compact ? "p-3" : "p-5"}`}
     >
       <input
         ref={inputRef}
@@ -254,11 +253,10 @@ function VideoDropzone({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${
-        isDragging
+      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${isDragging
           ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
           : "border-purple-300 hover:border-pink-600 bg-purple-50/50 hover:bg-pink-50/80"
-      } ${compact ? "p-3" : "p-4"}`}
+        } ${compact ? "p-3" : "p-4"}`}
     >
       <input
         ref={inputRef}
@@ -799,21 +797,6 @@ export default function AdminPage() {
         {/* SIDEBAR FOOTER */}
         <div className="pt-6 border-t border-rose-100 space-y-2.5">
           <button
-            onClick={async () => {
-              showToast("☁️ सर्व फोटो व बदल फायरबेस क्लाउडवर सेव्ह होत आहेत...");
-              try {
-                await store.syncAllToFirebaseCloud();
-                showToast("✅ क्लाउड सिंक यशस्वी! सर्व फोटो Vercel व सर्व ठिकाणी अपडेट झाले.");
-              } catch (err) {
-                showToast("✅ क्लाउड सिंक पूर्ण झाले!");
-              }
-            }}
-            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-700 hover:to-teal-800 text-xs font-black text-white shadow-lg shadow-emerald-500/25 transition-all cursor-pointer border border-emerald-300 hover:scale-102"
-          >
-            <UploadCloud size={16} />
-            <span>☁️ Cloud Sync (Firebase)</span>
-          </button>
-          <button
             onClick={handleLogout}
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-xs font-black text-rose-600 border border-rose-200 transition-all cursor-pointer"
           >
@@ -842,15 +825,15 @@ export default function AdminPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
             <button
               onClick={() => {
                 setActiveModule("anandshala");
                 setActiveTab("home");
               }}
               className={`flex-1 sm:flex-initial px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm ${activeModule === "anandshala"
-                  ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-rose-200 scale-102"
-                  : "bg-rose-50 text-slate-700 hover:bg-rose-100 border-2 border-rose-200"
+                ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-rose-200 scale-102"
+                : "bg-rose-50 text-slate-700 hover:bg-rose-100 border-2 border-rose-200"
                 }`}
             >
               <span>🌸</span>
@@ -863,28 +846,12 @@ export default function AdminPage() {
                 setActiveTab("sports_home");
               }}
               className={`flex-1 sm:flex-initial px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm ${activeModule === "sports"
-                  ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-rose-200 scale-102"
-                  : "bg-rose-50 text-slate-700 hover:bg-rose-100 border-2 border-rose-200"
+                ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-rose-200 scale-102"
+                : "bg-rose-50 text-slate-700 hover:bg-rose-100 border-2 border-rose-200"
                 }`}
             >
               <span>🏋️‍♂️</span>
               <span>प्रीतम स्पोर्ट्स अँड फिटनेस क्लब</span>
-            </button>
-
-            <button
-              onClick={async () => {
-                showToast("☁️ सर्व फोटो व बदल फायरबेस क्लाउडवर सेव्ह होत आहेत...");
-                try {
-                  await store.syncAllToFirebaseCloud();
-                  showToast("✅ क्लाउड सिंक यशस्वी! सर्व फोटो Vercel व सर्व ठिकाणी अपडेट झाले.");
-                } catch (err) {
-                  showToast("✅ क्लाउड सिंक पूर्ण झाले!");
-                }
-              }}
-              className="px-4 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2 cursor-pointer border border-emerald-300 shrink-0"
-            >
-              <UploadCloud size={16} />
-              <span>☁️ Cloud Sync</span>
             </button>
           </div>
         </div>
