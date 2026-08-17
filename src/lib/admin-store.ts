@@ -1909,7 +1909,7 @@ export function useAdminStore() {
       ...(aboutData.sangliPlacesOverrides || {})
     };
 
-    const itemsToSync = [
+    const itemsToSync: Array<{ name: string; key: string; ref: any; payload: any }> = [
       { name: "site", key: STORAGE_KEYS.site, ref: doc(db, "app_data", STORAGE_KEYS.site), payload: { data: siteData, updatedAt: now } },
       { name: "about", key: STORAGE_KEYS.about, ref: doc(db, "app_data", STORAGE_KEYS.about), payload: { data: { ...aboutData, sangliPlacesOverrides: effectiveOverrides }, updatedAt: now } },
       { name: "gallery", key: STORAGE_KEYS.gallery, ref: doc(db, "app_data", STORAGE_KEYS.gallery), payload: { data: gallery, updatedAt: now } },
