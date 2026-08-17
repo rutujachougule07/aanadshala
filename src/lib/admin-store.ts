@@ -589,7 +589,7 @@ const initialAboutData: AboutData = {
       titleEn: "1. Sangli Royal Ganapati Temple",
       distanceMr: "३ किमी (१० मिनिटे)",
       shortDescMr: "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
-      image: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop",
     },
     "sangli-fort-rajwada": {
       id: "sangli-fort-rajwada",
@@ -597,7 +597,7 @@ const initialAboutData: AboutData = {
       titleEn: "2. Sangli Fort & Rajwada Area",
       distanceMr: "३.५ किमी (१२ मिनिटे)",
       shortDescMr: "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
-      image: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1200&auto=format&fit=crop",
     },
     "sangmeshwar-haripur": {
       id: "sangmeshwar-haripur",
@@ -605,7 +605,7 @@ const initialAboutData: AboutData = {
       titleEn: "3. Sangmeshwar Temple (Haripur)",
       distanceMr: "५ किमी (१५ मिनिटे)",
       shortDescMr: "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
-      image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop",
     },
     "krishna-irwin-bridge": {
       id: "krishna-irwin-bridge",
@@ -621,7 +621,7 @@ const initialAboutData: AboutData = {
       titleEn: "5. Miraj Khwaja Meerasaheb Dargah",
       distanceMr: "१० किमी (२० मिनिटे)",
       shortDescMr: "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
-      image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop",
     },
     "audumbar-temple": {
       id: "audumbar-temple",
@@ -1883,11 +1883,11 @@ export function useAdminStore() {
     });
 
     const masterPlacesList = [
-      { id: "sangli-ganpati", titleMr: "१. सांगली गणपती मंदिर (राजवाडा)", titleEn: "1. Sangli Royal Ganapati Temple", distanceMr: "३ किमी (१० मिनिटे)", shortDescMr: "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.", image: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop" },
-      { id: "sangli-fort-rajwada", titleMr: "२. सांगली किल्ला व राजवाडा परिसर", titleEn: "2. Sangli Fort & Rajwada Area", distanceMr: "३.५ किमी (१२ मिनिटे)", shortDescMr: "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.", image: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop" },
-      { id: "sangmeshwar-haripur", titleMr: "३. संगमेश्वर मंदिर (हरिपूर संगम)", titleEn: "3. Sangmeshwar Temple (Haripur)", distanceMr: "५ किमी (१५ मिनिटे)", shortDescMr: "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.", image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop" },
+      { id: "sangli-ganpati", titleMr: "१. सांगली गणपती मंदिर (राजवाडा)", titleEn: "1. Sangli Royal Ganapati Temple", distanceMr: "३ किमी (१० मिनिटे)", shortDescMr: "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.", image: "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop" },
+      { id: "sangli-fort-rajwada", titleMr: "२. सांगली किल्ला व राजवाडा परिसर", titleEn: "2. Sangli Fort & Rajwada Area", distanceMr: "३.५ किमी (१२ मिनिटे)", shortDescMr: "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.", image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1200&auto=format&fit=crop" },
+      { id: "sangmeshwar-haripur", titleMr: "३. संगमेश्वर मंदिर (हरिपूर संगम)", titleEn: "3. Sangmeshwar Temple (Haripur)", distanceMr: "५ किमी (१५ मिनिटे)", shortDescMr: "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.", image: "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop" },
       { id: "krishna-irwin-bridge", titleMr: "४. कृष्णा नदीकाठ व आयर्विन पूल", titleEn: "4. Krishna River & Irwin Bridge", distanceMr: "४ किमी (१० मिनिटे)", shortDescMr: "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल व कृष्णा नदीचा सुंदर घाट परिसर.", image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" },
-      { id: "miraj-dargah", titleMr: "५. मिरज - ख्वाजा मीरासाहेब दर्गाह व संगीत नगरी", titleEn: "5. Miraj Khwaja Meerasaheb Dargah", distanceMr: "१० किमी (२० मिनिटे)", shortDescMr: "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop" },
+      { id: "miraj-dargah", titleMr: "५. मिरज - ख्वाजा मीरासाहेब दर्गाह व संगीत नगरी", titleEn: "5. Miraj Khwaja Meerasaheb Dargah", distanceMr: "१० किमी (२० मिनिटे)", shortDescMr: "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.", image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop" },
       { id: "audumbar-temple", titleMr: "६. औदुंबर - श्री दत्त क्षेत्र (दत्त मंदिर)", titleEn: "6. Audumbar Shri Dattatreya Temple", distanceMr: "२५ किमी (४० मिनिटे)", shortDescMr: "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" },
       { id: "dandoba-hills", titleMr: "७. दंडोबा टेकडी व गुहा शिवमंदिर (भोसे)", titleEn: "7. Dandoba Hills & Forest Shrine", distanceMr: "२५ किमी (३० मिनिटे)", shortDescMr: "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop" },
       { id: "sagareshwar-sanctuary", titleMr: "८. सागरेश्वर वन्यजीव अभयारण्य व शिवमंदिर", titleEn: "8. Sagareshwar Wildlife Sanctuary", distanceMr: "३० किमी (४५ मिनिटे)", shortDescMr: "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.", image: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop" },
