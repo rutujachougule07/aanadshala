@@ -971,11 +971,12 @@ export default function AdminPage() {
                     </span>
                   </div>
 
-                  <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md">
+                  <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md h-52 sm:h-60 bg-slate-900">
                     <img
                       src={siteForm.aanandshalaImages?.[0] || "/images/slider4.JPG"}
                       alt="Anandshala Card"
-                      className="w-full h-64 object-cover"
+                      className="w-full h-full object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/slider4.JPG"; }}
                     />
 
                     {/* FLOATING BUTTONS DIRECTLY ON IMAGE */}
@@ -1034,11 +1035,12 @@ export default function AdminPage() {
                     </span>
                   </div>
 
-                  <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md">
+                  <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md h-52 sm:h-60 bg-slate-900">
                     <img
                       src={siteForm.sportsImages?.[0] || "/images/sports img.png"}
                       alt="Sports Club Card"
-                      className="w-full h-64 object-cover"
+                      className="w-full h-full object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/sports img.png"; }}
                     />
 
                     {/* FLOATING BUTTONS DIRECTLY ON IMAGE */}
