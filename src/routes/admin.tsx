@@ -973,10 +973,10 @@ export default function AdminPage() {
 
                   <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md h-52 sm:h-60 bg-slate-900">
                     <img
-                      src={siteForm.aanandshalaImages?.[0] || "/images/slider4.JPG"}
+                      src={encodeURI(siteForm.aanandshalaImages?.[0] || "/images/aandshala sahal 1.jpeg")}
                       alt="Anandshala Card"
                       className="w-full h-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/slider4.JPG"; }}
+                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/aandshala%20sahal%201.jpeg"; }}
                     />
 
                     {/* FLOATING BUTTONS DIRECTLY ON IMAGE */}
@@ -1037,10 +1037,10 @@ export default function AdminPage() {
 
                   <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md h-52 sm:h-60 bg-slate-900">
                     <img
-                      src={siteForm.sportsImages?.[0] || "/images/sports img.png"}
+                      src={encodeURI(siteForm.sportsImages?.[0] || "/images/sports%20img.png")}
                       alt="Sports Club Card"
                       className="w-full h-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/sports img.png"; }}
+                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/sports%20img.png"; }}
                     />
 
                     {/* FLOATING BUTTONS DIRECTLY ON IMAGE */}

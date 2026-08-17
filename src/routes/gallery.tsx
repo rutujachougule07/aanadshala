@@ -254,12 +254,12 @@ function Gallery() {
                     className="gallery-card-anim group cursor-pointer relative w-full h-[260px] sm:h-[300px] rounded-2xl overflow-hidden shadow-md"
                   >
                     <img
-                      src={item.image}
+                      src={encodeURI(item.image)}
                       alt={isEn ? item.titleEn : item.titleMr}
                       loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/images/gallery imgage1.JPG";
+                        (e.target as HTMLImageElement).src = "/images/aandshala%20sahal%201.jpeg";
                       }}
                     />
 

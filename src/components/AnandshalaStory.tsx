@@ -158,10 +158,10 @@ const AnandshalaStory: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <img
-              src={mainStoryImage}
+              src={encodeURI(mainStoryImage)}
               alt={isEn ? "Preetam Anandshala Ceremony" : "प्रीतम आनंदशाळा सोहळा"}
               className="w-full h-[280px] sm:h-[340px] md:h-[380px] object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
-              onError={(e) => { e.currentTarget.src = buildingImage; }}
+              onError={(e) => { e.currentTarget.src = "/images/aandshala%20sahal%201.jpeg"; }}
             />
           </motion.div>
         </div>
