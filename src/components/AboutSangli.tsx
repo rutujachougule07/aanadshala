@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/use-language";
@@ -50,6 +50,17 @@ export function AboutSangli() {
   const { isEn } = useLanguage();
   const [activeTab, setActiveTab] = useState<string>("all");
   const [selectedPlace, setSelectedPlace] = useState<PlaceItem | null>(null);
+
+  useEffect(() => {
+    if (selectedPlace) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedPlace]);
 
   const places: PlaceItem[] = [
     // ── WITHIN / VERY CLOSE TO SANGLI (Within 10 km) ──
@@ -375,7 +386,7 @@ export function AboutSangli() {
       titleEn: "12. Gokak Spectacular Waterfall",
       distanceMr: "७५ किमी (१.५ तास)",
       distanceEn: "75 km (1.5 hrs)",
-      image: "https://images.unsplash.com/photo-1432405972618-c60b0225786b?q=80&w=1200&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
       shortDescMr: "१७७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).",
       shortDescEn: "Spectacular 177 ft (52m) waterfall plunge with a historic British hanging suspension bridge.",
       fullDescMr: "घटप्रभा नदीवर १७७ फूट उंचीवरून कोसळणारा गोकाक धबधबा हा 'भारतातील नायगारा' म्हणून प्रसिद्ध आहे. धबधब्यावर असलेला १८८७ मधील लटकता पूल व दृश्य गाडीतून/व्ह्यू पॉइंटवरून सहजरीत्या पाहता येते.",
@@ -600,24 +611,6 @@ export function AboutSangli() {
             <span>{isEn ? "🌟 All 14 Places" : "🌟 सर्व १४ ठिकाणे"}</span>
           </button>
           <button
-            onClick={() => setActiveTab("senior-friendly")}
-            className={`as-sangli-tab-btn ${activeTab === "senior-friendly" ? "active" : ""}`}
-          >
-            <span>{isEn ? "👴 Senior Friendly Places" : "👴 ज्येष्ठांसाठी सुलभ ठिकाणे"}</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("close")}
-            className={`as-sangli-tab-btn ${activeTab === "close" ? "active" : ""}`}
-          >
-            <span>{isEn ? "📍 Sangli & Miraj (Within 10 km)" : "📍 सांगली व मिरज (१० किमी)"}</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("medium")}
-            className={`as-sangli-tab-btn ${activeTab === "medium" ? "active" : ""}`}
-          >
-            <span>{isEn ? "🚗 25-50 km Radius" : "🚗 २५ ते ५० किमी परिसर"}</span>
-          </button>
-          <button
             onClick={() => setActiveTab("daytrips")}
             className={`as-sangli-tab-btn ${activeTab === "daytrips" ? "active" : ""}`}
           >
@@ -638,36 +631,39 @@ export function AboutSangli() {
               onClick={() => setSelectedPlace(place)}
             >
               <div className="as-sangli-card-img-wrapper">
-                <img src={place.image} alt={place.titleMr} className="as-sangli-card-img" />
-                <div className="as-sangli-card-overlay" />
-                <div className="as-sangli-distance-badge">
-                  <MapPin size={12} />
-                  <span>{isEn ? place.distanceEn : place.distanceMr}</span>
-                </div>
-
-                {place.isSeniorFriendly ? (
-                  <div className="as-sangli-cat-badge bg-gradient-to-r from-emerald-600 to-teal-600 text-white">
-                    👴 {isEn ? "Senior Friendly" : "ज्येष्ठांसाठी सुलभ"}
-                  </div>
-                ) : (
-                  <div className="as-sangli-cat-badge bg-gradient-to-r from-amber-600 to-orange-600 text-white">
-                    🧗 {isEn ? "Involves Steps" : "पायऱ्यांचा मार्ग"}
-                  </div>
-                )}
+                <img
+                  src={place.image}
+                  alt=""
+                  className="as-sangli-card-img"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop";
+                  }}
+                />
               </div>
 
               <div className="as-sangli-card-body">
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className="inline-flex items-center gap-1.5 text-amber-700 font-black text-xs px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80 shadow-xs">
+                    <MapPin size={12} className="text-amber-600" />
+                    <span>{isEn ? place.distanceEn : place.distanceMr}</span>
+                  </span>
+
+                  {place.isSeniorFriendly ? (
+                    <span className="inline-flex items-center gap-1 text-emerald-700 font-black text-xs px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80">
+                      👴 {isEn ? "Senior Friendly" : "ज्येष्ठांसाठी सुलभ"}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-amber-800 font-black text-xs px-3 py-1 rounded-full bg-amber-50 border border-amber-200/80">
+                      🧗 {isEn ? "Involves Steps" : "पायऱ्यांचा मार्ग"}
+                    </span>
+                  )}
+                </div>
                 <h3 className="as-sangli-card-title">
                   {isEn ? place.titleEn : place.titleMr}
                 </h3>
-                <p className="as-sangli-card-desc">
+                <p className="as-sangli-card-desc mb-0">
                   {isEn ? place.shortDescEn : place.shortDescMr}
                 </p>
-
-                <div className="as-sangli-card-footer">
-                  <span>{isEn ? "Click for Details" : "अधिक माहिती पहा"}</span>
-                  <ArrowRight size={16} />
-                </div>
               </div>
             </motion.div>
           ))}
@@ -677,7 +673,7 @@ export function AboutSangli() {
         <div className="mt-20">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 font-extrabold text-xs uppercase tracking-wider mb-3">
-              <Navigation size={14} /> GETTING THERE
+              <Navigation size={14} /> {isEn ? "GETTING THERE" : "कसे पोहोचावे"}
             </span>
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2]">
               {isEn ? (
@@ -704,7 +700,7 @@ export function AboutSangli() {
               <div className="as-sangli-transport-icon-box bg-gradient-to-r from-sky-500 to-blue-600">
                 <Plane size={30} />
               </div>
-              <h4 className="as-sangli-transport-title">{isEn ? "By Air" : "विमान प्रवास (By Air)"}</h4>
+              <h4 className="as-sangli-transport-title">{isEn ? "By Air" : "विमान प्रवास"}</h4>
               <p className="as-sangli-transport-desc">
                 {isEn
                   ? "Nearest commercial airports connecting Sangli with major Indian metros."
@@ -737,7 +733,7 @@ export function AboutSangli() {
               <div className="as-sangli-transport-icon-box bg-gradient-to-r from-purple-500 to-indigo-600">
                 <Train size={30} />
               </div>
-              <h4 className="as-sangli-transport-title">{isEn ? "By Railway" : "रेल्वे प्रवास (By Railway)"}</h4>
+              <h4 className="as-sangli-transport-title">{isEn ? "By Railway" : "रेल्वे प्रवास"}</h4>
               <p className="as-sangli-transport-desc">
                 {isEn
                   ? "Direct trains from Mumbai, Pune, Bengaluru, Goa, Delhi & Solapur."
@@ -770,7 +766,7 @@ export function AboutSangli() {
               <div className="as-sangli-transport-icon-box bg-gradient-to-r from-pink-500 to-rose-600">
                 <Bus size={30} />
               </div>
-              <h4 className="as-sangli-transport-title">{isEn ? "By Road" : "रस्ते प्रवास (By Road)"}</h4>
+              <h4 className="as-sangli-transport-title">{isEn ? "By Road" : "रस्ते प्रवास"}</h4>
               <p className="as-sangli-transport-desc">
                 {isEn
                   ? "Directly connected via National Highway NH-48 (Mumbai-Bengaluru)."
@@ -799,38 +795,44 @@ export function AboutSangli() {
       {/* ── MODAL POPUP FOR SELECTED PLACE ── */}
       {selectedPlace && typeof document !== "undefined" && createPortal(
         <div
-          className="fixed inset-0 z-[999999] bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-hidden"
+          className="fixed inset-0 z-[999999] bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden"
           onClick={() => setSelectedPlace(null)}
         >
           <div
-            className="bg-white rounded-[2rem] max-w-lg w-full p-4 sm:p-5 relative shadow-2xl border-4 border-pink-200 text-slate-800 space-y-3.5 my-auto h-[75vh] max-h-[480px] sm:max-h-[520px] overflow-y-scroll shadow-pink-500/20"
+            className="bg-white rounded-[2rem] sm:rounded-[2.5rem] max-w-lg w-full max-h-[85vh] flex flex-col relative shadow-2xl border-4 border-pink-300 text-slate-800 overflow-hidden shadow-pink-500/30 my-auto"
             onClick={(e) => e.stopPropagation()}
           >
-              <button
-                onClick={() => setSelectedPlace(null)}
-                className="absolute top-4 right-4 size-9 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition font-black cursor-pointer z-30 shadow-md"
-                aria-label="Close"
-              >
-                <X size={18} />
-              </button>
-
-              <div className="flex items-center gap-2 pr-10">
-                <span className="text-amber-700 font-extrabold text-xs px-3 py-1 rounded-full bg-amber-50 border border-amber-200 flex items-center gap-1">
-                  <MapPin size={12} />
+            {/* Modal Fixed Header (Pills + Close Button) */}
+            <div className="flex items-center justify-between gap-2 p-3.5 sm:p-4 border-b border-pink-100 bg-pink-50/50 shrink-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-amber-800 font-black text-xs px-3 py-1 rounded-full bg-amber-100 border border-amber-300 flex items-center gap-1 shadow-xs">
+                  <MapPin size={13} className="text-amber-600" />
                   <span>{isEn ? selectedPlace.distanceEn : selectedPlace.distanceMr}</span>
                 </span>
                 {selectedPlace.isSeniorFriendly ? (
-                  <span className="text-emerald-700 font-extrabold text-xs px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200">
+                  <span className="text-emerald-800 font-black text-xs px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 shadow-xs">
                     👴 {isEn ? "Senior Friendly" : "ज्येष्ठांसाठी सुलभ"}
                   </span>
                 ) : (
-                  <span className="text-amber-700 font-extrabold text-xs px-3 py-1 rounded-full bg-amber-50 border border-amber-200">
+                  <span className="text-amber-900 font-black text-xs px-3 py-1 rounded-full bg-amber-100 border border-amber-300 shadow-xs">
                     🧗 {isEn ? "Steps" : "पायऱ्यांचा मार्ग"}
                   </span>
                 )}
               </div>
 
-              <div className="relative h-44 sm:h-52 rounded-2xl overflow-hidden border border-pink-100 shadow-sm shrink-0">
+              <button
+                onClick={() => setSelectedPlace(null)}
+                className="size-8 sm:size-9 rounded-full bg-white border border-slate-300 flex items-center justify-center text-slate-700 hover:bg-rose-100 hover:text-rose-700 transition font-black cursor-pointer shadow-md shrink-0"
+                aria-label="Close"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Modal Scrollable Body */}
+            <div className="as-sangli-modal-body flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+              {/* Image with Title */}
+              <div className="relative h-44 sm:h-52 rounded-2xl overflow-hidden border border-pink-100 shadow-md shrink-0">
                 <img
                   src={selectedPlace.image}
                   alt=""
@@ -839,36 +841,43 @@ export function AboutSangli() {
                     e.currentTarget.src = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop";
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
                 <h3 className="absolute bottom-3 left-4 right-4 text-xl sm:text-2xl font-black text-white drop-shadow-md leading-tight">
                   {isEn ? selectedPlace.titleEn : selectedPlace.titleMr}
                 </h3>
               </div>
 
+              {/* Full Description */}
               <p className="text-xs sm:text-sm font-extrabold text-slate-700 leading-relaxed">
                 {isEn ? selectedPlace.fullDescEn : selectedPlace.fullDescMr}
               </p>
 
-              <div className="space-y-2 bg-pink-50/80 p-3.5 sm:p-4 rounded-2xl border border-pink-200/60 shadow-inner">
+              {/* Highlights Box */}
+              <div className="space-y-2 bg-pink-50/90 p-4 rounded-2xl border border-pink-200/80 shadow-xs">
+                <div className="text-xs uppercase font-black tracking-wider text-pink-700 mb-1 flex items-center gap-1.5">
+                  <Sparkles size={14} className="text-pink-600" />
+                  <span>{isEn ? "Key Highlights:" : "प्रमुख वैशिष्ट्ये:"}</span>
+                </div>
                 {(isEn ? selectedPlace.highlightsEn : selectedPlace.highlightsMr).map((h, i) => (
-                  <div key={i} className="flex items-start gap-2 text-xs font-bold text-slate-800 leading-snug">
-                    <ShieldCheck size={15} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <div key={i} className="flex items-start gap-2 text-xs sm:text-sm font-bold text-slate-800 leading-snug">
+                    <ShieldCheck size={16} className="text-emerald-600 shrink-0 mt-0.5" />
                     <span>{h}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-2">
+              {/* Call Button */}
+              <div className="pt-2 pb-2">
                 <a
                   href="tel:9370237633"
-                  className="w-full py-3 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 text-white font-black text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 hover:opacity-95 transition"
+                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:opacity-95 text-white font-black text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2 transition transform hover:scale-[1.01]"
                 >
-                  <PhoneCall size={15} />
-                  <span>{isEn ? "Inquire Transportation" : "माहितीसाठी कॉल करा"}</span>
+                  <PhoneCall size={16} />
+                  <span>{isEn ? "Inquire Transportation" : "माहितीसाठी कॉल करा (९३७०२३७६३३)"}</span>
                 </a>
               </div>
-
             </div>
+          </div>
         </div>,
         document.body
       )}

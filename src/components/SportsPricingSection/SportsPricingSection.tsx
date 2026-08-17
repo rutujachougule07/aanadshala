@@ -666,7 +666,7 @@ const SportsPricingSection = () => {
               <div className="space-y-2 text-center lg:text-left">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 font-extrabold text-xs">
                   <Sparkles size={14} className="text-amber-300 animate-spin" />
-                  <span>✨ SPECIAL VIP ANNUAL DISCOUNT DEAL</span>
+                  <span>{isEn ? "✨ SPECIAL VIP ANNUAL DISCOUNT DEAL" : "✨ विशेष VIP वार्षिक सवलत ऑफर"}</span>
                 </div>
                 <h3 className="text-2xl sm:text-3xl font-black text-white leading-snug">
                   एकावेळी १ वर्षाचे मेंबरशिप शुल्क भरल्यास<br />
@@ -760,7 +760,7 @@ const SportsPricingSection = () => {
               <div className="relative z-10 space-y-4">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-xs shadow-md animate-pulse">
                   <Gift size={15} className="text-slate-950" />
-                  <span>LIMITED PERIOD GIFT PASS</span>
+                  <span>{isEn ? "LIMITED PERIOD GIFT PASS" : "मर्यादित कालावधी भेट पास"}</span>
                 </div>
 
                 <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
