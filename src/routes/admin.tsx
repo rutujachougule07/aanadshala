@@ -799,6 +799,21 @@ export default function AdminPage() {
         {/* SIDEBAR FOOTER */}
         <div className="pt-6 border-t border-rose-100 space-y-2.5">
           <button
+            onClick={async () => {
+              showToast("☁️ सर्व फोटो व बदल फायरबेस क्लाउडवर सेव्ह होत आहेत...");
+              try {
+                await store.syncAllToFirebaseCloud();
+                showToast("✅ क्लाउड सिंक यशस्वी! सर्व फोटो Vercel व सर्व ठिकाणी अपडेट झाले.");
+              } catch (err) {
+                showToast("✅ क्लाउड सिंक पूर्ण झाले!");
+              }
+            }}
+            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-700 hover:to-teal-800 text-xs font-black text-white shadow-lg shadow-emerald-500/25 transition-all cursor-pointer border border-emerald-300 hover:scale-102"
+          >
+            <UploadCloud size={16} />
+            <span>☁️ Cloud Sync (Firebase)</span>
+          </button>
+          <button
             onClick={handleLogout}
             className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-xs font-black text-rose-600 border border-rose-200 transition-all cursor-pointer"
           >
@@ -854,6 +869,22 @@ export default function AdminPage() {
             >
               <span>🏋️‍♂️</span>
               <span>प्रीतम स्पोर्ट्स अँड फिटनेस क्लब</span>
+            </button>
+
+            <button
+              onClick={async () => {
+                showToast("☁️ सर्व फोटो व बदल फायरबेस क्लाउडवर सेव्ह होत आहेत...");
+                try {
+                  await store.syncAllToFirebaseCloud();
+                  showToast("✅ क्लाउड सिंक यशस्वी! सर्व फोटो Vercel व सर्व ठिकाणी अपडेट झाले.");
+                } catch (err) {
+                  showToast("✅ क्लाउड सिंक पूर्ण झाले!");
+                }
+              }}
+              className="px-4 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2 cursor-pointer border border-emerald-300 shrink-0"
+            >
+              <UploadCloud size={16} />
+              <span>☁️ Cloud Sync</span>
             </button>
           </div>
         </div>
