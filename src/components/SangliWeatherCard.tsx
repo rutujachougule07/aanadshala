@@ -63,7 +63,7 @@ export default function SangliWeatherCard() {
   });
 
   useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 30000);
+    const timer = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -148,6 +148,13 @@ export default function SangliWeatherCard() {
 
   const dayIndex = now.getDay();
   const dayNameStr = isEn ? ENGLISH_DAYS[dayIndex] : MARATHI_DAYS[dayIndex];
+  const timeStr = now.toLocaleTimeString(isEn ? "en-IN" : "mr-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+
   const dateStr = now.toLocaleDateString(isEn ? "en-IN" : "mr-IN", {
     day: "numeric",
     month: "long",
@@ -214,9 +221,9 @@ export default function SangliWeatherCard() {
               </span>
             </div>
 
-            <div className="inline-flex items-center gap-2 bg-[#1A05A2] text-white px-3.5 py-2 rounded-2xl text-xs sm:text-sm font-black shadow-md">
-              <Clock className="size-4 shrink-0 text-amber-300" />
-              <span>📅 {dateStr}</span>
+            <div className="inline-flex items-center justify-center gap-2 bg-[#1A05A2] text-white px-4 py-2 rounded-2xl text-xs sm:text-sm font-black shadow-md tabular-nums whitespace-nowrap min-w-[210px] sm:min-w-[230px]">
+              <Clock className="size-4 shrink-0 text-amber-300 animate-pulse" />
+              <span className="tabular-nums">{timeStr} • 📅 {dateStr}</span>
             </div>
           </div>
         </div>
