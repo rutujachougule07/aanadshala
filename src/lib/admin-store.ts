@@ -239,11 +239,11 @@ export type InquiryItem = {
 
 export function isSportsInquiryItem(inq: InquiryItem): boolean {
   if (inq.category === "sports") return true;
-  if (inq.category === "anandshala") return false;
   const combined = `${inq.subject || ""} ${inq.message || ""}`.toLowerCase();
   return (
     combined.includes("स्पोर्ट्स") ||
     combined.includes("sports") ||
+    combined.includes("क्रीडा") ||
     combined.includes("फिटनेस") ||
     combined.includes("fitness") ||
     combined.includes("जीम") ||
@@ -254,7 +254,8 @@ export function isSportsInquiryItem(inq: InquiryItem): boolean {
     combined.includes("बॅडमिंटन") ||
     combined.includes("badminton") ||
     combined.includes("स्क्वॅश") ||
-    combined.includes("पिकलबॉल")
+    combined.includes("पिकलबॉल") ||
+    combined.includes("package")
   );
 }
 
@@ -705,10 +706,10 @@ if (typeof window !== "undefined") {
       const now = Date.now();
       if (initialAboutData.sangliPlacesOverrides) {
         Object.entries(initialAboutData.sangliPlacesOverrides).forEach(([id, item]) => {
-          setDoc(doc(db, "sangli_attractions", id), { ...item, updatedAt: now }, { merge: true }).catch(() => {});
+          setDoc(doc(db, "sangli_attractions", id), { ...item, updatedAt: now }, { merge: true }).catch(() => { });
         });
       }
-    } catch (_) {}
+    } catch (_) { }
   }, 200);
 }
 
@@ -842,11 +843,11 @@ const initialGallery: GalleryItem[] = [
 ];
 
 const initialInquiries: InquiryItem[] = [
-  { id: "inq-1", name: "रमेश पाटील", phone: "98221 45678", email: "ramesh.patil@gmail.com", subject: "डे-केअर प्रवेश बुकिंग", message: "माझ्या आई-वडिलांसाठी आनंदशाळा डे-केअर प्रवेशासाठी माहिती हवी आहे.", date: "३१ जुलै २०२६, स. ११:३०", read: false, category: "anandshala" },
-  { id: "inq-2", name: "सुरेश कुलकर्णी", phone: "94220 89123", email: "suresh.kulkarni@yahoo.com", subject: "१ दिवस सहल भेट पास", message: "आमच्या ज्येष्ठ नागरिक संघासाठी १ दिवस सहल पास बुकिंग कसे करावे?", date: "३० जुलै २०२६, सायं. ०४:१५", read: false, category: "anandshala" },
-  { id: "inq-3", name: "आनंद शहा", phone: "97654 32109", email: "anand.shah@gmail.com", subject: "आनंदनिवास १ महिना बुकिंग", message: "१ महिन्याच्या आनंदनिवास निवासाची फी आणि सोयी-सुविधांची विचारणा.", date: "२९ जुलै २०२६, दु. ०२:००", read: false, category: "anandshala" },
-  { id: "inq-4", name: "विक्रम निंबाळकर", phone: "98501 23456", email: "vikram.n@gmail.com", subject: "🏋️ स्पोर्ट्स क्लब मेंबरशिप चौकशी (12 Months Package)", message: "जिम व ऑलिंपिक स्विमिंग पूल मेंबरशिपसाठी चौकशी करत आहे.", date: "१ ऑगस्ट २०२६, स. १०:००", read: false, category: "sports" },
-  { id: "inq-5", name: "अमित जोशी", phone: "94231 77889", email: "amit.joshi@gmail.com", subject: "🏋️ बॅडमिंटन व टर्फ मैदान चौकशी", message: "साप्ताहिक बॅडमिंटन आणि स्पोर्ट्स टर्फ बुकिंगची माहिती द्यावी.", date: "३१ जुलै २०२६, सायं. ०५:३०", read: false, category: "sports" },
+  { id: "inq-1", name: "Ramesh Patil", phone: "98221 45678", email: "ramesh.patil@gmail.com", subject: "Day-Care Admission Inquiry", message: "Information required regarding Day-Care admission for my parents.", date: "31 July 2026, 11:30 AM", read: false, category: "anandshala" },
+  { id: "inq-2", name: "Suresh Kulkarni", phone: "94220 89123", email: "suresh.kulkarni@yahoo.com", subject: "1-Day Tour Visit Pass", message: "How can we book 1-Day Tour passes for our Senior Citizen Group?", date: "30 July 2026, 04:15 PM", read: false, category: "anandshala" },
+  { id: "inq-3", name: "Anand Shah", phone: "97654 32109", email: "anand.shah@gmail.com", subject: "Anandnivas 1-Month Booking", message: "Inquiry regarding 1-month stay fees and amenities at Anandnivas.", date: "29 July 2026, 02:00 PM", read: false, category: "anandshala" },
+  { id: "inq-4", name: "Vikram Nimbalkar", phone: "98501 23456", email: "vikram.n@gmail.com", subject: "Sports Club Membership Inquiry (12 Months Package)", message: "Inquiring for gym and Olympic swimming pool membership.", date: "1 August 2026, 10:00 AM", read: false, category: "sports" },
+  { id: "inq-5", name: "Amit Joshi", phone: "94231 77889", email: "amit.joshi@gmail.com", subject: "Badminton & Turf Ground Inquiry", message: "Please provide information for weekly badminton and sports turf booking.", date: "31 July 2026, 05:30 PM", read: false, category: "sports" },
 ];
 
 const initialTestimonials: TestimonialItem[] = [
@@ -1249,12 +1250,12 @@ export function setStoredData<T>(key: string, data: T): void {
         localStorage.setItem(key, JSON.stringify(compact));
         localStorage.setItem(`${key}_timestamp`, now.toString());
       }
-    } catch {}
+    } catch { }
   }
 
   try {
     window.dispatchEvent(new Event("admin_store_updated"));
-  } catch {}
+  } catch { }
 
   // Asynchronously sync to Firestore Database
   try {
@@ -1281,7 +1282,7 @@ export async function resetFirebaseDatabase(): Promise<void> {
     Object.values(STORAGE_KEYS).forEach((key) => {
       try {
         localStorage.removeItem(key);
-      } catch (e) {}
+      } catch (e) { }
     });
   }
 
@@ -1302,7 +1303,7 @@ export async function resetFirebaseDatabase(): Promise<void> {
 export function restoreBaitheKhelHall(): void {
   const currentSite = getStoredData<SiteData>(STORAGE_KEYS.site, initialSiteData);
   let halls = currentSite.activityHalls || initialSiteData.activityHalls || [];
-  
+
   // Guarantee Hall 1 is 'बैठे खेळ हॉल'
   const baitheKhelItem: ActivityHallItem = {
     id: "hall-1",
@@ -1403,7 +1404,7 @@ export function useAdminStore() {
     if (!siteData.activityHalls || siteData.activityHalls.length === 0 || siteData.activityHalls[0]?.title !== "बैठे खेळ हॉल") {
       restoreBaitheKhelHall();
     }
-    syncAllToFirebaseCloud().catch(() => {});
+    syncAllToFirebaseCloud().catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -1537,8 +1538,8 @@ export function useAdminStore() {
     // Also write to Firebase so desc/changes persist across sessions
     try {
       setDoc(doc(db, "app_data", STORAGE_KEYS.site), { data: updated }, { merge: true })
-        .catch(() => {}); // silent fail if offline
-    } catch (_) {}
+        .catch(() => { }); // silent fail if offline
+    } catch (_) { }
   };
 
   const updateAboutData = (newAbout: Partial<AboutData>) => {
@@ -1557,16 +1558,16 @@ export function useAdminStore() {
       setDoc(doc(db, "app_data", STORAGE_KEYS.about), { data: updated, updatedAt: now }, { merge: true })
         .catch((err) => console.warn("Firestore updateAboutData error:", err));
       setDoc(doc(db, "about_collection", "main"), { ...updated, updatedAt: now }, { merge: true })
-        .catch(() => {});
+        .catch(() => { });
 
       // Save each attraction as an INDIVIDUAL document in 'sangli_attractions' collection (No 1MB Limit!)
       setDoc(doc(db, "sangli_attractions", "all"), { places: mergedOverrides, updatedAt: now }, { merge: true })
-        .catch(() => {});
+        .catch(() => { });
       Object.entries(mergedOverrides).forEach(([id, item]) => {
         setDoc(doc(db, "sangli_attractions", id), { ...item, updatedAt: now }, { merge: true })
           .catch((err) => console.warn(`Error writing sangli_attractions/${id}:`, err));
       });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addGalleryItem = (item: Omit<GalleryItem, "id">) => {
@@ -1578,7 +1579,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.gallery), { data: updated, updatedAt: now });
       setDoc(doc(db, "gallery_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deleteGalleryItem = (id: string) => {
@@ -1589,7 +1590,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.gallery), { data: updated, updatedAt: now });
       setDoc(doc(db, "gallery_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addVideoItem = (video: Omit<VideoItem, "id">) => {
@@ -1601,7 +1602,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
       setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const updateVideoItem = (id: string, updatedVid: Partial<VideoItem>) => {
@@ -1612,7 +1613,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
       setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deleteVideoItem = (id: string) => {
@@ -1623,7 +1624,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
       setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addInquiry = (inquiry: Omit<InquiryItem, "id" | "date" | "read">) => {
@@ -1696,7 +1697,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const updatePackage = (id: string, updatedPkg: Partial<PackageItem>) => {
@@ -1708,7 +1709,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deletePackage = (id: string) => {
@@ -1718,7 +1719,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addBrochure = (broch: Omit<BrochureItem, "id" | "date">) => {
@@ -1738,7 +1739,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: updated, updatedAt: now });
       setDoc(doc(db, "brochures_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deleteBrochure = (id: string) => {
@@ -1749,7 +1750,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: updated, updatedAt: now });
       setDoc(doc(db, "brochures_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addHomeNews = (item: Omit<HomeNewsItem, "id" | "date">) => {
@@ -1768,7 +1769,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.homeNews), { data: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deleteHomeNews = (id: string) => {

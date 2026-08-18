@@ -27,6 +27,61 @@ import {
 } from "lucide-react";
 import { HighlightText } from "@/components/HighlightText";
 
+// Helper to convert Marathi numerals and month names to English date strings
+function formatInquiryDateToEnglish(dateStr?: string): string {
+  if (!dateStr) return new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+
+  const marathiDigits: Record<string, string> = {
+    "०": "0", "१": "1", "२": "2", "३": "3", "४": "4",
+    "५": "5", "६": "6", "७": "7", "८": "8", "९": "9"
+  };
+
+  const marathiMonths: Record<string, string> = {
+    "जानेवारी": "January", "फेब्रुवारी": "February", "मार्च": "March", "एप्रिल": "April",
+    "मे": "May", "जून": "June", "जुलै": "July", "ऑगस्ट": "August",
+    "सप्टेंबर": "September", "ऑक्टोबर": "October", "नोव्हेंबर": "November", "डिसेंबर": "December"
+  };
+
+  let clean = dateStr;
+  clean = clean.replace(/[०-९]/g, (w) => marathiDigits[w] || w);
+
+  Object.entries(marathiMonths).forEach(([mr, en]) => {
+    clean = clean.replace(new RegExp(mr, "gi"), en);
+  });
+
+  return clean;
+}
+
+// Helper to translate automated Marathi inquiry text to English
+function sanitizeInquiryText(text?: string): string {
+  if (!text || !text.trim()) return "";
+
+  let clean = text;
+
+  // Subjects and titles
+  clean = clean.replace(/🏋️\s*स्पोर्ट्स क्लब मेंबरशिप चौकशी/g, "Sports Club Membership Inquiry");
+  clean = clean.replace(/स्पोर्ट्स क्लब मेंबरशिप चौकशी/g, "Sports Club Membership Inquiry");
+  clean = clean.replace(/🏋️\s*बॅडमिंटन व टर्फ मैदान चौकशी/g, "Badminton & Turf Ground Inquiry");
+  clean = clean.replace(/बॅडमिंटन व टर्फ मैदान चौकशी/g, "Badminton & Turf Ground Inquiry");
+  clean = clean.replace(/डे-केअर प्रवेश बुकिंग/g, "Day-Care Admission Inquiry");
+  clean = clean.replace(/१ दिवस सहल भेट पास/g, "1-Day Tour Visit Pass Inquiry");
+  clean = clean.replace(/आनंदनिवास १ महिना बुकिंग/g, "Anandnivas Stay Inquiry");
+  clean = clean.replace(/आनंदशाळा निवारा प्रवेश चौकशी/g, "Anandshala Residence Admission Inquiry");
+  clean = clean.replace(/क्रीडा संकुल चौकशी/g, "Sports Club Membership Inquiry");
+  clean = clean.replace(/संपर्क फॉर्म संदेश/g, "Contact Form Message");
+
+  // Message bodies
+  clean = clean.replace(/प्रवेश\s*\/\s*मेंबरशिप चौकशी:\s*/g, "Admission / Membership Inquiry: ");
+  clean = clean.replace(/साठी ऑनलाईन नाव नोंदवले आहे\.?/g, " online inquiry submitted.");
+  clean = clean.replace(/माझ्या आई-वडिलांसाठी आनंदशाळा डे-केअर प्रवेशासाठी माहिती हवी आहे\.?/g, "Information required regarding Day-Care admission for my parents.");
+  clean = clean.replace(/आमच्या ज्येष्ठ नागरिक संघासाठी १ दिवस सहल पास बुकिंग कसे करावे\?/g, "How can we book 1-Day Tour passes for our Senior Citizen Group?");
+  clean = clean.replace(/१ महिन्याच्या आनंदनिवास निवासाची फी आणि सोयी-सुविधांची विचारणा\.?/g, "Inquiry regarding 1-month stay fees and amenities at Anandnivas.");
+  clean = clean.replace(/जिम व ऑलिंपिक स्विमिंग पूल मेंबरशिपसाठी चौकशी करत आहे\.?/g, "Inquiring for gym and Olympic swimming pool membership.");
+  clean = clean.replace(/साप्ताहिक बॅडमिंटन आणि स्पोर्ट्स टर्फ बुकिंगची माहिती द्यावी\.?/g, "Please provide information for weekly badminton and sports turf booking.");
+
+  return clean;
+}
+
 type TabKey =
   | "home"
   | "halls"
@@ -52,15 +107,15 @@ type EditModalData = {
 };
 
 const galleryCategoriesList = [
-  "सर्व",
-  "ज्येष्ठ नागरिक आनंदशाळा",
-  "आनंद मेळावा",
-  "भूमिपूजन",
-  "बांधकाम",
-  "सामाजिक कार्य",
-  "वार्षिक स्नेहसंमेलन",
-  "मान्यवर भेट",
-  "विशेष कार्यक्रम",
+  "All",
+  "Anandshala Campus",
+  "Events & Gatherings",
+  "Bhumipujan Ceremony",
+  "Construction Progress",
+  "Social Activities",
+  "Annual Meet",
+  "Dignitaries Visit",
+  "Special Programs",
 ];
 
 // REUSABLE DRAG & DROP IMAGE UPLOAD ZONE COMPONENT
@@ -83,37 +138,42 @@ function ImageDropzone({
     setIsDragging(true);
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    e.dataTransfer.dropEffect = "copy";
-    setIsDragging(true);
-  };
-
   const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
   };
 
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
-
-    const files = e.dataTransfer.files;
-    if (files && files.length > 0) {
-      setIsUploading(true);
-      Promise.resolve(onFileSelected(files[0])).finally(() => setIsUploading(false));
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      processFile(e.dataTransfer.files[0]);
     }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      setIsUploading(true);
-      Promise.resolve(onFileSelected(files[0])).finally(() => setIsUploading(false));
+    if (e.target.files && e.target.files[0]) {
+      processFile(e.target.files[0]);
     }
+  };
+
+  const processFile = (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      alert("Please select a valid image file (PNG, JPG, WEBP)");
+      return;
+    }
+    setIsUploading(true);
+    setTimeout(() => {
+      setIsUploading(false);
+      onFileSelected(file);
+    }, 300);
   };
 
   return (
@@ -123,10 +183,13 @@ function ImageDropzone({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${isDragging
-          ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
-          : "border-rose-300 hover:border-pink-600 bg-rose-50/50 hover:bg-rose-50/90"
-        } ${compact ? "p-3" : "p-5"}`}
+      className={`border-2 border-dashed rounded-2xl transition-all cursor-pointer flex flex-col items-center justify-center ${
+        compact ? "p-3" : "p-5"
+      } ${
+        isDragging
+          ? "border-pink-500 bg-pink-50/80 scale-[1.01]"
+          : "border-pink-200 hover:border-pink-400 bg-rose-50/40 hover:bg-rose-50/80"
+      }`}
     >
       <input
         ref={inputRef}
@@ -138,7 +201,7 @@ function ImageDropzone({
       {isUploading ? (
         <div className="flex items-center gap-2 text-xs font-black text-pink-600 animate-pulse py-3">
           <span className="size-4 rounded-full border-2 border-pink-600 border-t-transparent animate-spin" />
-          <span>फोटो अपलोड होत आहे (Uploading Photo)...</span>
+          <span>Uploading Photo...</span>
         </div>
       ) : (
         <div className="flex flex-col items-center text-center space-y-1 py-1 pointer-events-none">
@@ -146,10 +209,10 @@ function ImageDropzone({
             <UploadCloud size={24} />
           </div>
           <p className="text-xs sm:text-sm font-black text-[#1A05A2] mt-1.5">
-            📸 इथे फोटो Drag & Drop करा (Drag & Drop Photo Here)
+            📸 Drag & Drop Photo Here
           </p>
           <p className="text-[10px] font-extrabold text-slate-500">
-            संगणकावरून फोटो ड्रॅग करा किंवा निवडण्यासाठी क्लिक करा (PNG, JPG, WEBP)
+            Click or drag image file from computer (PNG, JPG, WEBP)
           </p>
         </div>
       )}
@@ -254,8 +317,8 @@ function VideoDropzone({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${isDragging
-          ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
-          : "border-purple-300 hover:border-pink-600 bg-purple-50/50 hover:bg-pink-50/80"
+        ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
+        : "border-purple-300 hover:border-pink-600 bg-purple-50/50 hover:bg-pink-50/80"
         } ${compact ? "p-3" : "p-4"}`}
     >
       <input
@@ -268,7 +331,7 @@ function VideoDropzone({
       {isUploading ? (
         <div className="flex items-center gap-2 text-xs font-black text-pink-600 animate-pulse py-3">
           <span className="size-4 rounded-full border-2 border-pink-600 border-t-transparent animate-spin" />
-          <span>व्हिडिओ अपलोड होत आहे (Uploading Video)...</span>
+          <span>Uploading Video...</span>
         </div>
       ) : (
         <div className="flex flex-col items-center text-center space-y-1 py-1 pointer-events-none">
@@ -276,10 +339,10 @@ function VideoDropzone({
             <Film size={22} />
           </div>
           <p className="text-xs font-black text-[#1A05A2] mt-1">
-            🎥 इथे व्हिडिओ फाईल Drag & Drop करा (Drag & Drop Video Here)
+            🎥 Drag & Drop Video File Here
           </p>
           <p className="text-[10px] font-extrabold text-slate-500">
-            संगणकावरून व्हिडिओ फाईल ड्रॅग करा किंवा निवडण्यासाठी क्लिक करा (MP4, WEBM, MOV)
+            Click or drag video file from computer (MP4, WEBM, MOV)
           </p>
         </div>
       )}
@@ -379,12 +442,12 @@ export default function AdminPage() {
   // Gallery Form State
   const [newGalleryUrl, setNewGalleryUrl] = useState("");
   const [newGalleryCaption, setNewGalleryCaption] = useState("");
-  const [newGalleryCategory, setNewGalleryCategory] = useState("ज्येष्ठ नागरिक आनंदशाळा");
-  const [galleryFilter, setGalleryFilter] = useState("सर्व");
+  const [newGalleryCategory, setNewGalleryCategory] = useState("Anandshala Campus");
+  const [galleryFilter, setGalleryFilter] = useState("All");
 
   // Video Gallery Form State
   const [newVideoTitle, setNewVideoTitle] = useState("");
-  const [newVideoCategory, setNewVideoCategory] = useState("विशेष मनोगत");
+  const [newVideoCategory, setNewVideoCategory] = useState("Special Remarks");
   const [newVideoEmbedUrl, setNewVideoEmbedUrl] = useState("");
   const [newVideoThumb, setNewVideoThumb] = useState("");
   const [newVideoDesc, setNewVideoDesc] = useState("");
@@ -399,10 +462,10 @@ export default function AdminPage() {
       const url = await uploadImageToFirebase(file, "admin_page_images");
       if (url && !url.startsWith("blob:")) {
         onSuccess(url);
-        showToast("✅ फोटो यशस्वीरित्या अपडेट झाला!");
+        showToast("✅ Photo uploaded successfully!");
       }
     } catch (err) {
-      showToast("⚠️ फोटो अपलोड करताना त्रुटी आली.");
+      showToast("⚠️ Error uploading photo.");
     }
   };
 
@@ -411,10 +474,10 @@ export default function AdminPage() {
       const url = await uploadVideoToFirebase(file, "admin_videos");
       if (url) {
         onSuccess(url);
-        showToast("✅ व्हिडिओ यशस्वीरित्या अपलोड झाला!");
+        showToast("✅ Video uploaded successfully!");
       }
     } catch (err) {
-      showToast("⚠️ व्हिडिओ अपलोड करताना त्रुटी आली.");
+      showToast("⚠️ Error uploading video.");
     }
   };
 
@@ -604,7 +667,7 @@ export default function AdminPage() {
             <div className="flex items-center justify-between border-b border-rose-100 pb-3 mb-4">
               <h3 className="font-black text-sm text-[#1A05A2] flex items-center gap-2">
                 <Edit className="size-4 text-[#db2777]" />
-                <span>{editingModal?.type === "video" ? "व्हिडिओ Edit करा" : "आयटम Edit करा"}</span>
+                <span>{editingModal?.type === "video" ? "Edit Video" : "Edit Item"}</span>
               </h3>
               <button
                 onClick={() => setEditingModal(null)}
@@ -617,7 +680,7 @@ export default function AdminPage() {
             <div className="space-y-3">
               {editingModal?.type === "video" ? (
                 <div>
-                  <label className="block text-[11px] font-black text-slate-500 mb-1">🎥 व्हिडिओ फाईल बदला (Drag & Drop Video File)</label>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">🎥 Change Video File (Drag & Drop Video)</label>
                   <VideoDropzone
                     compact
                     onFileSelected={(file) =>
@@ -627,13 +690,13 @@ export default function AdminPage() {
                   {modalSubtitle && (
                     <div className="mt-1 flex items-center gap-1.5 p-2 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700 truncate">
                       <CheckCircle size={13} className="shrink-0 text-emerald-600" />
-                      <span className="truncate">व्हिडिओ अपलोड झाला! (Video Uploaded)</span>
+                      <span className="truncate">Video File Uploaded Successfully!</span>
                     </div>
                   )}
                 </div>
               ) : (
                 <div>
-                  <label className="block text-[11px] font-black text-slate-500 mb-1">📸 फोटो बदला</label>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">📸 Change Photo</label>
                   <ImageDropzone
                     compact
                     label="Drag & Drop Photo Here"
@@ -656,12 +719,12 @@ export default function AdminPage() {
 
               {/* TITLE INPUT */}
               <div>
-                <label className="block text-[11px] font-black text-slate-500 mb-1">🏷️ नाव / शीर्षक (Title)</label>
+                <label className="block text-[11px] font-black text-slate-500 mb-1">🏷️ Title / Name</label>
                 <input
                   type="text"
                   value={modalTitle}
                   onChange={(e) => setModalTitle(e.target.value)}
-                  placeholder="नाव लिहा..."
+                  placeholder="Enter title..."
                   className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-bold focus:border-[#db2777] focus:outline-none"
                 />
               </div>
@@ -669,12 +732,12 @@ export default function AdminPage() {
               {/* SUBTITLE / DISTANCE INPUT FOR SANGLI ATTRACTION */}
               {editingModal?.type === "sangliAttraction" && (
                 <div>
-                  <label className="block text-[11px] font-black text-slate-500 mb-1">📍 अंतर व वेळ (Distance, e.g. ३ किमी (१० मिनिटे))</label>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">📍 Distance & Time (e.g. 3 km / 10 mins)</label>
                   <input
                     type="text"
                     value={modalSubtitle}
                     onChange={(e) => setModalSubtitle(e.target.value)}
-                    placeholder="उदा. ३ किमी (१० मिनिटे)"
+                    placeholder="e.g. 3 km (10 mins)"
                     className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-bold focus:border-[#db2777] focus:outline-none"
                   />
                 </div>
@@ -683,11 +746,11 @@ export default function AdminPage() {
               {/* DESCRIPTION TEXTAREA */}
               {(editingModal?.type === "hall" || editingModal?.type === "video" || editingModal?.type === "sangliAttraction" || (modalDesc && modalDesc.length > 0)) && (
                 <div>
-                  <label className="block text-[11px] font-black text-slate-500 mb-1">📝 माहिती / Description</label>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">📝 Description & Details</label>
                   <textarea
                     value={modalDesc}
                     onChange={(e) => setModalDesc(e.target.value)}
-                    placeholder="माहिती लिहा..."
+                    placeholder="Enter description..."
                     rows={3}
                     className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-medium focus:border-[#db2777] focus:outline-none resize-none"
                   />
@@ -707,7 +770,7 @@ export default function AdminPage() {
                 onClick={async () => {
                   editingModal.onSave(modalTitle, modalImageUrl, modalSubtitle, undefined, modalDesc);
                   setEditingModal(null);
-                  showToast("✅ फोटो सेव्ह होऊन फायरबेसवर क्लाउडवर अपडेट झाला!");
+                  showToast("✅ Photo saved and synced to Cloud!");
                   try {
                     await store.syncAllToFirebaseCloud();
                   } catch (e) {
@@ -766,9 +829,6 @@ export default function AdminPage() {
 
           {/* SIDEBAR TABS */}
           <div className="space-y-2">
-            <p className="text-xs font-black text-[#810B38] uppercase tracking-widest px-3 py-1">
-              {activeModule === "anandshala" ? "🌸 आनंदशाळा पेजेस" : "🏋️‍♂️ स्पोर्ट्स क्लब पेजेस"}
-            </p>
             {menuItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -809,51 +869,35 @@ export default function AdminPage() {
       {/* MAIN CONTENT AREA */}
       <main className="flex-1 p-4 sm:p-8 max-w-7xl mx-auto overflow-y-auto h-screen w-full">
 
-        {/* TOP PRIMARY MODULE SWITCHER BUTTONS BAR */}
-        <div className="bg-white border-2 border-rose-100/90 rounded-3xl p-4 mb-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="size-10 rounded-2xl bg-gradient-to-r from-[#db2777] to-[#1A05A2] flex items-center justify-center text-white text-lg font-black shadow-md shrink-0">
-              {activeModule === "anandshala" ? "🌸" : "🏋️‍♂️"}
-            </div>
-            <div>
-              <h2 className="text-sm font-black text-[#1A05A2] tracking-tight">
-                {activeModule === "anandshala" ? "🌸 प्रीतम आनंदशाळा ॲडमिन फोटो पॅनेल" : "🏋️‍♂️ प्रीतम स्पोर्ट्स अँड फिटनेस क्लब"}
-              </h2>
-              <p className="text-[11px] text-slate-500 font-extrabold">
-                {activeModule === "anandshala" ? "आनंदशाळेचे फोटो बदलण्यासाठी सेक्‍शन निवडा" : "स्पोर्ट्स क्लबचे फोटो बदलण्यासाठी सेक्‍शन निवडा"}
-              </p>
-            </div>
-          </div>
+        {/* TOP PRIMARY MODULE SWITCHER BUTTONS BAR (CENTERED & PINK ANANDSHALA) */}
+        <div className="mb-6 flex flex-wrap items-center justify-center gap-3.5">
+          <button
+            onClick={() => {
+              setActiveModule("anandshala");
+              setActiveTab("home");
+            }}
+            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${activeModule === "anandshala"
+              ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
+              : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
+              }`}
+          >
+            <span>🌸</span>
+            <span>Preetam <span className={activeModule === "anandshala" ? "text-[#ff2a85] font-black" : "text-[#be185d] font-black"}>Anandshala</span></span>
+          </button>
 
-          <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
-            <button
-              onClick={() => {
-                setActiveModule("anandshala");
-                setActiveTab("home");
-              }}
-              className={`flex-1 sm:flex-initial px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm ${activeModule === "anandshala"
-                ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-rose-200 scale-102"
-                : "bg-rose-50 text-slate-700 hover:bg-rose-100 border-2 border-rose-200"
-                }`}
-            >
-              <span>🌸</span>
-              <span>प्रीतम आनंदशाळा</span>
-            </button>
-
-            <button
-              onClick={() => {
-                setActiveModule("sports");
-                setActiveTab("sports_home");
-              }}
-              className={`flex-1 sm:flex-initial px-5 py-3 rounded-2xl text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm ${activeModule === "sports"
-                ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-rose-200 scale-102"
-                : "bg-rose-50 text-slate-700 hover:bg-rose-100 border-2 border-rose-200"
-                }`}
-            >
-              <span>🏋️‍♂️</span>
-              <span>प्रीतम स्पोर्ट्स अँड फिटनेस क्लब</span>
-            </button>
-          </div>
+          <button
+            onClick={() => {
+              setActiveModule("sports");
+              setActiveTab("sports_home");
+            }}
+            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${activeModule === "sports"
+              ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
+              : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
+              }`}
+          >
+            <span>🏋️‍♂️</span>
+            <span>Preetam Sports & Fitness Club</span>
+          </button>
         </div>
 
         {/* ================================================================== */}
@@ -956,7 +1000,7 @@ export default function AdminPage() {
               <h2 className="text-base font-black text-[#810B38] flex items-center justify-between border-b border-rose-100 pb-3">
                 <span className="flex items-center gap-2">
                   <span>🏛️</span>
-                  <span>होमपेज मुख्य २ सेक्शन्स फोटो (Main 2 Home Page Section Cards)</span>
+                  <span>Home Page 2 Main Section Cards</span>
                 </span>
               </h2>
 
@@ -965,16 +1009,16 @@ export default function AdminPage() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-[#1A05A2] flex items-center gap-1">
-                      <span>🌸</span> १. आनंदशाळा मुख्य सेक्‍शन कार्ड (Section 1: Anandshala)
+                      <span>🌸</span> Section 1: Anandshala Main Card
                     </span>
                   </div>
 
                   <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md h-52 sm:h-60 bg-slate-900">
                     <img
-                      src={encodeURI(siteForm.aanandshalaImages?.[0] || "/images/aandshala sahal 1.jpeg")}
+                      src={encodeURI(siteForm.aanandshalaImages?.[0] || "/images/slider4.JPG")}
                       alt="Anandshala Card"
                       className="w-full h-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/aandshala%20sahal%201.jpeg"; }}
+                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/slider4.JPG"; }}
                     />
 
                     {/* FLOATING BUTTONS DIRECTLY ON IMAGE */}
@@ -983,7 +1027,7 @@ export default function AdminPage() {
                         onClick={() =>
                           openEditModal({
                             type: "aanandshalaCard",
-                            title: siteForm.aanandshalaTitle || "प्रीतम ज्येष्ठ नागरिक आनंदशाळा व निवारा",
+                            title: siteForm.aanandshalaTitle || "Preetam Senior Citizen Anandshala & Residence",
                             imageUrl: siteForm.aanandshalaImages?.[0] || "/images/slider4.JPG",
                             onSave: (newTitle, newUrl) => {
                               const updatedImages = [newUrl, ...(siteForm.aanandshalaImages?.slice(1) || [])];
@@ -1008,7 +1052,7 @@ export default function AdminPage() {
                           const newForm = { ...siteForm, aanandshalaImages: updatedImages };
                           setSiteForm(newForm);
                           store.updateSiteData(newForm);
-                          showToast("फोटो हटवला गेला!");
+                          showToast("Photo deleted!");
                         }}
                         className="px-3.5 py-1.5 rounded-full bg-rose-600/95 backdrop-blur-md text-xs font-black text-white shadow-lg hover:bg-rose-700 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer border border-white/20"
                       >
@@ -1019,7 +1063,7 @@ export default function AdminPage() {
 
                     <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
                       <p className="font-black text-xs text-white drop-shadow-md truncate">
-                        <HighlightText text={siteForm.aanandshalaTitle || "प्रीतम ज्येष्ठ नागरिक आनंदशाळा व निवारा"} />
+                        <HighlightText text={siteForm.aanandshalaTitle || "Preetam Senior Citizen Anandshala & Residence"} />
                       </p>
                     </div>
                   </div>
@@ -1029,7 +1073,7 @@ export default function AdminPage() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-[#1A05A2] flex items-center gap-1">
-                      <span>🏋️‍♂️</span> २. क्रीडा संकुल मुख्य सेक्‍शन कार्ड (Section 2: Sports Club)
+                      <span>🏋️‍♂️</span> Section 2: Sports Club Main Card
                     </span>
                   </div>
 
@@ -1047,7 +1091,7 @@ export default function AdminPage() {
                         onClick={() =>
                           openEditModal({
                             type: "sportsCard",
-                            title: siteForm.sportsTitle || "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब",
+                            title: siteForm.sportsTitle || "Preetam Sports & Fitness Club",
                             imageUrl: siteForm.sportsImages?.[0] || "/images/sports img.png",
                             onSave: (newTitle, newUrl) => {
                               const updatedImages = [newUrl, ...(siteForm.sportsImages?.slice(1) || [])];
@@ -1072,7 +1116,7 @@ export default function AdminPage() {
                           const newForm = { ...siteForm, sportsImages: updatedImages };
                           setSiteForm(newForm);
                           store.updateSiteData(newForm);
-                          showToast("फोटो हटवला गेला!");
+                          showToast("Photo deleted!");
                         }}
                         className="px-3.5 py-1.5 rounded-full bg-rose-600/95 backdrop-blur-md text-xs font-black text-white shadow-lg hover:bg-rose-700 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer border border-white/20"
                       >
@@ -1083,7 +1127,7 @@ export default function AdminPage() {
 
                     <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
                       <p className="font-black text-xs drop-shadow-md truncate">
-                        {siteForm.sportsTitle || "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब"}
+                        {siteForm.sportsTitle || "Preetam Sports & Fitness Club"}
                       </p>
                     </div>
                   </div>
@@ -1214,10 +1258,10 @@ export default function AdminPage() {
               <div>
                 <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
                   <BookOpen className="text-[#db2777]" />
-                  <span>About Us Page Manager (माहिती व फोटो नियंत्रण)</span>
+                  <span>About Us Page Manager</span>
                 </h1>
                 <p className="text-xs text-slate-500 mt-1 font-semibold">
-                  Manage About Us intro story, building photos, and Sangli attractions with Edit & Delete buttons.
+                  Manage About Us intro story, building photos, and Sangli attractions with Edit & Delete options.
                 </p>
               </div>
             </div>
@@ -1226,13 +1270,13 @@ export default function AdminPage() {
             <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 sm:p-6 space-y-5 shadow-sm">
               <h2 className="text-base font-black text-[#810B38] flex items-center gap-2 border-b border-rose-100 pb-3">
                 <span>📖</span>
-                <span>१. आनंदशाळा : एक परिचय व संकल्पना (Main Story & Photo)</span>
+                <span>1. Anandshala Main Story & Ceremony Photo</span>
               </h2>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 {/* Left Column: Ceremony Main Image */}
                 <div className="lg:col-span-5 space-y-2">
-                  <label className="block text-xs font-black text-slate-700">📸 मुख्य सोहळा / इमारत फोटो (Main Ceremony Photo)</label>
+                  <label className="block text-xs font-black text-slate-700">📸 Main Ceremony Photo</label>
                   <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md">
                     <img
                       src={aboutForm.storyMainImage || "/images/imgever.JPG"}
@@ -1245,13 +1289,13 @@ export default function AdminPage() {
                         onClick={() =>
                           openEditModal({
                             type: "storyPhoto",
-                            title: "आनंदशाळा मुख्य सोहळा फोटो",
+                            title: "Anandshala Main Ceremony Photo",
                             imageUrl: aboutForm.storyMainImage || "/images/imgever.JPG",
                             onSave: (_t, newUrl) => {
                               const updatedAbout = { ...aboutForm, storyMainImage: newUrl };
                               setAboutForm(updatedAbout);
                               store.updateAboutData(updatedAbout);
-                              showToast("✅ मुख्य सोहळा फोटो अपडेट झाला!");
+                              showToast("✅ Main ceremony photo updated!");
                             },
                           })
                         }
@@ -1263,7 +1307,7 @@ export default function AdminPage() {
                     </div>
 
                     <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
-                      <p className="font-black text-xs drop-shadow-md">आनंदशाळा सोहळा फोटो</p>
+                      <p className="font-black text-xs drop-shadow-md">Anandshala Ceremony Photo</p>
                     </div>
                   </div>
                 </div>
@@ -1271,20 +1315,20 @@ export default function AdminPage() {
                 {/* Right Column: Title & Text Inputs */}
                 <div className="lg:col-span-7 space-y-4">
                   <div>
-                    <label className="block text-xs font-black text-slate-700 mb-1">🏷️ मुख्य शीर्षक (Title - Marathi)</label>
+                    <label className="block text-xs font-black text-slate-700 mb-1">🏷️ Main Title</label>
                     <input
                       type="text"
-                      value={aboutForm.storyTitleMr || "प्रीतम आनंदशाळा : एक परिचय व संकल्पना"}
+                      value={aboutForm.storyTitleMr || "Preetam Anandshala : Concept & Introduction"}
                       onChange={(e) => setAboutForm({ ...aboutForm, storyTitleMr: e.target.value })}
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 font-bold focus:border-[#db2777] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black text-slate-700 mb-1">📝 परिचय माहिती (Description - Marathi)</label>
+                    <label className="block text-xs font-black text-slate-700 mb-1">📝 Description & Intro Text</label>
                     <textarea
                       rows={4}
-                      value={aboutForm.storyDescMr || "“प्रीतम सीनियर सिटिझन आनंदशाळा” ही सांगली, महाराष्ट्र, भारत येथे स्थित एक विशेष ज्येष्ठ नागरिक सेवा सुविधा आणि मनोरंजन केंद्र आहे. उद्योजक श्री. अभिनय जगन्नाथ कामाजी यांनी प्रीतम बिझनेस ग्रुपच्या अंतर्गत याची स्थापना केली आहे. ज्येष्ठ नागरिकांसाठी समर्पित केअरटेकर सेवा, सहवास आणि आरोग्यविषयक सहाय्य उपलब्ध करून देणारे एक प्रीमियम केंद्र म्हणून याची ओळख निर्माण झाली आहे."}
+                      value={aboutForm.storyDescMr || "“Preetam Senior Citizen Anandshala” is a specialized senior citizen hub located in Sangli, Maharashtra, India. Established by entrepreneur Mr. Abhinay Jaganath Kamaji under the Preetam Business Group, it offers premier caretaker, companionship, and healthcare support for senior citizens."}
                       onChange={(e) => setAboutForm({ ...aboutForm, storyDescMr: e.target.value })}
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 font-medium focus:border-[#db2777] focus:outline-none"
                     />
@@ -1293,7 +1337,7 @@ export default function AdminPage() {
                   <button
                     onClick={() => {
                       store.updateAboutData(aboutForm);
-                      showToast("✅ About Us माहिती सेव्ह झाली!");
+                      showToast("✅ About Us details saved!");
                     }}
                     className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-xs font-black text-white shadow-md hover:scale-105 transition-transform cursor-pointer flex items-center gap-2"
                   >
@@ -1309,27 +1353,27 @@ export default function AdminPage() {
               <h2 className="text-base font-black text-[#810B38] flex items-center justify-between border-b border-rose-100 pb-3">
                 <span className="flex items-center gap-2">
                   <span>🗺️</span>
-                  <span>२. सांगली परिसरातील १४ प्रमुख पर्यटन व तीर्थक्षेत्रे (Sangli 14 Attractions)</span>
+                  <span>2. Sangli 14 Major Tourist & Spiritual Places</span>
                 </span>
                 <span className="text-xs font-bold text-slate-500">14 Places</span>
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {[
-                  { id: "sangli-ganpati", title: "१. सांगली गणपती मंदिर (राजवाडा)", dist: "३ किमी (१० मिनिटे)", desc: " १८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर...", img: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "sangli-fort-rajwada", title: "२. सांगली किल्ला व राजवाडा परिसर", dist: "३.५ किमी (१२ मिनिटे)", desc: "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू...", img: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "sangmeshwar-haripur", title: "३. संगमेश्वर मंदिर (हरिपूर संगम)", dist: "५ किमी (१५ मिनिटे)", desc: "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले शिवमंदिर...", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "krishna-irwin-bridge", title: "४. कृष्णा नदीकाठ व आयर्विन पूल", dist: "४ किमी (१० मिनिटे)", desc: "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल...", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "miraj-dargah", title: "५. मिरज - ख्वाजा मीरासाहेब दर्गाह", dist: "१० किमी (२० मिनिटे)", desc: "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व मिरज सतार-तंबोरा केंद्र...", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "audumbar-temple", title: "६. औदुंबर - श्री दत्त क्षेत्र (दत्त मंदिर)", dist: "२५ किमी (४० मिनिटे)", desc: "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले दत्त मंदिर...", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "dandoba-hills", title: "७. दंडोबा टेकडी व गुहा शिवमंदिर", dist: "२५ किमी (३० मिनिटे)", desc: "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर...", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "sagareshwar-sanctuary", title: "८. सागरेश्वर वन्यजीव अभयारण्य", dist: "३० किमी (४५ मिनिटे)", desc: "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह...", img: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "bahubali-kumbhojgiri", title: "९. बाहुबली कुंभोजगिरी (जैन तीर्थक्षेत्र)", dist: "३५ किमी (५० मिनिटे)", desc: "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील जैन तीर्थक्षेत्र...", img: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "ramling-island-bahe", title: "१०. रामलिंग बेट व राममंदिर (बहे)", dist: "३८ किमी (५० मिनिटे)", desc: "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, राममंदिर...", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "chandoli-national-park", title: "११. चांदोली राष्ट्रीय उद्यान व धरण", dist: "६५ किमी (१.५ तास)", desc: "सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व जंगल परिसर...", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "gokak-waterfall", title: "१२. गोकाक भव्य धबधबा", dist: "७५ किमी (१.५ तास)", desc: "१७७ फूट उंचीवरून कोसळणारा धबधबा व लटकता पूल...", img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "machhindragad-fort", title: "१३. मच्छिंद्रगड किल्ला व मंदिर", dist: "४५ किमी (१ तास)", desc: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला...", img: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "kolhapur-excursion", title: "१४. कोल्हापूर - श्री महालक्ष्मी मंदिर & न्यू पॅलेस", dist: "५० किमी (१ तास)", desc: "श्री अंबाबाई महालक्ष्मी मंदिर, न्यू पॅलेस राजवाडा व रंकाळा...", img: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "sangli-ganpati", title: "1. Sangli Royal Ganapati Temple", dist: "3 km (10 mins)", desc: "1843 historic black stone palace temple...", img: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "sangli-fort-rajwada", title: "2. Sangli Fort & Rajwada Area", dist: "3.5 km (12 mins)", desc: "Patwardhan Sansthan Rajwada fort area...", img: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "sangmeshwar-haripur", title: "3. Sangmeshwar Temple (Haripur)", dist: "5 km (15 mins)", desc: "Confluence of Krishna and Warna rivers...", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "krishna-irwin-bridge", title: "4. Krishna River & Irwin Bridge", dist: "4 km (10 mins)", desc: "1929 British era red stone bridge...", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "miraj-dargah", title: "5. Miraj Khwaja Meerasaheb Dargah", dist: "10 km (20 mins)", desc: "Historic shrine & musical instruments hub...", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "audumbar-temple", title: "6. Audumbar Shri Dattatreya Temple", dist: "25 km (40 mins)", desc: "Sacred Datta pilgrimage on Krishna bank...", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "dandoba-hills", title: "7. Dandoba Hills & Forest Shrine", dist: "25 km (30 mins)", desc: "Forest reserve and cave Shiva temple...", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "sagareshwar-sanctuary", title: "8. Sagareshwar Wildlife Sanctuary", dist: "30 km (45 mins)", desc: "1000+ deer, blackbucks, peafowls & ancient temples...", img: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "bahubali-kumbhojgiri", title: "9. Bahubali Hill, Kumbhojgiri", dist: "35 km (50 mins)", desc: "28ft grand Bahubali statue Jain shrine...", img: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "ramling-island-bahe", title: "10. Ramling Island, Bahe", dist: "38 km (50 mins)", desc: "Scenic river island and Lord Ram temple...", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "chandoli-national-park", title: "11. Chandoli National Park & Dam", dist: "65 km (1.5 hrs)", desc: "Sahyadri tiger reserve and massive dam...", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "gokak-waterfall", title: "12. Gokak Spectacular Waterfall", dist: "75 km (1.5 hrs)", desc: "177ft waterfall & historic hanging bridge...", img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "machhindragad-fort", title: "13. Machhindragad Fort & Temple", dist: "45 km (1 hr)", desc: "Built by Chhatrapati Shivaji Maharaj in 1676...", img: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop" },
+                  { id: "kolhapur-excursion", title: "14. Kolhapur Day Tour (Mahalaxmi)", dist: "50 km (1 hr)", desc: "Shri Mahalaxmi Temple, New Palace & Rankala...", img: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop" },
                 ].map((attraction) => {
                   const ov: SangliPlaceOverride = (store.aboutData?.sangliPlacesOverrides?.[attraction.id] || {}) as SangliPlaceOverride;
                   const currentImage = ov.image || attraction.img;
@@ -1423,7 +1467,7 @@ export default function AdminPage() {
                       onChange={(e) => setNewGalleryCategory(e.target.value)}
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-medium"
                     >
-                      {galleryCategoriesList.filter((c) => c !== "सर्व").map((cat) => (
+                      {galleryCategoriesList.filter((c) => c !== "All").map((cat) => (
                         <option key={cat} value={cat}>
                           {cat}
                         </option>
@@ -1444,7 +1488,7 @@ export default function AdminPage() {
 
                   <button
                     onClick={() => {
-                      if (!newGalleryUrl) return showToast("⚠️ कृपया फोटो निवडा!");
+                      if (!newGalleryUrl) return showToast("⚠️ Please select or upload a photo first!");
                       store.addGalleryItem({
                         url: newGalleryUrl,
                         caption: newGalleryCaption || "Preetam Anandshala Photo",
@@ -1500,7 +1544,7 @@ export default function AdminPage() {
             {/* GALLERY ITEMS GRID WITH CLEAN SINGLE ICON BUTTONS */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {store.gallery
-                .filter((item) => galleryFilter === "सर्व" || item.category?.includes(galleryFilter))
+                .filter((item) => galleryFilter === "All" || item.category?.includes(galleryFilter))
                 .map((item) => (
                   <div key={item.id} className="relative group rounded-2xl overflow-hidden bg-white border border-slate-200 p-2 shadow-xs">
                     <div className="relative rounded-xl overflow-hidden bg-slate-50 border h-48">
@@ -1556,24 +1600,24 @@ export default function AdminPage() {
               <div className="flex items-center justify-between border-b border-rose-100 pb-3">
                 <h2 className="text-base font-black text-[#810B38] flex items-center gap-2">
                   <span>🎥</span>
-                  <span>व्हिडिओ गॅलरी मॅनेजर (Video Gallery Manager)</span>
+                  <span>Video Gallery Manager</span>
                 </h2>
                 <span className="text-xs font-bold text-pink-600 bg-pink-50 px-3 py-1 rounded-full border border-pink-200">
-                  एकूण {store.videos.length} व्हिडिओ
+                  Total {store.videos.length} Videos
                 </span>
               </div>
 
               {/* ADD NEW VIDEO FORM */}
               <div className="bg-rose-50/50 border border-rose-200 p-4 sm:p-5 rounded-2xl space-y-4">
                 <h3 className="text-xs font-black text-[#1A05A2] flex items-center gap-1.5">
-                  <Plus size={16} /> <span>नवीन व्हिडिओ जोडा (+ Add New Video)</span>
+                  <Plus size={16} /> <span>+ Add New Video</span>
                 </h3>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 mb-1">व्हिडिओ शीर्षक (Title)</label>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">Video Title</label>
                   <input
                     type="text"
-                    placeholder="उदा. डॉ. गिरीश ओक मनोगत"
+                    placeholder="e.g. Dr. Girish Oak Speech at Anandshala"
                     value={newVideoTitle}
                     onChange={(e) => setNewVideoTitle(e.target.value)}
                     className="w-full rounded-xl bg-white border border-slate-200 p-2.5 text-xs text-slate-800 font-medium"
@@ -1583,7 +1627,7 @@ export default function AdminPage() {
                 {/* DRAG & DROP VIDEO FILE */}
                 <div className="space-y-1.5">
                   <label className="block text-[11px] font-bold text-slate-700">
-                    🎥 व्हिडिओ फाईल ड्रॅग & ड्रॉप करा (Drag & Drop Video File)
+                    🎥 Drag & Drop Video File
                   </label>
                   <VideoDropzone
                     compact
@@ -1598,13 +1642,13 @@ export default function AdminPage() {
                   {newVideoEmbedUrl ? (
                     <div className="flex items-center gap-2 p-2 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-700 truncate">
                       <CheckCircle size={14} className="shrink-0 text-emerald-600" />
-                      <span className="truncate">व्हिडिओ फाईल तयार आहे! (Video Uploaded Successfully)</span>
+                      <span className="truncate">Video File Uploaded Successfully!</span>
                     </div>
                   ) : (
                     <div className="pt-1">
                       <input
                         type="text"
-                        placeholder="किंवा YouTube Link / URL प्रविष्ट करा..."
+                        placeholder="Or enter YouTube Link / URL..."
                         value={newVideoEmbedUrl}
                         onChange={(e) => setNewVideoEmbedUrl(e.target.value)}
                         className="w-full rounded-xl bg-white border border-slate-200 p-2 text-[11px] text-slate-700 font-medium placeholder:text-slate-400"
@@ -1614,10 +1658,10 @@ export default function AdminPage() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 mb-1">व्हिडिओ माहिती (Description)</label>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">Video Description</label>
                   <input
                     type="text"
-                    placeholder="व्हिडिओबद्दल संक्षिप्त माहिती..."
+                    placeholder="Short description of the video..."
                     value={newVideoDesc}
                     onChange={(e) => setNewVideoDesc(e.target.value)}
                     className="w-full rounded-xl bg-white border border-slate-200 p-2.5 text-xs text-slate-800 font-medium"
@@ -1628,33 +1672,33 @@ export default function AdminPage() {
                   <button
                     onClick={() => {
                       if (!newVideoEmbedUrl.trim()) {
-                        showToast("⚠️ कृपया आधी व्हिडिओ फाईल ड्रॅग & ड्रॉप करा!");
+                        showToast("⚠️ Please drag & drop video file first!");
                         return;
                       }
-                      const finalTitle = newVideoTitle.trim() || "आनंदशाळा विशेष व्हिडिओ";
+                      const finalTitle = newVideoTitle.trim() || "Anandshala Special Video";
                       let finalEmbed = newVideoEmbedUrl.trim();
                       if (finalEmbed.includes("watch?v=")) {
                         finalEmbed = finalEmbed.replace("watch?v=", "embed/");
                       }
                       store.addVideoItem({
                         title: finalTitle,
-                        category: "विशेष मनोगत",
+                        category: "Special Remarks",
                         embedUrl: finalEmbed,
                         thumbnail: newVideoThumb.trim() || "/images/Screenshot 2026-07-31 103107.png",
                         desc: newVideoDesc.trim() || "",
-                        duration: "०३:०० मिनिटे",
-                        date: "२०२६",
+                        duration: "03:00 mins",
+                        date: "2026",
                       });
                       store.syncAllToFirebaseCloud();
                       setNewVideoTitle("");
                       setNewVideoEmbedUrl("");
                       setNewVideoThumb("");
                       setNewVideoDesc("");
-                      showToast("✅ नवीन व्हिडिओ सेव्ह झाला!");
+                      showToast("✅ New video saved!");
                     }}
                     className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white font-black text-xs shadow-md hover:scale-105 transition cursor-pointer"
                   >
-                    + व्हिडिओ सेव्ह करा
+                    + Save Video
                   </button>
                 </div>
               </div>
@@ -1694,7 +1738,7 @@ export default function AdminPage() {
                                   desc: newDesc,
                                 });
                                 store.syncAllToFirebaseCloud();
-                                showToast("✅ व्हिडिओ अपडेट झाला!");
+                                showToast("✅ Video updated!");
                               },
                             })
                           }
@@ -1708,7 +1752,7 @@ export default function AdminPage() {
                           onClick={() => {
                             store.deleteVideoItem(item.id);
                             store.syncAllToFirebaseCloud();
-                            showToast("🗑️ व्हिडिओ हटवला!");
+                            showToast("🗑️ Video deleted!");
                           }}
                           className="px-3 py-1 rounded-full bg-rose-600/95 backdrop-blur-md text-[11px] font-black text-white shadow-md hover:bg-rose-700 flex items-center gap-1 cursor-pointer"
                         >
@@ -1770,7 +1814,7 @@ export default function AdminPage() {
                     onClick={() =>
                       openEditModal({
                         type: "sportsCard",
-                        title: siteForm.sportsTitle || "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब",
+                        title: siteForm.sportsTitle || "Preetam Sports & Fitness Club",
                         imageUrl: siteForm.sportsImages?.[0] || "/images/sports img.png",
                         onSave: (newTitle, newUrl) => {
                           const updatedImages = [newUrl, ...(siteForm.sportsImages?.slice(1) || [])];
@@ -1795,7 +1839,7 @@ export default function AdminPage() {
                       const newForm = { ...siteForm, sportsImages: updatedImages };
                       setSiteForm(newForm);
                       store.updateSiteData(newForm);
-                      showToast("फोटो हटवला गेला!");
+                      showToast("Photo deleted!");
                     }}
                     className="px-3.5 py-1.5 rounded-full bg-rose-600/95 backdrop-blur-md text-xs font-black text-white shadow-lg hover:bg-rose-700 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer border border-white/20"
                   >
@@ -1806,7 +1850,7 @@ export default function AdminPage() {
 
                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
                   <p className="font-black text-xs drop-shadow-md truncate">
-                    {siteForm.sportsTitle || "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब"}
+                    {siteForm.sportsTitle || "Preetam Sports & Fitness Club"}
                   </p>
                 </div>
               </div>
@@ -1999,27 +2043,41 @@ export default function AdminPage() {
             </div>
 
             <div className="space-y-3">
-              {store.sportsInquiries.map((inq) => (
-                <div key={inq.id} className="bg-white border-2 border-rose-100 rounded-2xl p-4 flex items-center justify-between gap-4 shadow-sm">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-black text-sm text-slate-900">{inq.name}</span>
-                      <span className="text-xs font-black text-[#db2777]">📞 {inq.phone}</span>
+              {store.sportsInquiries.map((inq) => {
+                const cleanSubject = inq.subject ? sanitizeInquiryText(inq.subject) : "Sports Club Membership Inquiry";
+                const cleanMsg = sanitizeInquiryText(inq.message) || "Online membership inquiry.";
+                const cleanDate = formatInquiryDateToEnglish(inq.date);
+
+                return (
+                  <div key={inq.id} className="bg-white border-2 border-rose-100 rounded-2xl p-4 sm:p-5 space-y-2 shadow-sm relative group">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-rose-50 pb-2 pr-8">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-black text-sm text-slate-900">{inq.name}</span>
+                        {inq.email && <span className="text-xs font-semibold text-slate-500">({inq.email})</span>}
+                        <span className="text-xs font-black text-[#db2777]">📞 {inq.phone}</span>
+                      </div>
+                      <span className="text-xs font-bold text-slate-400 font-mono">
+                        📅 {cleanDate}
+                      </span>
                     </div>
-                    <p className="text-xs text-slate-600 font-medium">{inq.message}</p>
-                    <span className="text-[10px] text-slate-400 font-mono">{inq.date}</span>
+
+                    <div className="space-y-1">
+                      {cleanSubject && <p className="text-xs font-black text-[#1A05A2]">{cleanSubject}</p>}
+                      <p className="text-xs text-slate-600 font-medium bg-slate-50 p-2.5 rounded-xl border border-slate-100">{cleanMsg}</p>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        store.deleteInquiry(inq.id);
+                        showToast("Message deleted!");
+                      }}
+                      className="absolute top-3 right-3 p-2 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl cursor-pointer"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
-                  <button
-                    onClick={() => {
-                      store.deleteInquiry(inq.id);
-                      showToast("Message deleted!");
-                    }}
-                    className="p-2 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl cursor-pointer"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
@@ -2101,27 +2159,41 @@ export default function AdminPage() {
             </div>
 
             <div className="space-y-3">
-              {store.inquiries.map((inq) => (
-                <div key={inq.id} className="bg-white border-2 border-rose-100 rounded-2xl p-4 flex items-center justify-between gap-4 shadow-sm">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-black text-sm text-slate-900">{inq.name}</span>
-                      <span className="text-xs font-black text-[#db2777]">📞 {inq.phone}</span>
+              {store.anandshalaInquiries.map((inq) => {
+                const cleanSubject = inq.subject ? sanitizeInquiryText(inq.subject) : "Online Membership Inquiry";
+                const cleanMsg = sanitizeInquiryText(inq.message) || "Online membership inquiry.";
+                const cleanDate = formatInquiryDateToEnglish(inq.date);
+
+                return (
+                  <div key={inq.id} className="bg-white border-2 border-rose-100 rounded-2xl p-4 sm:p-5 space-y-2 shadow-sm relative group">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-rose-50 pb-2 pr-8">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-black text-sm text-slate-900">{inq.name}</span>
+                        {inq.email && <span className="text-xs font-semibold text-slate-500">({inq.email})</span>}
+                        <span className="text-xs font-black text-[#db2777]">📞 {inq.phone}</span>
+                      </div>
+                      <span className="text-xs font-bold text-slate-400 font-mono">
+                        📅 {cleanDate}
+                      </span>
                     </div>
-                    <p className="text-xs text-slate-600 font-medium">{inq.message}</p>
-                    <span className="text-[10px] text-slate-400 font-mono">{inq.date}</span>
+
+                    <div className="space-y-1">
+                      {cleanSubject && <p className="text-xs font-black text-[#1A05A2]">{cleanSubject}</p>}
+                      <p className="text-xs text-slate-600 font-medium bg-slate-50 p-2.5 rounded-xl border border-slate-100">{cleanMsg}</p>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        store.deleteInquiry(inq.id);
+                        showToast("Message deleted!");
+                      }}
+                      className="absolute top-3 right-3 p-2 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl cursor-pointer"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
-                  <button
-                    onClick={() => {
-                      store.deleteInquiry(inq.id);
-                      showToast("Message deleted!");
-                    }}
-                    className="p-2 text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-xl cursor-pointer"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

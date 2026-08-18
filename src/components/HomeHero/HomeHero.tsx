@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./HomeHero.css";
 import { useLanguage } from "@/lib/use-language";
 import { useAdminStore } from "@/lib/admin-store";
-import { 
-  Users, Calendar, Award, ShieldCheck, 
-  ArrowRight, Landmark, Flower2, 
-  Dumbbell, BookOpen, Music, Utensils, 
+import {
+  Users, Calendar, Award, ShieldCheck,
+  ArrowRight, Landmark, Flower2,
+  Dumbbell, BookOpen, Music, Utensils,
   Bus, HeartHandshake, PhoneCall, Sparkles
 } from "lucide-react";
 

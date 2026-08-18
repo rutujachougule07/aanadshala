@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { useAdminStore } from "@/lib/admin-store";
 import { useLanguage } from "@/lib/use-language";
-import { 
-  CalendarDays, 
-  Activity, 
-  Gamepad2, 
-  Dumbbell, 
-  Crown, 
-  Book, 
-  Music, 
-  Footprints, 
-  Coffee, 
-  ShieldCheck, 
-  Award, 
+import {
+  CalendarDays,
+  Activity,
+  Gamepad2,
+  Dumbbell,
+  Crown,
+  Book,
+  Music,
+  Footprints,
+  Coffee,
+  ShieldCheck,
+  Award,
   Trophy,
   X,
   HeartPulse,
@@ -77,8 +77,8 @@ const SportsPricingSection = () => {
       name: formData.name,
       phone: formData.phone,
       email: "",
-      subject: `🏋️ स्पोर्ट्स क्लब मेंबरशिप चौकशी (${formData.package})`,
-      message: `प्रवेश / मेंबरशिप चौकशी: ${formData.package} साठी ऑनलाईन नाव नोंदवले आहे.`,
+      subject: `Sports Club Membership Inquiry (${formData.package})`,
+      message: `Admission / Membership Inquiry: Online registration for ${formData.package}.`,
       category: "sports",
     });
     setIsSubmitted(true);
@@ -96,15 +96,15 @@ const SportsPricingSection = () => {
       : "ऑलिंपिक स्विमिंग पूल, २४x७ जीम व सर्व इनडोअर गेम्स एका दिवसासाठी वापरा",
     benefits: isEn
       ? [
-          "Unlimited 1-day access to Olympic Swimming Pool",
-          "24x7 Gym & indoor games access",
-          "Complimentary tea & light snacks"
-        ]
+        "Unlimited 1-day access to Olympic Swimming Pool",
+        "24x7 Gym & indoor games access",
+        "Complimentary tea & light snacks"
+      ]
       : [
-          "ऑलिंपिक स्विमिंग पूल अमर्याद १ दिवस वापर",
-          "२४x७ जिम व इनडोअर गेम्स वापर",
-          "चहा व अल्पोपहार सोय विनामूल्य"
-        ]
+        "ऑलिंपिक स्विमिंग पूल अमर्याद १ दिवस वापर",
+        "२४x७ जिम व इनडोअर गेम्स वापर",
+        "चहा व अल्पोपहार सोय विनामूल्य"
+      ]
   };
 
   const pkgFreeTrialPass: PackageDetail = {
@@ -118,19 +118,19 @@ const SportsPricingSection = () => {
       : "ऑलिंपिक स्विमिंग पूल, २४x७ जीम व क्रीडा सोयींचा प्रत्यक्ष विनामूल्य अनुभव घ्या",
     benefits: isEn
       ? [
-          "Free unlimited entry to Olympic Swimming Pool",
-          "24x7 Hi-Tech AC Gym & fitness assessment free",
-          "Free 1-on-1 consultation with certified trainers",
-          "Free access to Library, Jogging Track & Music Hall",
-          "Complimentary tea & snacks"
-        ]
+        "Free unlimited entry to Olympic Swimming Pool",
+        "24x7 Hi-Tech AC Gym & fitness assessment free",
+        "Free 1-on-1 consultation with certified trainers",
+        "Free access to Library, Jogging Track & Music Hall",
+        "Complimentary tea & snacks"
+      ]
       : [
-          "विनामूल्य ऑलिंपिक स्विमिंग पूल अमर्याद entry",
-          "२४x७ हायटेक AC जिम व फिटनेस असेसमेंट मोफत",
-          "प्रमाणित फिटनेस तज्ञांसोबत १-ऑन-१ विनामूल्य सल्लागार",
-          "ग्रंथालय, जॉगिंग ट्रॅक व म्युझिक हॉल ॲक्सेस विनामूल्य",
-          "चहा व अल्पोपहार सोय विनामूल्य"
-        ]
+        "विनामूल्य ऑलिंपिक स्विमिंग पूल अमर्याद entry",
+        "२४x७ हायटेक AC जिम व फिटनेस असेसमेंट मोफत",
+        "प्रमाणित फिटनेस तज्ञांसोबत १-ऑन-१ विनामूल्य सल्लागार",
+        "ग्रंथालय, जॉगिंग ट्रॅक व म्युझिक हॉल ॲक्सेस विनामूल्य",
+        "चहा व अल्पोपहार सोय विनामूल्य"
+      ]
   };
 
   const pkg12Months: PackageDetail = {
@@ -144,21 +144,21 @@ const SportsPricingSection = () => {
       : "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
     benefits: isEn
       ? [
-          "Unlimited access to 1 chosen facility (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT)",
-          "Free unlimited access to Library & Music Hall",
-          "Free access to Fitness Garden & World-Class Jogging Track",
-          "Complimentary Steam Bath facility",
-          "Free guidance from certified personal trainers",
-          "Free fitness assessment & diet chart session"
-        ]
+        "Unlimited access to 1 chosen facility (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT)",
+        "Free unlimited access to Library & Music Hall",
+        "Free access to Fitness Garden & World-Class Jogging Track",
+        "Complimentary Steam Bath facility",
+        "Free guidance from certified personal trainers",
+        "Free fitness assessment & diet chart session"
+      ]
       : [
-          "निवडलेल्या एका मुख्य सोयीचा (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT) अमर्याद प्रवेश",
-          "ग्रंथालय (Library) व म्युझिक हॉल (Music Hall) मोफत विनामूल्य प्रवेश",
-          "फिटनेस गार्डन व जागतिक दर्जाचा जॉगिंग ट्रॅक मोफत प्रवेश",
-          "स्टीम बाथ (Steam Bath) सुविधा मोफत उपलब्ध",
-          "प्रमाणित वैयक्तिक फिटनेस ट्रेनर्सचे मोफत मार्गदर्शन",
-          "मोफत फिटनेस असेसमेंट व डाएट चार्ट सेशन"
-        ]
+        "निवडलेल्या एका मुख्य सोयीचा (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT) अमर्याद प्रवेश",
+        "ग्रंथालय (Library) व म्युझिक हॉल (Music Hall) मोफत विनामूल्य प्रवेश",
+        "फिटनेस गार्डन व जागतिक दर्जाचा जॉगिंग ट्रॅक मोफत प्रवेश",
+        "स्टीम बाथ (Steam Bath) सुविधा मोफत उपलब्ध",
+        "प्रमाणित वैयक्तिक फिटनेस ट्रेनर्सचे मोफत मार्गदर्शन",
+        "मोफत फिटनेस असेसमेंट व डाएट चार्ट सेशन"
+      ]
   };
 
   const pkg6Months: PackageDetail = {
@@ -172,19 +172,19 @@ const SportsPricingSection = () => {
       : "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
     benefits: isEn
       ? [
-          "Unlimited 6-month access to 1 main facility",
-          "Free access to Library & Music Hall",
-          "Free access to Fitness Garden & Jogging Track",
-          "Steam Bath facility available",
-          "Free consultation from certified fitness trainers"
-        ]
+        "Unlimited 6-month access to 1 main facility",
+        "Free access to Library & Music Hall",
+        "Free access to Fitness Garden & Jogging Track",
+        "Steam Bath facility available",
+        "Free consultation from certified fitness trainers"
+      ]
       : [
-          "निवडलेल्या एका मुख्य सोयीचा (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT) अमर्याद प्रवेश",
-          "ग्रंथालय (Library) व म्युझिक हॉल (Music Hall) मोफत विनामूल्य प्रवेश",
-          "फिटनेस गार्डन व जागतिक दर्जाचा जॉगिंग ट्रॅक मोफत प्रवेश",
-          "स्टीम बाथ (Steam Bath) सुविधा उपलब्ध",
-          "प्रमाणित फिटनेस ट्रेनर्सचे मोफत मार्गदर्शन"
-        ]
+        "निवडलेल्या एका मुख्य सोयीचा (Gym/Pool/Badminton/Pickleball/Squash/Snooker/TT) अमर्याद प्रवेश",
+        "ग्रंथालय (Library) व म्युझिक हॉल (Music Hall) मोफत विनामूल्य प्रवेश",
+        "फिटनेस गार्डन व जागतिक दर्जाचा जॉगिंग ट्रॅक मोफत प्रवेश",
+        "स्टीम बाथ (Steam Bath) सुविधा उपलब्ध",
+        "प्रमाणित फिटनेस ट्रेनर्सचे मोफत मार्गदर्शन"
+      ]
   };
 
   const pkg3Months: PackageDetail = {
@@ -196,17 +196,17 @@ const SportsPricingSection = () => {
     facilityNote: isEn ? "Access to 1 chosen facility" : "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
     benefits: isEn
       ? [
-          "Unlimited 3-month access to 1 chosen facility",
-          "Free Library & Music Hall access",
-          "Free Fitness Garden & Jogging Track access",
-          "Free indoor sitting games"
-        ]
+        "Unlimited 3-month access to 1 chosen facility",
+        "Free Library & Music Hall access",
+        "Free Fitness Garden & Jogging Track access",
+        "Free indoor sitting games"
+      ]
       : [
-          "निवडलेल्या एका मुख्य सोयीचा अमर्याद प्रवेश",
-          "ग्रंथालय व म्युझिक हॉल मोफत प्रवेश",
-          "फिटनेस गार्डन व जॉगिंग ट्रॅक मोफत प्रवेश",
-          "इनडोअर सिटिंग गेम्स सोयी मोफत"
-        ]
+        "निवडलेल्या एका मुख्य सोयीचा अमर्याद प्रवेश",
+        "ग्रंथालय व म्युझिक हॉल मोफत प्रवेश",
+        "फिटनेस गार्डन व जॉगिंग ट्रॅक मोफत प्रवेश",
+        "इनडोअर सिटिंग गेम्स सोयी मोफत"
+      ]
   };
 
   const pkg1Month: PackageDetail = {
@@ -218,25 +218,25 @@ const SportsPricingSection = () => {
     facilityNote: isEn ? "Access to 1 chosen facility" : "जिम, ऑलिंपिक स्विमिंग पूल, पिकलबॉल, इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर किंवा टेबल टेनिस पैकी एका विशिष्ट सुविधेचा प्रवेश",
     benefits: isEn
       ? [
-          "Unlimited 1-month access to 1 main facility",
-          "Free Library & Music Hall access",
-          "Free Outdoor Fitness Garden & Jogging Track"
-        ]
+        "Unlimited 1-month access to 1 main facility",
+        "Free Library & Music Hall access",
+        "Free Outdoor Fitness Garden & Jogging Track"
+      ]
       : [
-          "निवडलेल्या एका मुख्य सोयीचा १ महिना अमर्याद प्रवेश",
-          "ग्रंथालय व म्युझिक हॉल मोफत प्रवेश",
-          "आउटडोअर फिटनेस गार्डन व जॉगिंग ट्रॅक मोफत"
-        ]
+        "निवडलेल्या एका मुख्य सोयीचा १ महिना अमर्याद प्रवेश",
+        "ग्रंथालय व म्युझिक हॉल मोफत प्रवेश",
+        "आउटडोअर फिटनेस गार्डन व जॉगिंग ट्रॅक मोफत"
+      ]
   };
 
   return (
     <section className="sports-pricing-section" id="sports-pricing">
-      
+
       {/* Hero Widescreen Header */}
       <div className="sp-hero">
         <div className="sp-hero-bg"></div>
         <div className="sp-hero-overlay"></div>
-        
+
         <div className="sp-hero-content animate-fade-right">
           <div className="sp-logo-area mb-2">
             <div className="sp-logo-circle">
@@ -254,18 +254,18 @@ const SportsPricingSection = () => {
       </div>
 
       <div className="sp-container">
-        
+
         {/* Section Title & Explanation Header */}
         <div className="sp-section-header mt-6 flex flex-col sm:flex-row items-center justify-center text-center gap-3 sm:gap-4">
           <div className="sp-section-icon shadow-lg bg-gradient-to-r from-pink-500 to-purple-600 text-white size-12 rounded-2xl flex items-center justify-center shrink-0">
-            <User size={24}/>
+            <User size={24} />
           </div>
           <div className="flex flex-col items-center text-center">
             <div className="text-white text-base sm:text-xl font-black tracking-tight text-center">
               I. PREETAM SPORTS & FITNESS CLUB: MEMBERSHIP RATE CARD
             </div>
             <div className="inline-flex items-center justify-center gap-2 mt-1.5 px-4 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/40 text-xs font-black shadow-inner">
-              <Sparkles size={13} className="text-amber-300 animate-pulse"/>
+              <Sparkles size={13} className="text-amber-300 animate-pulse" />
               <span>प्री-लाँच स्पेशल ऑफर दर पत्रक • PRE-LAUNCH OFFER 2025</span>
             </div>
           </div>
@@ -318,44 +318,40 @@ const SportsPricingSection = () => {
           <button
             type="button"
             onClick={() => setDurationFilter("all")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
-              durationFilter === "all"
+            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${durationFilter === "all"
                 ? "bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white shadow-lg shadow-pink-500/40 scale-105"
                 : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
-            }`}
+              }`}
           >
             🌟 सर्व योजना (All Plans)
           </button>
           <button
             type="button"
             onClick={() => setDurationFilter("day")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
-              durationFilter === "day"
+            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${durationFilter === "day"
                 ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/40 scale-105"
                 : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
-            }`}
+              }`}
           >
             ☀️ दिवसवार (Day Pass)
           </button>
           <button
             type="button"
             onClick={() => setDurationFilter("month")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
-              durationFilter === "month"
+            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${durationFilter === "month"
                 ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/40 scale-105"
                 : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
-            }`}
+              }`}
           >
             📆 महिनेवार (1, 3 & 6 Months)
           </button>
           <button
             type="button"
             onClick={() => setDurationFilter("year")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
-              durationFilter === "year"
+            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${durationFilter === "year"
                 ? "bg-gradient-to-r from-pink-600 to-amber-600 text-white shadow-lg shadow-pink-500/40 scale-105"
                 : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
-            }`}
+              }`}
           >
             👑 वार्षिक (1 Year Annual)
           </button>
@@ -363,10 +359,10 @@ const SportsPricingSection = () => {
 
         {/* MODERN VISUAL PRICING CARDS GRID */}
         <div className="sp-visual-cards-grid my-8">
-          
+
           {/* 1. DAY PASS (REPRESENTATIVE FOR DAYWISE & ALL) */}
           {(durationFilter === "all" || durationFilter === "day") && (
-            <div 
+            <div
               className="sp-price-card cursor-pointer group bg-white border-2 border-emerald-400 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
               onClick={() => handleOpenDetailModal(pkgDayPass)}
             >
@@ -375,7 +371,7 @@ const SportsPricingSection = () => {
               </div>
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-emerald-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-emerald-600 shrink-0" size={22}/>
+                  <CalendarDays className="text-emerald-600 shrink-0" size={22} />
                   <span>{pkgDayPass.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
@@ -385,7 +381,7 @@ const SportsPricingSection = () => {
                   {pkgDayPass.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ day" : "/ दिवस"}</span>
                 </div>
                 <div className="sp-save-badge bg-emerald-100 text-emerald-800 border border-emerald-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> {pkgDayPass.savings}
+                  <Sparkles size={13} /> {pkgDayPass.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
@@ -399,11 +395,11 @@ const SportsPricingSection = () => {
               </div>
 
               <div className="mt-5 flex flex-col gap-2">
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkgDayPass); }}
                   className="w-full py-2.5 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
-                  <Info size={15}/>
+                  <Info size={15} />
                   <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
@@ -412,13 +408,13 @@ const SportsPricingSection = () => {
 
           {/* 2. 1 MONTH (REPRESENTATIVE FOR MONTHWISE & ALL) */}
           {(durationFilter === "all" || durationFilter === "month") && (
-            <div 
+            <div
               className="sp-price-card cursor-pointer group bg-white border-2 border-blue-200 hover:border-blue-400 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
               onClick={() => handleOpenDetailModal(pkg1Month)}
             >
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-blue-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-blue-500 shrink-0" size={22}/>
+                  <CalendarDays className="text-blue-500 shrink-0" size={22} />
                   <span>{pkg1Month.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
@@ -428,7 +424,7 @@ const SportsPricingSection = () => {
                   {pkg1Month.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ month" : "/ महिना"}</span>
                 </div>
                 <div className="sp-save-badge bg-blue-100 text-blue-800 border border-blue-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> {pkg1Month.savings}
+                  <Sparkles size={13} /> {pkg1Month.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
@@ -442,11 +438,11 @@ const SportsPricingSection = () => {
               </div>
 
               <div className="mt-5 flex flex-col gap-2">
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkg1Month); }}
                   className="w-full py-2.5 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
-                  <Info size={15}/>
+                  <Info size={15} />
                   <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
@@ -455,13 +451,13 @@ const SportsPricingSection = () => {
 
           {/* 3. 3 MONTHS (SHOWN IN MONTHWISE TAB) */}
           {durationFilter === "month" && (
-            <div 
+            <div
               className="sp-price-card cursor-pointer group bg-white border-2 border-indigo-200 hover:border-indigo-400 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
               onClick={() => handleOpenDetailModal(pkg3Months)}
             >
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-indigo-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-indigo-500 shrink-0" size={22}/>
+                  <CalendarDays className="text-indigo-500 shrink-0" size={22} />
                   <span>{pkg3Months.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
@@ -471,7 +467,7 @@ const SportsPricingSection = () => {
                   {pkg3Months.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ 3 months" : "/ ३ महिने"}</span>
                 </div>
                 <div className="sp-save-badge bg-indigo-100 text-indigo-800 border border-indigo-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> {pkg3Months.savings}
+                  <Sparkles size={13} /> {pkg3Months.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
@@ -485,11 +481,11 @@ const SportsPricingSection = () => {
               </div>
 
               <div className="mt-5 flex flex-col gap-2">
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkg3Months); }}
                   className="w-full py-2.5 rounded-full bg-indigo-100 hover:bg-indigo-200 text-indigo-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
-                  <Info size={15}/>
+                  <Info size={15} />
                   <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
@@ -498,13 +494,13 @@ const SportsPricingSection = () => {
 
           {/* 4. 6 MONTHS (SHOWN IN MONTHWISE TAB) */}
           {durationFilter === "month" && (
-            <div 
+            <div
               className="sp-price-card cursor-pointer group bg-white border-2 border-purple-200 hover:border-purple-400 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
               onClick={() => handleOpenDetailModal(pkg6Months)}
             >
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-purple-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-purple-500 shrink-0" size={22}/>
+                  <CalendarDays className="text-purple-500 shrink-0" size={22} />
                   <span>{pkg6Months.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
@@ -514,7 +510,7 @@ const SportsPricingSection = () => {
                   {pkg6Months.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ 6 months" : "/ ६ महिने"}</span>
                 </div>
                 <div className="sp-save-badge bg-purple-100 text-purple-800 border border-purple-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> {pkg6Months.savings}
+                  <Sparkles size={13} /> {pkg6Months.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
@@ -528,11 +524,11 @@ const SportsPricingSection = () => {
               </div>
 
               <div className="mt-5 flex flex-col gap-2">
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkg6Months); }}
                   className="w-full py-2.5 rounded-full bg-purple-100 hover:bg-purple-200 text-purple-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
-                  <Info size={15}/>
+                  <Info size={15} />
                   <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
@@ -541,7 +537,7 @@ const SportsPricingSection = () => {
 
           {/* 5. 12 MONTHS / 1 YEAR (REPRESENTATIVE FOR YEARWISE & ALL) */}
           {(durationFilter === "all" || durationFilter === "year") && (
-            <div 
+            <div
               className="sp-price-card popular cursor-pointer group bg-gradient-to-b from-pink-50 via-white to-pink-50/40 border-2 border-pink-500 rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
               onClick={() => handleOpenDetailModal(pkg12Months)}
             >
@@ -550,7 +546,7 @@ const SportsPricingSection = () => {
               </div>
               <div>
                 <div className="sp-card-dur flex items-center gap-2 text-pink-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-pink-600 shrink-0" size={22}/>
+                  <CalendarDays className="text-pink-600 shrink-0" size={22} />
                   <span>{pkg12Months.duration}</span>
                 </div>
                 <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
@@ -560,7 +556,7 @@ const SportsPricingSection = () => {
                   {pkg12Months.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ year" : "/ वर्ष"}</span>
                 </div>
                 <div className="sp-save-badge bg-pink-100 text-pink-800 border border-pink-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13}/> {pkg12Months.savings}
+                  <Sparkles size={13} /> {pkg12Months.savings}
                 </div>
 
                 <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
@@ -574,11 +570,11 @@ const SportsPricingSection = () => {
               </div>
 
               <div className="mt-5 flex flex-col gap-2">
-                <button 
+                <button
                   onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkg12Months); }}
                   className="w-full py-2.5 rounded-full bg-pink-100 hover:bg-pink-200 text-pink-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                 >
-                  <Info size={15}/>
+                  <Info size={15} />
                   <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
                 </button>
               </div>
@@ -605,7 +601,7 @@ const SportsPricingSection = () => {
             };
 
             return (
-              <div 
+              <div
                 key={spk.id}
                 className="sp-price-card cursor-pointer group border-2 border-purple-300 bg-white text-slate-900 rounded-3xl p-6 shadow-xl relative overflow-visible flex flex-col justify-between hover:-translate-y-1.5 transition-all"
                 onClick={() => handleOpenDetailModal(spkDetail)}
@@ -615,7 +611,7 @@ const SportsPricingSection = () => {
                 </div>
                 <div>
                   <div className="sp-card-dur text-purple-900 font-black flex items-center gap-2 text-lg mb-1">
-                    <CalendarDays className="text-purple-600 shrink-0" size={22}/>
+                    <CalendarDays className="text-purple-600 shrink-0" size={22} />
                     <span>{spk.title}</span>
                   </div>
                   <div className="sp-offer-price text-purple-700 font-black text-2xl mb-2">
@@ -623,7 +619,7 @@ const SportsPricingSection = () => {
                   </div>
                   {spk.subtitle && (
                     <div className="sp-save-badge bg-purple-100 text-purple-800 border border-purple-200 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                      <Sparkles size={13}/> {spk.subtitle}
+                      <Sparkles size={13} /> {spk.subtitle}
                     </div>
                   )}
 
@@ -638,14 +634,14 @@ const SportsPricingSection = () => {
                 </div>
 
                 <div className="mt-5 flex flex-col gap-2">
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleOpenDetailModal(spkDetail);
                     }}
                     className="w-full py-2.5 rounded-full bg-purple-100 hover:bg-purple-200 text-purple-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                   >
-                    <Info size={15}/>
+                    <Info size={15} />
                     <span>संपूर्ण माहिती व नोंदणी उघडा 👁️</span>
                   </button>
                 </div>
@@ -702,7 +698,7 @@ const SportsPricingSection = () => {
             {/* LEFT 7 COLS: WHY CHOOSE PREETAM SPORTS CLUB FEATURE MATRIX */}
             <div className="lg:col-span-7 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-purple-500/30 relative overflow-hidden flex flex-col justify-between">
               <div className="absolute -top-24 -left-24 size-60 rounded-full bg-pink-600/20 blur-3xl pointer-events-none" />
-              
+
               <div className="relative z-10 space-y-4">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-pink-500/20 border border-pink-500/40 text-pink-300 font-extrabold text-xs">
                   <Sparkles size={14} className="text-pink-400" />
@@ -751,7 +747,7 @@ const SportsPricingSection = () => {
             </div>
 
             {/* RIGHT 5 COLS: FREE 1-DAY DEMO TRIAL PASS BOOKING CARD */}
-            <div 
+            <div
               onClick={() => handleOpenDetailModal(pkgFreeTrialPass)}
               className="lg:col-span-5 bg-gradient-to-br from-pink-600 via-rose-600 to-purple-700 rounded-3xl p-6 sm:p-8 text-white shadow-2xl relative overflow-hidden flex flex-col justify-between cursor-pointer group hover:scale-[1.01] transition-all"
             >
@@ -810,26 +806,26 @@ const SportsPricingSection = () => {
 
         {/* II and III Two Columns */}
         <div className="sp-two-cols">
-          
+
           {/* II. ADD-ON FACILITIES */}
           <div className="sp-card-pink">
             <div className="sp-card-header-pink">
-              <User size={22} className="text-pink-200 shrink-0"/>
+              <User size={22} className="text-pink-200 shrink-0" />
               <span>II. ॲड-ऑन सोयी (ADD-ON ACTIVITY ZONE)</span>
             </div>
 
             <div className="p-6 sm:p-7 flex flex-col justify-between h-[calc(100%-65px)] bg-gradient-to-b from-pink-50/30 to-white">
               <div>
                 <div className="text-xs font-bold text-pink-900 bg-pink-100/80 p-4 rounded-2xl border border-pink-200 mb-6 flex items-center gap-2.5 shadow-xs">
-                  <Sparkles size={18} className="text-pink-600 shrink-0"/>
+                  <Sparkles size={18} className="text-pink-600 shrink-0" />
                   <span>या सोयी वैयक्तिक क्रीडा सोयी पॅकेजेससोबत ॲड-ऑन म्हणून उपलब्ध आहेत:</span>
                 </div>
-                
+
                 <div className="space-y-4">
                   {/* Mind & Body */}
                   <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-pink-100 hover:border-pink-300 transition shadow-sm hover:shadow-md flex items-start gap-4">
                     <div className="size-12 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 text-white flex items-center justify-center shrink-0 shadow-md">
-                      <Activity size={24}/>
+                      <Activity size={24} />
                     </div>
                     <div className="flex-1">
                       <strong className="text-slate-900 block text-sm font-black mb-1.5">1. Mind & Body (मन व शरीर स्वास्थ्य):</strong>
@@ -844,7 +840,7 @@ const SportsPricingSection = () => {
                   {/* Recreation */}
                   <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-purple-100 hover:border-purple-300 transition shadow-sm hover:shadow-md flex items-start gap-4">
                     <div className="size-12 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
-                      <Gamepad2 size={24}/>
+                      <Gamepad2 size={24} />
                     </div>
                     <div className="flex-1">
                       <strong className="text-slate-900 block text-sm font-black mb-1.5">2. Recreation (मनोरंजन व कला):</strong>
@@ -859,7 +855,7 @@ const SportsPricingSection = () => {
                   {/* Outdoor Fitness */}
                   <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-emerald-100 hover:border-emerald-300 transition shadow-sm hover:shadow-md flex items-start gap-4">
                     <div className="size-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shrink-0 shadow-md">
-                      <Footprints size={24}/>
+                      <Footprints size={24} />
                     </div>
                     <div className="flex-1">
                       <strong className="text-slate-900 block text-sm font-black mb-1.5">3. Outdoor Fitness (मैदानी व्यायाम):</strong>
@@ -872,12 +868,12 @@ const SportsPricingSection = () => {
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={() => handleOpenModal("Add-on Activity Zone Inquiry")}
                 className="w-full py-3.5 rounded-full bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-black text-sm shadow-lg transition cursor-pointer mt-6 flex items-center justify-center gap-2"
               >
                 <span>💬 ॲड-ऑन सोयींबद्दल चौकशी करा</span>
-                <ArrowRight size={18}/>
+                <ArrowRight size={18} />
               </button>
             </div>
           </div>
@@ -885,22 +881,22 @@ const SportsPricingSection = () => {
           {/* III. PREETAM ELITE */}
           <div className="sp-card-blue">
             <div className="sp-card-header-blue">
-              <Crown size={22} className="text-amber-300 shrink-0"/>
+              <Crown size={22} className="text-amber-300 shrink-0" />
               <span>III. प्रीतम एलिट – फॅमिली लाईफटाईम मेंबरशिप</span>
             </div>
 
             <div className="p-6 sm:p-7 flex flex-col justify-between h-[calc(100%-65px)] bg-gradient-to-b from-indigo-50/30 to-white">
               <div>
                 <div className="text-xs font-bold text-indigo-900 bg-indigo-100/80 p-4 rounded-2xl border border-indigo-200 mb-6 flex items-center gap-2.5 shadow-xs">
-                  <Sparkles size={18} className="text-indigo-600 shrink-0"/>
+                  <Sparkles size={18} className="text-indigo-600 shrink-0" />
                   <span>सर्व क्रीडा व ॲक्टिव्हिटी सोयींचा अमर्याद आनंद घेणारे भव्य कुटुंब मेंबरशिप पॅकेज:</span>
                 </div>
-                
+
                 <div className="space-y-4">
                   <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-indigo-100 hover:border-indigo-300 transition shadow-sm hover:shadow-md flex items-center justify-between gap-3">
                     <span className="text-xs sm:text-sm font-extrabold text-slate-700 flex items-center gap-2.5">
                       <span className="grid size-9 place-items-center rounded-xl bg-pink-100 text-pink-600 font-bold">
-                        <Clock size={18}/>
+                        <Clock size={18} />
                       </span>
                       <span>कालावधी (Duration)</span>
                     </span>
@@ -910,7 +906,7 @@ const SportsPricingSection = () => {
                   <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-indigo-100 hover:border-indigo-300 transition shadow-sm hover:shadow-md flex items-center justify-between gap-3">
                     <span className="text-xs sm:text-sm font-extrabold text-slate-700 flex items-center gap-2.5">
                       <span className="grid size-9 place-items-center rounded-xl bg-purple-100 text-purple-600 font-bold">
-                        <Users size={18}/>
+                        <Users size={18} />
                       </span>
                       <span>समाविष्ट सदस्य (Members)</span>
                     </span>
@@ -920,7 +916,7 @@ const SportsPricingSection = () => {
                   <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-indigo-100 hover:border-indigo-300 transition shadow-sm hover:shadow-md flex items-center justify-between gap-3">
                     <span className="text-xs sm:text-sm font-extrabold text-slate-700 flex items-center gap-2.5">
                       <span className="grid size-9 place-items-center rounded-xl bg-indigo-100 text-indigo-600 font-bold">
-                        <Zap size={18}/>
+                        <Zap size={18} />
                       </span>
                       <span>सुविधांचा प्रवेश (Access)</span>
                     </span>
@@ -930,7 +926,7 @@ const SportsPricingSection = () => {
                   <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-indigo-100 hover:border-indigo-300 transition shadow-sm hover:shadow-md flex items-center justify-between gap-3">
                     <span className="text-xs sm:text-sm font-extrabold text-slate-700 flex items-center gap-2.5">
                       <span className="grid size-9 place-items-center rounded-xl bg-amber-100 text-amber-600 font-bold">
-                        <CalendarDays size={18}/>
+                        <CalendarDays size={18} />
                       </span>
                       <span>नोंदणी नोट (Pre-booking)</span>
                     </span>
@@ -939,16 +935,16 @@ const SportsPricingSection = () => {
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={() => handleOpenModal("Preetam Elite Lifetime Membership (10 Years)")}
                 className="w-full py-3.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-black text-sm shadow-lg transition cursor-pointer mt-6 flex items-center justify-center gap-2"
               >
                 <span>👑 प्रीतम एलिट मेंबरशिप बद्दल चौकशी करा</span>
-                <ArrowRight size={18}/>
+                <ArrowRight size={18} />
               </button>
             </div>
           </div>
-          
+
         </div>
 
         {/* COMPLIMENTARY BENEFITS */}
@@ -962,45 +958,45 @@ const SportsPricingSection = () => {
         <div className="sp-comp-grid">
           <div className="sp-comp-item">
             <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Book size={28}/></div>
+              <div className="sp-comp-icon-circle"><Book size={28} /></div>
               <span>ग्रंथालय (Library)</span>
             </div>
-            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Library"/>
+            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Library" />
           </div>
           <div className="sp-comp-item">
             <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Music size={28}/></div>
+              <div className="sp-comp-icon-circle"><Music size={28} /></div>
               <span>म्युझिक हॉल (Music Hall)</span>
             </div>
-            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Music Hall"/>
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Music Hall" />
           </div>
           <div className="sp-comp-item">
             <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Dumbbell size={28}/></div>
+              <div className="sp-comp-icon-circle"><Dumbbell size={28} /></div>
               <span>फिटनेस गार्डन</span>
             </div>
-            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Fitness Garden"/>
+            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Fitness Garden" />
           </div>
           <div className="sp-comp-item">
             <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Footprints size={28}/></div>
+              <div className="sp-comp-icon-circle"><Footprints size={28} /></div>
               <span>जॉगिंग ट्रॅक</span>
             </div>
-            <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Jogging Track"/>
+            <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Jogging Track" />
           </div>
           <div className="sp-comp-item">
             <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Gamepad2 size={28}/></div>
+              <div className="sp-comp-icon-circle"><Gamepad2 size={28} /></div>
               <span>इनडोअर गेम्स</span>
             </div>
-            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Indoor Games"/>
+            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Indoor Games" />
           </div>
           <div className="sp-comp-item">
             <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Coffee size={28}/></div>
+              <div className="sp-comp-icon-circle"><Coffee size={28} /></div>
               <span>स्टीम बाथ</span>
             </div>
-            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Steam Bath"/>
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Steam Bath" />
           </div>
         </div>
 
@@ -1008,51 +1004,51 @@ const SportsPricingSection = () => {
         <div className="sp-bottom-bar">
           <div className="sp-bb-left">
             <div className="sp-pulse-icon">
-              <HeartPulse size={28}/>
+              <HeartPulse size={28} />
             </div>
             <div className="sp-bb-title">
-              निरोगी, निरोगी आणि समृद्ध जीवनासाठी<br/>
+              निरोगी, निरोगी आणि समृद्ध जीवनासाठी<br />
               <span className="text-pink-400">आजच पहिले पाऊल उचला!</span>
             </div>
           </div>
-          
+
           <button className="sp-inquire-btn" onClick={() => handleOpenModal("General Inquiry")}>
             आजच प्रवेश घ्या
-            <ArrowRight size={20} className="ml-2"/>
+            <ArrowRight size={20} className="ml-2" />
           </button>
-          
+
           <div className="sp-bb-badges hidden lg:flex">
             <div className="sp-badge-item">
-              <div className="sp-badge-icon"><ShieldCheck size={20}/></div>
-              <span>उत्कृष्ट<br/>सोयी</span>
+              <div className="sp-badge-icon"><ShieldCheck size={20} /></div>
+              <span>उत्कृष्ट<br />सोयी</span>
             </div>
             <div className="sp-badge-item">
-              <div className="sp-badge-icon"><Award size={20}/></div>
-              <span>प्रमाणित<br/>ट्रेनर्स</span>
+              <div className="sp-badge-icon"><Award size={20} /></div>
+              <span>प्रमाणित<br />ट्रेनर्स</span>
             </div>
             <div className="sp-badge-item">
-              <div className="sp-badge-icon"><Trophy size={20}/></div>
-              <span>उत्तम<br/>आरोग्य</span>
+              <div className="sp-badge-icon"><Trophy size={20} /></div>
+              <span>उत्तम<br />आरोग्य</span>
             </div>
           </div>
         </div>
 
         {/* Footer Strip */}
         <div className="sp-footer-strip">
-          <div className="flex items-center gap-2"><HeartPulse size={18}/> निरोगी आरोग्य</div>
-          <div className="flex items-center gap-2"><Activity size={18}/> समृद्ध जीवनशैली</div>
-          <div className="flex items-center gap-2"><User size={18}/> आनंदी जीवन</div>
+          <div className="flex items-center gap-2"><HeartPulse size={18} /> निरोगी आरोग्य</div>
+          <div className="flex items-center gap-2"><Activity size={18} /> समृद्ध जीवनशैली</div>
+          <div className="flex items-center gap-2"><User size={18} /> आनंदी जीवन</div>
         </div>
 
       </div>
 
       {/* Package Detail Information Modal */}
       {selectedDetail && createPortal(
-        <div 
+        <div
           className="sp-modal-overlay"
           onClick={() => setSelectedDetail(null)}
         >
-          <div 
+          <div
             className="sp-modal-content max-w-lg border-2 border-pink-400/50 shadow-2xl animate-fade-down pt-8 pr-10 pb-6 pl-6"
             onClick={(e) => e.stopPropagation()}
           >
@@ -1061,7 +1057,7 @@ const SportsPricingSection = () => {
             </button>
 
             <div className="flex items-center gap-2 text-pink-600 font-extrabold text-xs mb-1 pt-2">
-              <Sparkles size={16}/>
+              <Sparkles size={16} />
               <span>मेंबरशिप पॅकेज तपशील माहिती</span>
             </div>
 
@@ -1090,7 +1086,7 @@ const SportsPricingSection = () => {
 
             {/* Included Benefits List */}
             <h4 className="font-black text-slate-900 text-sm mb-3 flex items-center gap-2">
-              <CheckCircle2 size={18} className="text-emerald-600"/>
+              <CheckCircle2 size={18} className="text-emerald-600" />
               <span>पॅकेजमध्ये समाविष्ट असणाऱ्या सोयी (Included Benefits):</span>
             </h4>
 
@@ -1105,7 +1101,7 @@ const SportsPricingSection = () => {
 
             {/* Modal Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <button 
+              <button
                 onClick={() => {
                   const planName = selectedDetail.title;
                   setSelectedDetail(null);
@@ -1114,10 +1110,10 @@ const SportsPricingSection = () => {
                 className="flex-1 py-3.5 rounded-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-black text-xs sm:text-sm shadow-lg transition cursor-pointer flex items-center justify-center gap-2"
               >
                 <span>🔥 या पॅकेजसाठी नोंदणी करा</span>
-                <ArrowRight size={16}/>
+                <ArrowRight size={16} />
               </button>
 
-              <a 
+              <a
                 href={`https://wa.me/91${sportsClubPhones[0]}?text=नमस्कार,%20मला%20${encodeURIComponent(selectedDetail.title)}%20बद्दल%20अधिक%20माहिती%20हवी%20आहे.`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -1134,11 +1130,11 @@ const SportsPricingSection = () => {
 
       {/* Inquiry Form Modal via Portal */}
       {isModalOpen && createPortal(
-        <div 
+        <div
           className="sp-modal-overlay"
           onClick={() => setIsModalOpen(false)}
         >
-          <div 
+          <div
             className="sp-modal-content"
             onClick={(e) => e.stopPropagation()}
           >
@@ -1152,14 +1148,14 @@ const SportsPricingSection = () => {
                 <p className="sp-modal-desc">
                   खालील माहिती भरा. प्रीतम स्पोर्ट्स क्लब टीम आपल्याशी त्वरित संपर्क साधेल!
                 </p>
-                
+
                 <form onSubmit={handleSubmit}>
                   <div className="sp-form-group">
                     <label>१. आपले संपूर्ण नाव *</label>
-                    <input 
-                      type="text" 
-                      placeholder="उदा. राहुल सचिन पाटील" 
-                      required 
+                    <input
+                      type="text"
+                      placeholder="उदा. राहुल सचिन पाटील"
+                      required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     />
@@ -1167,10 +1163,10 @@ const SportsPricingSection = () => {
 
                   <div className="sp-form-group">
                     <label>२. संपर्क मोबाईल नंबर *</label>
-                    <input 
-                      type="tel" 
-                      placeholder="उदा. 9876543210" 
-                      required 
+                    <input
+                      type="tel"
+                      placeholder="उदा. 9876543210"
+                      required
                       maxLength={10}
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -1179,7 +1175,7 @@ const SportsPricingSection = () => {
 
                   <div className="sp-form-group">
                     <label>३. निवडलेले पॅकेज (Package)</label>
-                    <select 
+                    <select
                       value={formData.package}
                       onChange={(e) => setFormData({ ...formData, package: e.target.value })}
                       className="bg-[#0f172a] text-white font-bold"
@@ -1213,7 +1209,7 @@ const SportsPricingSection = () => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <a 
+                  <a
                     href={`https://wa.me/91${sportsClubPhones[0]}?text=नमस्कार,%20मी%20मेंबरशिप%20फॉर्म%20भरला%20आहे.%20माझे%20नाव:%20${encodeURIComponent(formData.name)}%20पॅकेज:%20${encodeURIComponent(formData.package)}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -1222,7 +1218,7 @@ const SportsPricingSection = () => {
                     💬 WhatsApp वर संपर्क करा
                   </a>
 
-                  <button 
+                  <button
                     onClick={() => setIsModalOpen(false)}
                     className="px-6 py-3 rounded-full bg-white/10 text-white font-black text-xs border border-white/20"
                   >
