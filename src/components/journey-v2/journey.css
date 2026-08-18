@@ -303,15 +303,17 @@
   font-weight: 900;
   color: #1F2B8D;
   line-height: 1;
+  user-select: none;
 }
 
 .quote-start {
-  margin-bottom: -12px;
+  margin-bottom: -10px;
 }
 
 .quote-end {
   text-align: right;
-  margin-top: -18px;
+  margin-top: -14px;
+  margin-bottom: 6px;
 }
 
 .quote-text {
@@ -320,14 +322,18 @@
   color: #1F2B8D;
   line-height: 1.5;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .quote-author {
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 800;
-  color: #f472b6;
-  margin-top: 10px;
+  color: #db2777;
+  margin-top: 6px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .quote-standalone-container {
@@ -358,11 +364,30 @@
   }
 
   .quote-standalone-card {
-    padding: 20px 20px;
+    padding: 18px 20px;
     border-radius: 20px;
+  }
+
+  .quote-mark {
+    font-size: 30px;
+  }
+
+  .quote-start {
+    margin-bottom: -6px;
+  }
+
+  .quote-end {
+    margin-top: -10px;
+    margin-bottom: 4px;
   }
 
   .quote-text {
     font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .quote-author {
+    font-size: 13px;
+    margin-top: 6px;
   }
 }

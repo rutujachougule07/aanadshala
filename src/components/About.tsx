@@ -4,6 +4,7 @@ import {
   Building2,
   Users,
 } from "lucide-react";
+import SangliWeatherCard from "./SangliWeatherCard";
 
 // Using existing public images (served via /images/ URL path)
 const about1 = "/images/aandshala sahal 1.jpeg";
@@ -152,6 +153,11 @@ export default function About() {
                 </p>
               </motion.div>
 
+            </div>
+
+            {/* Live Sangli Weather & Health Card */}
+            <div className="mt-14">
+              <SangliWeatherCard />
             </div>
 
             {/* Large CTA */}

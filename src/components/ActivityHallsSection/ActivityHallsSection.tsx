@@ -308,9 +308,11 @@ const ActivityHallsSection = () => {
             <span className="blue-text">{isEn ? "Special Activity Halls" : "विशेष उपक्रम हॉल्स"}</span>
           </h2>
           <div className="ah-header-desc">
-            {isEn
-              ? "Fully equipped luxury activity halls for daily joy, recreation and wellness!"
-              : <><span className="text-[#db2777] font-black">आनंदशाळेत</span> दररोज तुमच्या आवडीनुसार मनोरंजन करून आनंद घेता येईल असे सुसज्जीत हॉल्स!</>}
+            <p className="ah-header-desc-text">
+              {isEn
+                ? "Fully equipped luxury activity halls for daily joy, recreation and wellness!"
+                : <><span className="text-[#db2777] font-black">आनंदशाळेत</span> दररोज तुमच्या आवडीनुसार मनोरंजन करून आनंद घेता येईल असे सुसज्जीत हॉल्स!</>}
+            </p>
           </div>
         </div>
       </Reveal>

@@ -84,8 +84,22 @@
 ───────────────────────────────────────── */
 .reasonsTabsWrapper {
   max-width: 900px;
-  margin: 0 auto 8px;
+  margin: 0 auto 12px;
   padding: 0 4px;
+  position: relative;
+}
+
+.reasonsTabsWrapper::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  background: linear-gradient(90deg, transparent, rgba(255, 253, 249, 0.95));
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 0 100px 100px 0;
 }
 
 .reasonsTabsRow {
@@ -93,7 +107,6 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  flex-wrap: wrap;
 }
 
 .reasonsTabs {
@@ -103,8 +116,11 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 4px 0;
+  padding: 6px 16px 6px 4px;
   flex: 1;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 12px;
 }
 
 .reasonsTabs::-webkit-scrollbar {
@@ -114,19 +130,23 @@
 .reasonsTabBtn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 7px 16px;
+  gap: 6px;
+  padding: 8px 16px;
   border-radius: 100px;
   border: 1.5px solid #e2e8f0;
   background: white;
   color: #475569;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   white-space: nowrap;
   cursor: pointer;
   font-family: "Mukta", sans-serif;
   transition: all 0.22s ease;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .reasonsTabBtn:hover {
@@ -139,16 +159,16 @@
   background: #db2777;
   border-color: #db2777;
   color: white;
-  box-shadow: 0 3px 12px rgba(219, 39, 119, 0.28);
+  box-shadow: 0 4px 14px rgba(219, 39, 119, 0.32);
 }
 
 .reasonsTabBtn .tabCount {
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 800;
   background: rgba(255, 255, 255, 0.25);
   border-radius: 100px;
-  padding: 0 6px;
-  line-height: 18px;
+  padding: 0 7px;
+  line-height: 19px;
 }
 
 .reasonsTabBtn.active .tabCount {
@@ -179,14 +199,14 @@
 ───────────────────────────────────────── */
 .reasonsGridWrapper {
   max-width: 900px;
-  margin: 20px auto 0;
+  margin: 16px auto 0;
   padding: 0 4px;
 }
 
 .reasonsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 
 /* ─────────────────────────────────────────
@@ -194,15 +214,15 @@
 ───────────────────────────────────────── */
 .reasonCard {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  flex-direction: column;
+  gap: 10px;
   background: white;
   border: 1.5px solid #f1f5f9;
-  border-radius: 14px;
-  padding: 14px 14px 14px 14px;
+  border-radius: 16px;
+  padding: 16px;
   cursor: default;
   transition: all 0.22s ease;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   position: relative;
   overflow: hidden;
   animation: cardFadeIn 0.3s ease forwards;
@@ -226,58 +246,58 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 3.5px;
+  width: 4px;
   background: var(--card-color, #db2777);
-  border-radius: 14px 0 0 14px;
+  border-radius: 16px 0 0 16px;
 }
 
 .reasonCard:hover {
   border-color: color-mix(in srgb, var(--card-color, #db2777) 30%, white);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.09);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 /* Number */
 .cardNum {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
   color: var(--card-color, #db2777);
   line-height: 1;
-  min-width: 32px;
-  padding-top: 2px;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 /* Icon */
 .cardIcon {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: color-mix(in srgb, var(--card-color, #db2777) 10%, white);
+  background: color-mix(in srgb, var(--card-color, #db2777) 12%, white);
   color: var(--card-color, #db2777);
   flex-shrink: 0;
 }
 
 /* Text */
 .cardBody {
-  flex: 1;
-  min-width: 0;
+  width: 100%;
 }
 
 .cardText {
   margin: 0;
   color: #1e293b;
-  font-size: clamp(13px, 1.4vw, 15px);
+  font-size: clamp(13.5px, 1.4vw, 15px);
   font-weight: 700;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.6;
 }
 
 /* ─────────────────────────────────────────
@@ -285,7 +305,7 @@
 ───────────────────────────────────────── */
 .viewMoreWrapper {
   max-width: 900px;
-  margin: 16px auto 0;
+  margin: 20px auto 0;
   text-align: center;
 }
 
@@ -293,7 +313,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 9px 24px;
+  padding: 10px 26px;
   border-radius: 100px;
   border: 1.5px solid #db2777;
   background: white;
@@ -303,12 +323,13 @@
   cursor: pointer;
   font-family: "Mukta", sans-serif;
   transition: all 0.22s ease;
+  box-shadow: 0 2px 8px rgba(219, 39, 119, 0.12);
 }
 
 .viewMoreBtn:hover {
   background: #db2777;
   color: white;
-  box-shadow: 0 4px 14px rgba(219, 39, 119, 0.25);
+  box-shadow: 0 4px 16px rgba(219, 39, 119, 0.28);
   transform: translateY(-1px);
 }
 
@@ -318,7 +339,7 @@
 .bottomMessage {
   max-width: 860px;
   margin: 28px auto 0;
-  padding: 13px 20px;
+  padding: 14px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -333,7 +354,7 @@
   margin: 0;
   color: #1e293b;
   text-align: center;
-  font-size: clamp(12px, 2.5vw, 17px);
+  font-size: clamp(12.5px, 2.5vw, 16px);
   line-height: 1.5;
   font-weight: 800;
 }
@@ -362,21 +383,74 @@
 ───────────────────────────────────────── */
 @media (max-width: 640px) {
   .specialReasonsSection {
-    padding: 36px 12px 44px;
+    padding: 32px 12px 40px;
+  }
+
+  .reasonsHeading {
+    margin-bottom: 20px;
+    padding: 0 4px;
+  }
+
+  .reasonsHeading h2 {
+    font-size: 22px;
+  }
+
+  .reasonsTabsWrapper {
+    margin-bottom: 16px;
+    padding: 0 4px;
+  }
+
+  .reasonsTabsWrapper::after {
+    display: none;
+  }
+
+  .reasonsTabsRow {
+    justify-content: center;
+  }
+
+  .reasonsTabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
+    padding: 4px;
+    gap: 8px 6px;
+  }
+
+  .reasonsTabBtn {
+    padding: 7px 13px;
+    font-size: 13px;
+    border-width: 1.5px;
+    flex-shrink: 0;
+  }
+
+  .reasonsTabBtn .tabCount {
+    font-size: 11px;
+    padding: 0 6px;
+    line-height: 18px;
   }
 
   .reasonsGrid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
-  .reasonsTabsRow {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+  .reasonCard {
+    padding: 14px 16px;
+    border-radius: 14px;
   }
 
-  .reasonsCounter {
-    align-self: flex-end;
+  .cardNum {
+    font-size: 22px;
+  }
+
+  .cardIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cardText {
+    font-size: 14px;
+    line-height: 1.55;
   }
 
   .goldLeaf {
@@ -386,20 +460,31 @@
   .goldStar {
     font-size: 14px;
   }
-
-  .cardText {
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
-  }
 }
 
 @media (max-width: 420px) {
-  .reasonsTabBtn {
-    padding: 6px 12px;
-    font-size: 12px;
+  .reasonsTabs {
+    gap: 6px 4px;
   }
 
-  .cardNum {
-    font-size: 18px;
+  .reasonsTabBtn {
+    padding: 6px 10px;
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .reasonsTabBtn .tabCount {
+    font-size: 10.5px;
+    padding: 0 5px;
+    line-height: 16px;
+  }
+
+  .reasonsHeading h2 {
+    font-size: 20px;
+  }
+
+  .miniHeading {
+    letter-spacing: 2px;
+    font-size: 11px;
   }
 }

@@ -77,14 +77,18 @@ export default function SpecialReasons() {
   const { isEn } = useLanguage();
   const [activeTab, setActiveTab] = useState("all");
   const [showAll, setShowAll] = useState(false);
+  const tabsRef = React.useRef<HTMLDivElement>(null);
 
   const filteredReasons = rawReasons.filter(r => r.cats.includes(activeTab));
   const visibleReasons = showAll ? filteredReasons : filteredReasons.slice(0, INITIAL_SHOW);
   const hasMore = filteredReasons.length > INITIAL_SHOW;
 
-  function handleTabChange(id: string) {
+  function handleTabChange(id: string, e?: React.MouseEvent<HTMLButtonElement>) {
     setActiveTab(id);
     setShowAll(false);
+    if (e?.currentTarget && typeof window !== "undefined" && window.innerWidth > 640) {
+      e.currentTarget.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
   }
 
   const activeCat = CATEGORIES.find(c => c.id === activeTab)!;
@@ -117,17 +121,17 @@ export default function SpecialReasons() {
       {/* ── CATEGORY TABS ── */}
       <div className="reasonsTabsWrapper">
         <div className="reasonsTabsRow">
-          <div className="reasonsTabs">
+          <div className="reasonsTabs" ref={tabsRef}>
             {CATEGORIES.map(cat => {
               const count = rawReasons.filter(r => r.cats.includes(cat.id)).length;
               return (
                 <button
                   key={cat.id}
                   className={`reasonsTabBtn${activeTab === cat.id ? " active" : ""}`}
-                  onClick={() => handleTabChange(cat.id)}
+                  onClick={(e) => handleTabChange(cat.id, e)}
                 >
-                  <span>{cat.icon}</span>
-                  <span>{isEn ? cat.en : cat.mr}</span>
+                  <span className="tabIcon">{cat.icon}</span>
+                  <span className="tabLabel">{isEn ? cat.en : cat.mr}</span>
                   <span className="tabCount">{count}</span>
                 </button>
               );
@@ -148,9 +152,11 @@ export default function SpecialReasons() {
                 animationDelay: `${idx * 40}ms`,
               } as React.CSSProperties}
             >
-              <span className="cardNum">{r.number}</span>
-              <div className="cardIcon">
-                <CardIcon type={r.icon} />
+              <div className="cardHeader">
+                <span className="cardNum">{r.number}</span>
+                <div className="cardIcon">
+                  <CardIcon type={r.icon} />
+                </div>
               </div>
               <div className="cardBody">
                 <p className="cardText">{isEn ? r.en : r.mr}</p>

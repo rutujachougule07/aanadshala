@@ -368,10 +368,10 @@ export default function JourneyTimeline() {
                 </>
               )}
             </p>
-            <p className="quote-author text-center mt-3">
+            <div className="quote-mark quote-end text-right">”</div>
+            <p className="quote-author text-center">
               {isEn ? "– Dr. Girish Oak, Actor & Brand Ambassador" : "– डॉ. गिरीश ओक, अभिनेते व ब्रँड ॲम्बेसेडर"}
             </p>
-            <div className="quote-mark quote-end text-right">”</div>
           </div>
         </motion.div>
       </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/use-language";
+import SangliWeatherCard from "./SangliWeatherCard";
 import {
   MapPin,
   Sparkles,
@@ -530,7 +531,7 @@ export function AboutSangli() {
               <>Famous Excursions Around <span className="text-[#db2777]">Anandshala</span></>
             ) : (
               <>
-                <span className="text-[#db2777]">आनंदशाळेच्या</span> <span className="text-[#1A05A2]">परिसरातील प्रसिद्ध मंदिरे व सहली</span>
+                <span className="text-[#db2777]">आनंदशाळेच्या</span> <span className="text-[#1A05A2]">परिसरातील प्रसिद्ध ठिकाणे</span>
               </>
             )}
           </motion.h2>
@@ -590,50 +591,8 @@ export function AboutSangli() {
           </div>
         </motion.div>
 
-        {/* ── WEATHER & CITY QUICK STATS BANNER ── */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="mb-12 bg-gradient-to-r from-white via-pink-50/80 to-blue-50/80 rounded-3xl p-6 sm:p-8 border border-pink-200/80 shadow-lg"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-
-            <div className="flex items-center gap-4 border-b md:border-b-0 md:border-r border-slate-200/80 pb-4 md:pb-0 pr-4">
-              <div className="size-14 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-600 shrink-0 shadow-sm">
-                <Sun size={28} />
-              </div>
-              <div>
-                <h4 className="text-sm font-black text-slate-500 uppercase tracking-wider">{isEn ? "Weather & Climate" : "हवामान व वातावरण"}</h4>
-                <p className="text-base font-black text-slate-800 mt-0.5">{isEn ? "Pleasant & Healthy (18°C - 30°C)" : "प्रसन्न व निरोगी हवामान (१८°C - ३०°C)"}</p>
-                <span className="text-xs font-bold text-slate-500">{isEn ? "Fresh breeze from Krishna river valley" : "कृष्णा नदी खोऱ्यातील शुद्ध व ताजी हवा"}</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 border-b md:border-b-0 md:border-r border-slate-200/80 pb-4 md:pb-0 pr-4">
-              <div className="size-14 rounded-2xl bg-pink-100 flex items-center justify-center text-pink-600 shrink-0 shadow-sm">
-                <Landmark size={28} />
-              </div>
-              <div>
-                <h4 className="text-sm font-black text-slate-500 uppercase tracking-wider">{isEn ? "City Specialty" : "सांगलीची ओळख"}</h4>
-                <p className="text-base font-black text-slate-800 mt-0.5">{isEn ? "Turmeric City & Natya Bhumi" : "हळद नगरी व नाट्य पंढरी"}</p>
-                <span className="text-xs font-bold text-slate-500">{isEn ? "Famous for Grapes, Sugar & Music" : "द्राक्षे, गूळ-हळद बाजार व संगीत परंपरा"}</span>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="size-14 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600 shrink-0 shadow-sm">
-                <Navigation size={28} />
-              </div>
-              <div>
-                <h4 className="text-sm font-black text-slate-500 uppercase tracking-wider">{isEn ? "Distance Radius" : "परिसर अंतर"}</h4>
-                <p className="text-base font-black text-slate-800 mt-0.5">{isEn ? "Within 3 to 75 km Radius" : "आनंदशाळेपासून ३ ते ७५ किमी"}</p>
-                <span className="text-xs font-bold text-slate-500">{isEn ? "Easy 10 mins to 1.5 hrs smooth drive" : "१० मिनिटे ते १.५ तासांत सुलभ प्रवास"}</span>
-              </div>
-            </div>
-
-          </div>
-        </motion.div>
+        {/* ── DYNAMIC LIVE SANGLI WEATHER CARD ── */}
+        <SangliWeatherCard />
 
         {/* ── FILTER TABS ── */}
         <div className="as-sangli-tabs">
