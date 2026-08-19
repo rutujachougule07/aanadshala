@@ -663,7 +663,7 @@ function IndexComponent() {
           <SportsSection />
 
           {/* VIDEO & MEMBER TESTIMONIALS */}
-          <TestimonialsSection />
+          <TestimonialsSection showComplimentaryCards={true} />
         </div>
       )}
     </div>

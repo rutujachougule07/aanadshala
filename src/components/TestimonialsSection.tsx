@@ -4,7 +4,11 @@ import { useLanguage } from "@/lib/use-language";
 import { Star, Play, X, Quote } from "lucide-react";
 import { HighlightText } from "@/components/HighlightText";
 
-export default function TestimonialsSection() {
+interface TestimonialsSectionProps {
+  showComplimentaryCards?: boolean;
+}
+
+export default function TestimonialsSection({ showComplimentaryCards = false }: TestimonialsSectionProps) {
   const store = useAdminStore();
   const { isEn } = useLanguage();
   const [activeVideo, setActiveVideo] = useState<TestimonialItem | null>(null);
@@ -28,6 +32,40 @@ export default function TestimonialsSection() {
     return url;
   };
 
+  const getName = (item: TestimonialItem) => {
+    if (item.name.includes("गिरीश ओक") || item.name.includes("Girish Oak")) {
+      return isEn ? "Dr. Girish Oak (Actor & Brand Ambassador)" : "डॉ. गिरीश ओक (अभिनेते व ब्रँड ॲम्बेसेडर)";
+    }
+    if (item.name.includes("प्रकाश देशपांडे") || item.name.includes("Prakash Deshpande")) {
+      return isEn ? "Mr. Prakash Deshpande & Family" : "श्री. प्रकाश देशपांडे व परिवार";
+    }
+    return item.name;
+  };
+
+  const getRole = (item: TestimonialItem) => {
+    if (item.name.includes("गिरीश ओक") || item.name.includes("Girish Oak")) {
+      return isEn ? "Renowned Actor & Senior Citizen Guide" : "प्रसिद्ध अभिनेते व ज्येष्ठ नागरिक मार्गदर्शक";
+    }
+    if (item.name.includes("प्रकाश देशपांडे") || item.name.includes("Prakash Deshpande")) {
+      return isEn ? "Retired Bank Officer, Sangli" : "निवृत्त बँक अधिकारी, सांगली";
+    }
+    return item.role;
+  };
+
+  const getText = (item: TestimonialItem) => {
+    if (item.name.includes("गिरीश ओक") || item.name.includes("Girish Oak")) {
+      return isEn
+        ? "Live with joy, cherish health, come to Preetam Anandshala and fulfill your dreams! This is Sangli's first world-class project."
+        : item.text || "आनंदात जगायचं, आरोग्य जपायचं, प्रीतम आनंदशाळेत येऊन स्वप्न साकारायचं! सांगलीतील हा पहिलाच जागतिक दर्जाचा प्रकल्प आहे.";
+    }
+    if (item.name.includes("प्रकाश देशपांडे") || item.name.includes("Prakash Deshpande")) {
+      return isEn
+        ? "Got a wonderful family and joyful experience in Anandshala 1-day tour visit pass."
+        : item.text || "आनंदशाळेच्या १ दिवस सहल पासमध्ये अतिशय कौटुंबिक व आनंददायी अनुभव मिळाला.";
+    }
+    return item.text;
+  };
+
   return (
     <section className="w-full py-16 sm:py-24 px-4 sm:px-8 bg-gradient-to-b from-[#fffcfd] via-[#fff5f8] to-[#fdf2f5] text-slate-900 relative overflow-hidden font-sans border-t border-rose-100" id="testimonials">
       {/* AMBIENT LIGHT BLOBS */}
@@ -35,6 +73,84 @@ export default function TestimonialsSection() {
       <div className="pointer-events-none absolute bottom-10 right-10 size-[350px] rounded-full bg-rose-200/40 blur-[130px]" />
 
       <div className="max-w-7xl mx-auto relative z-10 space-y-12">
+        {/* ── COMPLIMENTARY BENEFITS SECTION (NO OUTER BORDER - CLEAN FLOATING CARDS + HEADER + DIVIDER) ── */}
+        {showComplimentaryCards && (
+          <div className="max-w-5xl mx-auto mb-14 font-sans">
+            {/* ELEGANT SECTION HEADER */}
+            <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#db2777] font-black text-xs sm:text-sm shadow-xs">
+                <span>🎁</span>
+                <span>{isEn ? "Complimentary Member Benefits" : "सर्व सदस्यांसाठी विनामूल्य अतिरिक्त सोयी"}</span>
+              </div>
+              <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-[#1A05A2] tracking-tight">
+                {isEn ? "Preetam Sports Free Facilities" : "प्रीतम स्पोर्ट्स मोफत सुविधा"}
+              </h3>
+            </div>
+
+            {/* 6 CARDS GRID */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 font-sans">
+              {/* 1. Library */}
+              <div className="group bg-white p-5 sm:p-6 rounded-3xl border-2 border-pink-200/90 shadow-md hover:shadow-xl hover:border-pink-400 hover:scale-[1.03] transition-all duration-300 hover:-translate-y-1.5 text-center flex flex-col items-center justify-center cursor-pointer">
+                <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
+                  📚
+                </div>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Library" : "ग्रंथालय (Library)"}</h4>
+                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "Free access for all members" : "सर्व सदस्यांसाठी विनामूल्य सोय"}</p>
+              </div>
+
+              {/* 2. Music Hall */}
+              <div className="group bg-white p-5 sm:p-6 rounded-3xl border-2 border-pink-200/90 shadow-md hover:shadow-xl hover:border-pink-400 hover:scale-[1.03] transition-all duration-300 hover:-translate-y-1.5 text-center flex flex-col items-center justify-center cursor-pointer">
+                <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
+                  🎵
+                </div>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Music Hall" : "म्युझिक हॉल (Music Hall)"}</h4>
+                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "Free music zone access" : "विनामूल्य संगीत कक्ष सोय"}</p>
+              </div>
+
+              {/* 3. Fitness Garden */}
+              <div className="group bg-white p-5 sm:p-6 rounded-3xl border-2 border-pink-200/90 shadow-md hover:shadow-xl hover:border-pink-400 hover:scale-[1.03] transition-all duration-300 hover:-translate-y-1.5 text-center flex flex-col items-center justify-center cursor-pointer">
+                <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
+                  🌳
+                </div>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Fitness Garden" : "फिटनेस गार्डन (Fitness Garden)"}</h4>
+                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "Outdoor green area" : "निसर्गरम्य ओपन जिम गार्डन"}</p>
+              </div>
+
+              {/* 4. Jogging Track */}
+              <div className="group bg-white p-5 sm:p-6 rounded-3xl border-2 border-pink-200/90 shadow-md hover:shadow-xl hover:border-pink-400 hover:scale-[1.03] transition-all duration-300 hover:-translate-y-1.5 text-center flex flex-col items-center justify-center cursor-pointer">
+                <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
+                  🏃‍♂️
+                </div>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Jogging Track" : "जागतिक दर्जाचा ट्रॅक"}</h4>
+                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "World-class track" : "मोकळ्या हवेतील जॉगिंग ट्रॅक"}</p>
+              </div>
+
+              {/* 5. Indoor Games */}
+              <div className="group bg-white p-5 sm:p-6 rounded-3xl border-2 border-pink-200/90 shadow-md hover:shadow-xl hover:border-pink-400 hover:scale-[1.03] transition-all duration-300 hover:-translate-y-1.5 text-center flex flex-col items-center justify-center cursor-pointer">
+                <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
+                  🎲
+                </div>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Indoor Games" : "इनडोअर सिटिंग गेम्स"}</h4>
+                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "Carrom, Chess & Sitting games" : "कॅरम, बुद्धीबळ व बैठे खेळ"}</p>
+              </div>
+
+              {/* 6. Steam Bath */}
+              <div className="group bg-white p-5 sm:p-6 rounded-3xl border-2 border-pink-200/90 shadow-md hover:shadow-xl hover:border-pink-400 hover:scale-[1.03] transition-all duration-300 hover:-translate-y-1.5 text-center flex flex-col items-center justify-center cursor-pointer">
+                <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
+                  ♨️
+                </div>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Steam Bath" : "स्टीम बाथ (Steam Bath)"}</h4>
+                <p className="text-xs text-slate-600 font-extrabold">
+                  {isEn ? "Availability dependent on package" : "विशिष्ट पॅकेजवर आधारित"}
+                </p>
+              </div>
+            </div>
+
+            {/* DECORATIVE SEPARATION DIVIDER LINE BEFORE TESTIMONIALS */}
+            <div className="w-full max-w-3xl mx-auto mt-14 h-px bg-gradient-to-r from-transparent via-pink-300/70 to-transparent" />
+          </div>
+        )}
+
         {/* HEADER AREA */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2] tracking-tight drop-shadow-xs">
@@ -68,7 +184,7 @@ export default function TestimonialsSection() {
                     {item.videoThumbnail ? (
                       <img
                         src={item.videoThumbnail}
-                        alt={item.name}
+                        alt={getName(item)}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
                       />
                     ) : (
@@ -94,21 +210,19 @@ export default function TestimonialsSection() {
 
                 {/* TEXT CONTENT & SPEAKER INFO */}
                 <div className="p-6 space-y-4 flex-1 flex flex-col justify-between bg-white">
-                  {item.text && (
+                  {getText(item) && (
                     <p className="text-slate-700 text-xs sm:text-sm font-extrabold italic leading-relaxed line-clamp-3">
-                      "{item.text}"
+                      "{getText(item)}"
                     </p>
                   )}
 
                   <div className="pt-3 border-t border-rose-100 flex items-center justify-between gap-3">
                     <div>
                       <h4 className="font-black text-sm sm:text-base text-slate-900 group-hover:text-[#db2777] transition-colors">
-                        {item.name.includes("गिरीश ओक") 
-                          ? (isEn ? "Dr. Girish Oak (Actor & Brand Ambassador)" : "डॉ. गिरीश ओक (अभिनेते व ब्रँड ॲम्बेसेडर)")
-                          : item.name}
+                        {getName(item)}
                       </h4>
-                      {item.role && (
-                        <p className="text-xs font-bold text-[#810B38]">{item.role}</p>
+                      {getRole(item) && (
+                        <p className="text-xs font-bold text-[#810B38]">{getRole(item)}</p>
                       )}
                     </div>
 
@@ -138,8 +252,8 @@ export default function TestimonialsSection() {
           >
             <div className="flex items-center justify-between border-b border-rose-100 pb-3">
               <div>
-                <h3 className="text-lg font-black text-slate-900">{activeVideo.name}</h3>
-                <p className="text-xs font-extrabold text-[#db2777]">{activeVideo.role}</p>
+                <h3 className="text-lg font-black text-slate-900">{getName(activeVideo)}</h3>
+                <p className="text-xs font-extrabold text-[#db2777]">{getRole(activeVideo)}</p>
               </div>
               <button
                 onClick={() => setActiveVideo(null)}
@@ -152,16 +266,16 @@ export default function TestimonialsSection() {
             <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black border border-slate-200 shadow-inner">
               <iframe
                 src={`${formatEmbedUrl(activeVideo.videoUrl)}?autoplay=1`}
-                title={activeVideo.name}
+                title={getName(activeVideo)}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="w-full h-full"
               />
             </div>
 
-            {activeVideo.text && (
+            {getText(activeVideo) && (
               <p className="text-xs sm:text-sm text-slate-800 font-extrabold italic bg-rose-50/70 p-4 rounded-xl border border-rose-200">
-                "{activeVideo.text}"
+                "{getText(activeVideo)}"
               </p>
             )}
           </div>

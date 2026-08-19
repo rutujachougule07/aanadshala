@@ -347,198 +347,311 @@ const SportsPricingSection = () => {
     <>
       <section className="ps-exact-table-section" id="sports-pricing">
 
-      {/* ── HEADER BLOCK (MATCHING ANANDSHALA RATE CARD) ── */}
-      <div className="ps-exact-header text-center mb-6">
-        <h2 className="text-[22px] sm:text-[32px] md:text-[38px] font-black text-[#0044cc] leading-tight text-center my-2">
-          {isEn ? (
-            <>Preetam Sports & Fitness Club <span className="text-[#db2777]">Official Rate Chart</span></>
-          ) : (
-            <>प्रीतम स्पोर्ट्स अँड फिटनेस क्लब <span className="text-[#db2777]">अधिकृत दरपत्रक</span></>
-          )}
-        </h2>
+        {/* ── HEADER BLOCK (MATCHING ANANDSHALA RATE CARD) ── */}
+        <div className="ps-exact-header text-center mb-6">
+          <h2 className="text-[22px] sm:text-[32px] md:text-[38px] font-black text-[#0044cc] leading-tight text-center my-2">
+            {isEn ? (
+              <>Preetam Sports & Fitness Club <span className="text-[#db2777]">Official Rate Chart</span></>
+            ) : (
+              <>प्रीतम स्पोर्ट्स अँड फिटनेस क्लब <span className="text-[#db2777]">अधिकृत दरपत्रक</span></>
+            )}
+          </h2>
 
-        <p className="ps-subtitle max-w-3xl mx-auto text-sm sm:text-base font-bold text-slate-700 mt-2">
-          {isEn
-            ? "These rates apply to a membership for one single facility (Gym, Swimming Pool, Pickleball, Badminton, Table Tennis, Squash or Snooker):"
-            : "हे दर एका विशिष्ट सुविधेसाठी (जिम, स्विमिंग पूल, पिकलबॉल, बॅडमिंटन, टेबल टेनिस, स्क्वॅश किंवा स्नूकर) लागू आहेत:"}
-        </p>
-      </div>
+          <p className="ps-subtitle max-w-3xl mx-auto text-sm sm:text-base font-bold text-slate-700 mt-2">
+            {isEn
+              ? "These rates apply to a membership for one single facility (Gym, Swimming Pool, Pickleball, Badminton, Table Tennis, Squash or Snooker):"
+              : "हे दर एका विशिष्ट सुविधेसाठी (जिम, स्विमिंग पूल, पिकलबॉल, बॅडमिंटन, टेबल टेनिस, स्क्वॅश किंवा स्नूकर) लागू आहेत:"}
+          </p>
+        </div>
 
-      {/* ── DESKTOP & TABLET EXACT 4-ROW SPORTS RATE TABLE (MATCHING ANANDSHALA SCREENSHOT) ── */}
-      <div className="ps-table-wrapper max-w-5xl mx-auto">
-        <table className="ps-exact-table w-full">
-          <thead>
-            <tr>
-              <th className="th-details text-left py-4 px-5">{isEn ? "Membership Duration" : "कालावधी (MEMBERSHIP DURATION)"}</th>
-              <th className="py-4 px-4 text-center">{isEn ? "Rack Rate (₹)" : "मूळ दर (RACK RATE ₹)"}</th>
-              <th className="py-4 px-4 text-center">{isEn ? "Pre-Launch Offer (₹)" : "प्री-लाँच दर (OFFER ₹)"}</th>
-              <th className="py-4 px-4 text-center">{isEn ? "Savings (₹)" : "एकूण बचत (SAVINGS ₹)"}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="ps-table-row">
-              <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
-                <div className="flex items-center gap-3">
-                  <span className="row-num">{formatNum("1")}</span>
-                  <div>
-                    <span className="row-cat-label">{isEn ? "1 YEAR PACKAGE" : "१२ महिने पॅकेज"}</span>
-                    <div className="row-title-text font-black text-slate-900 text-base">
-                      {isEn ? "12 Months (1 Year)" : "12 Months (१२ महिने / १ वर्ष)"}
+        {/* ── DESKTOP & TABLET EXACT 4-ROW SPORTS RATE TABLE (MATCHING ANANDSHALA SCREENSHOT) ── */}
+        <div className="ps-table-wrapper max-w-5xl mx-auto">
+          <table className="ps-exact-table w-full">
+            <thead>
+              <tr>
+                <th className="th-details text-left py-4 px-5">{isEn ? "Membership Duration" : "कालावधी (MEMBERSHIP DURATION)"}</th>
+                <th className="py-4 px-4 text-center">{isEn ? "Rack Rate (₹)" : "मूळ दर (RACK RATE ₹)"}</th>
+                <th className="py-4 px-4 text-center">{isEn ? "Pre-Launch Offer (₹)" : "प्री-लाँच दर (OFFER ₹)"}</th>
+                <th className="py-4 px-4 text-center">{isEn ? "Savings (₹)" : "एकूण बचत (SAVINGS ₹)"}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="ps-table-row">
+                <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
+                  <div className="flex items-center gap-3">
+                    <span className="row-num">{formatNum("1")}</span>
+                    <div>
+                      <span className="row-cat-label">{isEn ? "1 YEAR PACKAGE" : "१२ महिने पॅकेज"}</span>
+                      <div className="row-title-text font-black text-slate-900 text-base">
+                        {isEn ? "12 Months (1 Year)" : "12 Months (१२ महिने / १ वर्ष)"}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("18,000")}</td>
-              <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("11,999")}</td>
-              <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("6,001")} {isEn ? "Savings!" : "बचत!"}</td>
-            </tr>
+                </td>
+                <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("18,000")}</td>
+                <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("11,999")}</td>
+                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("6,001")} {isEn ? "Savings!" : "बचत!"}</td>
+              </tr>
 
-            <tr className="ps-table-row">
-              <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
-                <div className="flex items-center gap-3">
-                  <span className="row-num">{formatNum("2")}</span>
-                  <div>
-                    <span className="row-cat-label">{isEn ? "HALF YEAR PACKAGE" : "६ महिने पॅकेज"}</span>
-                    <div className="row-title-text font-black text-slate-900 text-base">
-                      {isEn ? "6 Months" : "6 Months (६ महिने)"}
+              <tr className="ps-table-row">
+                <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
+                  <div className="flex items-center gap-3">
+                    <span className="row-num">{formatNum("2")}</span>
+                    <div>
+                      <span className="row-cat-label">{isEn ? "HALF YEAR PACKAGE" : "६ महिने पॅकेज"}</span>
+                      <div className="row-title-text font-black text-slate-900 text-base">
+                        {isEn ? "6 Months" : "6 Months (६ महिने)"}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("12,000")}</td>
-              <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("6,999")}</td>
-              <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("5,001")} {isEn ? "Savings!" : "बचत!"}</td>
-            </tr>
+                </td>
+                <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("12,000")}</td>
+                <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("6,999")}</td>
+                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("5,001")} {isEn ? "Savings!" : "बचत!"}</td>
+              </tr>
 
-            <tr className="ps-table-row">
-              <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
-                <div className="flex items-center gap-3">
-                  <span className="row-num">{formatNum("3")}</span>
-                  <div>
-                    <span className="row-cat-label">{isEn ? "3 MONTHS PACKAGE" : "३ महिने पॅकेज"}</span>
-                    <div className="row-title-text font-black text-slate-900 text-base">
-                      {isEn ? "3 Months" : "3 Months (३ महिने)"}
+              <tr className="ps-table-row">
+                <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
+                  <div className="flex items-center gap-3">
+                    <span className="row-num">{formatNum("3")}</span>
+                    <div>
+                      <span className="row-cat-label">{isEn ? "3 MONTHS PACKAGE" : "३ महिने पॅकेज"}</span>
+                      <div className="row-title-text font-black text-slate-900 text-base">
+                        {isEn ? "3 Months" : "3 Months (३ महिने)"}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("7,500")}</td>
-              <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("3,999")}</td>
-              <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("3,501")} {isEn ? "Savings!" : "बचत!"}</td>
-            </tr>
+                </td>
+                <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("7,500")}</td>
+                <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("3,999")}</td>
+                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("3,501")} {isEn ? "Savings!" : "बचत!"}</td>
+              </tr>
 
-            <tr className="ps-table-row">
-              <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
-                <div className="flex items-center gap-3">
-                  <span className="row-num">{formatNum("4")}</span>
-                  <div>
-                    <span className="row-cat-label">{isEn ? "1 MONTH PACKAGE" : "१ महिना पॅकेज"}</span>
-                    <div className="row-title-text font-black text-slate-900 text-base">
-                      {isEn ? "1 Month" : "1 Month (१ महिना)"}
+              <tr className="ps-table-row">
+                <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
+                  <div className="flex items-center gap-3">
+                    <span className="row-num">{formatNum("4")}</span>
+                    <div>
+                      <span className="row-cat-label">{isEn ? "1 MONTH PACKAGE" : "१ महिना पॅकेज"}</span>
+                      <div className="row-title-text font-black text-slate-900 text-base">
+                        {isEn ? "1 Month" : "1 Month (१ महिना)"}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("3,500")}</td>
-              <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("1,499")}</td>
-              <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("2,001")} {isEn ? "Savings!" : "बचत!"}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                </td>
+                <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("3,500")}</td>
+                <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("1,499")}</td>
+                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("2,001")} {isEn ? "Savings!" : "बचत!"}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      {/* ── MOBILE RESPONSIVE CARDS (4 EXACT ROWS) ── */}
-      <div className="ps-mobile-cards-list">
-        <div className="ps-mobile-item-card">
-          <div className="mobile-card-header">
-            <span className="mobile-id-badge">{formatNum("1")}</span>
-            <span className="mobile-cat-tag">12 Months</span>
+        {/* ── MOBILE RESPONSIVE CARDS (4 EXACT ROWS) ── */}
+        <div className="ps-mobile-cards-list">
+          <div className="ps-mobile-item-card">
+            <div className="mobile-card-header">
+              <span className="mobile-id-badge">{formatNum("1")}</span>
+              <span className="mobile-cat-tag">12 Months</span>
+            </div>
+            <div className="mobile-title-text font-black">{isEn ? "12 Months (1 Year)" : "12 Months (१२ महिने / १ वर्ष)"}</div>
+            <div className="mobile-prices-grid grid-cols-3">
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
+                <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("18,000")}</span>
+              </div>
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
+                <span className="mobile-price-val text-[#db2777]">₹ {formatNum("11,999")}</span>
+              </div>
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
+                <span className="mobile-price-val text-[#059669]">₹ {formatNum("6,001")}</span>
+              </div>
+            </div>
           </div>
-          <div className="mobile-title-text font-black">{isEn ? "12 Months (1 Year)" : "12 Months (१२ महिने / १ वर्ष)"}</div>
-          <div className="mobile-prices-grid grid-cols-3">
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
-              <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("18,000")}</span>
+
+          <div className="ps-mobile-item-card">
+            <div className="mobile-card-header">
+              <span className="mobile-id-badge">{formatNum("2")}</span>
+              <span className="mobile-cat-tag">6 Months</span>
             </div>
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
-              <span className="mobile-price-val text-[#db2777]">₹ {formatNum("11,999")}</span>
+            <div className="mobile-title-text font-black">{isEn ? "6 Months" : "6 Months (६ महिने)"}</div>
+            <div className="mobile-prices-grid grid-cols-3">
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
+                <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("12,000")}</span>
+              </div>
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
+                <span className="mobile-price-val text-[#db2777]">₹ {formatNum("6,999")}</span>
+              </div>
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
+                <span className="mobile-price-val text-[#059669]">₹ {formatNum("5,001")}</span>
+              </div>
             </div>
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
-              <span className="mobile-price-val text-[#059669]">₹ {formatNum("6,001")}</span>
+          </div>
+
+          <div className="ps-mobile-item-card">
+            <div className="mobile-card-header">
+              <span className="mobile-id-badge">{formatNum("3")}</span>
+              <span className="mobile-cat-tag">3 Months</span>
+            </div>
+            <div className="mobile-title-text font-black">{isEn ? "3 Months" : "3 Months (३ महिने)"}</div>
+            <div className="mobile-prices-grid grid-cols-3">
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
+                <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("7,500")}</span>
+              </div>
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
+                <span className="mobile-price-val text-[#db2777]">₹ {formatNum("3,999")}</span>
+              </div>
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
+                <span className="mobile-price-val text-[#059669]">₹ {formatNum("3,501")}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="ps-mobile-item-card">
+            <div className="mobile-card-header">
+              <span className="mobile-id-badge">{formatNum("4")}</span>
+              <span className="mobile-cat-tag">1 Month</span>
+            </div>
+            <div className="mobile-title-text font-black">{isEn ? "1 Month" : "1 Month (१ महिना)"}</div>
+            <div className="mobile-prices-grid grid-cols-3">
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
+                <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("3,500")}</span>
+              </div>
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
+                <span className="mobile-price-val text-[#db2777]">₹ {formatNum("1,499")}</span>
+              </div>
+              <div className="mobile-price-box">
+                <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
+                <span className="mobile-price-val text-[#059669]">₹ {formatNum("2,001")}</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="ps-mobile-item-card">
-          <div className="mobile-card-header">
-            <span className="mobile-id-badge">{formatNum("2")}</span>
-            <span className="mobile-cat-tag">6 Months</span>
-          </div>
-          <div className="mobile-title-text font-black">{isEn ? "6 Months" : "6 Months (६ महिने)"}</div>
-          <div className="mobile-prices-grid grid-cols-3">
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
-              <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("12,000")}</span>
+        {/* ── III. PREETAM ELITE – FAMILY LIFETIME MEMBERSHIP SECTION ── */}
+        <div className="ps-elite-wrapper max-w-5xl mx-auto mt-8 bg-gradient-to-br from-amber-50/90 via-white to-pink-50/90 border-2 border-amber-300/80 rounded-3xl p-6 sm:p-8 shadow-xl text-slate-900 relative overflow-hidden text-left">
+          {/* Background Decorative Glow */}
+          <div className="absolute -top-12 -right-12 size-40 bg-gradient-to-br from-amber-300/30 to-pink-300/30 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 text-left">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b border-amber-200/80 pb-4">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 font-black text-xs mb-2 shadow-xs">
+                  <span>👑</span>
+                  <span>{isEn ? "Elite Family Membership" : "प्रीतम एलिट १० वर्षे मेंबरशिप"}</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
+                  {isEn ? "PREETAM ELITE – Family Lifetime Membership" : "प्रीतम एलिट – फॅमिली १० वर्षे मेंबरशिप (Preetam Elite)"}
+                </h3>
+              </div>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
+                <a
+                  href="tel:+919370237633"
+                  className="px-4 py-2.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-600 hover:from-amber-600 hover:to-rose-700 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+                >
+                  <span>📞</span>
+                  <span>{isEn ? "Call 93702 37633" : "कॉल करा: 93702 37633"}</span>
+                </a>
+
+                <a
+                  href={`https://wa.me/919370237633?text=${encodeURIComponent(isEn ? "Hello, I want to inquire about Preetam Elite 10 Years Membership." : "नमस्कार, मला प्रीतम एलिट १० वर्षे फॅमिली मेंबरशिप बद्दल चौकशी करायची आहे.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
+                >
+                  <span>💬</span>
+                  <span>WhatsApp</span>
+                </a>
+              </div>
             </div>
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
-              <span className="mobile-price-val text-[#db2777]">₹ {formatNum("6,999")}</span>
+
+            <p className="text-xs sm:text-sm font-extrabold text-slate-700 mb-6 bg-white/90 p-3.5 rounded-2xl border border-amber-200/70 shadow-xs">
+              ℹ️ {isEn ? (
+                "This is a comprehensive membership package offering extensive access and benefits for 10 years across all amenities."
+              ) : (
+                "हा संपूर्ण कुटुंबासाठी (४ सदस्यांसाठी) सलग १० वर्षे सर्व स्पोर्ट्स व ॲक्टिव्हिटी सुविधांचा आनंद देणारा अत्यंत समृद्ध मेंबरशिप पॅकेज आहे."
+              )}
+            </p>
+
+            {/* Desktop Table View */}
+            <div className="hidden sm:block overflow-hidden rounded-2xl border-2 border-amber-200/80 shadow-md bg-white">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-gradient-to-r from-amber-100/90 via-amber-50 to-pink-50 border-b border-amber-200 text-amber-950 font-black text-sm">
+                    <th className="py-3.5 px-5 w-1/3 border-r border-amber-200/60">{isEn ? "Feature" : "वैशिष्ट्य"}</th>
+                    <th className="py-3.5 px-5">{isEn ? "Details" : "तपशील"}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-amber-100 text-xs sm:text-sm font-extrabold text-slate-800">
+                  <tr className="hover:bg-amber-50/50 transition">
+                    <td className="py-3.5 px-5 font-black text-amber-900 flex items-center gap-2 border-r border-amber-100">
+                      <span>⏳</span>
+                      <span>{isEn ? "Duration" : "कालावधी"}</span>
+                    </td>
+                    <td className="py-3.5 px-5 text-slate-900 font-black">{isEn ? "10 Years" : "१० वर्षे"}</td>
+                  </tr>
+                  <tr className="hover:bg-amber-50/50 transition">
+                    <td className="py-3.5 px-5 font-black text-amber-900 flex items-center gap-2 border-r border-amber-100">
+                      <span>👨‍👩‍👧‍👦</span>
+                      <span>{isEn ? "Members Included" : "समाविष्ट सदस्य"}</span>
+                    </td>
+                    <td className="py-3.5 px-5 text-slate-900 font-black">{isEn ? "4 Members" : "कुटुंबातील ४ सदस्य"}</td>
+                  </tr>
+                  <tr className="hover:bg-amber-50/50 transition">
+                    <td className="py-3.5 px-5 font-black text-amber-900 flex items-center gap-2 border-r border-amber-100">
+                      <span>🏆</span>
+                      <span>{isEn ? "Access Included" : "समाविष्ट सुविधा"}</span>
+                    </td>
+                    <td className="py-3.5 px-5 text-slate-900 font-bold">
+                      {isEn ? "Access to all Sports Facilities and Activity Zone Facilities" : "सर्व स्पोर्ट्स क्लब सुविधा आणि ॲक्टिव्हिटी झोन सुविधांचा अमर्याद प्रवेश"}
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-amber-50/50 transition">
+                    <td className="py-3.5 px-5 font-black text-amber-900 flex items-center gap-2 border-r border-amber-100">
+                      <span>📝</span>
+                      <span>{isEn ? "Access Note" : "टीप / नोंद"}</span>
+                    </td>
+                    <td className="py-3.5 px-5 text-slate-700 font-extrabold">
+                      {isEn ? "Slot-based access; pre-booking is required." : "स्लॉट-आधारित प्रवेश; पूर्व-बुकिंग आवश्यक आहे."}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
-              <span className="mobile-price-val text-[#059669]">₹ {formatNum("5,001")}</span>
+
+            {/* Mobile Card List View */}
+            <div className="block sm:hidden space-y-3">
+              <div className="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-xs">
+                <span className="text-amber-900 font-black text-xs block mb-1">{isEn ? "⏳ Duration" : "⏳ कालावधी"}</span>
+                <span className="text-slate-900 font-black text-sm">{isEn ? "10 Years" : "१० वर्षे"}</span>
+              </div>
+              <div className="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-xs">
+                <span className="text-amber-900 font-black text-xs block mb-1">{isEn ? "👨‍👩‍👧‍👦 Members Included" : "👨‍👩‍👧‍👦 समाविष्ट सदस्य"}</span>
+                <span className="text-slate-900 font-black text-sm">{isEn ? "4 Members" : "कुटुंबातील ४ सदस्य"}</span>
+              </div>
+              <div className="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-xs">
+                <span className="text-amber-900 font-black text-xs block mb-1">{isEn ? "🏆 Access Included" : "🏆 समाविष्ट सुविधा"}</span>
+                <span className="text-slate-900 font-bold text-xs">{isEn ? "Access to all Sports Facilities and Activity Zone Facilities" : "सर्व स्पोर्ट्स क्लब सुविधा आणि ॲक्टिव्हिटी झोन सुविधांचा प्रवेश"}</span>
+              </div>
+              <div className="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-xs">
+                <span className="text-amber-900 font-black text-xs block mb-1">{isEn ? "📝 Access Note" : "📝 टीप / नोंद"}</span>
+                <span className="text-slate-700 font-bold text-xs">{isEn ? "Slot-based access; pre-booking is required." : "स्लॉट-आधारित प्रवेश; पूर्व-बुकिंग आवश्यक."}</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="ps-mobile-item-card">
-          <div className="mobile-card-header">
-            <span className="mobile-id-badge">{formatNum("3")}</span>
-            <span className="mobile-cat-tag">3 Months</span>
-          </div>
-          <div className="mobile-title-text font-black">{isEn ? "3 Months" : "3 Months (३ महिने)"}</div>
-          <div className="mobile-prices-grid grid-cols-3">
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
-              <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("7,500")}</span>
-            </div>
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
-              <span className="mobile-price-val text-[#db2777]">₹ {formatNum("3,999")}</span>
-            </div>
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
-              <span className="mobile-price-val text-[#059669]">₹ {formatNum("3,501")}</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="ps-mobile-item-card">
-          <div className="mobile-card-header">
-            <span className="mobile-id-badge">{formatNum("4")}</span>
-            <span className="mobile-cat-tag">1 Month</span>
-          </div>
-          <div className="mobile-title-text font-black">{isEn ? "1 Month" : "1 Month (१ महिना)"}</div>
-          <div className="mobile-prices-grid grid-cols-3">
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
-              <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("3,500")}</span>
-            </div>
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
-              <span className="mobile-price-val text-[#db2777]">₹ {formatNum("1,499")}</span>
-            </div>
-            <div className="mobile-price-box">
-              <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
-              <span className="mobile-price-val text-[#059669]">₹ {formatNum("2,001")}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section>
+      </section>
 
       {/* Package Detail Information Modal */}
       {selectedDetail && createPortal(

@@ -109,10 +109,10 @@ export function SiteHeader() {
             );
           })}
 
-          {/* LANGUAGE TOGGLE BUTTON */}
+          {/* LANGUAGE TOGGLE BUTTON (FIXED ORDER: ENG | मराठी) */}
           <button
             onClick={toggleLanguage}
-            className="ml-2 inline-flex items-center justify-center rounded-full border-2 px-4 py-1.5 text-xs font-black transition-all duration-300 cursor-pointer shadow-sm hover:scale-105"
+            className="ml-2 inline-flex items-center justify-center rounded-full border-2 px-3.5 py-1 text-xs font-black transition-all duration-300 cursor-pointer shadow-sm hover:scale-105 min-w-[98px]"
             style={{
               borderColor: "rgba(12, 35, 112, 0.3)",
               background: "#FFFFFF",
@@ -120,7 +120,9 @@ export function SiteHeader() {
             }}
             title="Switch Language / भाषा बदला"
           >
-            <span>{isMr ? "मराठी | ENG" : "ENG | मराठी"}</span>
+            <span className={isEn ? "text-[#1A05A2] font-black border-b-2 border-[#1A05A2]" : "text-slate-400 font-extrabold opacity-70"}>ENG</span>
+            <span className="text-slate-300 mx-1 font-bold">|</span>
+            <span className={isMr ? "text-[#1A05A2] font-black border-b-2 border-[#1A05A2]" : "text-slate-400 font-extrabold opacity-70"}>मराठी</span>
           </button>
 
           {/* TOP RIGHT ADMISSION CTA BUTTON */}
@@ -141,15 +143,15 @@ export function SiteHeader() {
           {/* MOBILE LANGUAGE TOGGLE BUTTON */}
           <button
             onClick={toggleLanguage}
-            className="inline-flex items-center justify-center rounded-full border px-3 py-1 text-[11px] font-black cursor-pointer shadow-xs bg-white text-[#1A05A2]"
+            className="inline-flex items-center justify-center rounded-full border px-3 py-1 text-[11px] font-black cursor-pointer shadow-xs bg-white text-[#1A05A2] min-w-[84px]"
             style={{
               borderColor: "rgba(12, 35, 112, 0.3)",
             }}
             title="Switch Language / भाषा बदला"
           >
-            <span className={isEn ? "text-[#db2777] font-black underline" : "text-slate-600 font-bold"}>ENG</span>
-            <span className="text-slate-300 mx-0.5">|</span>
-            <span className={isMr ? "text-[#db2777] font-black underline" : "text-slate-600 font-bold"}>मराठी</span>
+            <span className={isEn ? "text-[#1A05A2] font-black border-b-2 border-[#1A05A2]" : "text-slate-400 font-extrabold opacity-70"}>ENG</span>
+            <span className="text-slate-300 mx-1 font-bold">|</span>
+            <span className={isMr ? "text-[#1A05A2] font-black border-b-2 border-[#1A05A2]" : "text-slate-400 font-extrabold opacity-70"}>मराठी</span>
           </button>
 
           {/* MOBILE TOGGLE BUTTON */}
