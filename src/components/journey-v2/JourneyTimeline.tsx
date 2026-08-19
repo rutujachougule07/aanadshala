@@ -238,7 +238,7 @@ export default function JourneyTimeline() {
                         className="card-date-badge"
                         style={{ backgroundColor: item.color }}
                       >
-                        {isEn ? `Step ${stepNo}` : `टप्पा ${stepNo}`}
+                        {isEn ? `Highlight ${stepNo}` : `वैशिष्ट्य ${stepNo}`}
                       </div>
 
                       <div className="card-inner flex items-start justify-between gap-4 p-5 sm:p-6 bg-white rounded-3xl shadow-xl border-2 border-slate-100">
@@ -310,7 +310,7 @@ export default function JourneyTimeline() {
                         className="card-date-badge"
                         style={{ backgroundColor: item.color }}
                       >
-                        {isEn ? `Step ${stepNo}` : `टप्पा ${stepNo}`}
+                        {isEn ? `Highlight ${stepNo}` : `वैशिष्ट्य ${stepNo}`}
                       </div>
 
                       <div className="card-inner flex items-start justify-between gap-4 p-5 sm:p-6 bg-white rounded-3xl shadow-xl border-2 border-slate-100">

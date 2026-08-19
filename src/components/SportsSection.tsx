@@ -29,8 +29,8 @@ const sportsMilestonesData = [
     id: 2,
     stepNoMr: "२",
     stepNoEn: "2",
-    titleMr: "२००० चौ. फूट भव्य प्रिमियम जिम (Premium Gym)",
-    titleEn: "2000 sq.ft. Premium Gym",
+    titleMr: "२,२०० चौ. फूट भव्य प्रिमियम जिम (Premium Gym)",
+    titleEn: "2,200 sq.ft. Premium Gym",
     descMr: "अत्याधुनिक व्यायाम साहित्याने सुसज्ज कार्डिओ झोन, वेट ट्रेनिंग आणि पर्सनल ट्रेनर्सचे उत्तम मार्गदर्शन.",
     descEn: "State-of-the-art machines, cardio zone and functional training areas.",
     color: "#1D4ED8",
@@ -44,8 +44,8 @@ const sportsMilestonesData = [
     id: 3,
     stepNoMr: "३",
     stepNoEn: "3",
-    titleMr: "तापमान-नियंत्रित ऑलिंपिक स्विमिंग पूल",
-    titleEn: "Temperature-Controlled Swimming Pool",
+    titleMr: "ऑलिंपिक स्टँडर्ड स्विमिंग पूल (Olympic Swimming Pool)",
+    titleEn: "Olympic Size Swimming Pool",
     descMr: "संपूर्ण शरीराचा व्यायाम, फिटनेस, जलतरण सराव आणि तणावमुक्तीसाठी सुरक्षित व शुद्ध पाण्याचा पूल.",
     descEn: "Designed for full-body conditioning and stress relief pool.",
     color: "#0284C7",
@@ -61,8 +61,8 @@ const sportsMilestonesData = [
     stepNoEn: "4",
     titleMr: "जागतिक दर्जाचे इनडोअर क्रीडा संकुल (Sports Courts)",
     titleEn: "Professional Sports Courts",
-    descMr: "आंतरराष्ट्रीय मानकांचे इनडोअर बॅडमिंटन, स्क्वॅश, स्नूकर आणि टेबल टेनिस खेळांसाठी उत्कृष्ट कोर्ट्स.",
-    descEn: "International standard Badminton, Squash and Table Tennis courts.",
+    descMr: "आंतरराष्ट्रीय मानकांचे इनडोअर बॅडमिंटन, स्क्वॅश कोर्ट्स आणि टेबल टेनिस टेबल्स.",
+    descEn: "International standard Badminton, Squash Courts and Table Tennis tables.",
     color: "#EA580C",
     bgColor: "#FFF7ED",
     borderColor: "#FFEDD5",
@@ -469,7 +469,7 @@ export default function SportsSection() {
                             className="card-date-badge"
                             style={{ backgroundColor: item.color }}
                           >
-                            {isEn ? `Step ${stepNo}` : `टप्पा ${stepNo}`}
+                            {isEn ? `Highlight ${stepNo}` : `वैशिष्ट्य ${stepNo}`}
                           </div>
 
                           <div className="card-inner flex items-start justify-between gap-4 p-5 sm:p-6 bg-white rounded-3xl shadow-xl border-2 border-slate-100">
@@ -541,7 +541,7 @@ export default function SportsSection() {
                             className="card-date-badge"
                             style={{ backgroundColor: item.color }}
                           >
-                            {isEn ? `Step ${stepNo}` : `टप्पा ${stepNo}`}
+                            {isEn ? `Highlight ${stepNo}` : `वैशिष्ट्य ${stepNo}`}
                           </div>
 
                           <div className="card-inner flex items-start justify-between gap-4 p-5 sm:p-6 bg-white rounded-3xl shadow-xl border-2 border-slate-100">
