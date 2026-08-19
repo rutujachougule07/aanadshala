@@ -213,6 +213,16 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
               </span>
             </div>
 
+            <a
+              href={`https://wa.me/919370237633?text=${encodeURIComponent("Hi, I am interested in your product/service: Annapurna Bhojanalaya Dining Menu. Please provide more details.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-transform cursor-pointer"
+            >
+              <span>💬</span>
+              <span>{isEn ? "WhatsApp Inquiry (9370237633)" : "माहितीसाठी WhatsApp करा (9370237633)"}</span>
+            </a>
+
             <button
               onClick={handleDownload}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-[#810B38] to-[#db2777] hover:opacity-95 text-white px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-transform cursor-pointer"

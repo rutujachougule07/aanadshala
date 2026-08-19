@@ -29,9 +29,123 @@ import {
   Check,
   Gift
 } from "lucide-react";
+import { HighlightText } from "@/components/HighlightText";
+import "@/components/PricingSection/PricingSection.css";
 import "./SportsPricingSection.css";
 
 const sportsClubPhones = ["9370237633", "9370237634"];
+
+interface SportsRateItem {
+  id: string;
+  idEn: string;
+  titleMr: string;
+  titleEn: string;
+  categoryMr: string;
+  categoryEn: string;
+  yearly: string;
+  monthly: string;
+  weekly: string;
+  daily: string;
+}
+
+const sportsRateItems: SportsRateItem[] = [
+  {
+    id: "१",
+    idEn: "1",
+    titleMr: "जिम & बॉडीबिल्डिंग (Gym & Bodybuilding)",
+    titleEn: "Gym & Bodybuilding Studio",
+    categoryMr: "अत्याधुनिक जिम (AC GYM)",
+    categoryEn: "AC Gym Studio",
+    yearly: "१८,०००/-",
+    monthly: "३,५००/-",
+    weekly: "१,०००/-",
+    daily: "२००/-",
+  },
+  {
+    id: "२",
+    idEn: "2",
+    titleMr: "ऑलिंपिक स्विमिंग पूल (Olympic Swimming Pool)",
+    titleEn: "Olympic Swimming Pool",
+    categoryMr: "जलतरण सोय (SWIMMING POOL)",
+    categoryEn: "Swimming Pool",
+    yearly: "१८,०००/-",
+    monthly: "३,५००/-",
+    weekly: "१,०००/-",
+    daily: "२००/-",
+  },
+  {
+    id: "३",
+    idEn: "3",
+    titleMr: "इनडोअर बॅडमिंटन कोर्ट्स (Indoor Badminton)",
+    titleEn: "Indoor Badminton Arena",
+    categoryMr: "इनडोअर कोर्ट्स (BADMINTON)",
+    categoryEn: "Badminton Courts",
+    yearly: "१८,०००/-",
+    monthly: "३,५००/-",
+    weekly: "१,०००/-",
+    daily: "२००/-",
+  },
+  {
+    id: "४",
+    idEn: "4",
+    titleMr: "पिकलबॉल कोर्ट (Pickleball Court)",
+    titleEn: "Pickleball Court Arena",
+    categoryMr: "ट्रेंडिंग स्पोर्ट्स (PICKLEBALL)",
+    categoryEn: "Pickleball Sport",
+    yearly: "१८,०००/-",
+    monthly: "३,५००/-",
+    weekly: "१,०००/-",
+    daily: "२००/-",
+  },
+  {
+    id: "५",
+    idEn: "5",
+    titleMr: "योग & ध्यान कक्ष (Yoga & Meditation)",
+    titleEn: "Yoga & Meditation Studio",
+    categoryMr: "वेलनेस (YOGA & MEDITATION)",
+    categoryEn: "Yoga & Wellness",
+    yearly: "१५,०००/-",
+    monthly: "२,५००/-",
+    weekly: "८००/-",
+    daily: "१५०/-",
+  },
+  {
+    id: "६",
+    idEn: "6",
+    titleMr: "झुंबा & फिटनेस डान्स (Zumba & Fitness Dance)",
+    titleEn: "Zumba & Fitness Dance",
+    categoryMr: "कार्डिओ डान्स (ZUMBA DANCE)",
+    categoryEn: "Zumba Dance",
+    yearly: "१५,०००/-",
+    monthly: "२,५००/-",
+    weekly: "८००/-",
+    daily: "१५०/-",
+  },
+  {
+    id: "७",
+    idEn: "7",
+    titleMr: "टेबल टेनिस & इनडोअर गेम्स (Table Tennis)",
+    titleEn: "Table Tennis & Indoor Games",
+    categoryMr: "इनडोअर गेम्स (TABLE TENNIS)",
+    categoryEn: "Table Tennis",
+    yearly: "१२,०००/-",
+    monthly: "२,०००/-",
+    weekly: "६००/-",
+    daily: "१००/-",
+  },
+  {
+    id: "८",
+    idEn: "8",
+    titleMr: "स्नूकर & पूल टेबल्स (Snooker & Pool)",
+    titleEn: "Snooker & Pool Lounge",
+    categoryMr: "प्रीमियम लाउंज (SNOOKER & POOL)",
+    categoryEn: "Snooker Lounge",
+    yearly: "१५,०००/-",
+    monthly: "२,५००/-",
+    weekly: "८००/-",
+    daily: "१५०/-",
+  },
+];
 
 interface PackageDetail {
   title: string;
@@ -45,7 +159,7 @@ interface PackageDetail {
 
 const SportsPricingSection = () => {
   const store = useAdminStore();
-  const { isEn } = useLanguage();
+  const { isEn, formatNum } = useLanguage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>("12 Months Package");
   const [selectedDetail, setSelectedDetail] = useState<PackageDetail | null>(null);
@@ -230,817 +344,201 @@ const SportsPricingSection = () => {
   };
 
   return (
-    <section className="sports-pricing-section" id="sports-pricing">
+    <>
+      <section className="ps-exact-table-section" id="sports-pricing">
 
-      {/* Hero Widescreen Header */}
-      <div className="sp-hero">
-        <div className="sp-hero-bg"></div>
-        <div className="sp-hero-overlay"></div>
-
-        <div className="sp-hero-content animate-fade-right">
-          <div className="sp-logo-area mb-2">
-            <div className="sp-logo-circle">
-              PREETAM
-            </div>
-            <div className="sp-title-text">
-              <h1>PREETAM</h1>
-              <h2>Sports & Fitness Club • सांगली</h2>
-            </div>
-          </div>
-          <div className="sp-tagline">
-            Fit Body &nbsp;•&nbsp; Strong Mind &nbsp;•&nbsp; Better Life &nbsp;•&nbsp; समृद्ध जीवनशैली
-          </div>
-        </div>
-      </div>
-
-      <div className="sp-container">
-
-        {/* Section Title & Explanation Header */}
-        <div className="sp-section-header mt-6 flex flex-col sm:flex-row items-center justify-center text-center gap-3 sm:gap-4">
-          <div className="sp-section-icon shadow-lg bg-gradient-to-r from-pink-500 to-purple-600 text-white size-12 rounded-2xl flex items-center justify-center shrink-0">
-            <User size={24} />
-          </div>
-          <div className="flex flex-col items-center text-center">
-            <div className="text-white text-base sm:text-xl font-black tracking-tight text-center">
-              I. PREETAM SPORTS & FITNESS CLUB: MEMBERSHIP RATE CARD
-            </div>
-            <div className="inline-flex items-center justify-center gap-2 mt-1.5 px-4 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/40 text-xs font-black shadow-inner">
-              <Sparkles size={13} className="text-amber-300 animate-pulse" />
-              <span>प्री-लाँच स्पेशल ऑफर दर पत्रक • PRE-LAUNCH OFFER 2025</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Individual Facility Packages Callout Card */}
-        <div className="bg-gradient-to-br from-pink-500/10 via-purple-500/5 to-slate-900/5 p-5 sm:p-6 rounded-3xl border-2 border-pink-300/80 my-5 shadow-lg relative overflow-hidden backdrop-blur-md">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3 pb-3 border-b border-pink-200/80">
-            <div className="flex items-center gap-2.5 text-pink-700 font-black text-base sm:text-lg">
-              <span className="grid size-8 place-items-center rounded-xl bg-pink-600 text-white font-bold text-sm shadow-md">१</span>
-              <span>वैयक्तिक क्रीडा सोयी पॅकेजेस (Individual Facility Packages)</span>
-            </div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 text-pink-700 font-black text-xs border border-pink-200 shadow-sm self-start sm:self-auto">
-              🎯 एका सुविधेची मेंबरशिप (One Facility Access)
-            </span>
-          </div>
-
-          <p className="text-slate-700 text-xs sm:text-sm font-bold mb-3">
-            हे दर खालीलपैकी एका विशिष्ट सुविधेच्या १ महिना, ३ महिने, ६ महिने किंवा १ वर्षाच्या मेंबरशिपसाठी लागू आहेत (कार्ड किंवा रोवर क्लिक करून संपूर्ण माहिती पहा):
-          </p>
-
-          {/* COLORFUL FACILITY CHIPS */}
-          <div className="flex flex-wrap gap-2 pt-1">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-800 font-black text-xs border border-slate-200 shadow-sm hover:border-pink-500 hover:text-pink-600 transition cursor-pointer">
-              🏋️‍♂️ AC जिम व बॉडीबिल्डिंग
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-800 font-black text-xs border border-slate-200 shadow-sm hover:border-pink-500 hover:text-pink-600 transition cursor-pointer">
-              🏊‍♂️ ऑलिंपिक स्विमिंग पूल
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-800 font-black text-xs border border-slate-200 shadow-sm hover:border-pink-500 hover:text-pink-600 transition cursor-pointer">
-              🏓 पिकलबॉल Court
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-800 font-black text-xs border border-slate-200 shadow-sm hover:border-pink-500 hover:text-pink-600 transition cursor-pointer">
-              🏸 इनडोअर बॅडमिंटन
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-800 font-black text-xs border border-slate-200 shadow-sm hover:border-pink-500 hover:text-pink-600 transition cursor-pointer">
-              🎾 स्क्वॅश ॲरेना
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-800 font-black text-xs border border-slate-200 shadow-sm hover:border-pink-500 hover:text-pink-600 transition cursor-pointer">
-              🎱 स्नूकर लाउंज
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-800 font-black text-xs border border-slate-200 shadow-sm hover:border-pink-500 hover:text-pink-600 transition cursor-pointer">
-              🏓 टेबल टेनिस
-            </span>
-          </div>
-        </div>
-
-        {/* DURATION FILTER TABS (DAYWISE, MONTHWISE, YEARWISE, ALL) */}
-        <div className="flex items-center justify-center gap-2 flex-wrap my-6 p-2.5 rounded-2xl bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 border border-pink-500/30 backdrop-blur-md shadow-xl">
-          <button
-            type="button"
-            onClick={() => setDurationFilter("all")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${durationFilter === "all"
-                ? "bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white shadow-lg shadow-pink-500/40 scale-105"
-                : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
-              }`}
-          >
-            🌟 सर्व योजना (All Plans)
-          </button>
-          <button
-            type="button"
-            onClick={() => setDurationFilter("day")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${durationFilter === "day"
-                ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/40 scale-105"
-                : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
-              }`}
-          >
-            ☀️ दिवसवार (Day Pass)
-          </button>
-          <button
-            type="button"
-            onClick={() => setDurationFilter("month")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${durationFilter === "month"
-                ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/40 scale-105"
-                : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
-              }`}
-          >
-            📆 महिनेवार (1, 3 & 6 Months)
-          </button>
-          <button
-            type="button"
-            onClick={() => setDurationFilter("year")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${durationFilter === "year"
-                ? "bg-gradient-to-r from-pink-600 to-amber-600 text-white shadow-lg shadow-pink-500/40 scale-105"
-                : "bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white"
-              }`}
-          >
-            👑 वार्षिक (1 Year Annual)
-          </button>
-        </div>
-
-        {/* MODERN VISUAL PRICING CARDS GRID */}
-        <div className="sp-visual-cards-grid my-8">
-
-          {/* 1. DAY PASS (REPRESENTATIVE FOR DAYWISE & ALL) */}
-          {(durationFilter === "all" || durationFilter === "day") && (
-            <div
-              className="sp-price-card cursor-pointer group bg-white border-2 border-emerald-400 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
-              onClick={() => handleOpenDetailModal(pkgDayPass)}
-            >
-              <div className="sp-pop-badge bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md z-10">
-                🔥 {isEn ? "Special Day Pass Offer" : "विशेष डे-पास ऑफर"}
-              </div>
-              <div>
-                <div className="sp-card-dur flex items-center gap-2 text-emerald-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-emerald-600 shrink-0" size={22} />
-                  <span>{pkgDayPass.duration}</span>
-                </div>
-                <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkgDayPass.rackRate}</span>
-                </div>
-                <div className="sp-offer-price text-2xl sm:text-3xl font-black text-emerald-600 mb-2">
-                  {pkgDayPass.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ day" : "/ दिवस"}</span>
-                </div>
-                <div className="sp-save-badge bg-emerald-100 text-emerald-800 border border-emerald-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13} /> {pkgDayPass.savings}
-                </div>
-
-                <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  {pkgDayPass.benefits.map((b, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-5 flex flex-col gap-2">
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkgDayPass); }}
-                  className="w-full py-2.5 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
-                >
-                  <Info size={15} />
-                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
-                </button>
-              </div>
-            </div>
+      {/* ── HEADER BLOCK (MATCHING ANANDSHALA RATE CARD) ── */}
+      <div className="ps-exact-header text-center mb-6">
+        <h2 className="text-[22px] sm:text-[32px] md:text-[38px] font-black text-[#0044cc] leading-tight text-center my-2">
+          {isEn ? (
+            <>Preetam Sports & Fitness Club <span className="text-[#db2777]">Official Rate Chart</span></>
+          ) : (
+            <>प्रीतम स्पोर्ट्स अँड फिटनेस क्लब <span className="text-[#db2777]">अधिकृत दरपत्रक</span></>
           )}
+        </h2>
 
-          {/* 2. 1 MONTH (REPRESENTATIVE FOR MONTHWISE & ALL) */}
-          {(durationFilter === "all" || durationFilter === "month") && (
-            <div
-              className="sp-price-card cursor-pointer group bg-white border-2 border-blue-200 hover:border-blue-400 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
-              onClick={() => handleOpenDetailModal(pkg1Month)}
-            >
-              <div>
-                <div className="sp-card-dur flex items-center gap-2 text-blue-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-blue-500 shrink-0" size={22} />
-                  <span>{pkg1Month.duration}</span>
-                </div>
-                <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkg1Month.rackRate}</span>
-                </div>
-                <div className="sp-offer-price text-2xl sm:text-3xl font-black text-blue-600 mb-2">
-                  {pkg1Month.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ month" : "/ महिना"}</span>
-                </div>
-                <div className="sp-save-badge bg-blue-100 text-blue-800 border border-blue-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13} /> {pkg1Month.savings}
-                </div>
-
-                <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  {pkg1Month.benefits.map((b, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-blue-600 shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-5 flex flex-col gap-2">
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkg1Month); }}
-                  className="w-full py-2.5 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
-                >
-                  <Info size={15} />
-                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* 3. 3 MONTHS (SHOWN IN MONTHWISE TAB) */}
-          {durationFilter === "month" && (
-            <div
-              className="sp-price-card cursor-pointer group bg-white border-2 border-indigo-200 hover:border-indigo-400 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
-              onClick={() => handleOpenDetailModal(pkg3Months)}
-            >
-              <div>
-                <div className="sp-card-dur flex items-center gap-2 text-indigo-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-indigo-500 shrink-0" size={22} />
-                  <span>{pkg3Months.duration}</span>
-                </div>
-                <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkg3Months.rackRate}</span>
-                </div>
-                <div className="sp-offer-price text-2xl sm:text-3xl font-black text-indigo-600 mb-2">
-                  {pkg3Months.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ 3 months" : "/ ३ महिने"}</span>
-                </div>
-                <div className="sp-save-badge bg-indigo-100 text-indigo-800 border border-indigo-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13} /> {pkg3Months.savings}
-                </div>
-
-                <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  {pkg3Months.benefits.map((b, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-indigo-600 shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-5 flex flex-col gap-2">
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkg3Months); }}
-                  className="w-full py-2.5 rounded-full bg-indigo-100 hover:bg-indigo-200 text-indigo-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
-                >
-                  <Info size={15} />
-                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* 4. 6 MONTHS (SHOWN IN MONTHWISE TAB) */}
-          {durationFilter === "month" && (
-            <div
-              className="sp-price-card cursor-pointer group bg-white border-2 border-purple-200 hover:border-purple-400 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
-              onClick={() => handleOpenDetailModal(pkg6Months)}
-            >
-              <div>
-                <div className="sp-card-dur flex items-center gap-2 text-purple-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-purple-500 shrink-0" size={22} />
-                  <span>{pkg6Months.duration}</span>
-                </div>
-                <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkg6Months.rackRate}</span>
-                </div>
-                <div className="sp-offer-price text-2xl sm:text-3xl font-black text-purple-600 mb-2">
-                  {pkg6Months.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ 6 months" : "/ ६ महिने"}</span>
-                </div>
-                <div className="sp-save-badge bg-purple-100 text-purple-800 border border-purple-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13} /> {pkg6Months.savings}
-                </div>
-
-                <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  {pkg6Months.benefits.map((b, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-purple-600 shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-5 flex flex-col gap-2">
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkg6Months); }}
-                  className="w-full py-2.5 rounded-full bg-purple-100 hover:bg-purple-200 text-purple-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
-                >
-                  <Info size={15} />
-                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* 5. 12 MONTHS / 1 YEAR (REPRESENTATIVE FOR YEARWISE & ALL) */}
-          {(durationFilter === "all" || durationFilter === "year") && (
-            <div
-              className="sp-price-card popular cursor-pointer group bg-gradient-to-b from-pink-50 via-white to-pink-50/40 border-2 border-pink-500 rounded-3xl p-6 shadow-xl hover:shadow-2xl transition-all relative flex flex-col justify-between hover:-translate-y-1.5"
-              onClick={() => handleOpenDetailModal(pkg12Months)}
-            >
-              <div className="sp-pop-badge bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-md z-10">
-                🔥 {isEn ? "MOST POPULAR • BEST SAVINGS" : "सर्वोत्कृष्ट बचत • MOST POPULAR"}
-              </div>
-              <div>
-                <div className="sp-card-dur flex items-center gap-2 text-pink-900 font-black text-lg mb-1">
-                  <CalendarDays className="text-pink-600 shrink-0" size={22} />
-                  <span>{pkg12Months.duration}</span>
-                </div>
-                <div className="sp-rack-price text-xs font-bold text-slate-500 mb-1">
-                  {isEn ? "Regular Price: " : "मूळ दर: "}<span className="sp-rack-num line-through text-slate-400">{pkg12Months.rackRate}</span>
-                </div>
-                <div className="sp-offer-price text-2xl sm:text-3xl font-black text-pink-600 mb-2">
-                  {pkg12Months.offerPrice} <span className="text-xs text-slate-500 font-bold">{isEn ? "/ year" : "/ वर्ष"}</span>
-                </div>
-                <div className="sp-save-badge bg-pink-100 text-pink-800 border border-pink-300 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                  <Sparkles size={13} /> {pkg12Months.savings}
-                </div>
-
-                <ul className="mt-3 space-y-2 text-xs font-bold text-slate-800 border-t border-slate-200 pt-3">
-                  {pkg12Months.benefits.map((b, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-pink-600 shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-5 flex flex-col gap-2">
-                <button
-                  onClick={(e) => { e.stopPropagation(); handleOpenDetailModal(pkg12Months); }}
-                  className="w-full py-2.5 rounded-full bg-pink-100 hover:bg-pink-200 text-pink-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
-                >
-                  <Info size={15} />
-                  <span>{isEn ? "View Details & Register 👁️" : "संपूर्ण माहिती व नोंदणी उघडा 👁️"}</span>
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* DYNAMIC SPORTS PACKAGES FROM ADMIN STORE (SHOWN ON SPECIFIC TABS) */}
-          {durationFilter !== "all" && store.siteData.sportsPackages?.map((spk) => {
-            const isDay = spk.title.includes("दिवस") || spk.title.toLowerCase().includes("day");
-            const isYear = spk.title.includes("वर्ष") || spk.title.toLowerCase().includes("year") || spk.title.includes("वार्षिक");
-            const isMonth = !isDay && !isYear;
-
-            if (durationFilter === "day" && !isDay) return null;
-            if (durationFilter === "month" && !isMonth) return null;
-            if (durationFilter === "year" && !isYear) return null;
-
-            const spkDetail: PackageDetail = {
-              title: spk.title,
-              duration: spk.title,
-              rackRate: spk.price,
-              offerPrice: spk.price,
-              savings: spk.subtitle || "विशेष स्पोर्ट्स ऑफर",
-              benefits: spk.features || ["विशेष क्रीडा सोयी"],
-            };
-
-            return (
-              <div
-                key={spk.id}
-                className="sp-price-card cursor-pointer group border-2 border-purple-300 bg-white text-slate-900 rounded-3xl p-6 shadow-xl relative overflow-visible flex flex-col justify-between hover:-translate-y-1.5 transition-all"
-                onClick={() => handleOpenDetailModal(spkDetail)}
-              >
-                <div className="sp-pop-badge bg-gradient-to-r from-purple-600 to-pink-600 text-white z-10 shadow-md">
-                  ✨ विशेष स्पोर्ट्स ऑफर
-                </div>
-                <div>
-                  <div className="sp-card-dur text-purple-900 font-black flex items-center gap-2 text-lg mb-1">
-                    <CalendarDays className="text-purple-600 shrink-0" size={22} />
-                    <span>{spk.title}</span>
-                  </div>
-                  <div className="sp-offer-price text-purple-700 font-black text-2xl mb-2">
-                    {spk.price}
-                  </div>
-                  {spk.subtitle && (
-                    <div className="sp-save-badge bg-purple-100 text-purple-800 border border-purple-200 font-extrabold text-xs px-3 py-1 rounded-full mb-3 inline-flex items-center gap-1">
-                      <Sparkles size={13} /> {spk.subtitle}
-                    </div>
-                  )}
-
-                  <ul className="mt-3 space-y-2 text-xs text-slate-800 font-bold border-t border-slate-200 pt-3">
-                    {(spk.features || []).map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2">
-                        <CheckCircle2 size={16} className="text-purple-600 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-5 flex flex-col gap-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleOpenDetailModal(spkDetail);
-                    }}
-                    className="w-full py-2.5 rounded-full bg-purple-100 hover:bg-purple-200 text-purple-900 font-black text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
-                  >
-                    <Info size={15} />
-                    <span>संपूर्ण माहिती व नोंदणी उघडा 👁️</span>
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* ULTRA-MODERN SPECIAL VIP OFFER SHOWCASE & TIER CARDS - ZERO TABLE CLUTTER */}
-        <div className="my-10 space-y-6">
-
-          {/* HERO VIP ANNUAL OFFER BANNER */}
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-950 via-pink-900 to-rose-950 p-6 sm:p-8 text-white shadow-2xl border-2 border-amber-400/40">
-            <div className="absolute -top-12 -right-12 size-48 rounded-full bg-amber-400/20 blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-12 -left-12 size-48 rounded-full bg-pink-500/20 blur-3xl pointer-events-none" />
-
-            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6">
-              <div className="space-y-2 text-center lg:text-left">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 font-extrabold text-xs">
-                  <Sparkles size={14} className="text-amber-300 animate-spin" />
-                  <span>{isEn ? "✨ SPECIAL VIP ANNUAL DISCOUNT DEAL" : "✨ विशेष VIP वार्षिक सवलत ऑफर"}</span>
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-black text-white leading-snug">
-                  एकावेळी १ वर्षाचे मेंबरशिप शुल्क भरल्यास<br />
-                  <span className="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 bg-clip-text text-transparent drop-shadow-md">
-                    दरमहा दर फक्त ₹१,००० / महिना!
-                  </span>
-                </h3>
-                <p className="text-xs sm:text-sm text-pink-200/90 font-semibold max-w-xl">
-                  जिम, ऑलिंपिक पूल, टेनिस व सर्व सोयींसह १ वर्षाचा अमर्याद VIP स्पोर्ट्स क्लब एक्सेस.
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row lg:flex-col items-center gap-3 shrink-0 text-center">
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 px-5 py-3 rounded-2xl">
-                  <div className="text-[11px] text-pink-200 font-bold uppercase tracking-wider">वार्षिक स्पेशल सवलत दर</div>
-                  <div className="text-2xl sm:text-3xl font-black text-amber-300">₹ १२,००० <span className="text-xs text-white font-bold">+ GST</span></div>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleOpenModal("Annual Special Offer (₹12,000 + GST)")}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black text-sm shadow-xl hover:scale-105 transition-all cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <span>🔥 या VIP ऑफरची नोंदणी करा</span>
-                  <ArrowRight size={18} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* EXCITING ATTRACTIVE REPLACEMENT: 1-DAY FREE DEMO PASS & WHY PREETAM HUB */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 my-10">
-
-            {/* LEFT 7 COLS: WHY CHOOSE PREETAM SPORTS CLUB FEATURE MATRIX */}
-            <div className="lg:col-span-7 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-purple-500/30 relative overflow-hidden flex flex-col justify-between">
-              <div className="absolute -top-24 -left-24 size-60 rounded-full bg-pink-600/20 blur-3xl pointer-events-none" />
-
-              <div className="relative z-10 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-pink-500/20 border border-pink-500/40 text-pink-300 font-extrabold text-xs">
-                  <Sparkles size={14} className="text-pink-400" />
-                  <span>🏆 सांगलीतील नंबर १ आंतरराष्ट्रीय दर्जाचे क्रीडा संकुल</span>
-                </div>
-
-                <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
-                  प्रीतम स्पोर्ट्स क्लबच का निवडावा?<br />
-                  <span className="bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400 bg-clip-text text-transparent">
-                    जागतिक दर्जाच्या क्रीडा सोयी एकाच छताखाली!
-                  </span>
-                </h3>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
-                  <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition group">
-                    <div className="text-2xl mb-1">🏊‍♂️</div>
-                    <div className="font-black text-white text-sm">ऑलिंपिक स्विमिंग पूल</div>
-                    <div className="text-xs text-slate-300 font-medium mt-0.5">तापमान नियंत्रित ५० मी. आंतरराष्ट्रीय ट्रॅक व वॉटर प्युरिफायर सोय.</div>
-                  </div>
-
-                  <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition group">
-                    <div className="text-2xl mb-1">🏋️‍♀️</div>
-                    <div className="font-black text-white text-sm">२४x७ हायटेक AC जिम</div>
-                    <div className="text-xs text-slate-300 font-medium mt-0.5">USA इम्पोर्टेड आधुनिक व्यायाम उपकरणे व बायोमेट्रिक ॲक्सेस.</div>
-                  </div>
-
-                  <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition group">
-                    <div className="text-2xl mb-1">👨‍🏫</div>
-                    <div className="font-black text-white text-sm">प्रमाणित पर्सनल ट्रेनर्स</div>
-                    <div className="text-xs text-slate-300 font-medium mt-0.5">राष्ट्रीय खेळाडू व फिटनेस तज्ञांचे मोफत वैयक्तिक मार्गदर्शन.</div>
-                  </div>
-
-                  <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:bg-white/15 transition group">
-                    <div className="text-2xl mb-1">♨️</div>
-                    <div className="font-black text-white text-sm">स्टीम बाथ व स्पा सोय</div>
-                    <div className="text-xs text-slate-300 font-medium mt-0.5">वर्कआऊटनंतर संपूर्ण ताणतणाव मुक्तीसाठी मोफत स्टीम बाथ.</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative z-10 pt-6 mt-6 border-t border-white/10 flex items-center justify-between gap-4">
-                <div className="text-xs text-purple-200 font-bold">
-                  📍 आनंदशाळा, सांगली-मिरज रोड • <span className="text-amber-300 font-black">५०००+ समाधानी सभासद</span>
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT 5 COLS: FREE 1-DAY DEMO TRIAL PASS BOOKING CARD */}
-            <div
-              onClick={() => handleOpenDetailModal(pkgFreeTrialPass)}
-              className="lg:col-span-5 bg-gradient-to-br from-pink-600 via-rose-600 to-purple-700 rounded-3xl p-6 sm:p-8 text-white shadow-2xl relative overflow-hidden flex flex-col justify-between cursor-pointer group hover:scale-[1.01] transition-all"
-            >
-              <div className="absolute -bottom-16 -right-16 size-48 rounded-full bg-amber-400/20 blur-3xl pointer-events-none" />
-
-              <div className="relative z-10 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400 text-slate-950 font-black text-xs shadow-md animate-pulse">
-                  <Gift size={15} className="text-slate-950" />
-                  <span>{isEn ? "LIMITED PERIOD GIFT PASS" : "मर्यादित कालावधी भेट पास"}</span>
-                </div>
-
-                <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
-                  🎁 १-दिवसाचा फ्री ट्रायअल डेमो पास क्लेम करा!
-                </h3>
-
-                <p className="text-xs sm:text-sm text-pink-100 font-medium leading-relaxed">
-                  पॅकेज घेण्यापूर्वी स्वतः येऊन जिम, ऑलिंपिक पूल व क्रीडा सोयींचा प्रत्यक्ष अनुभव घ्या! शून्य शुल्क, शून्य अट!
-                </p>
-
-                <ul className="space-y-2 text-xs font-extrabold text-white bg-black/20 p-4 rounded-2xl border border-white/20">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-amber-300 shrink-0" />
-                    <span>विनामूल्य ऑलिंपिक स्विमिंग पूल entry</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-amber-300 shrink-0" />
-                    <span>जिम व फिटनेस असेसमेंट मोफत</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 size={16} className="text-amber-300 shrink-0" />
-                    <span>फिटनेस तज्ञांसोबत १-ऑन-१ सल्लागार</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="relative z-10 pt-6 mt-6 border-t border-white/20">
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleOpenDetailModal(pkgFreeTrialPass);
-                  }}
-                  className="w-full py-4 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm shadow-2xl transition-all hover:scale-105 cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <Sparkles size={18} className="text-slate-950" />
-                  <span>माझा मोफत १-दिवस पास माहिती उघडा 👁️</span>
-                </button>
-                <div className="text-center text-[11px] text-pink-200 font-bold mt-2.5">
-                  ⚡ आजच ५० पास शिल्लक आहेत!
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* II and III Two Columns */}
-        <div className="sp-two-cols">
-
-          {/* II. ADD-ON FACILITIES */}
-          <div className="sp-card-pink">
-            <div className="sp-card-header-pink">
-              <User size={22} className="text-pink-200 shrink-0" />
-              <span>II. ॲड-ऑन सोयी (ADD-ON ACTIVITY ZONE)</span>
-            </div>
-
-            <div className="p-6 sm:p-7 flex flex-col justify-between h-[calc(100%-65px)] bg-gradient-to-b from-pink-50/30 to-white">
-              <div>
-                <div className="text-xs font-bold text-pink-900 bg-pink-100/80 p-4 rounded-2xl border border-pink-200 mb-6 flex items-center gap-2.5 shadow-xs">
-                  <Sparkles size={18} className="text-pink-600 shrink-0" />
-                  <span>या सोयी वैयक्तिक क्रीडा सोयी पॅकेजेससोबत ॲड-ऑन म्हणून उपलब्ध आहेत:</span>
-                </div>
-
-                <div className="space-y-4">
-                  {/* Mind & Body */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-pink-100 hover:border-pink-300 transition shadow-sm hover:shadow-md flex items-start gap-4">
-                    <div className="size-12 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 text-white flex items-center justify-center shrink-0 shadow-md">
-                      <Activity size={24} />
-                    </div>
-                    <div className="flex-1">
-                      <strong className="text-slate-900 block text-sm font-black mb-1.5">1. Mind & Body (मन व शरीर स्वास्थ्य):</strong>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 text-xs font-black">🧘 झुंबा (Zumba)</span>
-                        <span className="px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 text-xs font-black">💃 फिटनेस डान्स</span>
-                        <span className="px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 text-xs font-black">🧘‍♂️ योग व ध्यान</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Recreation */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-purple-100 hover:border-purple-300 transition shadow-sm hover:shadow-md flex items-start gap-4">
-                    <div className="size-12 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-md">
-                      <Gamepad2 size={24} />
-                    </div>
-                    <div className="flex-1">
-                      <strong className="text-slate-900 block text-sm font-black mb-1.5">2. Recreation (मनोरंजन व कला):</strong>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-xs font-black">🎯 इनडोअर खेळ</span>
-                        <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-xs font-black">🎵 संगीतमय हॉल</span>
-                        <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-xs font-black">📚 वाचनालय</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Outdoor Fitness */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-emerald-100 hover:border-emerald-300 transition shadow-sm hover:shadow-md flex items-start gap-4">
-                    <div className="size-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shrink-0 shadow-md">
-                      <Footprints size={24} />
-                    </div>
-                    <div className="flex-1">
-                      <strong className="text-slate-900 block text-sm font-black mb-1.5">3. Outdoor Fitness (मैदानी व्यायाम):</strong>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-black">🌳 फिटनेस गार्डन</span>
-                        <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-black">🏃‍♂️ जॉगिंग ट्रॅक</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                onClick={() => handleOpenModal("Add-on Activity Zone Inquiry")}
-                className="w-full py-3.5 rounded-full bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-black text-sm shadow-lg transition cursor-pointer mt-6 flex items-center justify-center gap-2"
-              >
-                <span>💬 ॲड-ऑन सोयींबद्दल चौकशी करा</span>
-                <ArrowRight size={18} />
-              </button>
-            </div>
-          </div>
-
-          {/* III. PREETAM ELITE */}
-          <div className="sp-card-blue">
-            <div className="sp-card-header-blue">
-              <Crown size={22} className="text-amber-300 shrink-0" />
-              <span>III. प्रीतम एलिट – फॅमिली लाईफटाईम मेंबरशिप</span>
-            </div>
-
-            <div className="p-6 sm:p-7 flex flex-col justify-between h-[calc(100%-65px)] bg-gradient-to-b from-indigo-50/30 to-white">
-              <div>
-                <div className="text-xs font-bold text-indigo-900 bg-indigo-100/80 p-4 rounded-2xl border border-indigo-200 mb-6 flex items-center gap-2.5 shadow-xs">
-                  <Sparkles size={18} className="text-indigo-600 shrink-0" />
-                  <span>सर्व क्रीडा व ॲक्टिव्हिटी सोयींचा अमर्याद आनंद घेणारे भव्य कुटुंब मेंबरशिप पॅकेज:</span>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-indigo-100 hover:border-indigo-300 transition shadow-sm hover:shadow-md flex items-center justify-between gap-3">
-                    <span className="text-xs sm:text-sm font-extrabold text-slate-700 flex items-center gap-2.5">
-                      <span className="grid size-9 place-items-center rounded-xl bg-pink-100 text-pink-600 font-bold">
-                        <Clock size={18} />
-                      </span>
-                      <span>कालावधी (Duration)</span>
-                    </span>
-                    <span className="text-xs sm:text-sm font-black text-pink-600 bg-pink-50 px-4 py-2 rounded-xl border border-pink-200 shadow-xs">१० वर्षे (10 Years Lifetime)</span>
-                  </div>
-
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-indigo-100 hover:border-indigo-300 transition shadow-sm hover:shadow-md flex items-center justify-between gap-3">
-                    <span className="text-xs sm:text-sm font-extrabold text-slate-700 flex items-center gap-2.5">
-                      <span className="grid size-9 place-items-center rounded-xl bg-purple-100 text-purple-600 font-bold">
-                        <Users size={18} />
-                      </span>
-                      <span>समाविष्ट सदस्य (Members)</span>
-                    </span>
-                    <span className="text-xs sm:text-sm font-black text-slate-900 bg-purple-50 px-4 py-2 rounded-xl border border-purple-200 shadow-xs">४ कुटुंब सदस्य (4 Members)</span>
-                  </div>
-
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-indigo-100 hover:border-indigo-300 transition shadow-sm hover:shadow-md flex items-center justify-between gap-3">
-                    <span className="text-xs sm:text-sm font-extrabold text-slate-700 flex items-center gap-2.5">
-                      <span className="grid size-9 place-items-center rounded-xl bg-indigo-100 text-indigo-600 font-bold">
-                        <Zap size={18} />
-                      </span>
-                      <span>सुविधांचा प्रवेश (Access)</span>
-                    </span>
-                    <span className="text-xs sm:text-sm font-black text-indigo-700 bg-indigo-50 px-4 py-2 rounded-xl border border-indigo-200 shadow-xs">सर्व क्रीडा व सोयी समाविष्ट</span>
-                  </div>
-
-                  <div className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-indigo-100 hover:border-indigo-300 transition shadow-sm hover:shadow-md flex items-center justify-between gap-3">
-                    <span className="text-xs sm:text-sm font-extrabold text-slate-700 flex items-center gap-2.5">
-                      <span className="grid size-9 place-items-center rounded-xl bg-amber-100 text-amber-600 font-bold">
-                        <CalendarDays size={18} />
-                      </span>
-                      <span>नोंदणी नोट (Pre-booking)</span>
-                    </span>
-                    <span className="text-xs sm:text-sm font-black text-slate-800 bg-amber-50 px-4 py-2 rounded-xl border border-amber-200 shadow-xs">स्लॉट-आधारित बुकिंग</span>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                onClick={() => handleOpenModal("Preetam Elite Lifetime Membership (10 Years)")}
-                className="w-full py-3.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white font-black text-sm shadow-lg transition cursor-pointer mt-6 flex items-center justify-center gap-2"
-              >
-                <span>👑 प्रीतम एलिट मेंबरशिप बद्दल चौकशी करा</span>
-                <ArrowRight size={18} />
-              </button>
-            </div>
-          </div>
-
-        </div>
-
-        {/* COMPLIMENTARY BENEFITS */}
-        <div className="sp-comp-header">
-          <span>❖</span> सर्व सभासदांसाठी मोफत मोकळ्या सोयी (COMPLIMENTARY BENEFITS) <span>❖</span>
-        </div>
-        <p className="text-center font-extrabold text-slate-600 text-xs sm:text-sm mb-8 max-w-xl mx-auto">
-          सर्व सभासदांना (Individual किंवा Elite) खालील जागतिक दर्जाच्या सोयी मोफत व विनामूल्य उपलब्ध आहेत:
+        <p className="ps-subtitle max-w-3xl mx-auto text-sm sm:text-base font-bold text-slate-700 mt-2">
+          {isEn
+            ? "These rates apply to a membership for one single facility (Gym, Swimming Pool, Pickleball, Badminton, Table Tennis, Squash or Snooker):"
+            : "हे दर एका विशिष्ट सुविधेसाठी (जिम, स्विमिंग पूल, पिकलबॉल, बॅडमिंटन, टेबल टेनिस, स्क्वॅश किंवा स्नूकर) लागू आहेत:"}
         </p>
-
-        <div className="sp-comp-grid">
-          <div className="sp-comp-item">
-            <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Book size={28} /></div>
-              <span>ग्रंथालय (Library)</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Library" />
-          </div>
-          <div className="sp-comp-item">
-            <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Music size={28} /></div>
-              <span>म्युझिक हॉल (Music Hall)</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Music Hall" />
-          </div>
-          <div className="sp-comp-item">
-            <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Dumbbell size={28} /></div>
-              <span>फिटनेस गार्डन</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Fitness Garden" />
-          </div>
-          <div className="sp-comp-item">
-            <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Footprints size={28} /></div>
-              <span>जॉगिंग ट्रॅक</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Jogging Track" />
-          </div>
-          <div className="sp-comp-item">
-            <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Gamepad2 size={28} /></div>
-              <span>इनडोअर गेम्स</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Indoor Games" />
-          </div>
-          <div className="sp-comp-item">
-            <div className="sp-comp-top">
-              <div className="sp-comp-icon-circle"><Coffee size={28} /></div>
-              <span>स्टीम बाथ</span>
-            </div>
-            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=300&auto=format&fit=crop" className="sp-comp-img" alt="Steam Bath" />
-          </div>
-        </div>
-
-        {/* Bottom Action Bar */}
-        <div className="sp-bottom-bar">
-          <div className="sp-bb-left">
-            <div className="sp-pulse-icon">
-              <HeartPulse size={28} />
-            </div>
-            <div className="sp-bb-title">
-              निरोगी, निरोगी आणि समृद्ध जीवनासाठी<br />
-              <span className="text-pink-400">आजच पहिले पाऊल उचला!</span>
-            </div>
-          </div>
-
-          <button className="sp-inquire-btn" onClick={() => handleOpenModal("General Inquiry")}>
-            आजच प्रवेश घ्या
-            <ArrowRight size={20} className="ml-2" />
-          </button>
-
-          <div className="sp-bb-badges hidden lg:flex">
-            <div className="sp-badge-item">
-              <div className="sp-badge-icon"><ShieldCheck size={20} /></div>
-              <span>उत्कृष्ट<br />सोयी</span>
-            </div>
-            <div className="sp-badge-item">
-              <div className="sp-badge-icon"><Award size={20} /></div>
-              <span>प्रमाणित<br />ट्रेनर्स</span>
-            </div>
-            <div className="sp-badge-item">
-              <div className="sp-badge-icon"><Trophy size={20} /></div>
-              <span>उत्तम<br />आरोग्य</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer Strip */}
-        <div className="sp-footer-strip">
-          <div className="flex items-center gap-2"><HeartPulse size={18} /> निरोगी आरोग्य</div>
-          <div className="flex items-center gap-2"><Activity size={18} /> समृद्ध जीवनशैली</div>
-          <div className="flex items-center gap-2"><User size={18} /> आनंदी जीवन</div>
-        </div>
-
       </div>
+
+      {/* ── DESKTOP & TABLET EXACT 4-ROW SPORTS RATE TABLE (MATCHING ANANDSHALA SCREENSHOT) ── */}
+      <div className="ps-table-wrapper max-w-5xl mx-auto">
+        <table className="ps-exact-table w-full">
+          <thead>
+            <tr>
+              <th className="th-details text-left py-4 px-5">{isEn ? "Membership Duration" : "कालावधी (MEMBERSHIP DURATION)"}</th>
+              <th className="py-4 px-4 text-center">{isEn ? "Rack Rate (₹)" : "मूळ दर (RACK RATE ₹)"}</th>
+              <th className="py-4 px-4 text-center">{isEn ? "Pre-Launch Offer (₹)" : "प्री-लाँच दर (OFFER ₹)"}</th>
+              <th className="py-4 px-4 text-center">{isEn ? "Savings (₹)" : "एकूण बचत (SAVINGS ₹)"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="ps-table-row">
+              <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
+                <div className="flex items-center gap-3">
+                  <span className="row-num">{formatNum("1")}</span>
+                  <div>
+                    <span className="row-cat-label">{isEn ? "1 YEAR PACKAGE" : "१२ महिने पॅकेज"}</span>
+                    <div className="row-title-text font-black text-slate-900 text-base">
+                      {isEn ? "12 Months (1 Year)" : "12 Months (१२ महिने / १ वर्ष)"}
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("18,000")}</td>
+              <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("11,999")}</td>
+              <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("6,001")} {isEn ? "Savings!" : "बचत!"}</td>
+            </tr>
+
+            <tr className="ps-table-row">
+              <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
+                <div className="flex items-center gap-3">
+                  <span className="row-num">{formatNum("2")}</span>
+                  <div>
+                    <span className="row-cat-label">{isEn ? "HALF YEAR PACKAGE" : "६ महिने पॅकेज"}</span>
+                    <div className="row-title-text font-black text-slate-900 text-base">
+                      {isEn ? "6 Months" : "6 Months (६ महिने)"}
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("12,000")}</td>
+              <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("6,999")}</td>
+              <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("5,001")} {isEn ? "Savings!" : "बचत!"}</td>
+            </tr>
+
+            <tr className="ps-table-row">
+              <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
+                <div className="flex items-center gap-3">
+                  <span className="row-num">{formatNum("3")}</span>
+                  <div>
+                    <span className="row-cat-label">{isEn ? "3 MONTHS PACKAGE" : "३ महिने पॅकेज"}</span>
+                    <div className="row-title-text font-black text-slate-900 text-base">
+                      {isEn ? "3 Months" : "3 Months (३ महिने)"}
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("7,500")}</td>
+              <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("3,999")}</td>
+              <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("3,501")} {isEn ? "Savings!" : "बचत!"}</td>
+            </tr>
+
+            <tr className="ps-table-row">
+              <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
+                <div className="flex items-center gap-3">
+                  <span className="row-num">{formatNum("4")}</span>
+                  <div>
+                    <span className="row-cat-label">{isEn ? "1 MONTH PACKAGE" : "१ महिना पॅकेज"}</span>
+                    <div className="row-title-text font-black text-slate-900 text-base">
+                      {isEn ? "1 Month" : "1 Month (१ महिना)"}
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("3,500")}</td>
+              <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("1,499")}</td>
+              <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("2,001")} {isEn ? "Savings!" : "बचत!"}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* ── MOBILE RESPONSIVE CARDS (4 EXACT ROWS) ── */}
+      <div className="ps-mobile-cards-list">
+        <div className="ps-mobile-item-card">
+          <div className="mobile-card-header">
+            <span className="mobile-id-badge">{formatNum("1")}</span>
+            <span className="mobile-cat-tag">12 Months</span>
+          </div>
+          <div className="mobile-title-text font-black">{isEn ? "12 Months (1 Year)" : "12 Months (१२ महिने / १ वर्ष)"}</div>
+          <div className="mobile-prices-grid grid-cols-3">
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
+              <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("18,000")}</span>
+            </div>
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
+              <span className="mobile-price-val text-[#db2777]">₹ {formatNum("11,999")}</span>
+            </div>
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
+              <span className="mobile-price-val text-[#059669]">₹ {formatNum("6,001")}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="ps-mobile-item-card">
+          <div className="mobile-card-header">
+            <span className="mobile-id-badge">{formatNum("2")}</span>
+            <span className="mobile-cat-tag">6 Months</span>
+          </div>
+          <div className="mobile-title-text font-black">{isEn ? "6 Months" : "6 Months (६ महिने)"}</div>
+          <div className="mobile-prices-grid grid-cols-3">
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
+              <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("12,000")}</span>
+            </div>
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
+              <span className="mobile-price-val text-[#db2777]">₹ {formatNum("6,999")}</span>
+            </div>
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
+              <span className="mobile-price-val text-[#059669]">₹ {formatNum("5,001")}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="ps-mobile-item-card">
+          <div className="mobile-card-header">
+            <span className="mobile-id-badge">{formatNum("3")}</span>
+            <span className="mobile-cat-tag">3 Months</span>
+          </div>
+          <div className="mobile-title-text font-black">{isEn ? "3 Months" : "3 Months (३ महिने)"}</div>
+          <div className="mobile-prices-grid grid-cols-3">
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
+              <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("7,500")}</span>
+            </div>
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
+              <span className="mobile-price-val text-[#db2777]">₹ {formatNum("3,999")}</span>
+            </div>
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
+              <span className="mobile-price-val text-[#059669]">₹ {formatNum("3,501")}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="ps-mobile-item-card">
+          <div className="mobile-card-header">
+            <span className="mobile-id-badge">{formatNum("4")}</span>
+            <span className="mobile-cat-tag">1 Month</span>
+          </div>
+          <div className="mobile-title-text font-black">{isEn ? "1 Month" : "1 Month (१ महिना)"}</div>
+          <div className="mobile-prices-grid grid-cols-3">
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Rack Rate" : "मूळ दर"}</span>
+              <span className="mobile-price-val text-slate-900 font-black">₹ {formatNum("3,500")}</span>
+            </div>
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Offer Rate" : "ऑफर दर"}</span>
+              <span className="mobile-price-val text-[#db2777]">₹ {formatNum("1,499")}</span>
+            </div>
+            <div className="mobile-price-box">
+              <span className="mobile-price-lbl">{isEn ? "Savings" : "बचत"}</span>
+              <span className="mobile-price-val text-[#059669]">₹ {formatNum("2,001")}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
 
       {/* Package Detail Information Modal */}
       {selectedDetail && createPortal(
@@ -1058,7 +556,7 @@ const SportsPricingSection = () => {
 
             <div className="flex items-center gap-2 text-pink-600 font-extrabold text-xs mb-1 pt-2">
               <Sparkles size={16} />
-              <span>मेंबरशिप पॅकेज तपशील माहिती</span>
+              <span>{isEn ? "Membership Package Details" : "मेंबरशिप पॅकेज तपशील माहिती"}</span>
             </div>
 
             <h3 className="text-xl sm:text-2xl font-black text-slate-900 mb-3 pr-6">
@@ -1069,7 +567,7 @@ const SportsPricingSection = () => {
             <div className="bg-gradient-to-r from-pink-50 via-purple-50 to-indigo-50 p-4 rounded-2xl border border-pink-200 mb-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-xs text-slate-500 font-bold">मूळ दर (Rack Rate): <span className="line-through text-slate-400">{selectedDetail.rackRate}</span></div>
+                  <div className="text-xs text-slate-500 font-bold">{isEn ? "Regular Price: " : "मूळ दर (Rack Rate): "}<span className="line-through text-slate-400">{selectedDetail.rackRate}</span></div>
                   <div className="text-2xl font-black text-pink-600">{selectedDetail.offerPrice} <span className="text-xs text-slate-600 font-bold">/-</span></div>
                 </div>
                 <div className="bg-emerald-100 text-emerald-800 border border-emerald-300 px-3.5 py-1.5 rounded-full text-xs font-black">
@@ -1232,8 +730,7 @@ const SportsPricingSection = () => {
         </div>,
         document.body
       )}
-
-    </section>
+    </>
   );
 };
 

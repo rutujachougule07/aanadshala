@@ -74,9 +74,10 @@
 
 .reasonsHeading>p {
   margin: 0;
-  color: #64748b;
-  font-size: clamp(13px, 1.1vw, 16px);
-  font-weight: 600;
+  color: #475569;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.65;
 }
 
 /* ─────────────────────────────────────────

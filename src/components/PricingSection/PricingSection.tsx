@@ -1,7 +1,7 @@
 import React from "react";
-import { 
-  MapPin, 
-  AlertTriangle 
+import {
+  MapPin,
+  AlertTriangle
 } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { HighlightText } from "@/components/HighlightText";
@@ -137,7 +137,7 @@ export const PricingSection: React.FC = () => {
 
   return (
     <section className="ps-exact-table-section" id="pricing">
-      
+
       {/* ── HEADER BLOCK ── */}
       <Reveal>
         <div className="ps-exact-header text-center">
@@ -225,7 +225,7 @@ export const PricingSection: React.FC = () => {
               <h3 className="mobile-title-text">
                 <HighlightText text={title} />
               </h3>
-              
+
               <div className="mobile-prices-grid">
                 <div className="mobile-price-box">
                   <span className="mobile-price-lbl">{isEn ? "Yearly" : "वार्षिक"}</span>
@@ -273,11 +273,16 @@ export const PricingSection: React.FC = () => {
             </div>
 
             <div className="contact-right-buttons flex flex-col sm:flex-row gap-3">
-              <a href="tel:9970079090" className="contact-phone-btn">
-                <span>📞 {formatNum("९९७००७९०९०")}</span>
+              <a
+                href={`https://wa.me/919370237633?text=${encodeURIComponent("Hi, I am interested in your product/service: Preetam Anandshala Membership & Stay Rate Chart. Please provide more details.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-phone-btn bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-700"
+              >
+                <span>💬 {isEn ? "WhatsApp Inquiry (9370237633)" : "WhatsApp चौकशी (९३७०२३७६३३)"}</span>
               </a>
-              <a href="tel:9423258859" className="contact-phone-btn second">
-                <span>📞 {formatNum("९४२३२५८८५९")}</span>
+              <a href="tel:9370237633" className="contact-phone-btn second">
+                <span>📞 {formatNum("९३७०२३७६३३")}</span>
               </a>
             </div>
           </div>

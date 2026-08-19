@@ -106,9 +106,14 @@ export default function Facilities() {
 
                 <p className="text-gray-600 leading-8 mt-4">{item.desc}</p>
 
-                <button className="mt-8 text-pink-400 font-semibold hover:translate-x-2 transition inline-flex items-center gap-1">
-                  अधिक माहिती →
-                </button>
+                <a
+                  href={`https://wa.me/919370237633?text=${encodeURIComponent(`Hi, I am interested in your product/service: ${item.title}. Please provide more details.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8 text-pink-500 font-bold hover:translate-x-2 transition inline-flex items-center gap-1 cursor-pointer"
+                >
+                  💬 WhatsApp चौकशी →
+                </a>
               </motion.div>
             );
           })}
@@ -172,17 +177,22 @@ export default function Facilities() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-4">
               <a
-                href="tel:+919370237633"
-                className="bg-white text-pink-400 font-bold rounded-full px-10 py-5 shadow-xl hover:scale-105 transition-all duration-300 text-center"
+                href={`https://wa.me/919370237633?text=${encodeURIComponent("Hi, I am interested in your product/service: Preetam Anandshala Facilities. Please provide more details.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-full px-10 py-5 shadow-xl hover:scale-105 transition-all duration-300 text-center flex items-center justify-center gap-2"
               >
-                संपर्क साधा →
+                💬 WhatsApp चौकशी →
               </a>
 
-              <button className="border-2 border-white rounded-full px-10 py-5 text-white font-semibold hover:bg-white hover:text-pink-400 transition">
-                अधिक जाणून घ्या
-              </button>
+              <a
+                href="tel:+919370237633"
+                className="bg-white text-pink-500 font-bold rounded-full px-10 py-4 shadow-xl hover:scale-105 transition-all duration-300 text-center"
+              >
+                📞 कॉल करा (9370237633)
+              </a>
             </div>
           </div>
         </motion.div>

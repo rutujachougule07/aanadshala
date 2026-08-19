@@ -178,12 +178,22 @@ export default function About() {
                     अनुभवण्यासाठी आजच आमच्याशी संपर्क साधा.
                   </p>
                 </div>
-                <a
-                  href="tel:+919370237633"
-                  className="bg-white text-pink-400 font-bold px-10 py-5 rounded-full hover:scale-105 transition shadow-xl whitespace-nowrap"
-                >
-                  संपर्क साधा →
-                </a>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href={`https://wa.me/919370237633?text=${encodeURIComponent("Hi, I am interested in your product/service: Preetam Anandshala Senior Living. Please provide more details.")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-4 rounded-full hover:scale-105 transition shadow-xl whitespace-nowrap flex items-center justify-center gap-2"
+                  >
+                    💬 WhatsApp चौकशी →
+                  </a>
+                  <a
+                    href="tel:+919370237633"
+                    className="bg-white text-pink-500 font-bold px-8 py-4 rounded-full hover:scale-105 transition shadow-xl whitespace-nowrap text-center"
+                  >
+                    📞 कॉल करा
+                  </a>
+                </div>
               </div>
             </motion.div>
 

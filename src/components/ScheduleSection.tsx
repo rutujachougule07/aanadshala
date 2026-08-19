@@ -33,7 +33,7 @@ export default function ScheduleSection({ type = "anandshala" }: ScheduleSection
         <div className="flex flex-col items-center text-center mb-10">
           <div className="mb-3">
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full font-black text-xs sm:text-sm shadow-sm border bg-indigo-50 border-indigo-200 text-[#1A05A2]">
-              <span>🏋️‍♂️ प्रीतम स्पोर्ट्स अँड फिटनेस क्लब</span>
+              <span>🏋️‍♂️ {isEn ? "Preetam Sports & Fitness Club" : "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब"}</span>
             </span>
           </div>
 
@@ -63,8 +63,8 @@ export default function ScheduleSection({ type = "anandshala" }: ScheduleSection
                 className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl text-white font-extrabold text-sm sm:text-base shadow-xl hover:scale-105 transition-all cursor-pointer border-2 border-white/40 bg-gradient-to-r from-[#1A05A2] to-purple-700 hover:shadow-indigo-500/40"
               >
                 <span>📜</span>
-                <span>ॲडमिनद्वारे अपलोड केलेले अधिकृत वेळापत्रक (पहा / डाउनलोड करा)</span>
-                <span className="bg-amber-400 text-slate-900 text-xs px-2.5 py-0.5 rounded-full font-black">पहा</span>
+                <span>{isEn ? "Official Timetable Uploaded by Admin (View / Download)" : "ॲडमिनद्वारे अपलोड केलेले अधिकृत वेळापत्रक (पहा / डाउनलोड करा)"}</span>
+                <span className="bg-amber-400 text-slate-900 text-xs px-2.5 py-0.5 rounded-full font-black">{isEn ? "View" : "पहा"}</span>
               </button>
             </div>
           )}
@@ -76,7 +76,7 @@ export default function ScheduleSection({ type = "anandshala" }: ScheduleSection
             <div className="relative max-w-4xl w-full bg-white rounded-3xl p-4 sm:p-6 shadow-2xl space-y-4 my-auto">
               <div className="flex items-center justify-between border-b pb-3">
                 <h3 className="text-lg font-black text-[#1a1a40]">
-                  📜 अधिकृत क्रीडा वेळापत्रक (Timetable Poster)
+                  📜 {isEn ? "Official Sports Timetable" : "अधिकृत क्रीडा वेळापत्रक (Timetable Poster)"}
                 </h3>
                 <button
                   onClick={() => setShowPosterModal(false)}
@@ -103,13 +103,13 @@ export default function ScheduleSection({ type = "anandshala" }: ScheduleSection
                   className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center gap-2 shadow-md"
                 >
                   <span>📥</span>
-                  <span>डाऊनलोड करा</span>
+                  <span>{isEn ? "Download" : "डाऊनलोड करा"}</span>
                 </a>
                 <button
                   onClick={() => setShowPosterModal(false)}
                   className="px-5 py-2.5 rounded-xl bg-slate-200 text-slate-800 font-extrabold text-xs hover:bg-slate-300 transition-colors"
                 >
-                  बंद करा
+                  {isEn ? "Close" : "बंद करा"}
                 </button>
               </div>
             </div>
@@ -123,14 +123,16 @@ export default function ScheduleSection({ type = "anandshala" }: ScheduleSection
               📅
             </div>
             <div>
-              <div className="text-[#f472b6] font-extrabold text-sm">वेळापत्रक</div>
-              <div className="text-[#1a1a40] font-black text-base sm:text-lg">{config.daysText || "सोमवार ते रविवार (सर्व दिवस खुली)"}</div>
+              <div className="text-[#f472b6] font-extrabold text-sm">{isEn ? "Schedule" : "वेळापत्रक"}</div>
+              <div className="text-[#1a1a40] font-black text-base sm:text-lg">
+                {isEn ? "Monday to Sunday (Open All Days)" : (config.daysText || "सोमवार ते रविवार (सर्व दिवस खुली)")}
+              </div>
             </div>
           </div>
           
           <div className="hidden lg:flex bg-[#1A05A2] text-white rounded-full px-8 py-2.5 items-center gap-2 shadow-md">
             <span className="opacity-70">🌿</span>
-            <span className="font-black text-lg">{config.headerTitle || "प्रीतम स्पोर्ट्स क्लब वेळापत्रक"}</span>
+            <span className="font-black text-lg">{isEn ? "Preetam Sports Club Timetable" : (config.headerTitle || "प्रीतम स्पोर्ट्स क्लब वेळापत्रक")}</span>
             <span className="opacity-70">🌿</span>
           </div>
 
@@ -140,7 +142,9 @@ export default function ScheduleSection({ type = "anandshala" }: ScheduleSection
             </div>
             <div>
               <div className="text-[#1A05A2] font-extrabold text-sm">{isEn ? "Timing" : "वेळ"}</div>
-              <div className="text-[#1a1a40] font-black text-base sm:text-lg">{config.timeRange || "सकाळी ०५:०० ते रात्री १०:००"}</div>
+              <div className="text-[#1a1a40] font-black text-base sm:text-lg">
+                {isEn ? "05:00 AM to 10:00 PM" : (config.timeRange || "सकाळी ०५:०० ते रात्री १०:००")}
+              </div>
             </div>
           </div>
         </div>
@@ -150,12 +154,12 @@ export default function ScheduleSection({ type = "anandshala" }: ScheduleSection
           <table className="w-full min-w-[900px] text-center border-collapse">
             <thead>
               <tr className="bg-gradient-to-r from-[#f472b6] via-[#1A05A2] to-[#6a0dad] text-white">
-                <th className="py-2.5 px-2 font-black text-base border-r border-white/20 w-[15%]">वेळ</th>
-                <th className="py-2.5 px-2 font-black text-base border-r border-white/20">सोमवार</th>
-                <th className="py-2.5 px-2 font-black text-base border-r border-white/20">मंगळवार</th>
-                <th className="py-2.5 px-2 font-black text-base border-r border-white/20">बुधवार</th>
-                <th className="py-2.5 px-2 font-black text-base border-r border-white/20">गुरुवार</th>
-                <th className="py-2.5 px-2 font-black text-base">शुक्रवार</th>
+                <th className="py-2.5 px-2 font-black text-base border-r border-white/20 w-[15%]">{isEn ? "Time" : "वेळ"}</th>
+                <th className="py-2.5 px-2 font-black text-base border-r border-white/20">{isEn ? "Monday" : "सोमवार"}</th>
+                <th className="py-2.5 px-2 font-black text-base border-r border-white/20">{isEn ? "Tuesday" : "मंगळवार"}</th>
+                <th className="py-2.5 px-2 font-black text-base border-r border-white/20">{isEn ? "Wednesday" : "बुधवार"}</th>
+                <th className="py-2.5 px-2 font-black text-base border-r border-white/20">{isEn ? "Thursday" : "गुरुवार"}</th>
+                <th className="py-2.5 px-2 font-black text-base">{isEn ? "Friday" : "शुक्रवार"}</th>
               </tr>
             </thead>
             <tbody>

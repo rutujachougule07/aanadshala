@@ -662,12 +662,6 @@ function IndexComponent() {
           {/* ── PREETAM SPORTS PREMIUM SECTION ── */}
           <SportsSection />
 
-          {/* ── PREETAM SPORTS RATE CARD & FACILITIES ── */}
-          <SportsPricingSection />
-
-          {/* ── PREETAM SPORTS CLUB DAILY TIMETABLE SCHEDULE ── */}
-          <ScheduleSection type="sports" />
-
           {/* VIDEO & MEMBER TESTIMONIALS */}
           <TestimonialsSection />
         </div>

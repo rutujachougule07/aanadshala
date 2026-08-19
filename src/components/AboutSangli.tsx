@@ -17,6 +17,7 @@ import {
   Landmark,
   X,
   PhoneCall,
+  MessageCircle,
   ArrowRight,
   ShieldCheck,
   Navigation,
@@ -582,8 +583,8 @@ export function AboutSangli() {
             <button
               onClick={() => setActiveTab("senior-friendly")}
               className={`shrink-0 px-6 py-3.5 rounded-full font-black text-sm transition-all duration-300 shadow-xl cursor-pointer ${activeTab === "senior-friendly"
-                  ? "bg-amber-400 text-slate-950 scale-105"
-                  : "bg-white text-purple-900 hover:bg-pink-100 hover:scale-105"
+                ? "bg-amber-400 text-slate-950 scale-105"
+                : "bg-white text-purple-900 hover:bg-pink-100 hover:scale-105"
                 }`}
             >
               👴 {isEn ? "View Senior-Friendly Places" : "ज्येष्ठांसाठी सुलभ ठिकाणे पहा"}
@@ -609,6 +610,17 @@ export function AboutSangli() {
             <span>{isEn ? "🚌 Day Trips (50-80 km)" : "🚌 १ दिवसाच्या सहली (५०-८० किमी)"}</span>
           </button>
         </div>
+
+        {activeTab === "daytrips" && (
+          <div className="my-4 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 text-center shadow-xs">
+            <span className="text-base">🚌</span>
+            <span>
+              {isEn
+                ? "Note: 1-Day trips (Chandoli, Gokak, Machhindragad, Kolhapur) are conducted periodically based on dates scheduled by Anandshala Management."
+                : "विशेष टिप: १-दिवसाच्या सहली या आनंदशाळा व्यवस्थापनाद्वारे निश्चित केलेल्या नियोजित तारखांनुसार समूह सहल म्हणून आयोजित केल्या जातात."}
+            </span>
+          </div>
+        )}
 
         {/* ── PLACES GRID ── */}
         <div className="as-sangli-grid">
@@ -859,16 +871,41 @@ export function AboutSangli() {
                 ))}
               </div>
 
-              {/* Call Button */}
-              <div className="pt-2 pb-2">
-                <a
-                  href="tel:9370237633"
-                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:opacity-95 text-white font-black text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2 transition transform hover:scale-[1.01]"
-                >
-                  <PhoneCall size={16} />
-                  <span>{isEn ? "Inquire Transportation" : "माहितीसाठी कॉल करा (९३७०२३७६३३)"}</span>
-                </a>
-              </div>
+              {/* Management Note & WhatsApp Inquiry Logic for 1-Day Trips */}
+              {selectedPlace.category === "daytrips" && (
+                <>
+                  <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl text-xs font-bold text-amber-900 flex items-start gap-2.5">
+                    <span className="text-base shrink-0">🚌</span>
+                    <div>
+                      <span className="font-black block text-amber-950 mb-0.5">
+                        {isEn ? "Anandshala Management Scheduled Trip:" : "आनंदशाळा व्यवस्थापन सहल सूचना:"}
+                      </span>
+                      <span>
+                        {isEn
+                          ? "These 1-day trips are conducted periodically as organized group tours on fixed dates scheduled by Anandshala Management."
+                          : "या १-दिवसाच्या सहली आनंदशाळा व्यवस्थापनाद्वारे निश्चित केलेल्या नियोजित तारखांनुसार समूह सहल (Group Tour) म्हणून आयोजित केल्या जातात."}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* WhatsApp Inquiry Button for Scheduled Day Trips */}
+                  <div className="pt-1 pb-2">
+                    <a
+                      href={`https://wa.me/919370237633?text=${encodeURIComponent(
+                        `Hi, I want to know about the next scheduled Anandshala group trip for: ${selectedPlace.titleMr}. Please share upcoming dates and details.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:opacity-95 text-white font-black text-xs sm:text-sm shadow-xl flex items-center justify-center gap-2 transition transform hover:scale-[1.01]"
+                    >
+                      <MessageCircle size={18} />
+                      <span>
+                        {isEn ? "Inquire Upcoming Trip Dates (WhatsApp)" : "आगामी सहल वेळापत्रकासाठी WhatsApp करा (9370237633)"}
+                      </span>
+                    </a>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>,

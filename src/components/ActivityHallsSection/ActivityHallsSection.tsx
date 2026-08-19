@@ -15,6 +15,7 @@ import {
   X,
   Sparkles,
   PhoneCall,
+  MessageCircle,
   ArrowRight,
   Dumbbell,
   BookOpen,
@@ -266,20 +267,20 @@ const ActivityHallsSection = () => {
   const activeHalls: HallDetail[] =
     store.siteData.activityHalls && store.siteData.activityHalls.length > 0
       ? store.siteData.activityHalls.map((h, idx) => {
-          const fallback = hallsData[idx];
-          return {
-            id: String(idx + 1).padStart(2, "0"),
-            titleMr: h.title,
-            titleEn: fallback ? fallback.titleEn : h.title,
-            categoryMr: h.category,
-            categoryEn: fallback ? fallback.categoryEn : h.category,
-            descMr: h.desc,
-            descEn: fallback ? fallback.descEn : h.desc,
-            icon: fallback?.icon || <Sparkles size={28} />,
-            image: h.imageUrl || fallback?.image || "/images/slider1.JPG",
-            theme: fallback?.theme || (idx % 2 === 0 ? "theme-pink" : "theme-blue"),
-          };
-        })
+        const fallback = hallsData[idx];
+        return {
+          id: String(idx + 1).padStart(2, "0"),
+          titleMr: h.title,
+          titleEn: fallback ? fallback.titleEn : h.title,
+          categoryMr: h.category,
+          categoryEn: fallback ? fallback.categoryEn : h.category,
+          descMr: h.desc,
+          descEn: fallback ? fallback.descEn : h.desc,
+          icon: fallback?.icon || <Sparkles size={28} />,
+          image: h.imageUrl || fallback?.image || "/images/slider1.JPG",
+          theme: fallback?.theme || (idx % 2 === 0 ? "theme-pink" : "theme-blue"),
+        };
+      })
       : hallsData;
 
   return (
@@ -304,8 +305,10 @@ const ActivityHallsSection = () => {
           <div className="ah-header-subtitle">
             <span style={{ color: '#db2777' }}>❖</span> {isEn ? <><span className="text-[#db2777] font-black">Anandshala's</span></> : <><span className="text-[#db2777] font-black">आनंदशाळेतील</span></>} <span style={{ color: '#db2777' }}>❖</span>
           </div>
-          <h2 className="ah-header-title text-[26px] sm:text-[36px] md:text-[42px] text-[#0044cc]">
-            <span className="blue-text">{isEn ? "Special Activity Halls" : "विशेष उपक्रम हॉल्स"}</span>
+          <h2 className="text-[32px] sm:text-[44px] md:text-[52px] font-black text-[#0044cc] leading-snug tracking-tight flex items-center justify-center gap-3 sm:gap-4 my-2">
+            <span className="hidden sm:inline-block w-10 sm:w-16 h-[3px] bg-[#0044cc] rounded-full shrink-0" />
+            <span>{isEn ? <>Special <span className="text-[#db2777]">Activity Halls</span></> : <>विशेष <span className="text-[#db2777]">उपक्रम हॉल्स</span></>}</span>
+            <span className="hidden sm:inline-block w-10 sm:w-16 h-[3px] bg-[#0044cc] rounded-full shrink-0" />
           </h2>
           <div className="ah-header-desc">
             <p className="ah-header-desc-text">
@@ -379,9 +382,18 @@ const ActivityHallsSection = () => {
         {/* ELEGANT SLEEK CTA BUTTON */}
         <Reveal delay={400}>
           <div className="flex justify-center mt-6">
-            <a href="tel:9370237633" className="ah-footer-cta-pill">
+            <a
+              href={`https://wa.me/919370237633?text=${encodeURIComponent(
+                isEn
+                  ? "Hi, I want information regarding Anandshala Special Activity Halls (Timings, facilities & entry details). Please share."
+                  : "नमस्कार, मला प्रीतम आनंदशाळेतील विशेष उपक्रम हॉल्सची वेळ, उपलब्ध सुविधा व प्रवेशाबाबत माहिती हवी आहे. कृपया माहिती द्यावी."
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ah-footer-cta-pill"
+            >
               <Sparkles size={18} className="text-amber-300 animate-pulse" />
-              <span>{isEn ? "Visit Today & Experience Anandshala!" : "आजच भेट द्या आणि आनंदशाळेचा अनुभव घ्या!"}</span>
+              <span>{isEn ? "Inquire Activity Halls on WhatsApp (9370237633)" : "हॉल्सची वेळ व सुविधांबाबत WhatsApp चौकशी करा (9370237633)"}</span>
               <ArrowRight size={16} />
             </a>
           </div>
@@ -451,14 +463,27 @@ const ActivityHallsSection = () => {
                 </p>
               </div>
 
-              {/* CALL BUTTON */}
+              {/* CALL & WHATSAPP BUTTONS */}
               <div className="flex flex-col sm:flex-row gap-3 pt-2 mt-auto border-t border-slate-100">
                 <a
+                  href={`https://wa.me/919370237633?text=${encodeURIComponent(
+                    isEn
+                      ? `Hi, I want information regarding Anandshala ${selectedHall.titleEn} (Hall timings, facilities & membership access). Please share details.`
+                      : `नमस्कार, मला प्रीतम आनंदशाळेतील '${selectedHall.titleMr}' (हॉलची वेळ, सुविधा व प्रवेशाबाबत) अधिक माहिती हवी आहे. कृपया माहिती द्यावी.`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
+                >
+                  <MessageCircle size={18} />
+                  <span>{isEn ? "Inquire Hall Timings & Access (WhatsApp)" : "हॉल वेळ व प्रवेशाबाबत WhatsApp करा (9370237633)"}</span>
+                </a>
+                <a
                   href="tel:9370237633"
-                  className="flex-1 bg-gradient-to-r from-[#810B38] to-[#db2777] text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
+                  className="bg-gradient-to-r from-[#810B38] to-[#db2777] text-white font-extrabold text-xs sm:text-sm py-3 px-5 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition shrink-0"
                 >
                   <PhoneCall size={18} />
-                  <span>{isEn ? "Call for details: 9370237633" : "अधिक माहितीसाठी कॉल करा: ९३७०२३७६३३"}</span>
+                  <span>{isEn ? "Call" : "कॉल करा"}</span>
                 </a>
               </div>
 

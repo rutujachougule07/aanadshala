@@ -187,6 +187,7 @@
    ============================================================ */
 
 @layer base {
+
   html,
   body,
   #root,
@@ -534,7 +535,8 @@ body.hide-nav-links header .max-w-\[1440px\] {
 /* ============================================================
    GLOBAL MOBILE RESPONSIVENESS OVERFLOW & TOUCH TARGET RULES
    ============================================================ */
-html, body {
+html,
+body {
   overflow-x: hidden !important;
   max-width: 100vw;
   width: 100%;
@@ -545,7 +547,10 @@ html, body {
 }
 
 /* Prevent image clipping and force images to scale within containers */
-img, video, canvas, svg {
+img,
+video,
+canvas,
+svg {
   max-width: 100%;
   height: auto;
 }
@@ -557,7 +562,12 @@ img, video, canvas, svg {
   }
 
   /* Prevent text overflow in headings */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     overflow-wrap: break-word;
     word-break: break-word;
   }
@@ -573,7 +583,10 @@ img, video, canvas, svg {
   }
 
   /* Ensure inputs & buttons fit within container padding */
-  input, select, textarea, button {
+  input,
+  select,
+  textarea,
+  button {
     max-width: 100%;
   }
-}
+}

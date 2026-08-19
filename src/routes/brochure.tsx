@@ -535,21 +535,23 @@ const Brochure: React.FC = () => {
 
             {/* MODAL FOOTER BUTTONS */}
             <div className="flex flex-col sm:flex-row gap-3 w-full">
-              <a 
-                href="tel:9370237633" 
-                className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
+              <a
+                href={`https://wa.me/919370237633?text=${encodeURIComponent(`Hi, I am interested in your product/service: ${selectedDetail.title}. Please provide more details.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
               >
-                <PhoneCall size={18} />
-                <span>अधिक माहितीसाठी कॉल करा: 9370237633</span>
-                <ArrowRight size={16} />
+                <span>💬</span>
+                <span>{isEn ? "WhatsApp Inquiry (9370237633)" : "माहितीसाठी WhatsApp करा (9370237633)"}</span>
               </a>
 
-              <button 
-                className="bg-slate-100 border border-slate-300 text-slate-700 font-extrabold text-xs sm:text-sm py-3 px-5 rounded-xl cursor-pointer hover:bg-slate-200 transition"
-                onClick={() => setSelectedDetail(null)}
+              <a 
+                href="tel:9370237633" 
+                className="bg-gradient-to-r from-pink-600 to-purple-600 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
               >
-                बंद करा
-              </button>
+                <PhoneCall size={18} />
+                <span>{isEn ? "Call" : "कॉल करा"}</span>
+              </a>
             </div>
 
           </div>
