@@ -77,7 +77,7 @@ const sportsRateItems: SportsRateItem[] = [
     id: "३",
     idEn: "3",
     titleMr: "इनडोअर बॅडमिंटन कोर्ट्स (Indoor Badminton)",
-    titleEn: "Indoor Badminton Arena",
+    titleEn: "Indoor Badminton",
     categoryMr: "इनडोअर कोर्ट्स (BADMINTON)",
     categoryEn: "Badminton Courts",
     yearly: "१८,०००/-",
@@ -89,7 +89,7 @@ const sportsRateItems: SportsRateItem[] = [
     id: "४",
     idEn: "4",
     titleMr: "पिकलबॉल कोर्ट (Pickleball Court)",
-    titleEn: "Pickleball Court Arena",
+    titleEn: "Pickleball Court",
     categoryMr: "ट्रेंडिंग स्पोर्ट्स (PICKLEBALL)",
     categoryEn: "Pickleball Sport",
     yearly: "१८,०००/-",
@@ -101,7 +101,7 @@ const sportsRateItems: SportsRateItem[] = [
     id: "५",
     idEn: "5",
     titleMr: "योग & ध्यान कक्ष (Yoga & Meditation)",
-    titleEn: "Yoga & Meditation Studio",
+    titleEn: "Yoga & Meditation Hall",
     categoryMr: "वेलनेस (YOGA & MEDITATION)",
     categoryEn: "Yoga & Wellness",
     yearly: "१५,०००/-",
@@ -137,9 +137,9 @@ const sportsRateItems: SportsRateItem[] = [
     id: "८",
     idEn: "8",
     titleMr: "स्नूकर & पूल टेबल्स (Snooker & Pool)",
-    titleEn: "Snooker & Pool Lounge",
-    categoryMr: "प्रीमियम लाउंज (SNOOKER & POOL)",
-    categoryEn: "Snooker Lounge",
+    titleEn: "Snooker & Pool",
+    categoryMr: "इनडोअर गेम्स (SNOOKER & POOL)",
+    categoryEn: "Snooker & Pool",
     yearly: "१५,०००/-",
     monthly: "२,५००/-",
     weekly: "८००/-",
@@ -390,7 +390,7 @@ const SportsPricingSection = () => {
                 </td>
                 <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("18,000")}</td>
                 <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("11,999")}</td>
-                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("6,001")} {isEn ? "Savings!" : "बचत!"}</td>
+                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("6,001")} {isEn ? "Savings" : "बचत"}</td>
               </tr>
 
               <tr className="ps-table-row">
@@ -407,7 +407,7 @@ const SportsPricingSection = () => {
                 </td>
                 <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("12,000")}</td>
                 <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("6,999")}</td>
-                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("5,001")} {isEn ? "Savings!" : "बचत!"}</td>
+                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("5,001")} {isEn ? "Savings" : "बचत"}</td>
               </tr>
 
               <tr className="ps-table-row">
@@ -424,7 +424,7 @@ const SportsPricingSection = () => {
                 </td>
                 <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("7,500")}</td>
                 <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("3,999")}</td>
-                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("3,501")} {isEn ? "Savings!" : "बचत!"}</td>
+                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("3,501")} {isEn ? "Savings" : "बचत"}</td>
               </tr>
 
               <tr className="ps-table-row">
@@ -441,7 +441,7 @@ const SportsPricingSection = () => {
                 </td>
                 <td className="price-bold text-slate-900 text-center font-black text-base">₹ {formatNum("3,500")}</td>
                 <td className="price-bold text-center font-black text-[#db2777] text-lg sm:text-xl">₹ {formatNum("1,499")}</td>
-                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("2,001")} {isEn ? "Savings!" : "बचत!"}</td>
+                <td className="price-bold text-center font-black text-[#059669] bg-[#ebfbf3] text-base">₹ {formatNum("2,001")} {isEn ? "Savings" : "बचत"}</td>
               </tr>
             </tbody>
           </table>

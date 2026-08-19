@@ -157,9 +157,9 @@ export default function JourneyTimeline() {
             <span>🌿</span>
             <span>
               {isEn ? (
-                <>Preetam Senior Citizen <span className="text-[#db2777]">Anandshala</span> — Project Milestones</>
+                <>Preetam Senior Citizen <span className="text-[#db2777]">Anandshala</span> — Project Highlights</>
               ) : (
-                <>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span> — प्रकल्पाचे टप्पे</>
+                <>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span> — प्रकल्पाची वैशिष्ट्ये</>
               )}
             </span>
             <span>🌿</span>
@@ -172,7 +172,7 @@ export default function JourneyTimeline() {
             viewport={{ once: true }}
             className="journey-exact-title text-[26px] sm:text-[36px] md:text-[42px] font-black text-[#0044cc] leading-snug tracking-tight"
           >
-            {isEn ? "Project Journey & Key Milestones" : "प्रकल्पाची वाटचाल व महत्त्वाचे टप्पे"}
+            {isEn ? "Project Journey & Highlights" : "प्रकल्पाची वाटचाल व वैशिष्ट्ये"}
           </motion.h2>
 
           <motion.p

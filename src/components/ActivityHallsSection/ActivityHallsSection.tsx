@@ -57,7 +57,7 @@ const hallsData: HallDetail[] = [
   {
     id: "०२",
     titleMr: "कला दालन",
-    titleEn: "Arts & Crafts Studio",
+    titleEn: "Arts & Crafts Hall",
     categoryMr: "हस्तकला & चित्रकला",
     categoryEn: "Arts & Handicrafts",
     descMr: "कला दालनमध्ये जाऊन चित्रकला, हस्तकला आणि विणकाम शिकणे.",
@@ -81,7 +81,7 @@ const hallsData: HallDetail[] = [
   {
     id: "०४",
     titleMr: "माहिती तंत्रज्ञान हॉल",
-    titleEn: "IT & Digital Learning Hub",
+    titleEn: "IT & Digital Learning Hall",
     categoryMr: "डिजिटल लर्निंग & IT",
     categoryEn: "Digital Literacy",
     descMr: "माहिती तंत्रज्ञान हॉलमध्ये जाऊन संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.",
@@ -129,7 +129,7 @@ const hallsData: HallDetail[] = [
   {
     id: "०८",
     titleMr: "टेबल टेनिस हॉल",
-    titleEn: "Table Tennis Arena",
+    titleEn: "Table Tennis Hall",
     categoryMr: "टेबल टेनिस",
     categoryEn: "Table Tennis",
     descMr: "टेबल टेनिस हॉलमध्ये जाऊन टेबल टेनिस खेळण्याचा आनंद घेणे.",
@@ -153,11 +153,11 @@ const hallsData: HallDetail[] = [
   {
     id: "१०",
     titleMr: "स्नूकर हॉल",
-    titleEn: "Snooker & Billiards Lounge",
+    titleEn: "Snooker & Billiards Hall",
     categoryMr: "स्नूकर",
     categoryEn: "Snooker",
     descMr: "स्नूकर हॉलमध्ये जाऊन स्नूकर व बिलियर्ड्स खेळणे.",
-    descEn: "Relax and play Snooker and Billiards in a climate-controlled lounge.",
+    descEn: "Relax and play Snooker and Billiards in a climate-controlled hall.",
     icon: <Dumbbell size={28} />,
     image: "/images/subimg/tebal tenis.png",
     theme: "theme-pink"
@@ -165,7 +165,7 @@ const hallsData: HallDetail[] = [
   {
     id: "११",
     titleMr: "स्कॅश हॉल",
-    titleEn: "Squash Court Arena",
+    titleEn: "Squash Court",
     categoryMr: "स्कॅश कोर्ट",
     categoryEn: "Squash",
     descMr: "स्कॅश कोर्टवर जाऊन स्कॅश खेळण्याचा आनंद घेणे.",
@@ -189,7 +189,7 @@ const hallsData: HallDetail[] = [
   {
     id: "१३",
     titleMr: "योगा हॉल",
-    titleEn: "Yoga & Meditation Studio",
+    titleEn: "Yoga & Meditation Hall",
     categoryMr: "योग व प्राणायाम",
     categoryEn: "Yoga & Wellness",
     descMr: "योगा हॉलमध्ये जाऊन तज्ज्ञांच्या मार्गदर्शनाखाली दररोज योगासने व प्राणायाम करणे.",
@@ -225,7 +225,7 @@ const hallsData: HallDetail[] = [
   {
     id: "१६",
     titleMr: "विश्रांती हॉल",
-    titleEn: "Relaxation & Reading Lounge",
+    titleEn: "Relaxation & Reading Hall",
     categoryMr: "वाचन & विश्रांती",
     categoryEn: "Reading & Rest",
     descMr: "विश्रांती हॉलमध्ये जाऊन आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.",

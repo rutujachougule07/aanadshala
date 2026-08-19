@@ -149,9 +149,9 @@ const facilityItems: FacilityDetail[] = [
     id: "swimming",
     icon: "🏊‍♂️",
     titleMr: "स्विमिंग पूल",
-    titleEn: "Olympic Standard Swimming Pool",
+    titleEn: "Olympic Size Swimming Pool",
     subMr: "ऑलिंपिक मानकांचा स्वच्छ पूल",
-    subEn: "Clean Olympic standard filtered pool",
+    subEn: "Clean Olympic size filtered pool",
     descMr: "ऑलिंपिक मानकांनुसार बनवलेला स्वच्छ, २५ मीटरचा शुद्ध पाण्याचा पोहण्याचा तलाव. महिला व पुरुषांसाठी सुरक्षित व स्वतंत्र बॅचेस.",
     descEn: "Clean 25-meter purified water swimming pool built according to Olympic standards. Safe and dedicated separate batches for men and women.",
     img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243460172.jpg",
@@ -174,7 +174,7 @@ const facilityItems: FacilityDetail[] = [
     id: "badminton",
     icon: "🏸",
     titleMr: "इनडोअर बॅडमिंटन",
-    titleEn: "Indoor Badminton Arena",
+    titleEn: "Indoor Badminton",
     subMr: "आंतरराष्ट्रीय मानकांच्या कोर्टसह",
     subEn: "International standard wooden courts",
     descMr: "लाकडी सिंथेटिक मॅटिंग व आय-प्रोटेक्ट LED लाईटिंगसह सुसज्ज इनडोअर बॅडमिंटन कोर्ट. सर्व वयोगटातील लोकांसाठी खेळण्याची व सराव करण्याची उत्तम सोय.",
@@ -224,7 +224,7 @@ const facilityItems: FacilityDetail[] = [
     id: "yoga",
     icon: "🧘",
     titleMr: "योग & ध्यान कक्ष",
-    titleEn: "Yoga & Meditation Studio",
+    titleEn: "Yoga & Meditation Hall",
     subMr: "शारीरिक व मानसिक आरोग्य संतुलन",
     subEn: "Physical and mental health harmony",
     descMr: "शांत, प्रसन्न व निसर्गरम्य वातावरणात योगाभ्यास, प्राणायाम व ध्यानधारणा. अनुभवी योगशिक्षकांकडून दररोज सकाळी व संध्याकाळी मार्गदर्शन.",
@@ -274,7 +274,7 @@ const facilityItems: FacilityDetail[] = [
     id: "squash",
     icon: "🎾",
     titleMr: "स्क्वॅश कोर्ट",
-    titleEn: "Squash Arena",
+    titleEn: "Squash Court",
     subMr: "आंतरराष्ट्रीय मानकांच्या स्वच्छ कोर्ट",
     subEn: "International glass-back squash court",
     descMr: "आंतरराष्ट्रीय ग्लास-बॅक मानकांचे स्क्वॅश कोर्ट. जलद हालचाली, स्टॅमिना व उच्च फिटनेससाठी अतिशय उपयुक्त.",
@@ -298,25 +298,25 @@ const facilityItems: FacilityDetail[] = [
   {
     id: "snooker",
     icon: "🎱",
-    titleMr: "स्नूकर & पूल लाउंज",
-    titleEn: "Snooker & Pool Lounge",
+    titleMr: "स्नूकर & पूल टेबल्स",
+    titleEn: "Snooker & Pool",
     subMr: "एकग्रता वाढवणारा स्नूकर आणि पूल टेबल",
     subEn: "Concentration boosting snooker and pool table",
-    descMr: "प्रीमियम वूलन क्लोथवर आंतरराष्ट्रीय मानकांचे स्नूकर व पूल टेबल्स. वातानुकूलित लाउंजमध्ये एकाग्रता व मनोरंजनाचा आनंद.",
-    descEn: "International standard snooker and pool tables on premium woolen cloth. Enjoy concentration and entertainment in our AC lounge.",
+    descMr: "प्रीमियम वूलन क्लोथवर आंतरराष्ट्रीय मानकांचे स्नूकर व पूल टेबल्स. वातानुकूलित हॉलमध्ये एकाग्रता व मनोरंजनाचा आनंद.",
+    descEn: "International standard snooker and pool tables on premium woolen cloth. Enjoy concentration and entertainment in our AC hall.",
     img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357638129.jpg",
     timingMr: "सकाळी १०:०० ते रात्री ९:००",
     timingEn: "10:00 AM to 9:00 PM",
     featuresMr: [
       "आंतरराष्ट्रीय मानकांचे स्नूकर टेबल्स",
       "प्रीमियम ८-बॉल पूल टेबल",
-      "एसी लाउंज व सोफा सीटिंग",
+      "एसी हॉल व सोफा सीटिंग",
       "मित्र-मैत्रिणींसोबत रिलॅक्सिंग वेळ"
     ],
     featuresEn: [
       "International standard snooker tables",
       "Premium 8-ball pool table",
-      "AC lounge and sofa seating",
+      "AC hall and sofa seating",
       "Relaxing time with friends"
     ]
   }
@@ -400,9 +400,9 @@ export default function SportsSection() {
                 <span>🏆</span>
                 <span>
                   {isEn ? (
-                    <>Preetam Sports Club — Key Milestones</>
+                    <>Preetam Sports Club — Key Highlights</>
                   ) : (
-                    <>प्रीतम स्पोर्ट्स क्लब — ६ प्रमुख टप्पे</>
+                    <>प्रीतम स्पोर्ट्स क्लब — ६ प्रमुख वैशिष्ट्ये</>
                   )}
                 </span>
                 <span>🏆</span>
@@ -415,7 +415,7 @@ export default function SportsSection() {
                 viewport={{ once: true }}
                 className="journey-exact-title text-[22px] sm:text-[32px] md:text-[38px] font-black text-[#0044cc] leading-tight text-center"
               >
-                {isEn ? "Sports Club Milestones & Highlights" : "स्पोर्ट्स क्लबचे ६ प्रमुख टप्पे"}
+                {isEn ? "Sports Club Key Highlights" : "स्पोर्ट्स क्लबची ६ प्रमुख वैशिष्ट्ये"}
               </motion.h2>
 
               {/* Ornamental Divider */}
@@ -675,8 +675,12 @@ export default function SportsSection() {
                       🧘‍♀️
                     </div>
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider font-black text-pink-600 block">Health & Harmony</span>
-                      <h4 className="font-black text-slate-900 text-base">Mind & Body</h4>
+                      <span className="text-[10px] uppercase tracking-wider font-black text-pink-600 block">
+                        {isEn ? "Health & Harmony" : "आरोग्य आणि सुसंवाद"}
+                      </span>
+                      <h4 className="font-black text-slate-900 text-base">
+                        {isEn ? "Mind & Body" : "माइंड अँड बॉडी"}
+                      </h4>
                     </div>
                   </div>
                   <ul className="space-y-2 text-xs sm:text-sm font-extrabold text-slate-700">
@@ -702,8 +706,12 @@ export default function SportsSection() {
                       🎲
                     </div>
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider font-black text-indigo-600 block">Leisure & Fun</span>
-                      <h4 className="font-black text-slate-900 text-base">Recreation</h4>
+                      <span className="text-[10px] uppercase tracking-wider font-black text-indigo-600 block">
+                        {isEn ? "Leisure & Fun" : "मनोरंजन आणि खेळ"}
+                      </span>
+                      <h4 className="font-black text-slate-900 text-base">
+                        {isEn ? "Recreation" : "मनोरंजन क्षेत्र"}
+                      </h4>
                     </div>
                   </div>
                   <ul className="space-y-2 text-xs sm:text-sm font-extrabold text-slate-700">
@@ -729,8 +737,12 @@ export default function SportsSection() {
                       🏃‍♂️
                     </div>
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider font-black text-emerald-600 block">Nature & Fitness</span>
-                      <h4 className="font-black text-slate-900 text-base">Outdoor</h4>
+                      <span className="text-[10px] uppercase tracking-wider font-black text-emerald-600 block">
+                        {isEn ? "Nature & Fitness" : "निसर्ग आणि फिटनेस"}
+                      </span>
+                      <h4 className="font-black text-slate-900 text-base">
+                        {isEn ? "Outdoor" : "आउटडोअर सोयी"}
+                      </h4>
                     </div>
                   </div>
                   <ul className="space-y-2 text-xs sm:text-sm font-extrabold text-slate-700">
