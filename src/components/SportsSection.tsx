@@ -8,6 +8,8 @@ import "@/components/journey-v2/journey.css";
 import SportsPricingSection from "./SportsPricingSection/SportsPricingSection";
 import { site, sportsClub } from "../lib/site-info";
 import { useLanguage } from "@/lib/use-language";
+import { useAdminStore } from "@/lib/admin-store";
+import { HighlightText } from "@/components/HighlightText";
 
 const sportsMilestonesData = [
   {
@@ -324,6 +326,9 @@ const facilityItems: FacilityDetail[] = [
 
 export default function SportsSection() {
   const { isEn } = useLanguage();
+  const [sportsDescOverrides] = useState<Record<string, string>>(() => {
+    try { return JSON.parse(localStorage.getItem("sports_facility_descs_v1") || "{}"); } catch { return {}; }
+  });
   const [selectedFacility, setSelectedFacility] = useState<FacilityDetail | null>(null);
   const [showRegModal, setShowRegModal] = useState(false);
   const [formData, setFormData] = useState({ name: "", phone: "", city: "", interest: "sports", message: "" });
@@ -413,7 +418,7 @@ export default function SportsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="journey-exact-title text-[22px] sm:text-[32px] md:text-[38px] font-black text-[#0044cc] leading-tight text-center"
+                className="journey-exact-title typo-heading-main text-[#0044cc] leading-tight text-center"
               >
                 {isEn ? "Sports Club Key Highlights" : "स्पोर्ट्स क्लबची ६ प्रमुख वैशिष्ट्ये"}
               </motion.h2>
@@ -475,10 +480,10 @@ export default function SportsSection() {
                           <div className="card-inner flex items-start justify-between gap-4 p-5 sm:p-6 bg-white rounded-3xl shadow-xl border-2 border-slate-100">
                             <div className="card-text-content space-y-2 text-left">
                               <h3 className="card-title text-lg sm:text-xl font-black text-slate-900 leading-snug">
-                                {item.id}. {title}
+                                {item.id}. <HighlightText text={title} />
                               </h3>
                               <p className="card-desc text-xs sm:text-sm text-slate-700 font-extrabold leading-relaxed">
-                                {description}
+                                <HighlightText text={description} />
                               </p>
                             </div>
 
@@ -555,10 +560,10 @@ export default function SportsSection() {
 
                             <div className="card-text-content space-y-2 text-left flex-1">
                               <h3 className="card-title text-lg sm:text-xl font-black text-slate-900 leading-snug">
-                                {item.id}. {title}
+                                {item.id}. <HighlightText text={title} />
                               </h3>
                               <p className="card-desc text-xs sm:text-sm text-slate-700 font-extrabold leading-relaxed">
-                                {description}
+                                <HighlightText text={description} />
                               </p>
                             </div>
                           </div>
@@ -590,7 +595,7 @@ export default function SportsSection() {
             <div className="sp-sec-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#0044cc] font-black text-xs sm:text-sm mb-3 shadow-xs">
               {isEn ? "✨ Premium Amenities" : "✨ प्रिमियम सोयी सुविधा"}
             </div>
-            <h2 className="text-[22px] sm:text-[32px] md:text-[38px] font-black text-[#0044cc] leading-tight text-center my-2">
+            <h2 className="typo-heading-main text-[#0044cc] leading-tight text-center my-2">
               {isEn ? "Our Facilities" : "आमच्या सुविधा"}
             </h2>
           </div>

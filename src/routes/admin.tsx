@@ -380,6 +380,18 @@ export default function AdminPage() {
   };
   const getHallDesc = (hallId: string, fallback = "") => hallDescOverrides[hallId] ?? fallback;
 
+  // SPORTS FACILITY DESCRIPTIONS — stored in separate localStorage key
+  const SPORTS_DESCS_KEY = "sports_facility_descs_v1";
+  const [sportsDescOverrides, setSportsDescOverrides] = useState<Record<string, string>>(() => {
+    try { return JSON.parse(localStorage.getItem("sports_facility_descs_v1") || "{}"); } catch { return {}; }
+  });
+  const saveSportsDesc = (facId: string, desc: string) => {
+    const updated = { ...sportsDescOverrides, [facId]: desc };
+    setSportsDescOverrides(updated);
+    try { localStorage.setItem(SPORTS_DESCS_KEY, JSON.stringify(updated)); } catch (_) { }
+  };
+  const getSportsDesc = (facId: string, fallback = "") => sportsDescOverrides[facId] ?? fallback;
+
   // Live Firebase Auth Listener
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
@@ -744,7 +756,7 @@ export default function AdminPage() {
               )}
 
               {/* DESCRIPTION TEXTAREA */}
-              {(editingModal?.type === "hall" || editingModal?.type === "video" || editingModal?.type === "sangliAttraction" || (modalDesc && modalDesc.length > 0)) && (
+              {(editingModal?.type === "hall" || editingModal?.type === "sports" || editingModal?.type === "video" || editingModal?.type === "sangliAttraction" || (modalDesc && modalDesc.length > 0)) && (
                 <div>
                   <label className="block text-[11px] font-black text-slate-500 mb-1">📝 Description & Details</label>
                   <textarea
@@ -1876,43 +1888,52 @@ export default function AdminPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {(siteForm.sportsFacilities || []).map((fac) => (
-                <div key={fac.id} className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group">
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-48">
-                    <img src={fac.imageUrl || "/images/sports img.png"} alt={fac.title} className="w-full h-full object-cover" />
-                    <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-white/90 text-base border border-rose-200 shadow-xs">
-                      {fac.icon}
-                    </span>
+              {(siteForm.sportsFacilities || []).map((fac) => {
+                const facId = fac.id;
+                const currentDesc = getSportsDesc(facId, fac.description || "");
 
-                    <button
-                      onClick={() =>
-                        openEditModal({
-                          type: "sports",
-                          id: fac.id,
-                          title: fac.title,
-                          imageUrl: fac.imageUrl || "/images/sports img.png",
-                          onSave: (newTitle, newUrl) => {
-                            const updated = (siteForm.sportsFacilities || []).map((f) =>
-                              f.id === fac.id ? { ...f, title: newTitle, imageUrl: newUrl } : f
-                            );
-                            const newForm = { ...siteForm, sportsFacilities: updated };
-                            setSiteForm(newForm);
-                            store.updateSiteData(newForm);
-                          },
-                        })
-                      }
-                      className="absolute top-2 right-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1.5 cursor-pointer border border-rose-200 z-20"
-                    >
-                      <Edit size={13} className="text-[#db2777]" />
-                      <span>Edit</span>
-                    </button>
+                return (
+                  <div key={facId} className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group">
+                    <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-48">
+                      <img src={fac.imageUrl || "/images/sports img.png"} alt={fac.title} className="w-full h-full object-cover" />
+                      <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-white/90 text-base border border-rose-200 shadow-xs">
+                        {fac.icon}
+                      </span>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
-                      <p className="font-black text-xs drop-shadow-md truncate">{fac.title}</p>
+                      <button
+                        onClick={() =>
+                          openEditModal({
+                            type: "sports",
+                            id: facId,
+                            title: fac.title,
+                            imageUrl: fac.imageUrl || "/images/sports img.png",
+                            desc: currentDesc,
+                            onSave: (newTitle, newUrl, _sub, _cat, newDesc) => {
+                              saveSportsDesc(facId, newDesc || "");
+                              const updated = (siteForm.sportsFacilities || []).map((f) =>
+                                f.id === facId ? { ...f, title: newTitle, imageUrl: newUrl, description: newDesc || f.description || "" } : f
+                              );
+                              const newForm = { ...siteForm, sportsFacilities: updated };
+                              setSiteForm(newForm);
+                              store.updateSiteData(newForm);
+                              showToast(`✅ ${newTitle} saved!`);
+                            },
+                          })
+                        }
+                        className="absolute top-2 right-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1.5 cursor-pointer border border-rose-200 z-20"
+                      >
+                        <Edit size={13} className="text-[#db2777]" />
+                        <span>Edit</span>
+                      </button>
+
+                      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
+                        <p className="font-black text-xs drop-shadow-md truncate">{fac.title}</p>
+                        <p className="text-[10px] text-rose-200 opacity-90 truncate">{currentDesc}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

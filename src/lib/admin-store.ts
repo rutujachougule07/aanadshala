@@ -508,10 +508,14 @@ export const initialSiteData: SiteData = {
   sportsBrochureUrl: "/images/Screenshot 2026-07-31 103659.png",
   sportsBrochureType: "image",
   sportsFacilities: [
-    { id: "sf-1", title: "ओलंपिक स्टाईल स्विमिंग पूल", description: "स्वच्छ व फिल्टर केलेल्या पाण्यातील स्विमिंग पूल.", icon: "🏊", imageUrl: "/images/swimming hall.png" },
-    { id: "sf-2", title: "वातानुकूलित जीम व फिटनेस सेंटर", description: "अद्ययावत जीम व व्यायाम साधने.", icon: "🏋️", imageUrl: "/images/vyayam hall.png" },
-    { id: "sf-3", title: "इनडोअर बॅडमिंटन व कोर्ट्स", description: "प्रोफेशनल बॅडमिंटन, टेबल टेनिस व टर्फ.", icon: "🏸", imageUrl: "/images/tebal tenis.png" },
-    { id: "sf-4", title: "पिकलबॉल कोर्ट", description: "भारतातील लोकप्रिय नवीन पिकलबॉल क्रीडा कोर्ट.", icon: "🏓", imageUrl: "/images/pickleball-court.png" },
+    { id: "gym", title: "जिम & बॉडीबिल्डिंग", description: "आधुनिक फिटनेस उपकरणे, AC हॉल आणि अनुभवी ट्रेनर्सचे मार्गदर्शन.", icon: "🏋️‍♂️", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184848892.jpg" },
+    { id: "swimming", title: "स्विमिंग पूल", description: "ऑलिंपिक मानकांनुसार स्वच्छ फिल्टर केलेले पाणी व पोहण्याची सोय.", icon: "🏊‍♂️", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243460172.jpg" },
+    { id: "badminton", title: "इनडोअर बॅडमिंटन", description: "लाकडी सिंथेटिक मॅटिंग व LED लाईटिंगसह सुसज्ज बॅडमिंटन कोर्ट.", icon: "🏸", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203444303.jpg" },
+    { id: "pickleball", title: "पिकलबॉल", description: "जगातील वेगाने लोकप्रिय होणारा पिकलबॉल खेळ व अत्याधुनिक कोर्ट.", icon: "🏓", imageUrl: "/images/pickleball-court.png" },
+    { id: "yoga", title: "योग & ध्यान कक्ष", description: "शांत वातावरणात दररोज योगासने, प्राणायाम व ध्यानधारणा सराव.", icon: "🧘", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763188841664.jpg" },
+    { id: "zumba", title: "झुंबा & डान्स क्लास", description: "संगीताच्या तालावर एनर्जेटिक झुम्बा आणि डान्स फिटनेस वर्कआउट.", icon: "💃", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357581614.png" },
+    { id: "squash", title: "स्क्वॅश कोर्ट", description: "आंतरराष्ट्रीय ग्लास-बॅक मानकांचे स्क्वॅश कोर्ट व फिटनेस सराव.", icon: "🎾", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184843273.jpg" },
+    { id: "snooker", title: "स्नूकर & पूल टेबल्स", description: "प्रीमियम वूलन क्लोथवरील स्नूकर व ८-बॉल पूल टेबल्सवर खेळा.", icon: "🎱", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357638129.jpg" },
   ],
   sportsPackages: [
     { id: "spk-1", title: "स्पोर्ट्स क्लब डे पास", price: "₹ ३०० / दिवस", subtitle: "सर्व क्रीडा सोयी वापरता येतील", features: ["स्विमिंग पूल प्रवेश", "जीम व इनडोअर गेम्स", "चहा व अल्पोपहार"] },

@@ -53,9 +53,9 @@ const sportsRateItems: SportsRateItem[] = [
     id: "१",
     idEn: "1",
     titleMr: "जिम & बॉडीबिल्डिंग (Gym & Bodybuilding)",
-    titleEn: "Gym & Bodybuilding Studio",
+    titleEn: "Gym & Bodybuilding",
     categoryMr: "अत्याधुनिक जिम (AC GYM)",
-    categoryEn: "AC Gym Studio",
+    categoryEn: "AC Gym Hall",
     yearly: "१८,०००/-",
     monthly: "३,५००/-",
     weekly: "१,०००/-",
@@ -349,7 +349,7 @@ const SportsPricingSection = () => {
 
         {/* ── HEADER BLOCK (MATCHING ANANDSHALA RATE CARD) ── */}
         <div className="ps-exact-header text-center mb-6">
-          <h2 className="text-[22px] sm:text-[32px] md:text-[38px] font-black text-[#0044cc] leading-tight text-center my-2">
+          <h2 className="typo-heading-main text-[#0044cc] leading-tight text-center my-2">
             {isEn ? (
               <>Preetam Sports & Fitness Club <span className="text-[#db2777]">Official Rate Chart</span></>
             ) : (
@@ -357,7 +357,7 @@ const SportsPricingSection = () => {
             )}
           </h2>
 
-          <p className="ps-subtitle max-w-3xl mx-auto text-sm sm:text-base font-bold text-slate-700 mt-2">
+          <p className="ps-subtitle typo-subheading max-w-3xl mx-auto text-slate-700 mt-2">
             {isEn
               ? "These rates apply to a membership for one single facility (Gym, Swimming Pool, Pickleball, Badminton, Table Tennis, Squash or Snooker):"
               : "हे दर एका विशिष्ट सुविधेसाठी (जिम, स्विमिंग पूल, पिकलबॉल, बॅडमिंटन, टेबल टेनिस, स्क्वॅश किंवा स्नूकर) लागू आहेत:"}

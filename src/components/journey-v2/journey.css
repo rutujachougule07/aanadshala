@@ -191,6 +191,7 @@
     margin-right: 32px;
     justify-self: end;
   }
+
   .right-box {
     margin-left: 32px;
     justify-self: start;
@@ -205,25 +206,25 @@
   padding: 6px 20px;
   border-radius: 20px 20px 20px 4px;
   color: #ffffff;
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 13px !important;
+  font-weight: 800 !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .card-title {
-  font-size: 20px;
-  font-weight: 900;
-  color: #1F2B8D;
-  line-height: 1.35;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  color: #1F2B8D !important;
+  line-height: 1.35 !important;
   margin-top: 4px;
 }
 
 .card-desc {
-  font-size: 14px;
-  color: #64748B;
+  font-size: 14px !important;
+  color: #64748B !important;
   margin-top: 10px;
-  line-height: 1.6;
-  font-weight: 500;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
 }
 
 .card-icon-wrapper {
