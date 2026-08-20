@@ -8,7 +8,9 @@ interface TestimonialsSectionProps {
   showComplimentaryCards?: boolean;
 }
 
-export default function TestimonialsSection({ showComplimentaryCards = false }: TestimonialsSectionProps) {
+export default function TestimonialsSection({
+  showComplimentaryCards = false,
+}: TestimonialsSectionProps) {
   const store = useAdminStore();
   const { isEn } = useLanguage();
   const [activeVideo, setActiveVideo] = useState<TestimonialItem | null>(null);
@@ -34,7 +36,9 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
 
   const getName = (item: TestimonialItem) => {
     if (item.name.includes("गिरीश ओक") || item.name.includes("Girish Oak")) {
-      return isEn ? "Dr. Girish Oak (Actor & Brand Ambassador)" : "डॉ. गिरीश ओक (अभिनेते व ब्रँड ॲम्बेसेडर)";
+      return isEn
+        ? "Dr. Girish Oak (Actor & Brand Ambassador)"
+        : "डॉ. गिरीश ओक (अभिनेते व ब्रँड ॲम्बेसेडर)";
     }
     if (item.name.includes("प्रकाश देशपांडे") || item.name.includes("Prakash Deshpande")) {
       return isEn ? "Mr. Prakash Deshpande & Family" : "श्री. प्रकाश देशपांडे व परिवार";
@@ -44,7 +48,9 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
 
   const getRole = (item: TestimonialItem) => {
     if (item.name.includes("गिरीश ओक") || item.name.includes("Girish Oak")) {
-      return isEn ? "Renowned Actor & Senior Citizen Guide" : "प्रसिद्ध अभिनेते व ज्येष्ठ नागरिक मार्गदर्शक";
+      return isEn
+        ? "Renowned Actor & Senior Citizen Guide"
+        : "प्रसिद्ध अभिनेते व ज्येष्ठ नागरिक मार्गदर्शक";
     }
     if (item.name.includes("प्रकाश देशपांडे") || item.name.includes("Prakash Deshpande")) {
       return isEn ? "Retired Bank Officer, Sangli" : "निवृत्त बँक अधिकारी, सांगली";
@@ -56,7 +62,8 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
     if (item.name.includes("गिरीश ओक") || item.name.includes("Girish Oak")) {
       return isEn
         ? "Live with joy, cherish health, come to Preetam Anandshala and fulfill your dreams! This is Sangli's first world-class project."
-        : item.text || "आनंदात जगायचं, आरोग्य जपायचं, प्रीतम आनंदशाळेत येऊन स्वप्न साकारायचं! सांगलीतील हा पहिलाच जागतिक दर्जाचा प्रकल्प आहे.";
+        : item.text ||
+            "आनंदात जगायचं, आरोग्य जपायचं, प्रीतम आनंदशाळेत येऊन स्वप्न साकारायचं! सांगलीतील हा पहिलाच जागतिक दर्जाचा प्रकल्प आहे.";
     }
     if (item.name.includes("प्रकाश देशपांडे") || item.name.includes("Prakash Deshpande")) {
       return isEn
@@ -67,10 +74,13 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
   };
 
   return (
-    <section className="w-full py-16 sm:py-24 px-4 sm:px-8 bg-gradient-to-b from-[#fffcfd] via-[#fff5f8] to-[#fdf2f5] text-slate-900 relative overflow-hidden font-sans border-t border-rose-100" id="testimonials">
+    <section
+      className="w-full py-16 sm:py-24 px-4 sm:px-8 bg-linear-to-b from-[#fffcfd] via-[#fff5f8] to-[#fdf2f5] text-slate-900 relative overflow-hidden font-sans border-t border-rose-100"
+      id="testimonials"
+    >
       {/* AMBIENT LIGHT BLOBS */}
-      <div className="pointer-events-none absolute top-10 left-10 size-[350px] rounded-full bg-pink-200/40 blur-[130px]" />
-      <div className="pointer-events-none absolute bottom-10 right-10 size-[350px] rounded-full bg-rose-200/40 blur-[130px]" />
+      <div className="pointer-events-none absolute top-10 left-10 size-87.5 rounded-full bg-pink-200/40 blur-[130px]" />
+      <div className="pointer-events-none absolute bottom-10 right-10 size-87.5 rounded-full bg-rose-200/40 blur-[130px]" />
 
       <div className="max-w-7xl mx-auto relative z-10 space-y-12">
         {/* ── COMPLIMENTARY BENEFITS SECTION (NO OUTER BORDER - CLEAN FLOATING CARDS + HEADER + DIVIDER) ── */}
@@ -80,7 +90,11 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
             <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#db2777] font-black text-xs sm:text-sm shadow-xs">
                 <span>🎁</span>
-                <span>{isEn ? "Complimentary Member Benefits" : "सर्व सदस्यांसाठी विनामूल्य अतिरिक्त सोयी"}</span>
+                <span>
+                  {isEn
+                    ? "Complimentary Member Benefits"
+                    : "सर्व सदस्यांसाठी विनामूल्य अतिरिक्त सोयी"}
+                </span>
               </div>
               <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-[#1A05A2] tracking-tight">
                 {isEn ? "Preetam Sports Free Facilities" : "प्रीतम स्पोर्ट्स मोफत सुविधा"}
@@ -94,8 +108,12 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
                 <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
                   📚
                 </div>
-                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Library" : "ग्रंथालय (Library)"}</h4>
-                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "Free access for all members" : "सर्व सदस्यांसाठी विनामूल्य सोय"}</p>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">
+                  {isEn ? "Library" : "ग्रंथालय (Library)"}
+                </h4>
+                <p className="text-xs text-slate-600 font-extrabold">
+                  {isEn ? "Free access for all members" : "सर्व सदस्यांसाठी विनामूल्य सोय"}
+                </p>
               </div>
 
               {/* 2. Music Hall */}
@@ -103,8 +121,12 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
                 <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
                   🎵
                 </div>
-                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Music Hall" : "म्युझिक हॉल (Music Hall)"}</h4>
-                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "Free music zone access" : "विनामूल्य संगीत कक्ष सोय"}</p>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">
+                  {isEn ? "Music Hall" : "म्युझिक हॉल (Music Hall)"}
+                </h4>
+                <p className="text-xs text-slate-600 font-extrabold">
+                  {isEn ? "Free music zone access" : "विनामूल्य संगीत कक्ष सोय"}
+                </p>
               </div>
 
               {/* 3. Fitness Garden */}
@@ -112,8 +134,12 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
                 <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
                   🌳
                 </div>
-                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Fitness Garden" : "फिटनेस गार्डन (Fitness Garden)"}</h4>
-                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "Outdoor green area" : "निसर्गरम्य ओपन जिम गार्डन"}</p>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">
+                  {isEn ? "Fitness Garden" : "फिटनेस गार्डन (Fitness Garden)"}
+                </h4>
+                <p className="text-xs text-slate-600 font-extrabold">
+                  {isEn ? "Outdoor green area" : "निसर्गरम्य ओपन जिम गार्डन"}
+                </p>
               </div>
 
               {/* 4. Jogging Track */}
@@ -121,8 +147,12 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
                 <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
                   🏃‍♂️
                 </div>
-                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Jogging Track" : "जागतिक दर्जाचा ट्रॅक"}</h4>
-                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "World-class track" : "मोकळ्या हवेतील जॉगिंग ट्रॅक"}</p>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">
+                  {isEn ? "Jogging Track" : "जागतिक दर्जाचा ट्रॅक"}
+                </h4>
+                <p className="text-xs text-slate-600 font-extrabold">
+                  {isEn ? "World-class track" : "मोकळ्या हवेतील जॉगिंग ट्रॅक"}
+                </p>
               </div>
 
               {/* 5. Indoor Games */}
@@ -130,8 +160,12 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
                 <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
                   🎲
                 </div>
-                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Indoor Games" : "इनडोअर सिटिंग गेम्स"}</h4>
-                <p className="text-xs text-slate-600 font-extrabold">{isEn ? "Carrom, Chess & Sitting games" : "कॅरम, बुद्धीबळ व बैठे खेळ"}</p>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">
+                  {isEn ? "Indoor Games" : "इनडोअर सिटिंग गेम्स"}
+                </h4>
+                <p className="text-xs text-slate-600 font-extrabold">
+                  {isEn ? "Carrom, Chess & Sitting games" : "कॅरम, बुद्धीबळ व बैठे खेळ"}
+                </p>
               </div>
 
               {/* 6. Steam Bath */}
@@ -139,7 +173,9 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
                 <div className="size-14 rounded-full bg-pink-50 border border-pink-200/80 text-pink-600 group-hover:bg-pink-100 group-hover:scale-110 flex items-center justify-center text-2xl font-black mx-auto mb-3 shadow-xs transition-all duration-300">
                   ♨️
                 </div>
-                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">{isEn ? "Steam Bath" : "स्टीम बाथ (Steam Bath)"}</h4>
+                <h4 className="font-black text-slate-900 text-sm sm:text-base mb-1 group-hover:text-[#db2777] transition-colors">
+                  {isEn ? "Steam Bath" : "स्टीम बाथ (Steam Bath)"}
+                </h4>
                 <p className="text-xs text-slate-600 font-extrabold">
                   {isEn ? "Availability dependent on package" : "विशिष्ट पॅकेजवर आधारित"}
                 </p>
@@ -147,7 +183,7 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
             </div>
 
             {/* DECORATIVE SEPARATION DIVIDER LINE BEFORE TESTIMONIALS */}
-            <div className="w-full max-w-3xl mx-auto mt-14 h-px bg-gradient-to-r from-transparent via-pink-300/70 to-transparent" />
+            <div className="w-full max-w-3xl mx-auto mt-14 h-px bg-linear-to-r from-transparent via-pink-300/70 to-transparent" />
           </div>
         )}
 
@@ -155,9 +191,13 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2] tracking-tight drop-shadow-xs">
             {isEn ? (
-              <>Member &amp; Guest <span className="text-[#db2777]">Video Testimonials</span></>
+              <>
+                Member &amp; Guest <span className="text-[#db2777]">Video Testimonials</span>
+              </>
             ) : (
-              <>मान्यवर व सभासदांचे <span className="text-[#db2777]">व्हिडिओ अभिप्राय</span></>
+              <>
+                मान्यवर व सभासदांचे <span className="text-[#db2777]">व्हिडिओ अभिप्राय</span>
+              </>
             )}
           </h2>
           <p className="text-slate-700 text-sm sm:text-base font-extrabold leading-relaxed">
@@ -180,7 +220,10 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
               >
                 {/* VIDEO THUMBNAIL / EMBED PLAYER */}
                 {isVideo ? (
-                  <div className="relative w-full aspect-video bg-slate-900 overflow-hidden cursor-pointer" onClick={() => setActiveVideo(item)}>
+                  <div
+                    className="relative w-full aspect-video bg-slate-900 overflow-hidden cursor-pointer"
+                    onClick={() => setActiveVideo(item)}
+                  >
                     {item.videoThumbnail ? (
                       <img
                         src={item.videoThumbnail}
@@ -188,13 +231,13 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-rose-900 via-pink-900 to-slate-900 grid place-items-center">
+                      <div className="w-full h-full bg-linear-to-br from-rose-900 via-pink-900 to-slate-900 grid place-items-center">
                         <span className="text-4xl">🎬</span>
                       </div>
                     )}
                     {/* PLAY BUTTON OVERLAY */}
                     <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                      <div className="size-16 rounded-full bg-gradient-to-r from-[#810B38] to-[#db2777] text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform border-2 border-white/40">
+                      <div className="size-16 rounded-full bg-linear-to-r from-[#810B38] to-[#db2777] text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform border-2 border-white/40">
                         <Play className="size-7 fill-white translate-x-0.5" />
                       </div>
                     </div>
@@ -243,7 +286,7 @@ export default function TestimonialsSection({ showComplimentaryCards = false }: 
       {/* FULLSCREEN VIDEO LIGHTBOX MODAL */}
       {activeVideo && (
         <div
-          className="fixed inset-0 z-[999999] bg-black/85 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center animate-fade-in"
+          className="fixed inset-0 z-999999 bg-black/85 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center animate-fade-in"
           onClick={() => setActiveVideo(null)}
         >
           <div

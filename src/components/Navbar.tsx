@@ -29,7 +29,6 @@ export default function Navbar() {
 
       <div className="navbar-container">
         <div className="navbar-inner">
-
           {/* ── LOGO ── */}
           <Link to="/" className="navbar-logo">
             <div className="navbar-logo-icon">
@@ -37,7 +36,9 @@ export default function Navbar() {
             </div>
             <div>
               <h2 className="navbar-logo-title">PREETAM</h2>
-              <p className="navbar-logo-sub">ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span></p>
+              <p className="navbar-logo-sub">
+                ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span>
+              </p>
             </div>
           </Link>
 
@@ -45,9 +46,7 @@ export default function Navbar() {
           <nav className="navbar-desktop-nav">
             {menuItems.map((item) => {
               const isActive =
-                item.path === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.path);
+                item.path === "/" ? pathname === "/" : pathname.startsWith(item.path);
               return (
                 <Link
                   key={item.title}
@@ -77,7 +76,6 @@ export default function Navbar() {
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
-
         </div>
       </div>
 
@@ -85,10 +83,7 @@ export default function Navbar() {
       <div className={`navbar-mobile-drawer ${mobileOpen ? "navbar-mobile-drawer--open" : ""}`}>
         <div className="navbar-mobile-links">
           {menuItems.map((item) => {
-            const isActive =
-              item.path === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.path);
+            const isActive = item.path === "/" ? pathname === "/" : pathname.startsWith(item.path);
             return (
               <Link
                 key={item.title}

@@ -6,11 +6,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 // Standard Vite configuration for production & Vercel deployment
 export default defineConfig({
   base: "/",
-  plugins: [
-    react(),
-    tailwindcss(),
-    tsconfigPaths(),
-  ],
+  plugins: [react(), tailwindcss(), tsconfigPaths()],
   build: {
     outDir: "dist",
     assetsDir: "assets",

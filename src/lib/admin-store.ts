@@ -52,7 +52,7 @@ export function compressImageFile(file: File, maxDimension = 1920, quality = 0.8
           }
         },
         file.type === "image/png" ? "image/png" : "image/jpeg",
-        quality
+        quality,
       );
     };
 
@@ -65,14 +65,19 @@ export function compressImageFile(file: File, maxDimension = 1920, quality = 0.8
   });
 }
 
-export async function uploadImageToFirebase(file: File, pathFolder = "admin_uploads"): Promise<string> {
+export async function uploadImageToFirebase(
+  file: File,
+  pathFolder = "admin_uploads",
+): Promise<string> {
   try {
     // 1. Instant client compression (800px max dimension, quality 0.65 => ~20KB lightweight payload)
     const compressedBlob = await compressImageFile(file, 800, 0.65);
     const uploadPayload =
       compressedBlob instanceof File
         ? compressedBlob
-        : new File([compressedBlob], file.name, { type: compressedBlob.type || file.type || "image/jpeg" });
+        : new File([compressedBlob], file.name, {
+            type: compressedBlob.type || file.type || "image/jpeg",
+          });
 
     // 2. Generate immediate DataURL (Base64) fallback (~20KB) in 0.05 seconds
     const localDataUrl = await new Promise<string>((resolve) => {
@@ -93,7 +98,7 @@ export async function uploadImageToFirebase(file: File, pathFolder = "admin_uplo
       });
 
       const timeoutTask = new Promise<string>((resolve) =>
-        setTimeout(() => resolve(localDataUrl), 5000)
+        setTimeout(() => resolve(localDataUrl), 5000),
       );
 
       const resultUrl = await Promise.race([uploadTask, timeoutTask]);
@@ -190,7 +195,10 @@ export function useResolvedVideoUrl(url?: string) {
   return resolvedUrl;
 }
 
-export async function uploadVideoToFirebase(file: File, pathFolder = "admin_videos"): Promise<string> {
+export async function uploadVideoToFirebase(
+  file: File,
+  pathFolder = "admin_videos",
+): Promise<string> {
   try {
     const videoId = `vid_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
     const idbRef = await saveVideoToIndexedDB(videoId, file);
@@ -408,11 +416,288 @@ export type VideoItem = {
   desc?: string;
 };
 
+export type RateItem = {
+  id: string;
+  idEn: string;
+  titleMr: string;
+  titleEn: string;
+  categoryMr: string;
+  categoryEn: string;
+  yearly: string;
+  monthly: string;
+  weekly: string;
+  daily: string;
+};
+
 // ============================================================================
 // INITIAL DEFAULT DATA
 // ============================================================================
 
 export const initialVideos: VideoItem[] = [];
+
+export const initialRateItems: RateItem[] = [
+  {
+    id: "१",
+    idEn: "1",
+    titleMr: "ज्येष्ठ नागरिक आनंद शाळा (११ ते ५) फी",
+    titleEn: "Senior Citizen Day Anandshala Fee (11 AM to 5 PM)",
+    categoryMr: "आनंदशाळा दैनिक फी",
+    categoryEn: "Day Pass Fee",
+    yearly: "३६,०००/-",
+    monthly: "३,६००/-",
+    weekly: "१,०११/-",
+    daily: "१८०/-",
+  },
+  {
+    id: "२",
+    idEn: "2",
+    titleMr: "आनंद निवास ३ शेअरिंग रेग्युलर रुम फी",
+    titleEn: "Anand Nivas 3 Sharing Regular Room Fee",
+    categoryMr: "३ व्यक्ती निवास (३ Sharing)",
+    categoryEn: "3 Person Stay (3 Sharing)",
+    yearly: "३६,०००/-",
+    monthly: "३,६००/-",
+    weekly: "१,०११/-",
+    daily: "१८०/-",
+  },
+  {
+    id: "३",
+    idEn: "3",
+    titleMr: "आनंद निवास २ शेअरिंग रेग्युलर रुम फी",
+    titleEn: "Anand Nivas 2 Sharing Regular Room Fee",
+    categoryMr: "२ व्यक्ती निवास (२ Sharing Regular)",
+    categoryEn: "2 Person Stay (2 Sharing Regular)",
+    yearly: "४८,०००/-",
+    monthly: "४,८००/-",
+    weekly: "१,३५०/-",
+    daily: "२३०/-",
+  },
+  {
+    id: "४",
+    idEn: "4",
+    titleMr: "आनंद निवास २ शेअरिंग डीलक्स रुम फी",
+    titleEn: "Anand Nivas 2 Sharing Deluxe Room Fee",
+    categoryMr: "२ व्यक्ती निवास (२ Sharing Deluxe)",
+    categoryEn: "2 Person Stay (2 Sharing Deluxe)",
+    yearly: "६०,०००/-",
+    monthly: "६,०००/-",
+    weekly: "१,६८०/-",
+    daily: "२९०/-",
+  },
+  {
+    id: "५",
+    idEn: "5",
+    titleMr: "आनंद निवास २ शेअरिंग प्रीमियर रुम फी",
+    titleEn: "Anandshala 2 Sharing Premier Room Fee",
+    categoryMr: "२ व्यक्ती निवास (२ Sharing Premier)",
+    categoryEn: "2 Person Stay (2 Sharing Premier)",
+    yearly: "७२,०००/-",
+    monthly: "७,२००/-",
+    weekly: "२,०००/-",
+    daily: "३५०/-",
+  },
+  {
+    id: "६",
+    idEn: "6",
+    titleMr: "आनंद शाळा चहा १, नाष्टा १, जेवण १",
+    titleEn: "Anandshala 1 Tea, 1 Snack, 1 Meal Plan",
+    categoryMr: "खानपान (१ वेळ चहा/नाष्टा/जेवण)",
+    categoryEn: "Dining (Single Meal Plan)",
+    yearly: "३०,०००/-",
+    monthly: "३,०००/-",
+    weekly: "८५०/-",
+    daily: "१५०/-",
+  },
+  {
+    id: "७",
+    idEn: "7",
+    titleMr: "आनंद शाळा चहा २, नाष्टा २, जेवण २",
+    titleEn: "Anandshala 2 Teas, 2 Snacks, 2 Full Meals Plan",
+    categoryMr: "खानपान (पूर्ण आहार सोय)",
+    categoryEn: "Dining (Full Meal Plan)",
+    yearly: "६०,०००/-",
+    monthly: "६,०००/-",
+    weekly: "१,७००/-",
+    daily: "३००/-",
+  },
+  {
+    id: "८",
+    idEn: "8",
+    titleMr: "आनंद शाळा स्कुल बसने जाणे-येणे रेग्युलर",
+    titleEn: "Anandshala Van Bus Transport (Regular)",
+    categoryMr: "वाहतूक (रेग्युलर बस सेवा)",
+    categoryEn: "Transport (Regular Bus Route)",
+    yearly: "१८,०००/-",
+    monthly: "१,८००/-",
+    weekly: "५००/-",
+    daily: "९०/-",
+  },
+  {
+    id: "९",
+    idEn: "9",
+    titleMr: "आनंद शाळा स्कुल बसने जाणे-येणे प्रीमियर",
+    titleEn: "Anandshala Van Bus Transport (Doorstep Premier)",
+    categoryMr: "वाहतूक (दारातून पिकअप सेवा)",
+    categoryEn: "Transport (Doorstep Pickup)",
+    yearly: "२७,०००/-",
+    monthly: "२,७००/-",
+    weekly: "७६०/-",
+    daily: "१३०/-",
+  },
+];
+
+export const initialSportsRateItems: RateItem[] = [
+  {
+    id: "१",
+    idEn: "1",
+    titleMr: "जिम & बॉडीबिल्डिंग (Gym & Bodybuilding)",
+    titleEn: "Gym & Bodybuilding",
+    categoryMr: "अत्याधुनिक जिम (AC GYM)",
+    categoryEn: "AC Gym Hall",
+    yearly: "१८,०००/-",
+    monthly: "३,५००/-",
+    weekly: "१,०००/-",
+    daily: "२००/-",
+  },
+  {
+    id: "२",
+    idEn: "2",
+    titleMr: "ऑलिंपिक स्विमिंग पूल (Olympic Swimming Pool)",
+    titleEn: "Olympic Swimming Pool",
+    categoryMr: "जलतरण सोय (SWIMMING POOL)",
+    categoryEn: "Swimming Pool",
+    yearly: "१८,०००/-",
+    monthly: "३,५००/-",
+    weekly: "१,०००/-",
+    daily: "२००/-",
+  },
+  {
+    id: "३",
+    idEn: "3",
+    titleMr: "इनडोअर बॅडमिंटन कोर्ट्स (Indoor Badminton)",
+    titleEn: "Indoor Badminton",
+    categoryMr: "इनडोअर कोर्ट्स (BADMINTON)",
+    categoryEn: "Badminton Courts",
+    yearly: "१८,०००/-",
+    monthly: "३,५००/-",
+    weekly: "१,०००/-",
+    daily: "२००/-",
+  },
+  {
+    id: "४",
+    idEn: "4",
+    titleMr: "पिकलबॉल कोर्ट (Pickleball Court)",
+    titleEn: "Pickleball Court",
+    categoryMr: "ट्रेंडिंग स्पोर्ट्स (PICKLEBALL)",
+    categoryEn: "Pickleball Sport",
+    yearly: "१८,०००/-",
+    monthly: "३,५००/-",
+    weekly: "१,०००/-",
+    daily: "२००/-",
+  },
+  {
+    id: "५",
+    idEn: "5",
+    titleMr: "योग & ध्यान कक्ष (Yoga & Meditation)",
+    titleEn: "Yoga & Meditation Hall",
+    categoryMr: "वेलनेस (YOGA & MEDITATION)",
+    categoryEn: "Yoga & Wellness",
+    yearly: "१५,०००/-",
+    monthly: "२,५००/-",
+    weekly: "८००/-",
+    daily: "१५०/-",
+  },
+  {
+    id: "६",
+    idEn: "6",
+    titleMr: "झुंबा & फिटनेस डान्स (Zumba & Fitness Dance)",
+    titleEn: "Zumba & Fitness Dance",
+    categoryMr: "कार्डिओ डान्स (ZUMBA DANCE)",
+    categoryEn: "Zumba Dance",
+    yearly: "१५,०००/-",
+    monthly: "२,५००/-",
+    weekly: "८००/-",
+    daily: "१५०/-",
+  },
+  {
+    id: "७",
+    idEn: "7",
+    titleMr: "टेबल टेनिस & इनडोअर गेम्स (Table Tennis)",
+    titleEn: "Table Tennis & Indoor Games",
+    categoryMr: "इनडोअर गेम्स (TABLE TENNIS)",
+    categoryEn: "Table Tennis",
+    yearly: "१२,०००/-",
+    monthly: "२,०००/-",
+    weekly: "६००/-",
+    daily: "१००/-",
+  },
+  {
+    id: "८",
+    idEn: "8",
+    titleMr: "स्नूकर & पूल टेबल्स (Snooker & Pool)",
+    titleEn: "Snooker & Pool",
+    categoryMr: "इनडोअर गेम्स (SNOOKER & POOL)",
+    categoryEn: "Snooker & Pool",
+    yearly: "१५,०००/-",
+    monthly: "२,५००/-",
+    weekly: "८००/-",
+    daily: "१५०/-",
+  },
+];
+
+export type SportsMembershipTier = {
+  id: string;
+  badgeMr: string;
+  badgeEn: string;
+  durationMr: string;
+  durationEn: string;
+  rackRate: string;
+  offerPrice: string;
+  savings: string;
+};
+
+export const initialSportsMembershipTiers: SportsMembershipTier[] = [
+  {
+    id: "1",
+    badgeMr: "१२ महिने पॅकेज",
+    badgeEn: "1 YEAR PACKAGE",
+    durationMr: "12 Months (१२ महिने / १ वर्ष)",
+    durationEn: "12 Months (1 Year)",
+    rackRate: "18,000",
+    offerPrice: "11,999",
+    savings: "6,001",
+  },
+  {
+    id: "2",
+    badgeMr: "६ महिने पॅकेज",
+    badgeEn: "HALF YEAR PACKAGE",
+    durationMr: "6 Months (६ महिने)",
+    durationEn: "6 Months",
+    rackRate: "12,000",
+    offerPrice: "6,999",
+    savings: "5,001",
+  },
+  {
+    id: "3",
+    badgeMr: "३ महिने पॅकेज",
+    badgeEn: "3 MONTHS PACKAGE",
+    durationMr: "3 Months (३ महिने)",
+    durationEn: "3 Months",
+    rackRate: "7,500",
+    offerPrice: "3,999",
+    savings: "3,501",
+  },
+  {
+    id: "4",
+    badgeMr: "१ महिना पॅकेज",
+    badgeEn: "1 MONTH PACKAGE",
+    durationMr: "1 Month (१ महिना)",
+    durationEn: "1 Month",
+    rackRate: "3,500",
+    offerPrice: "1,499",
+    savings: "2,001",
+  },
+];
 
 export const initialPackages: PackageItem[] = [
   {
@@ -476,11 +761,7 @@ export const initialSiteData: SiteData = {
   tagline: "ज्येष्ठ नागरिक आनंदशाळा व अद्ययावत स्पोर्ट्स संकुल • सांगली",
   heroTitle: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा व निवारा",
   heroSub: "भारतातील पहिला व एकमेव १.५ एकर निसर्गरम्य हक्काचा डिजिटल प्रकल्प परिसर",
-  heroImages: [
-    "/images/slider4.JPG",
-    "/images/slider3.png",
-    "/images/slider1.JPG",
-  ],
+  heroImages: ["/images/slider4.JPG", "/images/slider3.png", "/images/slider1.JPG"],
   announcement: "सांगली · महाराष्ट्र · सवलतीच्या दरात ॲडव्हान्स बुकिंग सुरू",
   launchDate: "शुभारंभ : २६ / २७ / २८ जानेवारी २०२६ पासून",
   phone1: "99 7007 9090",
@@ -488,39 +769,105 @@ export const initialSiteData: SiteData = {
   email: "preetamanandshala@gmail.com",
   address: "सर्व्हे नं. ३९/१,२,३, माधवनगर - धनंजय गार्डन रोड, रेल्वे गेट शेजारी, सांगली",
   girishOakQuote: "आनंदात जगायचं, आरोग्य जपायचं, आनंदशाळेत येऊन स्वप्न साकारायचं",
-  anandshalaDesc: "ज्येष्ठ नागरिकांसाठी विरंगुळा, १८ उपक्रम हॉल्स, दैनिक वेळापत्रक व संपूर्ण मोफत/सवलत सोयी.",
+  anandshalaDesc:
+    "ज्येष्ठ नागरिकांसाठी विरंगुळा, १८ उपक्रम हॉल्स, दैनिक वेळापत्रक व संपूर्ण मोफत/सवलत सोयी.",
   sportsDesc: "अद्ययावत जीम, ऑलिंपिक साईज स्विमिंग पूल, इनडोअर बॅडमिंटन व पिकलबॉल कोर्ट संकुल.",
   welcomePosterUrl: "/images/welcome-building.jpg",
-  welcomePosterTitle: "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club",
+  welcomePosterTitle:
+    "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club",
   showWelcomePoster: true,
   aanandshalaTitle: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा व निवारा",
   aanandshalaBadge: "भारतातील पहिला व अद्वितीय प्रकल्प",
-  aanandshalaImages: [
-    "/images/slider4.JPG",
-    "/images/slider3.png",
-  ],
+  aanandshalaImages: ["/images/slider4.JPG", "/images/slider3.png"],
   sportsTitle: "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब",
   sportsBadge: "अद्ययावत १.५ एकर स्पोर्ट्स संकुल",
-  sportsImages: [
-    "/images/sports img.png",
-    "/images/pickleball-court.png",
-  ],
+  sportsImages: ["/images/sports img.png", "/images/pickleball-court.png"],
   sportsBrochureUrl: "/images/Screenshot 2026-07-31 103659.png",
   sportsBrochureType: "image",
   sportsFacilities: [
-    { id: "gym", title: "जिम & बॉडीबिल्डिंग", description: "आधुनिक फिटनेस उपकरणे, AC हॉल आणि अनुभवी ट्रेनर्सचे मार्गदर्शन.", icon: "🏋️‍♂️", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184848892.jpg" },
-    { id: "swimming", title: "स्विमिंग पूल", description: "ऑलिंपिक मानकांनुसार स्वच्छ फिल्टर केलेले पाणी व पोहण्याची सोय.", icon: "🏊‍♂️", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243460172.jpg" },
-    { id: "badminton", title: "इनडोअर बॅडमिंटन", description: "लाकडी सिंथेटिक मॅटिंग व LED लाईटिंगसह सुसज्ज बॅडमिंटन कोर्ट.", icon: "🏸", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203444303.jpg" },
-    { id: "pickleball", title: "पिकलबॉल", description: "जगातील वेगाने लोकप्रिय होणारा पिकलबॉल खेळ व अत्याधुनिक कोर्ट.", icon: "🏓", imageUrl: "/images/pickleball-court.png" },
-    { id: "yoga", title: "योग & ध्यान कक्ष", description: "शांत वातावरणात दररोज योगासने, प्राणायाम व ध्यानधारणा सराव.", icon: "🧘", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763188841664.jpg" },
-    { id: "zumba", title: "झुंबा & डान्स क्लास", description: "संगीताच्या तालावर एनर्जेटिक झुम्बा आणि डान्स फिटनेस वर्कआउट.", icon: "💃", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357581614.png" },
-    { id: "squash", title: "स्क्वॅश कोर्ट", description: "आंतरराष्ट्रीय ग्लास-बॅक मानकांचे स्क्वॅश कोर्ट व फिटनेस सराव.", icon: "🎾", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184843273.jpg" },
-    { id: "snooker", title: "स्नूकर & पूल टेबल्स", description: "प्रीमियम वूलन क्लोथवरील स्नूकर व ८-बॉल पूल टेबल्सवर खेळा.", icon: "🎱", imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357638129.jpg" },
+    {
+      id: "gym",
+      title: "जिम & बॉडीबिल्डिंग",
+      description: "आधुनिक फिटनेस उपकरणे, AC हॉल आणि अनुभवी ट्रेनर्सचे मार्गदर्शन.",
+      icon: "🏋️‍♂️",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184848892.jpg",
+    },
+    {
+      id: "swimming",
+      title: "स्विमिंग पूल",
+      description: "ऑलिंपिक मानकांनुसार स्वच्छ फिल्टर केलेले पाणी व पोहण्याची सोय.",
+      icon: "🏊‍♂️",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243460172.jpg",
+    },
+    {
+      id: "badminton",
+      title: "इनडोअर बॅडमिंटन",
+      description: "लाकडी सिंथेटिक मॅटिंग व LED लाईटिंगसह सुसज्ज बॅडमिंटन कोर्ट.",
+      icon: "🏸",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203444303.jpg",
+    },
+    {
+      id: "pickleball",
+      title: "पिकलबॉल",
+      description: "जगातील वेगाने लोकप्रिय होणारा पिकलबॉल खेळ व अत्याधुनिक कोर्ट.",
+      icon: "🏓",
+      imageUrl: "/images/pickleball-court.png",
+    },
+    {
+      id: "yoga",
+      title: "योग & ध्यान कक्ष",
+      description: "शांत वातावरणात दररोज योगासने, प्राणायाम व ध्यानधारणा सराव.",
+      icon: "🧘",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763188841664.jpg",
+    },
+    {
+      id: "zumba",
+      title: "झुंबा & डान्स क्लास",
+      description: "संगीताच्या तालावर एनर्जेटिक झुम्बा आणि डान्स फिटनेस वर्कआउट.",
+      icon: "💃",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357581614.png",
+    },
+    {
+      id: "squash",
+      title: "स्क्वॅश कोर्ट",
+      description: "आंतरराष्ट्रीय ग्लास-बॅक मानकांचे स्क्वॅश कोर्ट व फिटनेस सराव.",
+      icon: "🎾",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184843273.jpg",
+    },
+    {
+      id: "snooker",
+      title: "स्नूकर & पूल टेबल्स",
+      description: "प्रीमियम वूलन क्लोथवरील स्नूकर व ८-बॉल पूल टेबल्सवर खेळा.",
+      icon: "🎱",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357638129.jpg",
+    },
   ],
   sportsPackages: [
-    { id: "spk-1", title: "स्पोर्ट्स क्लब डे पास", price: "₹ ३०० / दिवस", subtitle: "सर्व क्रीडा सोयी वापरता येतील", features: ["स्विमिंग पूल प्रवेश", "जीम व इनडोअर गेम्स", "चहा व अल्पोपहार"] },
-    { id: "spk-2", title: "मासिक जीम व स्पोर्ट्स मेंबरशिप", price: "₹ २,५०० / महिना", subtitle: "नियमित सदस्यांसाठी सवलत", features: ["२४x७ जीम प्रवेश", "स्विमिंग पूल व बॅडमिंटन", "पर्सनल फिटनेस ट्रेनर सल्ला"] },
-    { id: "spk-3", title: "वार्षिक फॅमिली स्पोर्ट्स मेंबरशिप", price: "₹ २५,००० / वर्ष", subtitle: "संपूर्ण कुटुंबासाठी ऑल-इन-वन", features: ["४ सदस्यांसाठी मोफत प्रवेश", "क्लब इव्हेंट्स प्राधान्य", "विनामूल्य स्पोर्ट्स किट"] },
+    {
+      id: "spk-1",
+      title: "स्पोर्ट्स क्लब डे पास",
+      price: "₹ ३०० / दिवस",
+      subtitle: "सर्व क्रीडा सोयी वापरता येतील",
+      features: ["स्विमिंग पूल प्रवेश", "जीम व इनडोअर गेम्स", "चहा व अल्पोपहार"],
+    },
+    {
+      id: "spk-2",
+      title: "मासिक जीम व स्पोर्ट्स मेंबरशिप",
+      price: "₹ २,५०० / महिना",
+      subtitle: "नियमित सदस्यांसाठी सवलत",
+      features: ["२४x७ जीम प्रवेश", "स्विमिंग पूल व बॅडमिंटन", "पर्सनल फिटनेस ट्रेनर सल्ला"],
+    },
+    {
+      id: "spk-3",
+      title: "वार्षिक फॅमिली स्पोर्ट्स मेंबरशिप",
+      price: "₹ २५,००० / वर्ष",
+      subtitle: "संपूर्ण कुटुंबासाठी ऑल-इन-वन",
+      features: [
+        "४ सदस्यांसाठी मोफत प्रवेश",
+        "क्लब इव्हेंट्स प्राधान्य",
+        "विनामूल्य स्पोर्ट्स किट",
+      ],
+    },
   ],
   sportsGallery: [
     "/images/epic_sports_gym_bg.png",
@@ -530,23 +877,125 @@ export const initialSiteData: SiteData = {
     "/images/sports_club_building_card.png",
   ],
   activityHalls: [
-    { id: "hall-1", title: "बैठे खेळ हॉल", category: "इनडोअर गेम्स", desc: "कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.", imageUrl: "/images/subimg/baithe khel.png" },
-    { id: "hall-2", title: "कला दालन", category: "हस्तकला & चित्रकला", desc: "चित्रकला, हस्तकला आणि विणकाम शिकणे.", imageUrl: "/images/subimg/aart hall.png" },
-    { id: "hall-3", title: "संगीत वाद्य दालन", category: "गायन व वाद्यवृंद", desc: "तबला, गिटार, पेटी, पियानो, वीणा, ढोलकी, बासरी शिकणे आणि संगीताचा आनंद घेणे.", imageUrl: "/images/subimg/sangit hall.png" },
-    { id: "hall-4", title: "माहिती तंत्रज्ञान हॉल", category: "डिजिटल लर्निंग & IT", desc: "संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.", imageUrl: "/images/subimg/mahiti tantradyan hall.png" },
-    { id: "hall-5", title: "करमणूक हॉल", category: "करमणूक & अंताक्षरी", desc: "गप्पा-गोष्टी करणे, अंताक्षरी, पझल गेम्स, जोक्स व समूह खेळ खेळणे.", imageUrl: "/images/subimg/karmnuk hall.png" },
-    { id: "hall-6", title: "स्विमिंग पूल", category: "जलतरण & क्रिडा", desc: "स्विमिंग पूलमध्ये जाऊन पोहणे व पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.", imageUrl: "/images/subimg/swimming hall.png" },
-    { id: "hall-7", title: "संस्कार व संप्रदाय हॉल", category: "संस्कार & अध्यात्म", desc: "विविध सांस्कृतिक कार्यक्रम आणि व्हिडिओ पाहणे.", imageUrl: "/images/subimg/sanskar sampraday hall.png" },
-    { id: "hall-8", title: "टेबल टेनिस हॉल", category: "टेबल टेनिस", desc: "टेबल टेनिस खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal tenis.png" },
-    { id: "hall-9", title: "बॅडमिंटन हॉल", category: "बॅडमिंटन", desc: "बॅडमिंटन कोर्टवर जाऊन बॅडमिंटन खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal tenis.png" },
-    { id: "hall-10", title: "स्नूकर हॉल", category: "स्नूकर", desc: "स्नूकर हॉलमध्ये जाऊन स्नूकर व बिलियर्ड्स खेळणे.", imageUrl: "/images/subimg/tebal tenis.png" },
-    { id: "hall-11", title: "स्कॅश हॉल", category: "स्कॅश कोर्ट", desc: "स्कॅश कोर्टवर जाऊन स्कॅश खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal tenis.png" },
-    { id: "hall-12", title: "जिम हॉल", category: "व्यायाम & फिटनेस", desc: "आधुनिक उपकरणांनी सुसज्ज जिम हॉलमध्ये जाऊन व्यायाम व फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam hall.png" },
-    { id: "hall-13", title: "योगा हॉल", category: "योग व प्राणायाम", desc: "तज्ज्ञांच्या मार्गदर्शनाखाली दररोज योगासने व प्राणायाम करणे.", imageUrl: "/images/subimg/vyayam hall.png" },
-    { id: "hall-14", title: "झुम्बा हॉल", category: "झुम्बा & फिटनेस", desc: "संगीताच्या तालावर झुम्बा आणि फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam hall.png" },
-    { id: "hall-15", title: "भोजन कक्ष", category: "भोजन & आस्वाद", desc: "चहा, नाश्ता आणि चविष्ट जेवण करणे.", imageUrl: "/images/subimg/pakruti hall.png" },
-    { id: "hall-16", title: "विश्रांती हॉल", category: "वाचन & विश्रांती", desc: "आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.", imageUrl: "/images/subimg/vishranti hall.png" },
-    { id: "hall-17", title: "थिएटर हॉल", category: "थिएटर & सिनेमा", desc: "टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.", imageUrl: "/images/subimg/karmnuk hall.png" }
+    {
+      id: "hall-1",
+      title: "बैठे खेळ हॉल",
+      category: "इनडोअर गेम्स",
+      desc: "कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.",
+      imageUrl: "/images/subimg/baithe khel.png",
+    },
+    {
+      id: "hall-2",
+      title: "कला दालन",
+      category: "हस्तकला & चित्रकला",
+      desc: "चित्रकला, हस्तकला आणि विणकाम शिकणे.",
+      imageUrl: "/images/subimg/aart hall.png",
+    },
+    {
+      id: "hall-3",
+      title: "संगीत वाद्य दालन",
+      category: "गायन व वाद्यवृंद",
+      desc: "तबला, गिटार, पेटी, पियानो, वीणा, ढोलकी, बासरी शिकणे आणि संगीताचा आनंद घेणे.",
+      imageUrl: "/images/subimg/sangit hall.png",
+    },
+    {
+      id: "hall-4",
+      title: "माहिती तंत्रज्ञान हॉल",
+      category: "डिजिटल लर्निंग & IT",
+      desc: "संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.",
+      imageUrl: "/images/subimg/mahiti tantradyan hall.png",
+    },
+    {
+      id: "hall-5",
+      title: "करमणूक हॉल",
+      category: "करमणूक & अंताक्षरी",
+      desc: "गप्पा-गोष्टी करणे, अंताक्षरी, पझल गेम्स, जोक्स व समूह खेळ खेळणे.",
+      imageUrl: "/images/subimg/karmnuk hall.png",
+    },
+    {
+      id: "hall-6",
+      title: "स्विमिंग पूल",
+      category: "जलतरण & क्रिडा",
+      desc: "स्विमिंग पूलमध्ये जाऊन पोहणे व पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.",
+      imageUrl: "/images/subimg/swimming hall.png",
+    },
+    {
+      id: "hall-7",
+      title: "संस्कार व संप्रदाय हॉल",
+      category: "संस्कार & अध्यात्म",
+      desc: "विविध सांस्कृतिक कार्यक्रम आणि व्हिडिओ पाहणे.",
+      imageUrl: "/images/subimg/sanskar sampraday hall.png",
+    },
+    {
+      id: "hall-8",
+      title: "टेबल टेनिस हॉल",
+      category: "टेबल टेनिस",
+      desc: "टेबल टेनिस खेळण्याचा आनंद घेणे.",
+      imageUrl: "/images/subimg/tebal tenis.png",
+    },
+    {
+      id: "hall-9",
+      title: "बॅडमिंटन हॉल",
+      category: "बॅडमिंटन",
+      desc: "बॅडमिंटन कोर्टवर जाऊन बॅडमिंटन खेळण्याचा आनंद घेणे.",
+      imageUrl: "/images/subimg/tebal tenis.png",
+    },
+    {
+      id: "hall-10",
+      title: "स्नूकर हॉल",
+      category: "स्नूकर",
+      desc: "स्नूकर हॉलमध्ये जाऊन स्नूकर व बिलियर्ड्स खेळणे.",
+      imageUrl: "/images/subimg/tebal tenis.png",
+    },
+    {
+      id: "hall-11",
+      title: "स्कॅश हॉल",
+      category: "स्कॅश कोर्ट",
+      desc: "स्कॅश कोर्टवर जाऊन स्कॅश खेळण्याचा आनंद घेणे.",
+      imageUrl: "/images/subimg/tebal tenis.png",
+    },
+    {
+      id: "hall-12",
+      title: "जिम हॉल",
+      category: "व्यायाम & फिटनेस",
+      desc: "आधुनिक उपकरणांनी सुसज्ज जिम हॉलमध्ये जाऊन व्यायाम व फिटनेस सराव करणे.",
+      imageUrl: "/images/subimg/vyayam hall.png",
+    },
+    {
+      id: "hall-13",
+      title: "योगा हॉल",
+      category: "योग व प्राणायाम",
+      desc: "तज्ज्ञांच्या मार्गदर्शनाखाली दररोज योगासने व प्राणायाम करणे.",
+      imageUrl: "/images/subimg/vyayam hall.png",
+    },
+    {
+      id: "hall-14",
+      title: "झुम्बा हॉल",
+      category: "झुम्बा & फिटनेस",
+      desc: "संगीताच्या तालावर झुम्बा आणि फिटनेस सराव करणे.",
+      imageUrl: "/images/subimg/vyayam hall.png",
+    },
+    {
+      id: "hall-15",
+      title: "भोजन कक्ष",
+      category: "भोजन & आस्वाद",
+      desc: "चहा, नाश्ता आणि चविष्ट जेवण करणे.",
+      imageUrl: "/images/subimg/pakruti hall.png",
+    },
+    {
+      id: "hall-16",
+      title: "विश्रांती हॉल",
+      category: "वाचन & विश्रांती",
+      desc: "आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.",
+      imageUrl: "/images/subimg/vishranti hall.png",
+    },
+    {
+      id: "hall-17",
+      title: "थिएटर हॉल",
+      category: "थिएटर & सिनेमा",
+      desc: "टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.",
+      imageUrl: "/images/subimg/karmnuk hall.png",
+    },
   ],
 };
 
@@ -555,17 +1004,22 @@ const initialHomeNews: HomeNewsItem[] = [
     id: "news-1",
     title: "प्रीतम आनंदशाळा भव्य शुभारंभ दि. २६, २७ व २८ जानेवारी २०२६!",
     badge: "नवीन घोषणा",
-    description: "सांगलीतील माधवनगर रस्त्यावर दीड एकर निसर्गरम्य परिसरात आनंदशाळेचा भव्य शुभारंभ होत आहे. आजच आपले ॲडव्हान्स बुकिंग निश्चित करा.",
+    description:
+      "सांगलीतील माधवनगर रस्त्यावर दीड एकर निसर्गरम्य परिसरात आनंदशाळेचा भव्य शुभारंभ होत आहे. आजच आपले ॲडव्हान्स बुकिंग निश्चित करा.",
     imageUrl: "/images/Screenshot 2026-07-31 103107.png",
     date: "१ ऑगस्ट २०२६",
   },
 ];
 
 const initialAboutData: AboutData = {
-  storyP1: "माझ्या जन्माची बीजे रुजली ती श्री. अभिनय जगन्नाथ कामाजी (रा. सांगली) यांच्या स्वप्न प्रकल्पातून. अभिनय यांनी २६ जानेवारी २००० रोजी व्यवसाय सुरू केला आणि दरवर्षी वर्धापन दिन, वाढदिवस व ज्येष्ठ नागरिक मेळाव्याचे आयोजन करून साजरा करतात. १५ ऑगस्ट २०२३ रोजी भूमिपूजन झाले असून २६ जानेवारी २०२६ रोजी भव्य शुभारंभ होत आहे.",
-  storyP2: "माणूस हा एकत्र राहणारा, बोलणारा, नाती जपणारा असतो. पाल्य मोठे होऊन दूर देशी जाते तेव्हा मागे उरतात त्या आठवणी आणि एकांत... याच विचारातून ही संकल्पना समोर आली — ज्येष्ठ नागरिकांसाठी एक अशी ‘आनंदशाळा’, जिथे रोज नवा आनंद शिकायला मिळेल!",
-  storyP3: "सांगली शहरातील दीड एकर जागेत, निसर्गाच्या सानिध्यात उभा राहणारा हा भारतातील पहिलाच भव्य प्रकल्प आहे. येथे १ दिवसापासून ते शेवटच्या क्षणापर्यंत आनंदाने राहता येते.",
-  awardNotice: "'साई दिशा प्रतिष्ठान' मुंबई यांच्याकडून व्यवसाय व सामाजिक कार्यासाठी 'समाजभूषण पुरस्कार' प्राप्त!",
+  storyP1:
+    "माझ्या जन्माची बीजे रुजली ती श्री. अभिनय जगन्नाथ कामाजी (रा. सांगली) यांच्या स्वप्न प्रकल्पातून. अभिनय यांनी २६ जानेवारी २००० रोजी व्यवसाय सुरू केला आणि दरवर्षी वर्धापन दिन, वाढदिवस व ज्येष्ठ नागरिक मेळाव्याचे आयोजन करून साजरा करतात. १५ ऑगस्ट २०२३ रोजी भूमिपूजन झाले असून २६ जानेवारी २०२६ रोजी भव्य शुभारंभ होत आहे.",
+  storyP2:
+    "माणूस हा एकत्र राहणारा, बोलणारा, नाती जपणारा असतो. पाल्य मोठे होऊन दूर देशी जाते तेव्हा मागे उरतात त्या आठवणी आणि एकांत... याच विचारातून ही संकल्पना समोर आली — ज्येष्ठ नागरिकांसाठी एक अशी ‘आनंदशाळा’, जिथे रोज नवा आनंद शिकायला मिळेल!",
+  storyP3:
+    "सांगली शहरातील दीड एकर जागेत, निसर्गाच्या सानिध्यात उभा राहणारा हा भारतातील पहिलाच भव्य प्रकल्प आहे. येथे १ दिवसापासून ते शेवटच्या क्षणापर्यंत आनंदाने राहता येते.",
+  awardNotice:
+    "'साई दिशा प्रतिष्ठान' मुंबई यांच्याकडून व्यवसाय व सामाजिक कार्यासाठी 'समाजभूषण पुरस्कार' प्राप्त!",
   photos: [
     "/images/Screenshot 2026-07-31 103107.png",
     "/images/Screenshot 2026-07-31 103152.png",
@@ -575,7 +1029,8 @@ const initialAboutData: AboutData = {
     {
       id: "abh-1",
       title: "२६ जानेवारी २००० रोजी व्यवसायाची सुरुवात",
-      description: "श्री. अभिनय कामाजी यांनी व्यवसायाची सुरुवात केली व दरवर्षी सामाजिक उपक्रम आयोजित केले.",
+      description:
+        "श्री. अभिनय कामाजी यांनी व्यवसायाची सुरुवात केली व दरवर्षी सामाजिक उपक्रम आयोजित केले.",
       imageUrl: "/images/Screenshot 2026-07-31 103107.png",
       date: "२६ जानेवारी २०००",
     },
@@ -593,24 +1048,30 @@ const initialAboutData: AboutData = {
       titleMr: "१. सांगली गणपती मंदिर (राजवाडा)",
       titleEn: "1. Sangli Royal Ganapati Temple",
       distanceMr: "३ किमी (१० मिनिटे)",
-      shortDescMr: "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
-      image: "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
+      image:
+        "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop",
     },
     "sangli-fort-rajwada": {
       id: "sangli-fort-rajwada",
       titleMr: "२. सांगली किल्ला व राजवाडा परिसर",
       titleEn: "2. Sangli Fort & Rajwada Area",
       distanceMr: "३.५ किमी (१२ मिनिटे)",
-      shortDescMr: "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
-      image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
+      image:
+        "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1200&auto=format&fit=crop",
     },
     "sangmeshwar-haripur": {
       id: "sangmeshwar-haripur",
       titleMr: "३. संगमेश्वर मंदिर (हरिपूर संगम)",
       titleEn: "3. Sangmeshwar Temple (Haripur)",
       distanceMr: "५ किमी (१५ मिनिटे)",
-      shortDescMr: "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
-      image: "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
+      image:
+        "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop",
     },
     "krishna-irwin-bridge": {
       id: "krishna-irwin-bridge",
@@ -618,71 +1079,88 @@ const initialAboutData: AboutData = {
       titleEn: "4. Krishna River & Irwin Bridge",
       distanceMr: "४ किमी (१० मिनिटे)",
       shortDescMr: "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल व कृष्णा नदीचा सुंदर घाट परिसर.",
-      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
     },
     "miraj-dargah": {
       id: "miraj-dargah",
       titleMr: "५. मिरज - ख्वाजा मीरासाहेब दर्गाह व संगीत नगरी",
       titleEn: "5. Miraj Khwaja Meerasaheb Dargah",
       distanceMr: "१० किमी (२० मिनिटे)",
-      shortDescMr: "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
-      image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
+      image:
+        "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop",
     },
     "audumbar-temple": {
       id: "audumbar-temple",
       titleMr: "६. औदुंबर - श्री दत्त क्षेत्र (दत्त मंदिर)",
       titleEn: "6. Audumbar Shri Dattatreya Temple",
       distanceMr: "२५ किमी (४० मिनिटे)",
-      shortDescMr: "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.",
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.",
+      image:
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
     },
     "dandoba-hills": {
       id: "dandoba-hills",
       titleMr: "७. दंडोबा टेकडी व गुहा शिवमंदिर (भोसे)",
       titleEn: "7. Dandoba Hills & Forest Shrine",
       distanceMr: "२५ किमी (३० मिनिटे)",
-      shortDescMr: "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.",
-      image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.",
+      image:
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
     },
     "sagareshwar-sanctuary": {
       id: "sagareshwar-sanctuary",
       titleMr: "८. सागरेश्वर वन्यजीव अभयारण्य व शिवमंदिर",
       titleEn: "8. Sagareshwar Wildlife Sanctuary",
       distanceMr: "३० किमी (४५ मिनिटे)",
-      shortDescMr: "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.",
-      image: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.",
+      image:
+        "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop",
     },
     "bahubali-kumbhojgiri": {
       id: "bahubali-kumbhojgiri",
       titleMr: "९. बाहुबली कुंभोजगिरी (जैन तीर्थक्षेत्र)",
       titleEn: "9. Bahubali Hill, Kumbhojgiri",
       distanceMr: "३५ किमी (५० मिनिटे)",
-      shortDescMr: "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील अतिशय प्रसिद्ध जैन तीर्थक्षेत्र.",
-      image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील अतिशय प्रसिद्ध जैन तीर्थक्षेत्र.",
+      image:
+        "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop",
     },
     "ramling-island-bahe": {
       id: "ramling-island-bahe",
       titleMr: "१०. रामलिंग बेट व राममंदिर (बहे)",
       titleEn: "10. Ramling Island, Bahe",
       distanceMr: "३८ किमी (५० मिनिटे)",
-      shortDescMr: "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.",
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.",
+      image:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
     },
     "chandoli-national-park": {
       id: "chandoli-national-park",
       titleMr: "११. चांदोली राष्ट्रीय उद्यान व धरण",
       titleEn: "11. Chandoli National Park & Dam",
       distanceMr: "६५ किमी (१.५ तास)",
-      shortDescMr: "यूनेस्को जागतिक वारसा सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व निसर्गरम्य जंगल परिसर.",
-      image: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "यूनेस्को जागतिक वारसा सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व निसर्गरम्य जंगल परिसर.",
+      image:
+        "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop",
     },
     "gokak-waterfall": {
       id: "gokak-waterfall",
       titleMr: "१२. गोकाक भव्य धबधबा",
       titleEn: "12. Gokak Spectacular Waterfall",
       distanceMr: "७५ किमी (१.५ तास)",
-      shortDescMr: "१७७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).",
-      image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "१७७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).",
+      image:
+        "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
     },
     "machhindragad-fort": {
       id: "machhindragad-fort",
@@ -690,15 +1168,18 @@ const initialAboutData: AboutData = {
       titleEn: "13. Machhindragad Fort & Temple",
       distanceMr: "४५ किमी (१ तास)",
       shortDescMr: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला व मच्छिंद्रनाथ मंदिर.",
-      image: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop",
     },
     "kolhapur-excursion": {
       id: "kolhapur-excursion",
       titleMr: "१४. कोल्हापूर - श्री महालक्ष्मी मंदिर, न्यू पॅलेस व रंकाळा",
       titleEn: "14. Kolhapur Day Tour (Mahalaxmi)",
       distanceMr: "५० किमी (१ तास)",
-      shortDescMr: "श्री अंबाबाई महालक्ष्मी मंदिर, छत्रपती शाहू न्यू पॅलेस राजवाडा व रंकाळा तलाव एक दिवसीय सहल.",
-      image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop",
+      shortDescMr:
+        "श्री अंबाबाई महालक्ष्मी मंदिर, छत्रपती शाहू न्यू पॅलेस राजवाडा व रंकाळा तलाव एक दिवसीय सहल.",
+      image:
+        "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop",
     },
   },
 };
@@ -710,10 +1191,14 @@ if (typeof window !== "undefined") {
       const now = Date.now();
       if (initialAboutData.sangliPlacesOverrides) {
         Object.entries(initialAboutData.sangliPlacesOverrides).forEach(([id, item]) => {
-          setDoc(doc(db, "sangli_attractions", id), { ...item, updatedAt: now }, { merge: true }).catch(() => { });
+          setDoc(
+            doc(db, "sangli_attractions", id),
+            { ...item, updatedAt: now },
+            { merge: true },
+          ).catch(() => {});
         });
       }
-    } catch (_) { }
+    } catch (_) {}
   }, 200);
 }
 
@@ -782,7 +1267,11 @@ const initialGallery: GalleryItem[] = [
     id: "g1",
     url: "/images/Screenshot 2026-07-31 103107.png",
     caption: "आनंदशाळा मुखपृष्ठ माहिती पत्रक व प्रवेश माहिती",
-    category: ["ज्येष्ठ नागरिक आनंदशाळा माहिती", "रौप्य महोत्सव व प्रकाशन", "प्रीतम व्यावसायिक माहिती"],
+    category: [
+      "ज्येष्ठ नागरिक आनंदशाळा माहिती",
+      "रौप्य महोत्सव व प्रकाशन",
+      "प्रीतम व्यावसायिक माहिती",
+    ],
   },
   {
     id: "g2",
@@ -847,11 +1336,61 @@ const initialGallery: GalleryItem[] = [
 ];
 
 const initialInquiries: InquiryItem[] = [
-  { id: "inq-1", name: "Ramesh Patil", phone: "98221 45678", email: "ramesh.patil@gmail.com", subject: "Day-Care Admission Inquiry", message: "Information required regarding Day-Care admission for my parents.", date: "31 July 2026, 11:30 AM", read: false, category: "anandshala" },
-  { id: "inq-2", name: "Suresh Kulkarni", phone: "94220 89123", email: "suresh.kulkarni@yahoo.com", subject: "1-Day Tour Visit Pass", message: "How can we book 1-Day Tour passes for our Senior Citizen Group?", date: "30 July 2026, 04:15 PM", read: false, category: "anandshala" },
-  { id: "inq-3", name: "Anand Shah", phone: "97654 32109", email: "anand.shah@gmail.com", subject: "Anandnivas 1-Month Booking", message: "Inquiry regarding 1-month stay fees and amenities at Anandnivas.", date: "29 July 2026, 02:00 PM", read: false, category: "anandshala" },
-  { id: "inq-4", name: "Vikram Nimbalkar", phone: "98501 23456", email: "vikram.n@gmail.com", subject: "Sports Club Membership Inquiry (12 Months Package)", message: "Inquiring for gym and Olympic swimming pool membership.", date: "1 August 2026, 10:00 AM", read: false, category: "sports" },
-  { id: "inq-5", name: "Amit Joshi", phone: "94231 77889", email: "amit.joshi@gmail.com", subject: "Badminton & Turf Ground Inquiry", message: "Please provide information for weekly badminton and sports turf booking.", date: "31 July 2026, 05:30 PM", read: false, category: "sports" },
+  {
+    id: "inq-1",
+    name: "Ramesh Patil",
+    phone: "98221 45678",
+    email: "ramesh.patil@gmail.com",
+    subject: "Day-Care Admission Inquiry",
+    message: "Information required regarding Day-Care admission for my parents.",
+    date: "31 July 2026, 11:30 AM",
+    read: false,
+    category: "anandshala",
+  },
+  {
+    id: "inq-2",
+    name: "Suresh Kulkarni",
+    phone: "94220 89123",
+    email: "suresh.kulkarni@yahoo.com",
+    subject: "1-Day Tour Visit Pass",
+    message: "How can we book 1-Day Tour passes for our Senior Citizen Group?",
+    date: "30 July 2026, 04:15 PM",
+    read: false,
+    category: "anandshala",
+  },
+  {
+    id: "inq-3",
+    name: "Anand Shah",
+    phone: "97654 32109",
+    email: "anand.shah@gmail.com",
+    subject: "Anandnivas 1-Month Booking",
+    message: "Inquiry regarding 1-month stay fees and amenities at Anandnivas.",
+    date: "29 July 2026, 02:00 PM",
+    read: false,
+    category: "anandshala",
+  },
+  {
+    id: "inq-4",
+    name: "Vikram Nimbalkar",
+    phone: "98501 23456",
+    email: "vikram.n@gmail.com",
+    subject: "Sports Club Membership Inquiry (12 Months Package)",
+    message: "Inquiring for gym and Olympic swimming pool membership.",
+    date: "1 August 2026, 10:00 AM",
+    read: false,
+    category: "sports",
+  },
+  {
+    id: "inq-5",
+    name: "Amit Joshi",
+    phone: "94231 77889",
+    email: "amit.joshi@gmail.com",
+    subject: "Badminton & Turf Ground Inquiry",
+    message: "Please provide information for weekly badminton and sports turf booking.",
+    date: "31 July 2026, 05:30 PM",
+    read: false,
+    category: "sports",
+  },
 ];
 
 const initialTestimonials: TestimonialItem[] = [
@@ -920,7 +1459,8 @@ export type BhojanalayaConfig = {
 export const initialBhojanalayaConfig: BhojanalayaConfig = {
   headerTitle: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक",
   subtitle: "ताजा, सात्विक व पौष्टिक शाकाहारी आहार • आरोग्यदायी सहवास व स्वाद",
-  healthNote: "स्वतःची काळजी घेऊन आहार घेणे जे चालत नाही ते टाळणे बरे नसेल तर सांगणे इतर पर्याय विचारणे",
+  healthNote:
+    "स्वतःची काळजी घेऊन आहार घेणे जे चालत नाही ते टाळणे बरे नसेल तर सांगणे इतर पर्याय विचारणे",
   weeklySchedule: [
     {
       srNo: 1,
@@ -929,7 +1469,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
       morningBreakfast: "उडीद वडा + सांभार + चटणी",
       afternoonLunch: "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
       eveningTeaSnack: "चहा + पोहे चिवडा",
-      nightDinner: "चपाती + भाजी + पुलाव + आमटी"
+      nightDinner: "चपाती + भाजी + पुलाव + आमटी",
     },
     {
       srNo: 2,
@@ -938,7 +1478,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
       morningBreakfast: "पोहे + शेव + शिरा पांढरा",
       afternoonLunch: "चपाती, पराठा, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
       eveningTeaSnack: "चहा + भाजके पोहे चिवडा",
-      nightDinner: "चपाती + भाजी + थालीपीठ + भात"
+      nightDinner: "चपाती + भाजी + थालीपीठ + भात",
     },
     {
       srNo: 3,
@@ -947,7 +1487,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
       morningBreakfast: "पावभाजी किंवा मिसळ",
       afternoonLunch: "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
       eveningTeaSnack: "चहा व बिस्किट",
-      nightDinner: "चपाती + भाजी + आमटी + वरण + भात"
+      nightDinner: "चपाती + भाजी + आमटी + वरण + भात",
     },
     {
       srNo: 4,
@@ -956,7 +1496,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
       morningBreakfast: "उत्तपा + डोसा + भाजी + चटणी",
       afternoonLunch: "चपाती, धपाटा, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
       eveningTeaSnack: "चहा + चुरमुरे चिवडा",
-      nightDinner: "चपाती + भाजी + भाकरी + खिचडी + कढी"
+      nightDinner: "चपाती + भाजी + भाकरी + खिचडी + कढी",
     },
     {
       srNo: 5,
@@ -965,7 +1505,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
       morningBreakfast: "उत्तपा + भेळ किंवा दडपे पोहे",
       afternoonLunch: "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण",
       eveningTeaSnack: "चहा + भजी",
-      nightDinner: "चपाती + भाजी + आमटी + भात"
+      nightDinner: "चपाती + भाजी + आमटी + भात",
     },
     {
       srNo: 6,
@@ -974,7 +1514,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
       morningBreakfast: "इडली + सांभार + चटणी",
       afternoonLunch: "चपाती, थालीपीठ, भाजी, कडधान्य उसळ, आमटी, वरण भात",
       eveningTeaSnack: "चहा + भडंग",
-      nightDinner: "भाकरी + चपाती + भाजी + आमटी + भात"
+      nightDinner: "भाकरी + चपाती + भाजी + आमटी + भात",
     },
     {
       srNo: 7,
@@ -983,8 +1523,8 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
       morningBreakfast: "शेवयाचे उपीट + ढोकळा + चटणी",
       afternoonLunch: "चपाती, भाकरी, आमटी, मसाले भात, भाजी, स्वीट",
       eveningTeaSnack: "चहा + मक्काचिवडा",
-      nightDinner: "चपाती + भाजी + भात + आमटी"
-    }
+      nightDinner: "चपाती + भाजी + भात + आमटी",
+    },
   ],
   rateList: [
     { item: "चहा", oneTime: "10/-", oneMonth: "240/-" },
@@ -995,7 +1535,7 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
     { item: "दुध कप", oneTime: "20/-", oneMonth: "480/-" },
     { item: "मसाला दुध", oneTime: "30/-", oneMonth: "750/-" },
     { item: "हळद दुध", oneTime: "30/-", oneMonth: "750/-" },
-    { item: "1 चहा, 1 नाष्टा, 1 जेवण (मासिक कॉम्बो)", oneTime: "3500/-", oneMonth: "3500/-" }
+    { item: "1 चहा, 1 नाष्टा, 1 जेवण (मासिक कॉम्बो)", oneTime: "3500/-", oneMonth: "3500/-" },
   ],
   extraItems: [
     { name: "दही / ताक वाटी", price: "10/-" },
@@ -1017,8 +1557,8 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
     { name: "फ्रूट सॅलड", price: "30/-", daySpecial: "सोमवार" },
     { name: "पुरण पोळी", price: "30/-", daySpecial: "मंगळवार" },
     { name: "शेंगा पोळी", price: "30/-", daySpecial: "गुरुवार" },
-    { name: "खवा पोळी", price: "30/-", daySpecial: "शनिवार" }
-  ]
+    { name: "खवा पोळी", price: "30/-", daySpecial: "शनिवार" },
+  ],
 };
 
 export type ScheduleConfig = {
@@ -1049,7 +1589,7 @@ export const initialScheduleConfig: ScheduleConfig = {
     "क्लबांमध्ये धुम्रपान, तंबाखू व मद्यपान सक्त मनाई आहे.",
     "जिममध्ये मोठ्याने बोलणे किंवा गोंधळ करणे टाळावे.",
     "कोणत्याही प्रकारची दुखापत झाल्यास व्यवस्थापन जबाबदार राहणार नाही.",
-    "वैयक्तिक वस्तूंची काळजी स्वतः घ्यावी."
+    "वैयक्तिक वस्तूंची काळजी स्वतः घ्यावी.",
   ],
   items: [
     {
@@ -1112,14 +1652,15 @@ export const initialScheduleConfig: ScheduleConfig = {
       thu: { main: "पौष्टिक नाश्ता & विश्रांती", sub: "ताजा आहार व फळे" },
       fri: { main: "पौष्टिक नाश्ता & विश्रांती", sub: "ताजा आहार व फळे" },
     },
-  ]
+  ],
 };
 
 export const initialSportsScheduleConfig: ScheduleConfig = {
   headerTitle: "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब वेळापत्रक",
   daysText: "सोमवार ते रविवार (सर्व दिवस खुली)",
   timeRange: "सकाळी ०५:०० ते रात्री १०:००",
-  subtitle: "फिटनेस, क्रीडा आणि आरोग्याचा परिपूर्ण अनुभव... आधुनिक जिम, स्विमिंग पुल व सर्व खेळांची सोय.",
+  subtitle:
+    "फिटनेस, क्रीडा आणि आरोग्याचा परिपूर्ण अनुभव... आधुनिक जिम, स्विमिंग पुल व सर्व खेळांची सोय.",
   posterUrl: "",
   posterType: "image",
   rules: [
@@ -1127,7 +1668,7 @@ export const initialSportsScheduleConfig: ScheduleConfig = {
     "जिम व स्विमिंग पुलच्या वेळेचे काटेकोरपणे पालन करावे.",
     "व्यायाम करताना किंवा खेळताना स्वतःची व उपकरणांची काळजी घ्यावी.",
     "स्विमिंग पुलमध्ये जाण्यापूर्वी शॉवर घेणे अनिवार्य आहे.",
-    "ट्रेनरच्या सूचनांचे पालन करावे."
+    "ट्रेनरच्या सूचनांचे पालन करावे.",
   ],
   items: [
     {
@@ -1169,8 +1710,8 @@ export const initialSportsScheduleConfig: ScheduleConfig = {
       wed: { main: "टर्फ बॉक्स क्रिकेट & फुटबॉल", sub: "फ्लडलाईटमध्ये रात्रीचे सामने" },
       thu: { main: "टर्फ बॉक्स क्रिकेट & फुटबॉल", sub: "फ्लडलाईटमध्ये रात्रीचे सामने" },
       fri: { main: "टर्फ बॉक्स क्रिकेट & फुटबॉल", sub: "फ्लडलाईटमध्ये रात्रीचे सामने" },
-    }
-  ]
+    },
+  ],
 };
 
 // ============================================================================
@@ -1207,6 +1748,10 @@ export const STORAGE_KEYS = {
   schedule: "anandshala_schedule_data_v1",
   sportsSchedule: "anandshala_sports_schedule_data_v1",
   videos: "anandshala_videos_data_v1",
+  pricing: "anandshala_pricing_data_v1",
+  bhojanalaya: "anandshala_bhojanalaya_data_v1",
+  sportsPricing: "anandshala_sports_pricing_data_v1",
+  sportsMembership: "anandshala_sports_membership_tiers_v1",
 };
 
 export function getStoredData<T>(key: string, fallback: T): T {
@@ -1246,7 +1791,12 @@ export function setStoredData<T>(key: string, data: T): void {
     try {
       if (Array.isArray(cleanData)) {
         const compact = cleanData.map((item: any) => {
-          if (item && item.embedUrl && item.embedUrl.startsWith("data:video/") && item.embedUrl.length > 50000) {
+          if (
+            item &&
+            item.embedUrl &&
+            item.embedUrl.startsWith("data:video/") &&
+            item.embedUrl.length > 50000
+          ) {
             return { ...item, embedUrl: "/images/sample.jpg" };
           }
           return item;
@@ -1254,19 +1804,24 @@ export function setStoredData<T>(key: string, data: T): void {
         localStorage.setItem(key, JSON.stringify(compact));
         localStorage.setItem(`${key}_timestamp`, now.toString());
       }
-    } catch { }
+    } catch {}
   }
 
   try {
     window.dispatchEvent(new Event("admin_store_updated"));
-  } catch { }
+  } catch {}
 
   // Asynchronously sync to Firestore Database
   try {
     let cloudPayload = cleanData;
     if (Array.isArray(cleanData)) {
       cloudPayload = cleanData.map((item: any) => {
-        if (item && item.embedUrl && item.embedUrl.startsWith("data:video/") && item.embedUrl.length > 200000) {
+        if (
+          item &&
+          item.embedUrl &&
+          item.embedUrl.startsWith("data:video/") &&
+          item.embedUrl.length > 200000
+        ) {
           return { ...item, embedUrl: "/images/sample.jpg" };
         }
         return item;
@@ -1286,7 +1841,7 @@ export async function resetFirebaseDatabase(): Promise<void> {
     Object.values(STORAGE_KEYS).forEach((key) => {
       try {
         localStorage.removeItem(key);
-      } catch (e) { }
+      } catch (e) {}
     });
   }
 
@@ -1314,7 +1869,8 @@ export function restoreBaitheKhelHall(): void {
     title: "बैठे खेळ हॉल",
     category: "इनडोअर गेम्स",
     desc: "कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.",
-    imageUrl: halls.find(h => h.title === "बैठे खेळ हॉल")?.imageUrl || "/images/subimg/baithe khel.png",
+    imageUrl:
+      halls.find((h) => h.title === "बैठे खेळ हॉल")?.imageUrl || "/images/subimg/baithe khel.png",
   };
 
   // Remove existing hall-1 or duplicate 'बैठे खेळ हॉल'
@@ -1345,14 +1901,18 @@ function mergeSiteData(prev: SiteData, incoming: any): SiteData {
   }
 
   const merged = { ...prev, ...incoming };
-  if (incoming.activityHalls && Array.isArray(incoming.activityHalls) && incoming.activityHalls.length > 0) {
+  if (
+    incoming.activityHalls &&
+    Array.isArray(incoming.activityHalls) &&
+    incoming.activityHalls.length > 0
+  ) {
     // Merge at hall level: preserve desc/category/etc from prev if incoming hall doesn't have them
     merged.activityHalls = incoming.activityHalls.map((incomingHall: any, idx: number) => {
       const prevHall = prev.activityHalls && prev.activityHalls[idx];
       return {
-        ...(prevHall || {}),         // spread prev hall first (has desc, category etc)
-        ...incomingHall,             // overwrite with incoming values
-        desc: incomingHall.desc || prevHall?.desc || "",       // always preserve desc
+        ...(prevHall || {}), // spread prev hall first (has desc, category etc)
+        ...incomingHall, // overwrite with incoming values
+        desc: incomingHall.desc || prevHall?.desc || "", // always preserve desc
         category: incomingHall.category || prevHall?.category || "",
       };
     });
@@ -1364,51 +1924,67 @@ function mergeSiteData(prev: SiteData, incoming: any): SiteData {
 
 export function useAdminStore() {
   const [siteData, setSiteDataState] = useState<SiteData>(() =>
-    getStoredData(STORAGE_KEYS.site, initialSiteData)
+    getStoredData(STORAGE_KEYS.site, initialSiteData),
   );
   const [aboutData, setAboutDataState] = useState<AboutData>(() => {
     const loaded = getStoredData(STORAGE_KEYS.about, initialAboutData);
     const mergedOverrides = {
       ...initialAboutData.sangliPlacesOverrides,
-      ...(loaded.sangliPlacesOverrides || {})
+      ...(loaded.sangliPlacesOverrides || {}),
     };
     return { ...loaded, sangliPlacesOverrides: mergedOverrides };
   });
   const [gallery, setGalleryState] = useState<GalleryItem[]>(() =>
-    getStoredData(STORAGE_KEYS.gallery, initialGallery)
+    getStoredData(STORAGE_KEYS.gallery, initialGallery),
   );
   const [inquiries, setInquiriesState] = useState<InquiryItem[]>(() =>
-    getStoredData(STORAGE_KEYS.inquiries, initialInquiries)
+    getStoredData(STORAGE_KEYS.inquiries, initialInquiries),
   );
   const [testimonials, setTestimonialsState] = useState<TestimonialItem[]>(() =>
-    getStoredData(STORAGE_KEYS.testimonials, initialTestimonials)
+    getStoredData(STORAGE_KEYS.testimonials, initialTestimonials),
   );
   const [packages, setPackagesState] = useState<PackageItem[]>(() =>
-    getStoredData(STORAGE_KEYS.packages, initialPackages)
+    getStoredData(STORAGE_KEYS.packages, initialPackages),
   );
   const [brochures, setBrochuresState] = useState<BrochureItem[]>(() =>
-    getStoredData(STORAGE_KEYS.brochures, initialBrochures)
+    getStoredData(STORAGE_KEYS.brochures, initialBrochures),
   );
   const [homeNews, setHomeNewsState] = useState<HomeNewsItem[]>(() =>
-    getStoredData(STORAGE_KEYS.homeNews, initialHomeNews)
+    getStoredData(STORAGE_KEYS.homeNews, initialHomeNews),
   );
 
   const [videos, setVideosState] = useState<VideoItem[]>(() =>
-    getStoredData(STORAGE_KEYS.videos, initialVideos)
+    getStoredData(STORAGE_KEYS.videos, initialVideos),
   );
 
   const [scheduleConfig, setScheduleConfigState] = useState<ScheduleConfig>(() =>
-    getStoredData(STORAGE_KEYS.schedule, initialScheduleConfig)
+    getStoredData(STORAGE_KEYS.schedule, initialScheduleConfig),
   );
   const [sportsScheduleConfig, setSportsScheduleConfigState] = useState<ScheduleConfig>(() =>
-    getStoredData(STORAGE_KEYS.sportsSchedule, initialSportsScheduleConfig)
+    getStoredData(STORAGE_KEYS.sportsSchedule, initialSportsScheduleConfig),
   );
+  const [pricingItems, setPricingItemsState] = useState<RateItem[]>(() =>
+    getStoredData(STORAGE_KEYS.pricing, initialRateItems),
+  );
+  const [bhojanalayaConfig, setBhojanalayaConfigState] = useState<BhojanalayaConfig>(() =>
+    getStoredData(STORAGE_KEYS.bhojanalaya, initialBhojanalayaConfig),
+  );
+  const [sportsPricingItems, setSportsPricingItemsState] = useState<RateItem[]>(() =>
+    getStoredData(STORAGE_KEYS.sportsPricing, initialSportsRateItems),
+  );
+  const [sportsMembershipTiers, setSportsMembershipTiersState] = useState<
+    SportsMembershipTier[]
+  >(() => getStoredData(STORAGE_KEYS.sportsMembership, initialSportsMembershipTiers));
 
   useEffect(() => {
-    if (!siteData.activityHalls || siteData.activityHalls.length === 0 || siteData.activityHalls[0]?.title !== "बैठे खेळ हॉल") {
+    if (
+      !siteData.activityHalls ||
+      siteData.activityHalls.length === 0 ||
+      siteData.activityHalls[0]?.title !== "बैठे खेळ हॉल"
+    ) {
       restoreBaitheKhelHall();
     }
-    syncAllToFirebaseCloud().catch(() => { });
+    syncAllToFirebaseCloud().catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -1424,7 +2000,17 @@ export function useAdminStore() {
       setHomeNewsState(getStoredData(STORAGE_KEYS.homeNews, initialHomeNews));
       setVideosState(getStoredData(STORAGE_KEYS.videos, initialVideos));
       setScheduleConfigState(getStoredData(STORAGE_KEYS.schedule, initialScheduleConfig));
-      setSportsScheduleConfigState(getStoredData(STORAGE_KEYS.sportsSchedule, initialSportsScheduleConfig));
+      setSportsScheduleConfigState(
+        getStoredData(STORAGE_KEYS.sportsSchedule, initialSportsScheduleConfig),
+      );
+      setPricingItemsState(getStoredData(STORAGE_KEYS.pricing, initialRateItems));
+      setBhojanalayaConfigState(getStoredData(STORAGE_KEYS.bhojanalaya, initialBhojanalayaConfig));
+      setSportsPricingItemsState(
+        getStoredData(STORAGE_KEYS.sportsPricing, initialSportsRateItems),
+      );
+      setSportsMembershipTiersState(
+        getStoredData(STORAGE_KEYS.sportsMembership, initialSportsMembershipTiers),
+      );
     };
 
     window.addEventListener("admin_store_updated", handleUpdate);
@@ -1443,7 +2029,9 @@ export function useAdminStore() {
           if (val && typeof val === "object") {
             setSiteDataState((prev) => {
               const merged = mergeSiteData(prev, val);
-              try { localStorage.setItem(STORAGE_KEYS.site, JSON.stringify(merged)); } catch (e) { }
+              try {
+                localStorage.setItem(STORAGE_KEYS.site, JSON.stringify(merged));
+              } catch (e) {}
               return merged;
             });
           }
@@ -1460,7 +2048,9 @@ export function useAdminStore() {
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (val && typeof val === "object") {
             setAboutDataState((prev) => ({ ...prev, ...val }));
-            try { localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(val)); } catch (e) { }
+            try {
+              localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(val));
+            } catch (e) {}
           }
         }
       });
@@ -1475,7 +2065,9 @@ export function useAdminStore() {
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
             setGalleryState(val);
-            try { localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(val)); } catch (e) { }
+            try {
+              localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(val));
+            } catch (e) {}
           }
         }
       });
@@ -1490,7 +2082,9 @@ export function useAdminStore() {
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
             setVideosState(val);
-            try { localStorage.setItem(STORAGE_KEYS.videos, JSON.stringify(val)); } catch (e) { }
+            try {
+              localStorage.setItem(STORAGE_KEYS.videos, JSON.stringify(val));
+            } catch (e) {}
           }
         }
       });
@@ -1505,7 +2099,9 @@ export function useAdminStore() {
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val)) {
             setInquiriesState(val);
-            try { localStorage.setItem(STORAGE_KEYS.inquiries, JSON.stringify(val)); } catch (e) { }
+            try {
+              localStorage.setItem(STORAGE_KEYS.inquiries, JSON.stringify(val));
+            } catch (e) {}
           }
         }
       });
@@ -1520,7 +2116,9 @@ export function useAdminStore() {
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
             setBrochuresState(val);
-            try { localStorage.setItem(STORAGE_KEYS.brochures, JSON.stringify(val)); } catch (e) { }
+            try {
+              localStorage.setItem(STORAGE_KEYS.brochures, JSON.stringify(val));
+            } catch (e) {}
           }
         }
       });
@@ -1541,9 +2139,10 @@ export function useAdminStore() {
     setStoredData(STORAGE_KEYS.site, updated);
     // Also write to Firebase so desc/changes persist across sessions
     try {
-      setDoc(doc(db, "app_data", STORAGE_KEYS.site), { data: updated }, { merge: true })
-        .catch(() => { }); // silent fail if offline
-    } catch (_) { }
+      setDoc(doc(db, "app_data", STORAGE_KEYS.site), { data: updated }, { merge: true }).catch(
+        () => {},
+      ); // silent fail if offline
+    } catch (_) {}
   };
 
   const updateAboutData = (newAbout: Partial<AboutData>) => {
@@ -1559,19 +2158,31 @@ export function useAdminStore() {
       const now = Date.now();
 
       // Save main site document
-      setDoc(doc(db, "app_data", STORAGE_KEYS.about), { data: updated, updatedAt: now }, { merge: true })
-        .catch((err) => console.warn("Firestore updateAboutData error:", err));
-      setDoc(doc(db, "about_collection", "main"), { ...updated, updatedAt: now }, { merge: true })
-        .catch(() => { });
+      setDoc(
+        doc(db, "app_data", STORAGE_KEYS.about),
+        { data: updated, updatedAt: now },
+        { merge: true },
+      ).catch((err) => console.warn("Firestore updateAboutData error:", err));
+      setDoc(
+        doc(db, "about_collection", "main"),
+        { ...updated, updatedAt: now },
+        { merge: true },
+      ).catch(() => {});
 
       // Save each attraction as an INDIVIDUAL document in 'sangli_attractions' collection (No 1MB Limit!)
-      setDoc(doc(db, "sangli_attractions", "all"), { places: mergedOverrides, updatedAt: now }, { merge: true })
-        .catch(() => { });
+      setDoc(
+        doc(db, "sangli_attractions", "all"),
+        { places: mergedOverrides, updatedAt: now },
+        { merge: true },
+      ).catch(() => {});
       Object.entries(mergedOverrides).forEach(([id, item]) => {
-        setDoc(doc(db, "sangli_attractions", id), { ...item, updatedAt: now }, { merge: true })
-          .catch((err) => console.warn(`Error writing sangli_attractions/${id}:`, err));
+        setDoc(
+          doc(db, "sangli_attractions", id),
+          { ...item, updatedAt: now },
+          { merge: true },
+        ).catch((err) => console.warn(`Error writing sangli_attractions/${id}:`, err));
       });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const addGalleryItem = (item: Omit<GalleryItem, "id">) => {
@@ -1583,7 +2194,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.gallery), { data: updated, updatedAt: now });
       setDoc(doc(db, "gallery_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const deleteGalleryItem = (id: string) => {
@@ -1594,7 +2205,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.gallery), { data: updated, updatedAt: now });
       setDoc(doc(db, "gallery_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const addVideoItem = (video: Omit<VideoItem, "id">) => {
@@ -1606,7 +2217,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
       setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const updateVideoItem = (id: string, updatedVid: Partial<VideoItem>) => {
@@ -1617,7 +2228,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
       setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const deleteVideoItem = (id: string) => {
@@ -1628,7 +2239,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
       setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const addInquiry = (inquiry: Omit<InquiryItem, "id" | "date" | "read">) => {
@@ -1648,9 +2259,7 @@ export function useAdminStore() {
   };
 
   const markInquiryRead = (id: string) => {
-    const updated = inquiries.map((inq) =>
-      inq.id === id ? { ...inq, read: true } : inq
-    );
+    const updated = inquiries.map((inq) => (inq.id === id ? { ...inq, read: true } : inq));
     setInquiriesState(updated);
     setStoredData(STORAGE_KEYS.inquiries, updated);
   };
@@ -1677,9 +2286,7 @@ export function useAdminStore() {
   };
 
   const toggleTestimonialApproval = (id: string) => {
-    const updated = testimonials.map((t) =>
-      t.id === id ? { ...t, approved: !t.approved } : t
-    );
+    const updated = testimonials.map((t) => (t.id === id ? { ...t, approved: !t.approved } : t));
     setTestimonialsState(updated);
     setStoredData(STORAGE_KEYS.testimonials, updated);
   };
@@ -1701,19 +2308,17 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const updatePackage = (id: string, updatedPkg: Partial<PackageItem>) => {
-    const updated = packages.map((p) =>
-      p.id === id ? { ...p, ...updatedPkg } : p
-    );
+    const updated = packages.map((p) => (p.id === id ? { ...p, ...updatedPkg } : p));
     setPackagesState(updated);
     setStoredData(STORAGE_KEYS.packages, updated);
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const deletePackage = (id: string) => {
@@ -1723,7 +2328,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const addBrochure = (broch: Omit<BrochureItem, "id" | "date">) => {
@@ -1743,7 +2348,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: updated, updatedAt: now });
       setDoc(doc(db, "brochures_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const deleteBrochure = (id: string) => {
@@ -1754,7 +2359,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: updated, updatedAt: now });
       setDoc(doc(db, "brochures_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const addHomeNews = (item: Omit<HomeNewsItem, "id" | "date">) => {
@@ -1773,7 +2378,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.homeNews), { data: updated, updatedAt: now });
-    } catch (_) { }
+    } catch (_) {}
   };
 
   const deleteHomeNews = (id: string) => {
@@ -1797,7 +2402,7 @@ export function useAdminStore() {
 
   const updateScheduleRow = (id: string, updatedRow: Partial<ScheduleRowItem>) => {
     const updatedItems = scheduleConfig.items.map((r) =>
-      r.id === id ? { ...r, ...updatedRow } : r
+      r.id === id ? { ...r, ...updatedRow } : r,
     );
     const updated = { ...scheduleConfig, items: updatedItems };
     setScheduleConfigState(updated);
@@ -1842,7 +2447,7 @@ export function useAdminStore() {
 
   const updateSportsScheduleRow = (id: string, updatedRow: Partial<ScheduleRowItem>) => {
     const updatedItems = sportsScheduleConfig.items.map((r) =>
-      r.id === id ? { ...r, ...updatedRow } : r
+      r.id === id ? { ...r, ...updatedRow } : r,
     );
     const updated = { ...sportsScheduleConfig, items: updatedItems };
     setSportsScheduleConfigState(updated);
@@ -1872,7 +2477,10 @@ export function useAdminStore() {
   };
 
   const activeBrochures = brochures.filter(
-    (b) => b.id !== "broch-2" && b.category !== "स्पोर्ट्स क्लब ब्रोशर" && !b.category.includes("स्पोर्ट्स")
+    (b) =>
+      b.id !== "broch-2" &&
+      b.category !== "स्पोर्ट्स क्लब ब्रोशर" &&
+      !b.category.includes("स्पोर्ट्स"),
   );
 
   const sportsInquiries = inquiries.filter(isSportsInquiryItem);
@@ -1888,20 +2496,145 @@ export function useAdminStore() {
     });
 
     const masterPlacesList = [
-      { id: "sangli-ganpati", titleMr: "१. सांगली गणपती मंदिर (राजवाडा)", titleEn: "1. Sangli Royal Ganapati Temple", distanceMr: "३ किमी (१० मिनिटे)", shortDescMr: "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.", image: "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop" },
-      { id: "sangli-fort-rajwada", titleMr: "२. सांगली किल्ला व राजवाडा परिसर", titleEn: "2. Sangli Fort & Rajwada Area", distanceMr: "३.५ किमी (१२ मिनिटे)", shortDescMr: "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.", image: "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1200&auto=format&fit=crop" },
-      { id: "sangmeshwar-haripur", titleMr: "३. संगमेश्वर मंदिर (हरिपूर संगम)", titleEn: "3. Sangmeshwar Temple (Haripur)", distanceMr: "५ किमी (१५ मिनिटे)", shortDescMr: "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.", image: "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop" },
-      { id: "krishna-irwin-bridge", titleMr: "४. कृष्णा नदीकाठ व आयर्विन पूल", titleEn: "4. Krishna River & Irwin Bridge", distanceMr: "४ किमी (१० मिनिटे)", shortDescMr: "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल व कृष्णा नदीचा सुंदर घाट परिसर.", image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" },
-      { id: "miraj-dargah", titleMr: "५. मिरज - ख्वाजा मीरासाहेब दर्गाह व संगीत नगरी", titleEn: "5. Miraj Khwaja Meerasaheb Dargah", distanceMr: "१० किमी (२० मिनिटे)", shortDescMr: "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.", image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop" },
-      { id: "audumbar-temple", titleMr: "६. औदुंबर - श्री दत्त क्षेत्र (दत्त मंदिर)", titleEn: "6. Audumbar Shri Dattatreya Temple", distanceMr: "२५ किमी (४० मिनिटे)", shortDescMr: "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" },
-      { id: "dandoba-hills", titleMr: "७. दंडोबा टेकडी व गुहा शिवमंदिर (भोसे)", titleEn: "7. Dandoba Hills & Forest Shrine", distanceMr: "२५ किमी (३० मिनिटे)", shortDescMr: "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop" },
-      { id: "sagareshwar-sanctuary", titleMr: "८. सागरेश्वर वन्यजीव अभयारण्य व शिवमंदिर", titleEn: "8. Sagareshwar Wildlife Sanctuary", distanceMr: "३० किमी (४५ मिनिटे)", shortDescMr: "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.", image: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop" },
-      { id: "bahubali-kumbhojgiri", titleMr: "९. बाहुबली कुंभोजगिरी (जैन तीर्थक्षेत्र)", titleEn: "9. Bahubali Hill, Kumbhojgiri", distanceMr: "३५ किमी (५० मिनिटे)", shortDescMr: "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील अतिशय प्रसिद्ध जैन तीर्थक्षेत्र.", image: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop" },
-      { id: "ramling-island-bahe", titleMr: "१०. रामलिंग बेट व राममंदिर (बहे)", titleEn: "10. Ramling Island, Bahe", distanceMr: "३८ किमी (५० मिनिटे)", shortDescMr: "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" },
-      { id: "chandoli-national-park", titleMr: "११. चांदोली राष्ट्रीय उद्यान व धरण", titleEn: "11. Chandoli National Park & Dam", distanceMr: "६५ किमी (१.५ तास)", shortDescMr: "यूनेस्को जागतिक वारसा सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व निसर्गरम्य जंगल परिसर.", image: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop" },
-      { id: "gokak-waterfall", titleMr: "१२. गोकाक भव्य धबधबा", titleEn: "12. Gokak Spectacular Waterfall", distanceMr: "७५ किमी (१.५ तास)", shortDescMr: "१७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).", image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop" },
-      { id: "machhindragad-fort", titleMr: "१३. मच्छिंद्रगड किल्ला व मंदिर", titleEn: "13. Machhindragad Fort & Temple", distanceMr: "४५ किमी (१ तास)", shortDescMr: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला व मच्छिंद्रनाथ मंदिर.", image: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop" },
-      { id: "kolhapur-excursion", titleMr: "१४. कोल्हापूर - श्री महालक्ष्मी मंदिर, न्यू पॅलेस व रंकाळा", titleEn: "14. Kolhapur Day Tour (Mahalaxmi)", distanceMr: "५० किमी (१ तास)", shortDescMr: "श्री अंबाबाई महालक्ष्मी मंदिर, छत्रपती शाहू न्यू पॅलेस राजवाडा व रंकाळा तलाव एक दिवसीय सहल.", image: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop" },
+      {
+        id: "sangli-ganpati",
+        titleMr: "१. सांगली गणपती मंदिर (राजवाडा)",
+        titleEn: "1. Sangli Royal Ganapati Temple",
+        distanceMr: "३ किमी (१० मिनिटे)",
+        shortDescMr:
+          "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
+        image:
+          "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "sangli-fort-rajwada",
+        titleMr: "२. सांगली किल्ला व राजवाडा परिसर",
+        titleEn: "2. Sangli Fort & Rajwada Area",
+        distanceMr: "३.५ किमी (१२ मिनिटे)",
+        shortDescMr:
+          "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
+        image:
+          "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "sangmeshwar-haripur",
+        titleMr: "३. संगमेश्वर मंदिर (हरिपूर संगम)",
+        titleEn: "3. Sangmeshwar Temple (Haripur)",
+        distanceMr: "५ किमी (१५ मिनिटे)",
+        shortDescMr:
+          "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
+        image:
+          "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "krishna-irwin-bridge",
+        titleMr: "४. कृष्णा नदीकाठ व आयर्विन पूल",
+        titleEn: "4. Krishna River & Irwin Bridge",
+        distanceMr: "४ किमी (१० मिनिटे)",
+        shortDescMr:
+          "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल व कृष्णा नदीचा सुंदर घाट परिसर.",
+        image:
+          "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "miraj-dargah",
+        titleMr: "५. मिरज - ख्वाजा मीरासाहेब दर्गाह व संगीत नगरी",
+        titleEn: "5. Miraj Khwaja Meerasaheb Dargah",
+        distanceMr: "१० किमी (२० मिनिटे)",
+        shortDescMr:
+          "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
+        image:
+          "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "audumbar-temple",
+        titleMr: "६. औदुंबर - श्री दत्त क्षेत्र (दत्त मंदिर)",
+        titleEn: "6. Audumbar Shri Dattatreya Temple",
+        distanceMr: "२५ किमी (४० मिनिटे)",
+        shortDescMr:
+          "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.",
+        image:
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "dandoba-hills",
+        titleMr: "७. दंडोबा टेकडी व गुहा शिवमंदिर (भोसे)",
+        titleEn: "7. Dandoba Hills & Forest Shrine",
+        distanceMr: "२५ किमी (३० मिनिटे)",
+        shortDescMr:
+          "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.",
+        image:
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "sagareshwar-sanctuary",
+        titleMr: "८. सागरेश्वर वन्यजीव अभयारण्य व शिवमंदिर",
+        titleEn: "8. Sagareshwar Wildlife Sanctuary",
+        distanceMr: "३० किमी (४५ मिनिटे)",
+        shortDescMr:
+          "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.",
+        image:
+          "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "bahubali-kumbhojgiri",
+        titleMr: "९. बाहुबली कुंभोजगिरी (जैन तीर्थक्षेत्र)",
+        titleEn: "9. Bahubali Hill, Kumbhojgiri",
+        distanceMr: "३५ किमी (५० मिनिटे)",
+        shortDescMr:
+          "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील अतिशय प्रसिद्ध जैन तीर्थक्षेत्र.",
+        image:
+          "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "ramling-island-bahe",
+        titleMr: "१०. रामलिंग बेट व राममंदिर (बहे)",
+        titleEn: "10. Ramling Island, Bahe",
+        distanceMr: "३८ किमी (५० मिनिटे)",
+        shortDescMr:
+          "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.",
+        image:
+          "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "chandoli-national-park",
+        titleMr: "११. चांदोली राष्ट्रीय उद्यान व धरण",
+        titleEn: "11. Chandoli National Park & Dam",
+        distanceMr: "६५ किमी (१.५ तास)",
+        shortDescMr:
+          "यूनेस्को जागतिक वारसा सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व निसर्गरम्य जंगल परिसर.",
+        image:
+          "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "gokak-waterfall",
+        titleMr: "१२. गोकाक भव्य धबधबा",
+        titleEn: "12. Gokak Spectacular Waterfall",
+        distanceMr: "७५ किमी (१.५ तास)",
+        shortDescMr:
+          "१७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).",
+        image:
+          "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "machhindragad-fort",
+        titleMr: "१३. मच्छिंद्रगड किल्ला व मंदिर",
+        titleEn: "13. Machhindragad Fort & Temple",
+        distanceMr: "४५ किमी (१ तास)",
+        shortDescMr: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला व मच्छिंद्रनाथ मंदिर.",
+        image:
+          "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop",
+      },
+      {
+        id: "kolhapur-excursion",
+        titleMr: "१४. कोल्हापूर - श्री महालक्ष्मी मंदिर, न्यू पॅलेस व रंकाळा",
+        titleEn: "14. Kolhapur Day Tour (Mahalaxmi)",
+        distanceMr: "५० किमी (१ तास)",
+        shortDescMr:
+          "श्री अंबाबाई महालक्ष्मी मंदिर, छत्रपती शाहू न्यू पॅलेस राजवाडा व रंकाळा तलाव एक दिवसीय सहल.",
+        image:
+          "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop",
+      },
     ];
 
     const masterOverrides: Record<string, SangliPlaceOverride> = {};
@@ -1911,28 +2644,145 @@ export function useAdminStore() {
 
     const effectiveOverrides = {
       ...masterOverrides,
-      ...(aboutData.sangliPlacesOverrides || {})
+      ...(aboutData.sangliPlacesOverrides || {}),
     };
 
     const itemsToSync: Array<{ name: string; key: string; ref: any; payload: any }> = [
-      { name: "site", key: STORAGE_KEYS.site, ref: doc(db, "app_data", STORAGE_KEYS.site), payload: { data: siteData, updatedAt: now } },
-      { name: "about", key: STORAGE_KEYS.about, ref: doc(db, "app_data", STORAGE_KEYS.about), payload: { data: { ...aboutData, sangliPlacesOverrides: effectiveOverrides }, updatedAt: now } },
-      { name: "gallery", key: STORAGE_KEYS.gallery, ref: doc(db, "app_data", STORAGE_KEYS.gallery), payload: { data: gallery, updatedAt: now } },
-      { name: "inquiries", key: STORAGE_KEYS.inquiries, ref: doc(db, "app_data", STORAGE_KEYS.inquiries), payload: { data: inquiries, updatedAt: now } },
-      { name: "testimonials", key: STORAGE_KEYS.testimonials, ref: doc(db, "app_data", STORAGE_KEYS.testimonials), payload: { data: testimonials, updatedAt: now } },
-      { name: "packages", key: STORAGE_KEYS.packages, ref: doc(db, "app_data", STORAGE_KEYS.packages), payload: { data: packages, updatedAt: now } },
-      { name: "brochures", key: STORAGE_KEYS.brochures, ref: doc(db, "app_data", STORAGE_KEYS.brochures), payload: { data: brochures, updatedAt: now } },
-      { name: "homeNews", key: STORAGE_KEYS.homeNews, ref: doc(db, "app_data", STORAGE_KEYS.homeNews), payload: { data: homeNews, updatedAt: now } },
-      { name: "schedule", key: STORAGE_KEYS.schedule, ref: doc(db, "app_data", STORAGE_KEYS.schedule), payload: { data: scheduleConfig, updatedAt: now } },
-      { name: "sportsSchedule", key: STORAGE_KEYS.sportsSchedule, ref: doc(db, "app_data", STORAGE_KEYS.sportsSchedule), payload: { data: sportsScheduleConfig, updatedAt: now } },
-      { name: "videos", key: STORAGE_KEYS.videos, ref: doc(db, "app_data", STORAGE_KEYS.videos), payload: { data: sanitizedCloudVideos, updatedAt: now } },
-      { name: "site_settings", key: "general", ref: doc(db, "site_settings", "general"), payload: { siteData, updatedAt: now } },
-      { name: "about_collection", key: "about_main", ref: doc(db, "about_collection", "main"), payload: { ...aboutData, sangliPlacesOverrides: effectiveOverrides, updatedAt: now } },
-      { name: "sangli_attractions_all", key: "sangli_attractions_all", ref: doc(db, "sangli_attractions", "all"), payload: { places: effectiveOverrides, updatedAt: now } },
-      { name: "gallery_collection", key: "all_gallery", ref: doc(db, "gallery_collection", "all"), payload: { items: gallery, updatedAt: now } },
-      { name: "inquiries_collection", key: "all_inquiries", ref: doc(db, "inquiries_collection", "all"), payload: { items: inquiries, updatedAt: now } },
-      { name: "brochures_collection", key: "all_brochures", ref: doc(db, "brochures_collection", "all"), payload: { items: brochures, updatedAt: now } },
-      { name: "videos_collection", key: "all_videos", ref: doc(db, "videos_collection", "all"), payload: { items: sanitizedCloudVideos, updatedAt: now } },
+      {
+        name: "site",
+        key: STORAGE_KEYS.site,
+        ref: doc(db, "app_data", STORAGE_KEYS.site),
+        payload: { data: siteData, updatedAt: now },
+      },
+      {
+        name: "about",
+        key: STORAGE_KEYS.about,
+        ref: doc(db, "app_data", STORAGE_KEYS.about),
+        payload: {
+          data: { ...aboutData, sangliPlacesOverrides: effectiveOverrides },
+          updatedAt: now,
+        },
+      },
+      {
+        name: "gallery",
+        key: STORAGE_KEYS.gallery,
+        ref: doc(db, "app_data", STORAGE_KEYS.gallery),
+        payload: { data: gallery, updatedAt: now },
+      },
+      {
+        name: "inquiries",
+        key: STORAGE_KEYS.inquiries,
+        ref: doc(db, "app_data", STORAGE_KEYS.inquiries),
+        payload: { data: inquiries, updatedAt: now },
+      },
+      {
+        name: "testimonials",
+        key: STORAGE_KEYS.testimonials,
+        ref: doc(db, "app_data", STORAGE_KEYS.testimonials),
+        payload: { data: testimonials, updatedAt: now },
+      },
+      {
+        name: "packages",
+        key: STORAGE_KEYS.packages,
+        ref: doc(db, "app_data", STORAGE_KEYS.packages),
+        payload: { data: packages, updatedAt: now },
+      },
+      {
+        name: "brochures",
+        key: STORAGE_KEYS.brochures,
+        ref: doc(db, "app_data", STORAGE_KEYS.brochures),
+        payload: { data: brochures, updatedAt: now },
+      },
+      {
+        name: "homeNews",
+        key: STORAGE_KEYS.homeNews,
+        ref: doc(db, "app_data", STORAGE_KEYS.homeNews),
+        payload: { data: homeNews, updatedAt: now },
+      },
+      {
+        name: "schedule",
+        key: STORAGE_KEYS.schedule,
+        ref: doc(db, "app_data", STORAGE_KEYS.schedule),
+        payload: { data: scheduleConfig, updatedAt: now },
+      },
+      {
+        name: "sportsSchedule",
+        key: STORAGE_KEYS.sportsSchedule,
+        ref: doc(db, "app_data", STORAGE_KEYS.sportsSchedule),
+        payload: { data: sportsScheduleConfig, updatedAt: now },
+      },
+      {
+        name: "pricing",
+        key: STORAGE_KEYS.pricing,
+        ref: doc(db, "app_data", STORAGE_KEYS.pricing),
+        payload: { data: pricingItems, updatedAt: now },
+      },
+      {
+        name: "bhojanalaya",
+        key: STORAGE_KEYS.bhojanalaya,
+        ref: doc(db, "app_data", STORAGE_KEYS.bhojanalaya),
+        payload: { data: bhojanalayaConfig, updatedAt: now },
+      },
+      {
+        name: "sportsPricing",
+        key: STORAGE_KEYS.sportsPricing,
+        ref: doc(db, "app_data", STORAGE_KEYS.sportsPricing),
+        payload: { data: sportsPricingItems, updatedAt: now },
+      },
+      {
+        name: "sportsMembership",
+        key: STORAGE_KEYS.sportsMembership,
+        ref: doc(db, "app_data", STORAGE_KEYS.sportsMembership),
+        payload: { data: sportsMembershipTiers, updatedAt: now },
+      },
+      {
+        name: "videos",
+        key: STORAGE_KEYS.videos,
+        ref: doc(db, "app_data", STORAGE_KEYS.videos),
+        payload: { data: sanitizedCloudVideos, updatedAt: now },
+      },
+      {
+        name: "site_settings",
+        key: "general",
+        ref: doc(db, "site_settings", "general"),
+        payload: { siteData, updatedAt: now },
+      },
+      {
+        name: "about_collection",
+        key: "about_main",
+        ref: doc(db, "about_collection", "main"),
+        payload: { ...aboutData, sangliPlacesOverrides: effectiveOverrides, updatedAt: now },
+      },
+      {
+        name: "sangli_attractions_all",
+        key: "sangli_attractions_all",
+        ref: doc(db, "sangli_attractions", "all"),
+        payload: { places: effectiveOverrides, updatedAt: now },
+      },
+      {
+        name: "gallery_collection",
+        key: "all_gallery",
+        ref: doc(db, "gallery_collection", "all"),
+        payload: { items: gallery, updatedAt: now },
+      },
+      {
+        name: "inquiries_collection",
+        key: "all_inquiries",
+        ref: doc(db, "inquiries_collection", "all"),
+        payload: { items: inquiries, updatedAt: now },
+      },
+      {
+        name: "brochures_collection",
+        key: "all_brochures",
+        ref: doc(db, "brochures_collection", "all"),
+        payload: { items: brochures, updatedAt: now },
+      },
+      {
+        name: "videos_collection",
+        key: "all_videos",
+        ref: doc(db, "videos_collection", "all"),
+        payload: { items: sanitizedCloudVideos, updatedAt: now },
+      },
     ];
 
     Object.entries(effectiveOverrides).forEach(([id, item]) => {
@@ -1964,8 +2814,30 @@ export function useAdminStore() {
       throw firstError;
     }
 
-    console.log(`🔥 Successfully synced ${successCount} collection items to Firestore Cloud Database!`);
+    console.log(
+      `🔥 Successfully synced ${successCount} collection items to Firestore Cloud Database!`,
+    );
     return successCount;
+  };
+
+  const updatePricingItems = (newItems: RateItem[]) => {
+    setPricingItemsState(newItems);
+    setStoredData(STORAGE_KEYS.pricing, newItems);
+  };
+
+  const updateBhojanalayaConfig = (newConfig: BhojanalayaConfig) => {
+    setBhojanalayaConfigState(newConfig);
+    setStoredData(STORAGE_KEYS.bhojanalaya, newConfig);
+  };
+
+  const updateSportsPricingItems = (newItems: RateItem[]) => {
+    setSportsPricingItemsState(newItems);
+    setStoredData(STORAGE_KEYS.sportsPricing, newItems);
+  };
+
+  const updateSportsMembershipTiers = (newTiers: SportsMembershipTier[]) => {
+    setSportsMembershipTiersState(newTiers);
+    setStoredData(STORAGE_KEYS.sportsMembership, newTiers);
   };
 
   return {
@@ -1982,6 +2854,10 @@ export function useAdminStore() {
     homeNews,
     scheduleConfig,
     sportsScheduleConfig,
+    pricingItems,
+    bhojanalayaConfig,
+    sportsPricingItems,
+    sportsMembershipTiers,
     syncAllToFirebaseCloud,
     unreadInquiriesCount: inquiries.filter((i) => !i.read).length,
     unreadSportsInquiriesCount: sportsInquiries.filter((i) => !i.read).length,
@@ -2018,5 +2894,9 @@ export function useAdminStore() {
     deleteSportsScheduleRow,
     addSportsScheduleRule,
     deleteSportsScheduleRule,
+    updatePricingItems,
+    updateBhojanalayaConfig,
+    updateSportsPricingItems,
+    updateSportsMembershipTiers,
   };
 }

@@ -7,7 +7,7 @@ import {
   HeartHandshake,
   Sparkles,
   Palette,
-  Clock
+  Clock,
 } from "lucide-react";
 import { HighlightText } from "@/components/HighlightText";
 import { useLanguage } from "@/lib/use-language";
@@ -20,8 +20,10 @@ const timelineData = [
     stepNoEn: "1",
     titleMr: "संकल्पनेची सुरुवात",
     titleEn: "Inception of Concept",
-    descMr: "श्री. अभिनय जगन्नाथ कामाजी यांच्या स्वप्नातील प्रकल्पातून प्रीतम ज्येष्ठ नागरिक आनंदशाळेची संकल्पना उदयास आली.",
-    descEn: "The vision of Preetam Senior Citizen Anandshala originated from the dream project of Shri Abhinay Jagannath Kamaji.",
+    descMr:
+      "श्री. अभिनय जगन्नाथ कामाजी यांच्या स्वप्नातील प्रकल्पातून प्रीतम ज्येष्ठ नागरिक आनंदशाळेची संकल्पना उदयास आली.",
+    descEn:
+      "The vision of Preetam Senior Citizen Anandshala originated from the dream project of Shri Abhinay Jagannath Kamaji.",
     color: "#db2777",
     bgColor: "#FDE8F3",
     borderColor: "#FCCEE4",
@@ -35,8 +37,10 @@ const timelineData = [
     stepNoEn: "2",
     titleMr: "भूमिपूजन",
     titleEn: "Bhumipujan Ceremony",
-    descMr: "१५ ऑगस्ट २०२३ रोजी स्वातंत्र्य दिन व ज्येष्ठ नागरिक आनंद मेळाव्याच्या शुभमुहूर्तावर भूमिपूजन संपन्न झाले.",
-    descEn: "Bhumipujan was solemnly performed on Independence Day, 15th August 2023, during the Senior Citizens' Meet.",
+    descMr:
+      "१५ ऑगस्ट २०२३ रोजी स्वातंत्र्य दिन व ज्येष्ठ नागरिक आनंद मेळाव्याच्या शुभमुहूर्तावर भूमिपूजन संपन्न झाले.",
+    descEn:
+      "Bhumipujan was solemnly performed on Independence Day, 15th August 2023, during the Senior Citizens' Meet.",
     color: "#1D4ED8",
     bgColor: "#EFF6FF",
     borderColor: "#BFDBFE",
@@ -50,8 +54,10 @@ const timelineData = [
     stepNoEn: "3",
     titleMr: "आनंदशाळेची संकल्पना",
     titleEn: "Anandshala Philosophy",
-    descMr: "ज्येष्ठ नागरिकांना आनंदी, उत्साही, निरोगी आणि सुखी जीवन जगता यावे यासाठी प्रीतम ज्येष्ठ नागरिक आनंदशाळेची उभारणी करण्याची संकल्पना.",
-    descEn: "The core philosophy is enabling senior citizens to live energetic, healthy, dignified, and joyful golden years.",
+    descMr:
+      "ज्येष्ठ नागरिकांना आनंदी, उत्साही, निरोगी आणि सुखी जीवन जगता यावे यासाठी प्रीतम ज्येष्ठ नागरिक आनंदशाळेची उभारणी करण्याची संकल्पना.",
+    descEn:
+      "The core philosophy is enabling senior citizens to live energetic, healthy, dignified, and joyful golden years.",
     color: "#EA580C",
     bgColor: "#FFF7ED",
     borderColor: "#FFEDD5",
@@ -65,8 +71,10 @@ const timelineData = [
     stepNoEn: "4",
     titleMr: "विविध सुविधांची उभारणी",
     titleEn: "Campus Infrastructure",
-    descMr: "आनंद निवास, नियोजित गोशाळा, नियोजित श्रीकृष्ण मंदिर, जलतरण (swimming), आनंदशाळा इमारत, फिटनेस व स्पोर्ट्स कॉम्प्लेक्स, फूड कोर्ट, कार्यक्रम स्टेज, गार्डन, लॉन आणि क्रिकेट व इतर खेळांसाठी मैदान.",
-    descEn: "Anand Nivas stay, proposed Gaushala, Krishna Temple, swimming pool, sports complex, food court, stage, gardens & sports grounds.",
+    descMr:
+      "आनंद निवास, नियोजित गोशाळा, नियोजित श्रीकृष्ण मंदिर, जलतरण (swimming), आनंदशाळा इमारत, फिटनेस व स्पोर्ट्स कॉम्प्लेक्स, फूड कोर्ट, कार्यक्रम स्टेज, गार्डन, लॉन आणि क्रिकेट व इतर खेळांसाठी मैदान.",
+    descEn:
+      "Anand Nivas stay, proposed Gaushala, Krishna Temple, swimming pool, sports complex, food court, stage, gardens & sports grounds.",
     color: "#059669",
     bgColor: "#ECFDF5",
     borderColor: "#A7F3D0",
@@ -80,8 +88,10 @@ const timelineData = [
     stepNoEn: "5",
     titleMr: "ज्येष्ठ नागरिकांसाठी सेवा व सुविधा",
     titleEn: "Senior Care & Services",
-    descMr: "जाण्या-येण्याची सुविधा, राहण्याची व्यवस्था, कला शिक्षण, चहा, नाश्ता, जेवण, दवाखाना (रोज २ तास सकाळी १० ते १२ आणि सायंकाळी ४ ते ६), वाचनालय, गार्डन, जलतरण (swimming), बॅडमिंटन, जिम, टेबल टेनिस, पूल टेबल, पिकलबॉल, विविध इनडोअर व आउटडोअर खेळ, नियोजित श्रीकृष्ण मंदिर आणि नियोजित गोशाळा.",
-    descEn: "Commute transport, accommodation, arts, food court meals, in-house clinic (10-12 AM & 4-6 PM), library, swimming, gym, indoor-outdoor games & temple.",
+    descMr:
+      "जाण्या-येण्याची सुविधा, राहण्याची व्यवस्था, कला शिक्षण, चहा, नाश्ता, जेवण, दवाखाना (रोज २ तास सकाळी १० ते १२ आणि सायंकाळी ४ ते ६), वाचनालय, गार्डन, जलतरण (swimming), बॅडमिंटन, जिम, टेबल टेनिस, पूल टेबल, पिकलबॉल, विविध इनडोअर व आउटडोअर खेळ, नियोजित श्रीकृष्ण मंदिर आणि नियोजित गोशाळा.",
+    descEn:
+      "Commute transport, accommodation, arts, food court meals, in-house clinic (10-12 AM & 4-6 PM), library, swimming, gym, indoor-outdoor games & temple.",
     color: "#7C3AED",
     bgColor: "#F5F3FF",
     borderColor: "#DDD6FE",
@@ -110,8 +120,10 @@ const timelineData = [
     stepNoEn: "7",
     titleMr: "विविध उपक्रमांची सुरुवात",
     titleEn: "Activity Programs",
-    descMr: "बैठे खेळ, चित्रकला, हस्तकला, विणकाम, संगीत वाद्ये, संगणक व माहिती तंत्रज्ञान, मनोरंजन, पोहणे, विविध खेळ, व्यायाम, योगा, ध्यान, झुंबा, नृत्य, पाककला, वाचन व विश्रांती, थिएटर, भजन-कीर्तन आणि हास्य व कराओके असे विविध उपक्रम.",
-    descEn: "Indoor games, arts, music, IT learning, swimming, Yoga, Meditation, Zumba, dance, cooking, theatre & Karaoke sessions.",
+    descMr:
+      "बैठे खेळ, चित्रकला, हस्तकला, विणकाम, संगीत वाद्ये, संगणक व माहिती तंत्रज्ञान, मनोरंजन, पोहणे, विविध खेळ, व्यायाम, योगा, ध्यान, झुंबा, नृत्य, पाककला, वाचन व विश्रांती, थिएटर, भजन-कीर्तन आणि हास्य व कराओके असे विविध उपक्रम.",
+    descEn:
+      "Indoor games, arts, music, IT learning, swimming, Yoga, Meditation, Zumba, dance, cooking, theatre & Karaoke sessions.",
     color: "#0284C7",
     bgColor: "#F0F9FF",
     borderColor: "#BAE6FD",
@@ -125,8 +137,10 @@ const timelineData = [
     stepNoEn: "8",
     titleMr: "आनंदशाळेचे वेळापत्रक",
     titleEn: "Daily Timetable",
-    descMr: "सकाळी ११ ते सायंकाळी ५ या वेळेत विविध तास व उपक्रमांचे नियोजन करण्यात आले आहे. गरजेनुसार वेळापत्रक दर महिन्याला बदलता येते.",
-    descEn: "Daily 11:00 AM to 5:00 PM scheduled activity periods curated to keep every day active and engaging.",
+    descMr:
+      "सकाळी ११ ते सायंकाळी ५ या वेळेत विविध तास व उपक्रमांचे नियोजन करण्यात आले आहे. गरजेनुसार वेळापत्रक दर महिन्याला बदलता येते.",
+    descEn:
+      "Daily 11:00 AM to 5:00 PM scheduled activity periods curated to keep every day active and engaging.",
     color: "#D97706",
     bgColor: "#FEF3C7",
     borderColor: "#FDE68A",
@@ -157,9 +171,15 @@ export default function JourneyTimeline() {
             <span>🌿</span>
             <span>
               {isEn ? (
-                <>Preetam Senior Citizen <span className="text-[#db2777]">Anandshala</span> — Project Highlights</>
+                <>
+                  Preetam Senior Citizen <span className="text-[#db2777]">Anandshala</span> —
+                  Project Highlights
+                </>
               ) : (
-                <>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span> — प्रकल्पाची वैशिष्ट्ये</>
+                <>
+                  प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span> —
+                  प्रकल्पाची वैशिष्ट्ये
+                </>
               )}
             </span>
             <span>🌿</span>
@@ -195,9 +215,9 @@ export default function JourneyTimeline() {
             viewport={{ once: true }}
             className="journey-ornament flex items-center justify-center gap-3 mt-3"
           >
-            <span className="w-12 h-[2px] bg-gradient-to-r from-transparent to-[#db2777]"></span>
+            <span className="w-12 h-0.5 bg-linear-to-r from-transparent to-[#db2777]"></span>
             <span className="text-[#db2777] font-black text-xs">❖</span>
-            <span className="w-12 h-[2px] bg-gradient-to-l from-transparent to-[#db2777]"></span>
+            <span className="w-12 h-0.5 bg-linear-to-l from-transparent to-[#db2777]"></span>
           </motion.div>
         </div>
 
@@ -234,19 +254,16 @@ export default function JourneyTimeline() {
                       className="journey-card-box left-box"
                     >
                       {/* Step Number Badge */}
-                      <div
-                        className="card-date-badge"
-                        style={{ backgroundColor: item.color }}
-                      >
+                      <div className="card-date-badge" style={{ backgroundColor: item.color }}>
                         {isEn ? `Highlight ${stepNo}` : `वैशिष्ट्य ${stepNo}`}
                       </div>
 
-                      <div className="card-inner flex items-start justify-between gap-4 p-5 sm:p-6 bg-white rounded-3xl shadow-xl border-2 border-slate-100">
+                      <div className="card-inner flex items-start justify-between gap-4 p-6 sm:p-7 bg-white rounded-3xl shadow-xl border-2 border-pink-100">
                         <div className="card-text-content space-y-2 text-left">
-                          <h3 className="card-title text-lg sm:text-xl font-black text-slate-900 leading-snug">
+                          <h3 className="card-title text-xl sm:text-2xl font-black text-[#db2777] leading-snug">
                             {item.id}. <HighlightText text={title} />
                           </h3>
-                          <p className="card-desc text-xs sm:text-sm text-slate-700 font-extrabold leading-relaxed">
+                          <p className="card-desc text-sm sm:text-base text-slate-700 font-extrabold leading-relaxed">
                             <HighlightText text={description} />
                           </p>
                         </div>
@@ -256,14 +273,11 @@ export default function JourneyTimeline() {
                           className="card-icon-wrapper p-3.5 rounded-2xl shrink-0 shadow-md"
                           style={{ backgroundColor: item.bgColor }}
                         >
-                          <Icon className="size-6 sm:size-7" style={{ color: item.color }} />
+                          <Icon className="size-7 sm:size-8" style={{ color: item.color }} />
                         </div>
                       </div>
 
-                      <div
-                        className="arrow-right"
-                        style={{ borderLeftColor: item.color }}
-                      />
+                      <div className="arrow-right" style={{ borderLeftColor: item.color }} />
                     </motion.div>
 
                     {/* Center Node */}
@@ -306,36 +320,30 @@ export default function JourneyTimeline() {
                       className="journey-card-box right-box"
                     >
                       {/* Step Number Badge */}
-                      <div
-                        className="card-date-badge"
-                        style={{ backgroundColor: item.color }}
-                      >
+                      <div className="card-date-badge" style={{ backgroundColor: item.color }}>
                         {isEn ? `Highlight ${stepNo}` : `वैशिष्ट्य ${stepNo}`}
                       </div>
 
-                      <div className="card-inner flex items-start justify-between gap-4 p-5 sm:p-6 bg-white rounded-3xl shadow-xl border-2 border-slate-100">
+                      <div className="card-inner flex items-start justify-between gap-4 p-6 sm:p-7 bg-white rounded-3xl shadow-xl border-2 border-pink-100">
                         {/* Floating Icon Box */}
                         <div
                           className="card-icon-wrapper p-3.5 rounded-2xl shrink-0 shadow-md"
                           style={{ backgroundColor: item.bgColor }}
                         >
-                          <Icon className="size-6 sm:size-7" style={{ color: item.color }} />
+                          <Icon className="size-7 sm:size-8" style={{ color: item.color }} />
                         </div>
 
                         <div className="card-text-content space-y-2 text-left flex-1">
-                          <h3 className="card-title text-lg sm:text-xl font-black text-slate-900 leading-snug">
+                          <h3 className="card-title text-xl sm:text-2xl font-black text-[#db2777] leading-snug">
                             {item.id}. <HighlightText text={title} />
                           </h3>
-                          <p className="card-desc text-xs sm:text-sm text-slate-700 font-extrabold leading-relaxed">
+                          <p className="card-desc text-sm sm:text-base text-slate-700 font-extrabold leading-relaxed">
                             <HighlightText text={description} />
                           </p>
                         </div>
                       </div>
 
-                      <div
-                        className="arrow-left"
-                        style={{ borderRightColor: item.color }}
-                      />
+                      <div className="arrow-left" style={{ borderRightColor: item.color }} />
                     </motion.div>
                   </>
                 )}
@@ -358,19 +366,23 @@ export default function JourneyTimeline() {
             <p className="quote-text text-center">
               {isEn ? (
                 <>
-                  Live with joy, nurture health,<br />
+                  Live with joy, nurture health,
+                  <br />
                   Fulfill your dreams by joining <HighlightText text="Anandshala" />.
                 </>
               ) : (
                 <>
-                  आनंदात जगायचं, आरोग्य जपायचं,<br />
+                  आनंदात जगायचं, आरोग्य जपायचं,
+                  <br />
                   <HighlightText text="आनंदशाळेत" /> येऊन स्वप्न साकारायचं.
                 </>
               )}
             </p>
             <div className="quote-mark quote-end text-right">”</div>
             <p className="quote-author text-center">
-              {isEn ? "– Dr. Girish Oak, Actor & Brand Ambassador" : "– डॉ. गिरीश ओक, अभिनेते व ब्रँड ॲम्बेसेडर"}
+              {isEn
+                ? "– Dr. Girish Oak, Actor & Brand Ambassador"
+                : "– डॉ. गिरीश ओक, अभिनेते व ब्रँड ॲम्बेसेडर"}
             </p>
           </div>
         </motion.div>

@@ -1,12 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  HeartPulse,
-  Utensils,
-  BedDouble,
-  ShieldCheck,
-  Flower2,
-  Activity,
-} from "lucide-react";
+import { HeartPulse, Utensils, BedDouble, ShieldCheck, Flower2, Activity } from "lucide-react";
 
 const facilities = [
   {
@@ -49,14 +42,12 @@ const facilities = [
 
 export default function Facilities() {
   return (
-    <section className="relative py-28 bg-gradient-to-b from-pink-50 via-white to-blue-50 overflow-hidden">
-
+    <section className="relative py-28 bg-linear-to-b from-pink-50 via-white to-blue-50 overflow-hidden">
       {/* Background Blobs */}
       <div className="absolute -left-20 top-0 w-80 h-80 bg-pink-300 rounded-full blur-[120px] opacity-20" />
       <div className="absolute right-0 bottom-0 w-96 h-96 bg-blue-300 rounded-full blur-[150px] opacity-20" />
 
       <div className="max-w-7xl mx-auto px-6">
-
         {/* ── HEADING ── */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -71,14 +62,14 @@ export default function Facilities() {
 
           <h2 className="text-5xl font-black mt-6 leading-tight">
             ज्येष्ठांसाठी
-            <span className="bg-gradient-to-r from-pink-400 to-blue-600 bg-clip-text text-transparent">
-              {" "}संपूर्ण काळजी
+            <span className="bg-linear-to-r from-pink-400 to-blue-600 bg-clip-text text-transparent">
+              {" "}
+              संपूर्ण काळजी
             </span>
           </h2>
 
           <p className="mt-6 text-lg text-gray-600 leading-8">
-            सुरक्षितता, आरोग्य, प्रेम आणि आनंद या सर्व गोष्टींचा
-            समतोल साधणाऱ्या आधुनिक सुविधा.
+            सुरक्षितता, आरोग्य, प्रेम आणि आनंद या सर्व गोष्टींचा समतोल साधणाऱ्या आधुनिक सुविधा.
           </p>
         </motion.div>
 
@@ -97,7 +88,7 @@ export default function Facilities() {
                 className="bg-white rounded-[32px] shadow-xl p-8 border border-pink-100 transition-all"
               >
                 <div
-                  className={`w-20 h-20 rounded-3xl bg-gradient-to-r ${item.color} flex items-center justify-center text-white shadow-lg`}
+                  className={`w-20 h-20 rounded-3xl bg-linear-to-r ${item.color} flex items-center justify-center text-white shadow-lg`}
                 >
                   <Icon size={36} />
                 </div>
@@ -138,7 +129,7 @@ export default function Facilities() {
               key={index}
               className="bg-white rounded-3xl shadow-xl p-8 text-center border border-pink-100"
             >
-              <h2 className="text-4xl font-black bg-gradient-to-r from-pink-400 to-blue-600 bg-clip-text text-transparent">
+              <h2 className="text-4xl font-black bg-linear-to-r from-pink-400 to-blue-600 bg-clip-text text-transparent">
                 {item.number}
               </h2>
               <p className="mt-3 text-gray-600 font-medium">{item.label}</p>
@@ -155,7 +146,7 @@ export default function Facilities() {
           className="relative overflow-hidden rounded-[40px] mt-24"
         >
           {/* Background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-pink-400 via-fuchsia-500 to-blue-600" />
+          <div className="absolute inset-0 bg-linear-to-r from-pink-400 via-fuchsia-500 to-blue-600" />
           <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-white/10 blur-3xl" />
 
@@ -172,8 +163,9 @@ export default function Facilities() {
               </h2>
 
               <p className="mt-6 text-white/90 text-lg leading-8 max-w-2xl">
-                प्रीतम ज्येष्ठ नागरिक <span className="text-pink-300 font-black">आनंदशाळा</span> ही केवळ निवासस्थान नाही,
-                तर प्रेम, सन्मान, सुरक्षितता, आरोग्य आणि आनंद देणारे दुसरे घर आहे.
+                प्रीतम ज्येष्ठ नागरिक <span className="text-pink-300 font-black">आनंदशाळा</span> ही
+                केवळ निवासस्थान नाही, तर प्रेम, सन्मान, सुरक्षितता, आरोग्य आणि आनंद देणारे दुसरे घर
+                आहे.
               </p>
             </div>
 
@@ -196,7 +188,6 @@ export default function Facilities() {
             </div>
           </div>
         </motion.div>
-
       </div>
     </section>
   );

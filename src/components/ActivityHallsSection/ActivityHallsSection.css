@@ -1,7 +1,10 @@
 .ah-section {
   width: 100%;
   background-color: #fcf9fc;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   position: relative;
   overflow: hidden;
   color: #1e293b;
@@ -142,16 +145,37 @@
 }
 
 @media (max-width: 1024px) {
-  .ah-grid { grid-template-columns: repeat(2, 1fr); }
-  .ah-badge-left, .ah-badge-right { display: none; }
+  .ah-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ah-badge-left,
+  .ah-badge-right {
+    display: none;
+  }
 }
 @media (max-width: 640px) {
-  .ah-grid { grid-template-columns: 1fr; }
-  .ah-header { margin-bottom: 2.5rem; }
-  .ah-header-subtitle { font-size: 1.15rem; gap: 0.5rem; }
-  .ah-header-subtitle::before, .ah-header-subtitle::after { width: 20px; }
-  .ah-header-desc { font-size: 0.95rem; gap: 0.5rem; }
-  .ah-header-desc::before, .ah-header-desc::after { display: none; }
+  .ah-grid {
+    grid-template-columns: 1fr;
+  }
+  .ah-header {
+    margin-bottom: 2.5rem;
+  }
+  .ah-header-subtitle {
+    font-size: 1.15rem;
+    gap: 0.5rem;
+  }
+  .ah-header-subtitle::before,
+  .ah-header-subtitle::after {
+    width: 20px;
+  }
+  .ah-header-desc {
+    font-size: 0.95rem;
+    gap: 0.5rem;
+  }
+  .ah-header-desc::before,
+  .ah-header-desc::after {
+    display: none;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -163,13 +187,16 @@
   border-bottom-right-radius: 3rem;
   position: relative;
   cursor: pointer;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   border: 2px solid #f1f5f9;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   height: 100%;
-  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
 }
 
 .ah-card-clean:hover {
@@ -192,9 +219,15 @@
   border-bottom-right-radius: 1rem;
 }
 
-.theme-blue .ah-card-num { background: #0044cc; }
-.theme-purple .ah-card-num { background: #7c3aed; }
-.theme-pink .ah-card-num { background: #db2777; }
+.theme-blue .ah-card-num {
+  background: #0044cc;
+}
+.theme-purple .ah-card-num {
+  background: #7c3aed;
+}
+.theme-pink .ah-card-num {
+  background: #db2777;
+}
 
 /* Image Container & Overlay */
 .ah-card-img-wrapper {
@@ -243,17 +276,26 @@
   position: relative;
   z-index: 5;
   border: 3px solid white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.theme-blue .ah-card-icon { background: #eff6ff; color: #2563eb; }
-.theme-purple .ah-card-icon { background: #f5f3ff; color: #7c3aed; }
-.theme-pink .ah-card-icon { background: #fdf2f8; color: #db2777; }
+.theme-blue .ah-card-icon {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.theme-purple .ah-card-icon {
+  background: #f5f3ff;
+  color: #7c3aed;
+}
+.theme-pink .ah-card-icon {
+  background: #fdf2f8;
+  color: #db2777;
+}
 
 .ah-card-title {
   font-size: 1.25rem;
   font-weight: 900;
-  color: #541A1A;
+  color: #541a1a;
   margin-bottom: 0.75rem;
   line-height: 1.25;
 }
@@ -289,11 +331,15 @@
 }
 
 @media (max-width: 900px) {
-  .ah-features-strip { grid-template-columns: repeat(2, 1fr); }
+  .ah-features-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 500px) {
-  .ah-features-strip { grid-template-columns: 1fr; }
+  .ah-features-strip {
+    grid-template-columns: 1fr;
+  }
 }
 
 .ah-feature-item {
@@ -304,7 +350,7 @@
   text-align: center;
   font-weight: 900;
   font-size: 0.95rem;
-  color: #541A1A;
+  color: #541a1a;
   box-shadow: 0 8px 22px rgba(219, 39, 119, 0.06);
   transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
@@ -343,7 +389,7 @@
 
 /* SLEEK CTA PILL BUTTON (SMALLER, SLEEK & ELEGANT) */
 .ah-footer-cta-pill {
-  background: linear-gradient(135deg, #541A1A 0%, #db2777 100%);
+  background: linear-gradient(135deg, #541a1a 0%, #db2777 100%);
   color: #ffffff !important;
   text-decoration: none;
   font-weight: 900;
@@ -398,8 +444,14 @@
 }
 
 @keyframes ahModalScaleUp {
-  from { transform: scale(0.9) translateY(20px); opacity: 0; }
-  to { transform: scale(1) translateY(0); opacity: 1; }
+  from {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }
 
 .ah-modal-close-btn {
@@ -418,7 +470,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
 }
 

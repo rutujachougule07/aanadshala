@@ -11,8 +11,7 @@ function TimelineItem({ item }: TimelineItemProps) {
   const isLeft = item.side === "left";
 
   return (
-    <div className="relative grid grid-cols-12 items-center min-h-[620px] my-6 transform-gpu">
-
+    <div className="relative grid grid-cols-12 items-center min-h-155 my-6 transform-gpu">
       {/* LEFT CARD */}
       {isLeft && (
         <div className="col-span-5 px-8 flex justify-end">
@@ -42,9 +41,9 @@ function TimelineItem({ item }: TimelineItemProps) {
             relative
             overflow-hidden
             w-full
-            max-w-[520px]
-            lg:w-[520px]
-            min-h-[220px]
+            max-w-130
+            lg:w-130
+            min-h-55
             rounded-[42px]
             border
             border-white/90
@@ -121,7 +120,7 @@ function TimelineItem({ item }: TimelineItemProps) {
 
             {/* Colored Border */}
             <div
-              className="absolute left-0 top-10 bottom-10 w-[5px] rounded-full z-10"
+              className="absolute left-0 top-10 bottom-10 w-1.25 rounded-full z-10"
               style={{
                 background: item.color,
               }}
@@ -191,7 +190,7 @@ function TimelineItem({ item }: TimelineItemProps) {
                     items-center
                     justify-center
                     rounded-full
-                    bg-gradient-to-br from-white to-slate-100
+                    bg-linear-to-br from-white to-slate-100
                     shadow-2xl
                     text-6xl
                   "
@@ -301,9 +300,9 @@ function TimelineItem({ item }: TimelineItemProps) {
               relative
               overflow-hidden
               w-full
-              max-w-[520px]
-              lg:w-[520px]
-              min-h-[220px]
+              max-w-130
+              lg:w-130
+              min-h-55
               rounded-[42px]
               border
               border-white/90
@@ -380,7 +379,7 @@ function TimelineItem({ item }: TimelineItemProps) {
 
             {/* Right Colored Border */}
             <div
-              className="absolute right-0 top-10 bottom-10 w-[5px] rounded-full z-10"
+              className="absolute right-0 top-10 bottom-10 w-1.25 rounded-full z-10"
               style={{
                 background: item.color,
               }}
@@ -396,9 +395,7 @@ function TimelineItem({ item }: TimelineItemProps) {
                 {item.year || item.date}
               </span>
 
-              <h2 className="mt-7 text-4xl lg:text-5xl font-black text-[#1F2B8D]">
-                {item.title}
-              </h2>
+              <h2 className="mt-7 text-4xl lg:text-5xl font-black text-[#1F2B8D]">{item.title}</h2>
 
               <p className="mt-6 text-lg lg:text-xl leading-10 text-gray-600 font-normal">
                 {item.description}
@@ -440,7 +437,7 @@ function TimelineItem({ item }: TimelineItemProps) {
                     items-center
                     justify-center
                     rounded-full
-                    bg-gradient-to-br from-white to-slate-100
+                    bg-linear-to-br from-white to-slate-100
                     shadow-2xl
                     text-6xl
                   "

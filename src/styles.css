@@ -1,20 +1,16 @@
 /* ============================================================
    GOOGLE FONTS — CINZEL + POPPINS + MUKTA
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Mukta:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Mukta:wght@300;400;500;600;700;800&display=swap");
 
 @import "tailwindcss";
-@source "../src";
 @import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
-
 
 /* ============================================================
    THEME TOKENS — PINK & BLUE DUAL THEME WITH BLUE & WHITE UI COMBINATION
    ============================================================ */
 
-@theme inline {
+:root {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -40,9 +36,6 @@
   --color-pink: var(--pink);
   --color-blue: var(--blue);
   --color-sky: var(--sky);
-  --color-[#f472b6]: #f472b6;
-  --color-[#1A05A2]: #1A05A2;
-  --color-[#1E40AF]: #1E40AF;
   --color-primary-glow: var(--primary-glow);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
@@ -65,76 +58,77 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-}
-
-:root {
   --radius: 0.75rem;
 
   /* ── PINK & BLUE BRAND PALETTE ── */
   --pink: #f472b6;
   /* Vibrant Royal Pink Accent     */
-  --blue: #1A05A2;
+  --blue: #1a05a2;
   /* Deep Navy Royal Blue          */
-  --sky: #0284C7;
+  --sky: #0284c7;
   /* Bright Sky Blue Accent        */
-  --ivory: #F0F6FF;
+  --ivory: #f0f6ff;
   /* Crisp Soft Light Blue White   */
-  --sand: #CBD5E1;
+  --sand: #cbd5e1;
   /* Slate Border                  */
-  --mahogany: #1A05A2;
+  --mahogany: #1a05a2;
   /* Deep Navy Text                */
 
   /* ── LIGHT BLUE & WHITE BACKGROUND COMBINATION ── */
-  --background: #F0F6FF;
+  --background: #f0f6ff;
   /* crisp ice blue-white backdrop */
-  --foreground: #1A05A2;
+  --foreground: #1a05a2;
   /* deep royal navy blue text */
-  --card: #FFFFFF;
+  --card: #ffffff;
   /* pure crisp white cards */
-  --card-foreground: #1A05A2;
+  --card-foreground: #1a05a2;
 
-  --popover: #FFFFFF;
-  --popover-foreground: #1A05A2;
+  --popover: #ffffff;
+  --popover-foreground: #1a05a2;
 
   /* primary = Vibrant Pink Accent */
   --primary: #f472b6;
-  --primary-foreground: #FFFFFF;
-  --primary-glow: #1A05A2;
+  --primary-foreground: #ffffff;
+  --primary-glow: #1a05a2;
 
   /* secondary = Light Soft Blue Container */
-  --secondary: #E0F2FE;
-  --secondary-foreground: #1A05A2;
+  --secondary: #e0f2fe;
+  --secondary-foreground: #1a05a2;
 
-  --muted: #E2E8F0;
+  --muted: #e2e8f0;
   --muted-foreground: #475569;
 
   /* accent = Pink & Blue */
   --accent: #f472b6;
-  --accent-foreground: #FFFFFF;
-  --accent-soft: #1A05A2;
+  --accent-foreground: #ffffff;
+  --accent-soft: #1a05a2;
 
   --destructive: #f472b6;
   --destructive-foreground: #ffffff;
 
-  --border: #CBD5E1;
-  --input: #E2E8F0;
+  --border: #cbd5e1;
+  --input: #e2e8f0;
   --ring: #f472b6;
 
   --chart-1: #f472b6;
-  --chart-2: #1A05A2;
-  --chart-3: #0284C7;
-  --chart-4: #E2E8F0;
-  --chart-5: #050E2E;
+  --chart-2: #1a05a2;
+  --chart-3: #0284c7;
+  --chart-4: #e2e8f0;
+  --chart-5: #050e2e;
 
   --font-display: "Mukta", "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Poppins", "Mukta", ui-sans-serif, system-ui, sans-serif;
 
   /* ── RICH MIXED GRADIENTS ── */
-  --gradient-hero: linear-gradient(145deg, #1A05A2 0%, #1E40AF 60%, #3B82F6 100%);
-  --gradient-brand: linear-gradient(135deg, #1A05A2 0%, #f472b6 100%);
-  --gradient-pink: linear-gradient(135deg, #f472b6 0%, #FF2A85 100%);
-  --gradient-blue: linear-gradient(135deg, #1A05A2 0%, #1E40AF 100%);
-  --gradient-card-border: linear-gradient(135deg, rgba(230, 0, 103, 0.4) 0%, rgba(12, 35, 112, 0.4) 100%);
+  --gradient-hero: linear-gradient(145deg, #1a05a2 0%, #1e40af 60%, #3b82f6 100%);
+  --gradient-brand: linear-gradient(135deg, #1a05a2 0%, #f472b6 100%);
+  --gradient-pink: linear-gradient(135deg, #f472b6 0%, #ff2a85 100%);
+  --gradient-blue: linear-gradient(135deg, #1a05a2 0%, #1e40af 100%);
+  --gradient-card-border: linear-gradient(
+    135deg,
+    rgba(230, 0, 103, 0.4) 0%,
+    rgba(12, 35, 112, 0.4) 100%
+  );
 
   /* ── SHADOWS ── */
   --shadow-soft: 0 10px 40px -12px rgba(12, 35, 112, 0.18);
@@ -142,43 +136,43 @@
   --shadow-glow: 0 0 0 1px rgba(230, 0, 103, 0.3), 0 14px 40px -10px rgba(12, 35, 112, 0.25);
   --shadow-fire: 0 0 25px rgba(230, 0, 103, 0.35), 0 0 50px rgba(2, 132, 199, 0.25);
 
-  --sidebar: #F0F6FF;
-  --sidebar-foreground: #1A05A2;
+  --sidebar: #f0f6ff;
+  --sidebar-foreground: #1a05a2;
   --sidebar-primary: #f472b6;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #E2E8F0;
-  --sidebar-accent-foreground: #1A05A2;
-  --sidebar-border: #CBD5E1;
+  --sidebar-accent: #e2e8f0;
+  --sidebar-accent-foreground: #1a05a2;
+  --sidebar-border: #cbd5e1;
   --sidebar-ring: #f472b6;
 }
 
 .dark {
-  --background: #070F28;
-  --foreground: #F1F5F9;
-  --card: #0C193D;
-  --card-foreground: #F1F5F9;
-  --popover: #0C193D;
-  --popover-foreground: #F1F5F9;
+  --background: #070f28;
+  --foreground: #f1f5f9;
+  --card: #0c193d;
+  --card-foreground: #f1f5f9;
+  --popover: #0c193d;
+  --popover-foreground: #f1f5f9;
   --primary: #f472b6;
-  --primary-foreground: #FFFFFF;
+  --primary-foreground: #ffffff;
   --secondary: #132554;
-  --secondary-foreground: #F1F5F9;
+  --secondary-foreground: #f1f5f9;
   --muted: #132554;
-  --muted-foreground: #94A3B8;
-  --accent: #0284C7;
-  --accent-foreground: #FFFFFF;
+  --muted-foreground: #94a3b8;
+  --accent: #0284c7;
+  --accent-foreground: #ffffff;
   --destructive: #f472b6;
   --destructive-foreground: #ffffff;
-  --border: #1E293B;
+  --border: #1e293b;
   --input: #132554;
   --ring: #f472b6;
-  --sidebar: #050B1E;
-  --sidebar-foreground: #F1F5F9;
+  --sidebar: #050b1e;
+  --sidebar-foreground: #f1f5f9;
   --sidebar-primary: #f472b6;
-  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #132554;
-  --sidebar-accent-foreground: #F1F5F9;
-  --sidebar-border: #1E293B;
+  --sidebar-accent-foreground: #f1f5f9;
+  --sidebar-border: #1e293b;
   --sidebar-ring: #f472b6;
 }
 
@@ -243,7 +237,6 @@
    ============================================================ */
 
 @layer base {
-
   html,
   body,
   #root,
@@ -290,7 +283,7 @@
 
   ::selection {
     background: rgba(230, 0, 103, 0.35);
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 
@@ -298,7 +291,7 @@
    UTILITIES
    ============================================================ */
 
-@utility container-page {
+.container-page {
   margin-inline: auto;
   width: 100%;
   max-width: 82rem;
@@ -310,7 +303,6 @@
    ============================================================ */
 
 @keyframes float-slow {
-
   0%,
   100% {
     transform: translateY(0) scale(1) rotate(0deg);
@@ -326,7 +318,6 @@
 }
 
 @keyframes float-reverse {
-
   0%,
   100% {
     transform: translateY(0) scale(1);
@@ -338,7 +329,6 @@
 }
 
 @keyframes float-side {
-
   0%,
   100% {
     transform: translateX(0) translateY(0);
@@ -368,7 +358,6 @@
 }
 
 @keyframes float-badge {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -556,7 +545,14 @@
 }
 
 .shimmer-text {
-  background: linear-gradient(90deg, #f472b6 0%, #1A05A2 25%, #0284C7 50%, #1A05A2 75%, #f472b6 100%);
+  background: linear-gradient(
+    90deg,
+    #f472b6 0%,
+    #1a05a2 25%,
+    #0284c7 50%,
+    #1a05a2 75%,
+    #f472b6 100%
+  );
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;

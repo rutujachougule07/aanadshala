@@ -29,7 +29,7 @@ function TimelineRow({ item, index }: TimelineRowProps) {
       }}
       className="transform-gpu will-change-transform"
     >
-      <div className="grid grid-cols-12 items-center min-h-[340px]">
+      <div className="grid grid-cols-12 items-center min-h-85">
         {/* Left Card Slot */}
         <div className="col-span-5 flex justify-end">
           {item.side === "left" && (

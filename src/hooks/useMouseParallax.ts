@@ -10,7 +10,7 @@ export function useMouseParallax(divider = 30) {
       x.set((e.clientX - window.innerWidth / 2) / divider);
       y.set((e.clientY - window.innerHeight / 2) / divider);
     },
-    [divider, x, y]
+    [divider, x, y],
   );
 
   return { x, y, handleMouseMove };

@@ -12,15 +12,7 @@ interface TimelineCardProps {
   icon: React.ReactNode;
 }
 
-function TimelineCard({
-  title,
-  description,
-  date,
-  year,
-  side,
-  color,
-  icon,
-}: TimelineCardProps) {
+function TimelineCard({ title, description, date, year, side, color, icon }: TimelineCardProps) {
   const displayDate = year || date || "";
 
   return (
@@ -40,7 +32,7 @@ function TimelineCard({
         duration: 0.8,
         ease: "easeOut",
       }}
-      className="relative w-full max-w-[520px] transform-gpu will-change-transform"
+      className="relative w-full max-w-130 transform-gpu will-change-transform"
     >
       {/* Floating Particles */}
       <motion.div
@@ -75,8 +67,8 @@ function TimelineCard({
           group
           relative
           w-full
-          lg:w-[520px]
-          min-h-[200px]
+          lg:w-130
+          min-h-50
           p-5
           sm:p-10
           rounded-[24px]
@@ -130,8 +122,8 @@ function TimelineCard({
             left-0
             top-6
             bottom-6
-            w-[4px]
-            sm:w-[5px]
+            w-1
+            sm:w-1.25
             rounded-full
             z-10
           "

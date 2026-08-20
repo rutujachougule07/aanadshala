@@ -35,7 +35,10 @@ function MagneticButton({
       onMouseLeave={reset}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className={className || "relative overflow-hidden rounded-full bg-gradient-to-r from-pink-400 to-blue-500 text-white font-bold text-lg px-9 py-4 shadow-xl transition-shadow duration-300 hover:shadow-pink-400/25 cursor-pointer z-10"}
+      className={
+        className ||
+        "relative overflow-hidden rounded-full bg-linear-to-r from-pink-400 to-blue-500 text-white font-bold text-lg px-9 py-4 shadow-xl transition-shadow duration-300 hover:shadow-pink-400/25 cursor-pointer z-10"
+      }
     >
       {children}
     </motion.button>

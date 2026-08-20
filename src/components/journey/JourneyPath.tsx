@@ -5,7 +5,7 @@ const pathD = `M130 40 C230 180 40 320 130 520 C220 700 60 900 130 1120 C210 132
 
 function JourneyPath() {
   return (
-    <div className="absolute left-1/2 top-0 -translate-x-1/2 h-full w-[260px] pointer-events-none z-0">
+    <div className="absolute left-1/2 top-0 -translate-x-1/2 h-full w-65 pointer-events-none z-0">
       <svg
         width="260"
         height="2200"
@@ -47,26 +47,14 @@ function JourneyPath() {
         />
 
         <defs>
-          <linearGradient
-            id="line"
-            x1="0%"
-            y1="0%"
-            x2="0%"
-            y2="100%"
-          >
+          <linearGradient id="line" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#EC4899" />
             <stop offset="35%" stopColor="#2563EB" />
             <stop offset="70%" stopColor="#F59E0B" />
             <stop offset="100%" stopColor="#22C55E" />
           </linearGradient>
 
-          <linearGradient
-            id="glow"
-            x1="0%"
-            y1="0%"
-            x2="0%"
-            y2="100%"
-          >
+          <linearGradient id="glow" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#EC4899" />
             <stop offset="100%" stopColor="#22C55E" />
           </linearGradient>

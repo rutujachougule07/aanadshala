@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap");
 
 .brochure-page-wrapper {
   background-color: #f4f0eb;
   min-height: 100vh;
   padding: 3rem 1rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .brochure-main-container {
@@ -23,9 +23,9 @@
 
 /* Common Column Styling */
 .brochure-col {
-  background: #FFFDF9;
+  background: #fffdf9;
   border-radius: 1.2rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(244, 114, 182, 0.2);
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@
 }
 
 .bcol-top-badge {
-  background: #FCF5F7;
+  background: #fcf5f7;
   border: 1px solid #f472b6;
   color: #be123c;
   font-size: 0.8rem;
@@ -80,7 +80,7 @@
   height: 350px;
   object-fit: cover;
   border-radius: 1rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   border: none;
 }
 
@@ -94,7 +94,7 @@
   border-radius: 1rem;
   overflow: hidden;
   border: none; /* REMOVED WHITE BORDER */
-  box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
   background: white;
 }
 
@@ -164,7 +164,7 @@
   height: 85px;
   object-fit: cover;
   border-radius: 0.6rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 0.3rem;
 }
 
@@ -255,7 +255,7 @@
   border-radius: 0.8rem;
   margin: 0.5rem auto;
   display: block;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .bcol-checklist-box {
@@ -352,7 +352,10 @@ CLICKABLE ITEMS & POPUP MODAL WINDOW
 .bcol-photo-item,
 .bcol-facility-box {
   cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
 .bcol-photo-item:hover {
@@ -393,6 +396,12 @@ CLICKABLE ITEMS & POPUP MODAL WINDOW
 }
 
 @keyframes modalScaleUp {
-  from { transform: scale(0.9) translateY(20px); opacity: 0; }
-  to { transform: scale(1) translateY(0); opacity: 1; }
+  from {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
 }

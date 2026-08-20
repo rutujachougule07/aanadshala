@@ -20,7 +20,7 @@ import {
   Dumbbell,
   BookOpen,
   Utensils,
-  Film
+  Film,
 } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { useLanguage } from "@/lib/use-language";
@@ -52,7 +52,7 @@ const hallsData: HallDetail[] = [
     descEn: "Enjoy Carrom, Chess, Cards, Snake & Ladders, and various indoor board games.",
     icon: <Puzzle size={28} />,
     image: "/images/subimg/baithe khel.png",
-    theme: "theme-pink"
+    theme: "theme-pink",
   },
   {
     id: "०२",
@@ -64,7 +64,7 @@ const hallsData: HallDetail[] = [
     descEn: "Explore painting, handicrafts, knitting, and artistic expression.",
     icon: <Palette size={28} />,
     image: "/images/subimg/aart hall.png",
-    theme: "theme-blue"
+    theme: "theme-blue",
   },
   {
     id: "०३",
@@ -72,11 +72,12 @@ const hallsData: HallDetail[] = [
     titleEn: "Music & Instruments Hall",
     categoryMr: "गायन व वाद्यवृंद",
     categoryEn: "Vocal & Instrumental Music",
-    descMr: "संगीत वाद्य दालनमध्ये जाऊन तबला, गिटार, पेटी, पियानो, वीणा, ढोलकी, बासरी शिकणे आणि संगीताचा आनंद घेणे.",
+    descMr:
+      "संगीत वाद्य दालनमध्ये जाऊन तबला, गिटार, पेटी, पियानो, वीणा, ढोलकी, बासरी शिकणे आणि संगीताचा आनंद घेणे.",
     descEn: "Learn and play Tabla, Harmonium, Guitar, Piano, Veena, Dholak, and Flute.",
     icon: <Music size={28} />,
     image: "/images/subimg/sangit hall.png",
-    theme: "theme-pink"
+    theme: "theme-pink",
   },
   {
     id: "०४",
@@ -84,11 +85,12 @@ const hallsData: HallDetail[] = [
     titleEn: "IT & Digital Learning Hall",
     categoryMr: "डिजिटल लर्निंग & IT",
     categoryEn: "Digital Literacy",
-    descMr: "माहिती तंत्रज्ञान हॉलमध्ये जाऊन संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.",
+    descMr:
+      "माहिती तंत्रज्ञान हॉलमध्ये जाऊन संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.",
     descEn: "Learn computer operations, smartphone usage, internet browsing, and digital skills.",
     icon: <Monitor size={28} />,
     image: "/images/subimg/mahiti tantradyan hall.png",
-    theme: "theme-blue"
+    theme: "theme-blue",
   },
   {
     id: "०५",
@@ -96,11 +98,12 @@ const hallsData: HallDetail[] = [
     titleEn: "Recreation & Socializing Hall",
     categoryMr: "करमणूक & अंताक्षरी",
     categoryEn: "Recreation & Antakshari",
-    descMr: "करमणूक हॉलमध्ये जाऊन गप्पा-गोष्टी करणे, अंताक्षरी, पझल गेम्स, जोक्स व पासिंग गेम इत्यादी समूह खेळ खेळणे.",
+    descMr:
+      "करमणूक हॉलमध्ये जाऊन गप्पा-गोष्टी करणे, अंताक्षरी, पझल गेम्स, जोक्स व पासिंग गेम इत्यादी समूह खेळ खेळणे.",
     descEn: "Engage in social chit-chats, Antakshari, group games, puzzles, and fun activities.",
     icon: <Ticket size={28} />,
     image: "/images/subimg/karmnuk hall.png",
-    theme: "theme-purple"
+    theme: "theme-purple",
   },
   {
     id: "०६",
@@ -112,7 +115,7 @@ const hallsData: HallDetail[] = [
     descEn: "Enjoy refreshing swims in the temperature-controlled Olympic swimming pool.",
     icon: <Waves size={28} />,
     image: "/images/subimg/swimming hall.png",
-    theme: "theme-blue"
+    theme: "theme-blue",
   },
   {
     id: "०७",
@@ -124,7 +127,7 @@ const hallsData: HallDetail[] = [
     descEn: "Attend spiritual discourses, cultural programs, and inspiring videos.",
     icon: <Landmark size={28} />,
     image: "/images/subimg/sanskar sampraday hall.png",
-    theme: "theme-pink"
+    theme: "theme-pink",
   },
   {
     id: "०८",
@@ -136,7 +139,7 @@ const hallsData: HallDetail[] = [
     descEn: "Play indoor Table Tennis on competition-grade tables.",
     icon: <Dumbbell size={28} />,
     image: "/images/subimg/tebal tenis.png",
-    theme: "theme-purple"
+    theme: "theme-purple",
   },
   {
     id: "०९",
@@ -148,7 +151,7 @@ const hallsData: HallDetail[] = [
     descEn: "Play badminton on synthetic wooden-floored indoor courts.",
     icon: <Dumbbell size={28} />,
     image: "/images/subimg/tebal tenis.png",
-    theme: "theme-blue"
+    theme: "theme-blue",
   },
   {
     id: "१०",
@@ -160,7 +163,7 @@ const hallsData: HallDetail[] = [
     descEn: "Relax and play Snooker and Billiards in a climate-controlled hall.",
     icon: <Dumbbell size={28} />,
     image: "/images/subimg/tebal tenis.png",
-    theme: "theme-pink"
+    theme: "theme-pink",
   },
   {
     id: "११",
@@ -172,7 +175,7 @@ const hallsData: HallDetail[] = [
     descEn: "Experience high-energy squash games in glass-backed courts.",
     icon: <Dumbbell size={28} />,
     image: "/images/subimg/tebal tenis.png",
-    theme: "theme-purple"
+    theme: "theme-purple",
   },
   {
     id: "१२",
@@ -184,7 +187,7 @@ const hallsData: HallDetail[] = [
     descEn: "Work out using modern imported fitness machinery under expert guidance.",
     icon: <Dumbbell size={28} />,
     image: "/images/subimg/vyayam hall.png",
-    theme: "theme-blue"
+    theme: "theme-blue",
   },
   {
     id: "१३",
@@ -196,7 +199,7 @@ const hallsData: HallDetail[] = [
     descEn: "Practice daily Yoga, Pranayama, and Mindful Meditation.",
     icon: <Sparkles size={28} />,
     image: "/images/subimg/vyayam hall.png",
-    theme: "theme-pink"
+    theme: "theme-pink",
   },
   {
     id: "१४",
@@ -208,7 +211,7 @@ const hallsData: HallDetail[] = [
     descEn: "Enjoy rhythmic Zumba dance sessions designed for active health.",
     icon: <Music size={28} />,
     image: "/images/subimg/vyayam hall.png",
-    theme: "theme-purple"
+    theme: "theme-purple",
   },
   {
     id: "१५",
@@ -220,7 +223,7 @@ const hallsData: HallDetail[] = [
     descEn: "Enjoy delicious, hygienic, and nutritious vegetarian meals & snacks.",
     icon: <Utensils size={28} />,
     image: "/images/subimg/pakruti hall.png",
-    theme: "theme-pink"
+    theme: "theme-pink",
   },
   {
     id: "१६",
@@ -232,7 +235,7 @@ const hallsData: HallDetail[] = [
     descEn: "Relax on recliners, read newspapers, or enjoy a peaceful afternoon nap.",
     icon: <BookOpen size={28} />,
     image: "/images/subimg/vishranti hall.png",
-    theme: "theme-purple"
+    theme: "theme-purple",
   },
   {
     id: "१७",
@@ -244,8 +247,8 @@ const hallsData: HallDetail[] = [
     descEn: "Watch classic movies, TV shows, dramas & cultural performances.",
     icon: <Film size={28} />,
     image: "/images/subimg/karmnuk hall.png",
-    theme: "theme-pink"
-  }
+    theme: "theme-pink",
+  },
 ];
 
 const ActivityHallsSection = () => {
@@ -267,25 +270,24 @@ const ActivityHallsSection = () => {
   const activeHalls: HallDetail[] =
     store.siteData.activityHalls && store.siteData.activityHalls.length > 0
       ? store.siteData.activityHalls.map((h, idx) => {
-        const fallback = hallsData[idx];
-        return {
-          id: String(idx + 1).padStart(2, "0"),
-          titleMr: h.title,
-          titleEn: fallback ? fallback.titleEn : h.title,
-          categoryMr: h.category,
-          categoryEn: fallback ? fallback.categoryEn : h.category,
-          descMr: h.desc,
-          descEn: fallback ? fallback.descEn : h.desc,
-          icon: fallback?.icon || <Sparkles size={28} />,
-          image: h.imageUrl || fallback?.image || "/images/slider1.JPG",
-          theme: fallback?.theme || (idx % 2 === 0 ? "theme-pink" : "theme-blue"),
-        };
-      })
+          const fallback = hallsData[idx];
+          return {
+            id: String(idx + 1).padStart(2, "0"),
+            titleMr: h.title,
+            titleEn: fallback ? fallback.titleEn : h.title,
+            categoryMr: h.category,
+            categoryEn: fallback ? fallback.categoryEn : h.category,
+            descMr: h.desc,
+            descEn: fallback ? fallback.descEn : h.desc,
+            icon: fallback?.icon || <Sparkles size={28} />,
+            image: h.imageUrl || fallback?.image || "/images/slider1.JPG",
+            theme: fallback?.theme || (idx % 2 === 0 ? "theme-pink" : "theme-blue"),
+          };
+        })
       : hallsData;
 
   return (
     <section className="ah-section" id="activity-halls">
-
       {/* Header */}
       <Reveal>
         <div className="ah-header">
@@ -297,24 +299,47 @@ const ActivityHallsSection = () => {
           {/* Right Badge */}
           <div className="ah-badge-right">
             <Award size={30} />
-            <span>
-              {isEn ? "Joy, Health\n& Values" : "आनंद, आरोग्य\nआणि संस्कार\nयांचा संगम"}
-            </span>
+            <span>{isEn ? "Joy, Health\n& Values" : "आनंद, आरोग्य\nआणि संस्कार\nयांचा संगम"}</span>
           </div>
 
           <div className="ah-header-subtitle">
-            <span style={{ color: '#db2777' }}>❖</span> {isEn ? <><span className="text-[#db2777] font-black">Anandshala's</span></> : <><span className="text-[#db2777] font-black">आनंदशाळेतील</span></>} <span style={{ color: '#db2777' }}>❖</span>
+            <span style={{ color: "#db2777" }}>❖</span>{" "}
+            {isEn ? (
+              <>
+                <span className="text-[#db2777] font-black">Anandshala's</span>
+              </>
+            ) : (
+              <>
+                <span className="text-[#db2777] font-black">आनंदशाळेतील</span>
+              </>
+            )}{" "}
+            <span style={{ color: "#db2777" }}>❖</span>
           </div>
           <h2 className="text-[32px] sm:text-[44px] md:text-[52px] font-black text-[#0044cc] leading-snug tracking-tight flex items-center justify-center gap-3 sm:gap-4 my-2">
-            <span className="hidden sm:inline-block w-10 sm:w-16 h-[3px] bg-[#0044cc] rounded-full shrink-0" />
-            <span>{isEn ? <>Special <span className="text-[#db2777]">Activity Halls</span></> : <>विशेष <span className="text-[#db2777]">उपक्रम हॉल्स</span></>}</span>
-            <span className="hidden sm:inline-block w-10 sm:w-16 h-[3px] bg-[#0044cc] rounded-full shrink-0" />
+            <span className="hidden sm:inline-block w-10 sm:w-16 h-0.75 bg-[#0044cc] rounded-full shrink-0" />
+            <span>
+              {isEn ? (
+                <>
+                  Special <span className="text-[#db2777]">Activity Halls</span>
+                </>
+              ) : (
+                <>
+                  विशेष <span className="text-[#db2777]">उपक्रम हॉल्स</span>
+                </>
+              )}
+            </span>
+            <span className="hidden sm:inline-block w-10 sm:w-16 h-0.75 bg-[#0044cc] rounded-full shrink-0" />
           </h2>
           <div className="ah-header-desc">
             <p className="ah-header-desc-text">
-              {isEn
-                ? "Fully equipped luxury activity halls for daily joy, recreation and wellness!"
-                : <><span className="text-[#db2777] font-black">आनंदशाळेत</span> दररोज तुमच्या आवडीनुसार मनोरंजन करून आनंद घेता येईल असे सुसज्जीत हॉल्स!</>}
+              {isEn ? (
+                "Fully equipped luxury activity halls for daily joy, recreation and wellness!"
+              ) : (
+                <>
+                  <span className="text-[#db2777] font-black">आनंदशाळेत</span> दररोज तुमच्या
+                  आवडीनुसार मनोरंजन करून आनंद घेता येईल असे सुसज्जीत हॉल्स!
+                </>
+              )}
             </p>
           </div>
         </div>
@@ -361,20 +386,84 @@ const ActivityHallsSection = () => {
         <Reveal delay={300}>
           <div className="ah-features-strip">
             <div className="ah-feature-item">
-              <div className="ah-feature-icon"><Users size={24} /></div>
-              <span>{isEn ? <>Suitable for 55+<br />Senior Citizens</> : <>५५+ वयोगटातील<br />ज्येष्ठ नागरिकांसाठी उपयुक्त</>}</span>
+              <div className="ah-feature-icon">
+                <Users size={24} />
+              </div>
+              <span>
+                {isEn ? (
+                  <>
+                    Suitable for 55+
+                    <br />
+                    Senior Citizens
+                  </>
+                ) : (
+                  <>
+                    ५५+ वयोगटातील
+                    <br />
+                    ज्येष्ठ नागरिकांसाठी उपयुक्त
+                  </>
+                )}
+              </span>
             </div>
             <div className="ah-feature-item">
-              <div className="ah-feature-icon"><ShieldCheck size={24} /></div>
-              <span>{isEn ? <>Safe &amp; Modern<br />Equipped Facilities</> : <>सुरक्षित आणि<br />अत्याधुनिक सुसज्ज सुविधा</>}</span>
+              <div className="ah-feature-icon">
+                <ShieldCheck size={24} />
+              </div>
+              <span>
+                {isEn ? (
+                  <>
+                    Safe &amp; Modern
+                    <br />
+                    Equipped Facilities
+                  </>
+                ) : (
+                  <>
+                    सुरक्षित आणि
+                    <br />
+                    अत्याधुनिक सुसज्ज सुविधा
+                  </>
+                )}
+              </span>
             </div>
             <div className="ah-feature-item">
-              <div className="ah-feature-icon"><Heart size={24} /></div>
-              <span>{isEn ? <>Blending Health,<br />Joy &amp; Values</> : <>आरोग्य, आनंद आणि<br />संस्कारांचा सुंदर संगम</>}</span>
+              <div className="ah-feature-icon">
+                <Heart size={24} />
+              </div>
+              <span>
+                {isEn ? (
+                  <>
+                    Blending Health,
+                    <br />
+                    Joy &amp; Values
+                  </>
+                ) : (
+                  <>
+                    आरोग्य, आनंद आणि
+                    <br />
+                    संस्कारांचा सुंदर संगम
+                  </>
+                )}
+              </span>
             </div>
             <div className="ah-feature-item">
-              <div className="ah-feature-icon"><Award size={24} /></div>
-              <span>{isEn ? <>Experienced &amp;<br />Dedicated Team</> : <>अनुभवी आणि<br />समर्पित तज्ज्ञ टीम</>}</span>
+              <div className="ah-feature-icon">
+                <Award size={24} />
+              </div>
+              <span>
+                {isEn ? (
+                  <>
+                    Experienced &amp;
+                    <br />
+                    Dedicated Team
+                  </>
+                ) : (
+                  <>
+                    अनुभवी आणि
+                    <br />
+                    समर्पित तज्ज्ञ टीम
+                  </>
+                )}
+              </span>
             </div>
           </div>
         </Reveal>
@@ -386,114 +475,127 @@ const ActivityHallsSection = () => {
               href={`https://wa.me/919370237633?text=${encodeURIComponent(
                 isEn
                   ? "Hi, I want information regarding Anandshala Special Activity Halls (Timings, facilities & entry details). Please share."
-                  : "नमस्कार, मला प्रीतम आनंदशाळेतील विशेष उपक्रम हॉल्सची वेळ, उपलब्ध सुविधा व प्रवेशाबाबत माहिती हवी आहे. कृपया माहिती द्यावी."
+                  : "नमस्कार, मला प्रीतम आनंदशाळेतील विशेष उपक्रम हॉल्सची वेळ, उपलब्ध सुविधा व प्रवेशाबाबत माहिती हवी आहे. कृपया माहिती द्यावी.",
               )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="ah-footer-cta-pill"
             >
               <Sparkles size={18} className="text-amber-300 animate-pulse" />
-              <span>{isEn ? "Inquire Activity Halls on WhatsApp (9370237633)" : "हॉल्सची वेळ व सुविधांबाबत WhatsApp चौकशी करा (9370237633)"}</span>
+              <span>
+                {isEn
+                  ? "Inquire Activity Halls on WhatsApp (9370237633)"
+                  : "हॉल्सची वेळ व सुविधांबाबत WhatsApp चौकशी करा (9370237633)"}
+              </span>
               <ArrowRight size={16} />
             </a>
           </div>
         </Reveal>
-
       </div>
 
       {/* ══════════════════════════════════════════════════════════════
           POPUP MODAL WINDOW DETAILS
          ══════════════════════════════════════════════════════════════ */}
-      {selectedHall && typeof document !== "undefined" && createPortal(
-        <div
-          className="ah-modal-overlay"
-          onClick={() => setSelectedHall(null)}
-        >
-          <div
-            className="ah-modal-card"
-            onClick={(e) => e.stopPropagation()}
-            onWheel={(e) => e.stopPropagation()}
-          >
-            {/* CLOSE BUTTON */}
-            <button
-              className="ah-modal-close-btn"
-              onClick={() => setSelectedHall(null)}
-              aria-label="Close"
+      {selectedHall &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div className="ah-modal-overlay" onClick={() => setSelectedHall(null)}>
+            <div
+              className="ah-modal-card"
+              onClick={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
             >
-              <X size={20} />
-            </button>
+              {/* CLOSE BUTTON */}
+              <button
+                className="ah-modal-close-btn"
+                onClick={() => setSelectedHall(null)}
+                aria-label="Close"
+              >
+                <X size={20} />
+              </button>
 
-            {/* LEFT SIDE: HIGH-RES IMAGE & BADGE */}
-            <div className="ah-modal-left-img-box">
-              <img src={selectedHall.image} alt={isEn ? selectedHall.titleEn : selectedHall.titleMr} className="ah-modal-img" />
-              <div className="ah-modal-img-gradient" />
-              <div className="ah-modal-img-badge">
-                <Sparkles size={16} className="text-amber-300" />
-                <span>
-                  {isEn ? (
-                    <><span className="text-pink-400 font-black">Anandshala</span> Hall {selectedHall.id}</>
-                  ) : (
-                    <><span className="text-pink-400 font-black">आनंदशाळा</span> उपक्रम हॉल {selectedHall.id}</>
-                  )}
-                </span>
-              </div>
-            </div>
-
-            {/* RIGHT SIDE: DETAILS */}
-            <div className="ah-modal-right-content">
-              {/* CATEGORY BADGE */}
-              <div className="inline-flex items-center gap-2 bg-pink-50 border border-pink-200 text-[#db2777] text-xs font-black px-3.5 py-1.5 rounded-full mb-3 w-fit">
-                <span>{isEn ? selectedHall.categoryEn : selectedHall.categoryMr}</span>
-              </div>
-
-              {/* TITLE */}
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-2xl bg-pink-100 border border-pink-300 flex items-center justify-center text-[#db2777] shrink-0 shadow-sm">
-                  {selectedHall.icon}
+              {/* LEFT SIDE: HIGH-RES IMAGE & BADGE */}
+              <div className="ah-modal-left-img-box">
+                <img
+                  src={selectedHall.image}
+                  alt={isEn ? selectedHall.titleEn : selectedHall.titleMr}
+                  className="ah-modal-img"
+                />
+                <div className="ah-modal-img-gradient" />
+                <div className="ah-modal-img-badge">
+                  <Sparkles size={16} className="text-amber-300" />
+                  <span>
+                    {isEn ? (
+                      <>
+                        <span className="text-pink-400 font-black">Anandshala</span> Hall{" "}
+                        {selectedHall.id}
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-pink-400 font-black">आनंदशाळा</span> उपक्रम हॉल{" "}
+                        {selectedHall.id}
+                      </>
+                    )}
+                  </span>
                 </div>
-                <h3 className="text-2xl font-black text-slate-900">
-                  <HighlightText text={isEn ? selectedHall.titleEn : selectedHall.titleMr} />
-                </h3>
               </div>
 
-              {/* DESCRIPTION */}
-              <div className="p-4 rounded-2xl bg-rose-50/70 border border-rose-200 mb-5">
-                <p className="text-sm sm:text-base text-slate-800 font-extrabold leading-relaxed">
-                  <HighlightText text={isEn ? selectedHall.descEn : selectedHall.descMr} />
-                </p>
-              </div>
+              {/* RIGHT SIDE: DETAILS */}
+              <div className="ah-modal-right-content">
+                {/* CATEGORY BADGE */}
+                <div className="inline-flex items-center gap-2 bg-pink-50 border border-pink-200 text-[#db2777] text-xs font-black px-3.5 py-1.5 rounded-full mb-3 w-fit">
+                  <span>{isEn ? selectedHall.categoryEn : selectedHall.categoryMr}</span>
+                </div>
 
-              {/* CALL & WHATSAPP BUTTONS */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-2 mt-auto border-t border-slate-100">
-                <a
-                  href={`https://wa.me/919370237633?text=${encodeURIComponent(
-                    isEn
-                      ? `Hi, I want information regarding Anandshala ${selectedHall.titleEn} (Hall timings, facilities & membership access). Please share details.`
-                      : `नमस्कार, मला प्रीतम आनंदशाळेतील '${selectedHall.titleMr}' (हॉलची वेळ, सुविधा व प्रवेशाबाबत) अधिक माहिती हवी आहे. कृपया माहिती द्यावी.`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
-                >
-                  <MessageCircle size={18} />
-                  <span>{isEn ? "Inquire Hall Timings & Access (WhatsApp)" : "हॉल वेळ व प्रवेशाबाबत WhatsApp करा (9370237633)"}</span>
-                </a>
-                <a
-                  href="tel:9370237633"
-                  className="bg-gradient-to-r from-[#810B38] to-[#db2777] text-white font-extrabold text-xs sm:text-sm py-3 px-5 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition shrink-0"
-                >
-                  <PhoneCall size={18} />
-                  <span>{isEn ? "Call" : "कॉल करा"}</span>
-                </a>
-              </div>
+                {/* TITLE */}
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-pink-100 border border-pink-300 flex items-center justify-center text-[#db2777] shrink-0 shadow-sm">
+                    {selectedHall.icon}
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-900">
+                    <HighlightText text={isEn ? selectedHall.titleEn : selectedHall.titleMr} />
+                  </h3>
+                </div>
 
+                {/* DESCRIPTION */}
+                <div className="p-4 rounded-2xl bg-rose-50/70 border border-rose-200 mb-5">
+                  <p className="text-sm sm:text-base text-slate-800 font-extrabold leading-relaxed">
+                    <HighlightText text={isEn ? selectedHall.descEn : selectedHall.descMr} />
+                  </p>
+                </div>
+
+                {/* CALL & WHATSAPP BUTTONS */}
+                <div className="flex flex-col sm:flex-row gap-3 pt-2 mt-auto border-t border-slate-100">
+                  <a
+                    href={`https://wa.me/919370237633?text=${encodeURIComponent(
+                      isEn
+                        ? `Hi, I want information regarding Anandshala ${selectedHall.titleEn} (Hall timings, facilities & membership access). Please share details.`
+                        : `नमस्कार, मला प्रीतम आनंदशाळेतील '${selectedHall.titleMr}' (हॉलची वेळ, सुविधा व प्रवेशाबाबत) अधिक माहिती हवी आहे. कृपया माहिती द्यावी.`,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 bg-linear-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
+                  >
+                    <MessageCircle size={18} />
+                    <span>
+                      {isEn
+                        ? "Inquire Hall Timings & Access (WhatsApp)"
+                        : "हॉल वेळ व प्रवेशाबाबत WhatsApp करा (9370237633)"}
+                    </span>
+                  </a>
+                  <a
+                    href="tel:9370237633"
+                    className="bg-linear-to-r from-[#810B38] to-[#db2777] text-white font-extrabold text-xs sm:text-sm py-3 px-5 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition shrink-0"
+                  >
+                    <PhoneCall size={18} />
+                    <span>{isEn ? "Call" : "कॉल करा"}</span>
+                  </a>
+                </div>
+              </div>
             </div>
-
-          </div>
-        </div>,
-        document.body
-      )}
-
+          </div>,
+          document.body,
+        )}
     </section>
   );
 };

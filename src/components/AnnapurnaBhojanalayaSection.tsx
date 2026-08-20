@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { 
-  Utensils, 
-  Clock, 
-  Sparkles, 
-  Download
-} from "lucide-react";
-import { initialBhojanalayaConfig, FoodScheduleRow, FoodRateItem, ExtraFoodItem } from "@/lib/admin-store";
+import { Utensils, Clock, Sparkles, Download } from "lucide-react";
+import {
+  initialBhojanalayaConfig,
+  useAdminStore,
+  FoodScheduleRow,
+  FoodRateItem,
+  ExtraFoodItem,
+} from "@/lib/admin-store";
 import { useLanguage } from "@/lib/use-language";
 
 const DAYS_MAP_MR: Record<number, string> = {
@@ -34,25 +35,29 @@ const FOOD_TRANSLATIONS: Record<string, string> = {
 
   // Breakfast / Meals
   "उडीद वडा + सांभार + चटणी": "Udid Vada + Sambar + Chutney",
-  "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण": "Chapati, Bhakri, Bhaji, Pulses Usal, Amti, Rice, Varan",
+  "चपाती, भाकरी, भाजी, कडधान्य उसळ, आमटी, भात, वरण":
+    "Chapati, Bhakri, Bhaji, Pulses Usal, Amti, Rice, Varan",
   "चहा + पोहे चिवडा": "Tea + Pohe Chivda",
   "चपाती + भाजी + पुलाव + आमटी": "Chapati + Bhaji + Pulao + Amti",
   "पोहे + शेव + शिरा पांढरा": "Pohe + Shev + White Sheera",
-  "चपाती, पराठा, भाजी, कडधान्य उसळ, आमटी, भात, वरण": "Chapati, Paratha, Bhaji, Pulses Usal, Amti, Rice, Varan",
+  "चपाती, पराठा, भाजी, कडधान्य उसळ, आमटी, भात, वरण":
+    "Chapati, Paratha, Bhaji, Pulses Usal, Amti, Rice, Varan",
   "चहा + भाजके पोहे चिवडा": "Tea + Roasted Pohe Chivda",
   "चपाती + भाजी + थालीपीठ + भात": "Chapati + Bhaji + Thalipeeth + Rice",
   "पावभाजी किंवा मिसळ": "Pav Bhaji or Misal",
   "चहा व बिस्किट": "Tea & Biscuits",
   "चपाती + भाजी + आमटी + वरण + भात": "Chapati + Bhaji + Amti + Varan + Rice",
   "उत्तपा + डोसा + भाजी + चटणी": "Uttapam + Dosa + Bhaji + Chutney",
-  "चपाती, धपाटा, भाजी, कडधान्य उसळ, आमटी, भात, वरण": "Chapati, Dhapata, Bhaji, Pulses Usal, Amti, Rice, Varan",
+  "चपाती, धपाटा, भाजी, कडधान्य उसळ, आमटी, भात, वरण":
+    "Chapati, Dhapata, Bhaji, Pulses Usal, Amti, Rice, Varan",
   "चहा + चुरमुरे चिवडा": "Tea + Murmura Chivda",
   "चपाती + भाजी + भाकरी + खिचडी + कढी": "Chapati + Bhaji + Bhakri + Khichdi + Kadhi",
   "उत्तपा + भेळ किंवा दडपे पोहे": "Uttapam + Bhel or Dadpe Pohe",
   "चहा + भजी": "Tea + Bhaji (Pakoda)",
   "चपाती + भाजी + आमटी + भात": "Chapati + Bhaji + Amti + Rice",
   "इडली + सांभार + चटणी": "Idli + Sambar + Chutney",
-  "चपाती, थालीपीठ, भाजी, कडधान्य उसळ, आमटी, वरण भात": "Chapati, Thalipeeth, Bhaji, Pulses Usal, Amti, Varan Rice",
+  "चपाती, थालीपीठ, भाजी, कडधान्य उसळ, आमटी, वरण भात":
+    "Chapati, Thalipeeth, Bhaji, Pulses Usal, Amti, Varan Rice",
   "चहा + भडंग": "Tea + Bhadang",
   "भाकरी + चपाती + भाजी + आमटी + भात": "Bhakri + Chapati + Bhaji + Amti + Rice",
   "शेवयाचे उपीट + ढोकळा + चटणी": "Vermicelli Upma + Dhokla + Chutney",
@@ -61,11 +66,11 @@ const FOOD_TRANSLATIONS: Record<string, string> = {
   "चपाती + भाजी + भात + आमटी": "Chapati + Bhaji + Rice + Amti",
 
   // Rate items
-  "चहा": "Tea",
+  चहा: "Tea",
   "स्पेशल चहा": "Special Tea",
-  "नेस कॅफे": "Nescafe Coffee",
-  "नाष्टा": "Breakfast",
-  "जेवण": "Lunch / Dinner Meal",
+  "ネス कॅफे": "Nescafe Coffee",
+  नाष्टा: "Breakfast",
+  जेवण: "Lunch / Dinner Meal",
   "दुध कप": "Cup of Milk",
   "मसाला दुध": "Masala Milk",
   "हळद दुध": "Turmeric Milk",
@@ -73,39 +78,40 @@ const FOOD_TRANSLATIONS: Record<string, string> = {
 
   // Extra items
   "दही / ताक वाटी": "Curd / Buttermilk Bowl",
-  "पापड": "Papad",
-  "कोशिंबीर": "Koshimbir (Salad)",
+  पापड: "Papad",
+  कोशिंबीर: "Koshimbir (Salad)",
   "ग्रीन सॅलड": "Green Salad",
-  "लाडू": "Laddu",
+  लाडू: "Laddu",
   "शेंगदाणा चटणी": "Shengdana Chutney",
-  "सूप": "Soup",
-  "केक": "Cake",
+  सूप: "Soup",
+  केक: "Cake",
   "डींक लाडू": "Dink Laddu",
-  "गुलाबजामून": "Gulab Jamun",
+  गुलाबजामून: "Gulab Jamun",
   "मसाला पान": "Masala Paan",
-  "चिवडा": "Chivda",
+  चिवडा: "Chivda",
   "मसाला पापड": "Masala Papad",
   "आईस्क्रीम / कुल्फी": "Ice Cream / Kulfi",
   "श्रीखंड / बासुंदी": "Shrikhand / Basundi",
-  "खिर": "Kheer",
+  खिर: "Kheer",
   "फ्रूट सॅलड": "Fruit Salad",
   "पुरण पोळी": "Puran Poli",
   "शेंगा पोळी": "Shenga Poli",
   "खवा पोळी": "Khawa Poli",
 
   // Day Specials
-  "सोमवार": "Monday",
-  "मंगळवार": "Tuesday",
-  "बुधवार": "Wednesday",
-  "गुरुवार": "Thursday",
-  "शुक्रवार": "Friday",
-  "शनिवार": "Saturday",
-  "रविवार": "Sunday",
+  सोमवार: "Monday",
+  मंगळवार: "Tuesday",
+  बुधवार: "Wednesday",
+  गुरुवार: "Thursday",
+  शुक्रवार: "Friday",
+  शनिवार: "Saturday",
+  रविवार: "Sunday",
 };
 
 export default function AnnapurnaBhojanalayaSection() {
   const { isEn, formatNum } = useLanguage();
-  const config = initialBhojanalayaConfig;
+  const { bhojanalayaConfig } = useAdminStore();
+  const config = bhojanalayaConfig || initialBhojanalayaConfig;
   const [selectedDay, setSelectedDay] = useState<string>("ALL");
 
   const trFood = (text?: string) => {
@@ -119,14 +125,18 @@ export default function AnnapurnaBhojanalayaSection() {
   const currentDayIndex = todayDate.getDay();
   const todayMarathi = DAYS_MAP_MR[currentDayIndex] || "सोमवार";
 
-  const todayItem = config.weeklySchedule.find((item: FoodScheduleRow) => item.day === todayMarathi) || config.weeklySchedule[0];
+  const todayItem =
+    config.weeklySchedule.find((item: FoodScheduleRow) => item.day === todayMarathi) ||
+    config.weeklySchedule[0];
 
-  const filteredSchedule = selectedDay === "ALL" 
-    ? config.weeklySchedule 
-    : config.weeklySchedule.filter((item: FoodScheduleRow) => item.day === selectedDay);
+  const filteredSchedule =
+    selectedDay === "ALL"
+      ? config.weeklySchedule
+      : config.weeklySchedule.filter((item: FoodScheduleRow) => item.day === selectedDay);
 
   const handleDownload = () => {
-    const textContent = isEn ? `=====================================================
+    const textContent = isEn
+      ? `=====================================================
   Preetam Senior Citizen Anandshala • Annapurna Bhojanalaya
              Dining Timetable & Rate Chart
 =====================================================
@@ -138,7 +148,8 @@ Timings:
 
 Contact: Preetam Senior Citizen Anandshala, Sangli.
 📞 Phone: 9370237633
-` : `=====================================================
+`
+      : `=====================================================
   प्रीतम ज्येष्ठ नागरिक आनंदशाळा • अन्नपूर्णा भोजनालय
             अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक
 =====================================================
@@ -156,7 +167,9 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = isEn ? "Annapurna_Bhojanalaya_Timetable.txt" : "अन्नपूर्णा_भोजनालय_वेळापत्रक.txt";
+    link.download = isEn
+      ? "Annapurna_Bhojanalaya_Timetable.txt"
+      : "अन्नपूर्णा_भोजनालय_वेळापत्रक.txt";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -164,20 +177,26 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
   };
 
   return (
-    <div className="w-full bg-gradient-to-b from-[#fffcfd] via-[#fff5f8] to-[#fdf2f5] py-8 sm:py-12 px-3 sm:px-6 font-sans">
+    <div className="w-full bg-linear-to-b from-[#fffcfd] via-[#fff5f8] to-[#fdf2f5] py-8 sm:py-12 px-3 sm:px-6 font-sans">
       <div className="max-w-7xl mx-auto space-y-8">
-
         {/* ── MAIN DECORATIVE HEADER CARD ── */}
         <div className="relative overflow-hidden bg-white rounded-3xl sm:rounded-[32px] p-6 sm:p-10 shadow-xl border-4 border-rose-200 text-center">
-          <div className="absolute top-0 inset-x-0 h-3 bg-gradient-to-r from-rose-500 via-amber-400 via-pink-500 to-rose-600" />
-          
+          <div className="absolute top-0 inset-x-0 h-3 bg-linear-to-r from-rose-500 via-amber-400 via-pink-500 to-rose-600" />
+
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-rose-50 border border-rose-200 text-[#810B38] font-black text-xs sm:text-sm mb-4 shadow-xs">
             <span className="text-amber-500 text-base">🌸</span>
             <span>
               {isEn ? (
-                <>Preetam Senior Citizen <span className="text-[#db2777] font-black">Anandshala</span> • Annapurna Food Court</>
+                <>
+                  Preetam Senior Citizen{" "}
+                  <span className="text-[#db2777] font-black">Anandshala</span> • Annapurna Food
+                  Court
+                </>
               ) : (
-                <>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> • अन्नपूर्णा भोजनालय</>
+                <>
+                  प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span>{" "}
+                  • अन्नपूर्णा भोजनालय
+                </>
               )}
             </span>
             <span className="text-amber-500 text-base">🌸</span>
@@ -185,16 +204,26 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
 
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2] tracking-tight leading-tight max-w-4xl mx-auto">
             {isEn ? (
-              <>Annapurna Food Court <span className="text-[#db2777] font-black">Weekly Menu &amp; Rate Chart</span></>
+              <>
+                Annapurna Food Court{" "}
+                <span className="text-[#db2777] font-black">Weekly Menu &amp; Rate Chart</span>
+              </>
             ) : (
-              <>प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> <span className="text-[#1A05A2]">अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक</span></>
+              <>
+                प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span>{" "}
+                <span className="text-[#1A05A2]">अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक</span>
+              </>
             )}
           </h2>
 
           <div className="mt-3 text-slate-700 font-extrabold text-sm sm:text-lg max-w-3xl mx-auto flex flex-col items-center justify-center gap-1">
             <p className="flex items-center justify-center gap-2">
               <span className="text-rose-500">🍲</span>
-              <span>{isEn ? "Fresh, Nutritious & Pure Vegetarian Meals" : "ताजा, सात्विक व पौष्टिक शाकाहारी आहार"}</span>
+              <span>
+                {isEn
+                  ? "Fresh, Nutritious & Pure Vegetarian Meals"
+                  : "ताजा, सात्विक व पौष्टिक शाकाहारी आहार"}
+              </span>
               <span className="text-rose-500">🍲</span>
             </p>
             <p className="text-slate-800 font-extrabold text-xs sm:text-base">
@@ -220,12 +249,14 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
               className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-transform cursor-pointer"
             >
               <span>💬</span>
-              <span>{isEn ? "WhatsApp Inquiry (9370237633)" : "माहितीसाठी WhatsApp करा (9370237633)"}</span>
+              <span>
+                {isEn ? "WhatsApp Inquiry (9370237633)" : "माहितीसाठी WhatsApp करा (9370237633)"}
+              </span>
             </a>
 
             <button
               onClick={handleDownload}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#810B38] to-[#db2777] hover:opacity-95 text-white px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-transform cursor-pointer"
+              className="inline-flex items-center gap-2 bg-linear-to-r from-[#810B38] to-[#db2777] hover:opacity-95 text-white px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-transform cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>{isEn ? "Download Timetable" : "वेळापत्रक डाउनलोड करा"}</span>
@@ -234,7 +265,7 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
         </div>
 
         {/* ── TODAY'S FEATURED MENU CARD ── */}
-        <div className="bg-gradient-to-r from-[#810B38] via-[#a2134c] to-[#900c3f] rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+        <div className="bg-linear-to-r from-[#810B38] via-[#a2134c] to-[#900c3f] rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
           <div className="absolute -right-10 -bottom-10 opacity-10 text-white pointer-events-none">
             <Utensils className="w-72 h-72" />
           </div>
@@ -254,7 +285,12 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
             </div>
 
             <div className="text-xs sm:text-sm font-bold bg-white/10 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/20">
-              📅 {todayDate.toLocaleDateString(isEn ? "en-IN" : "mr-IN", { day: "numeric", month: "long", year: "numeric" })}
+              📅{" "}
+              {todayDate.toLocaleDateString(isEn ? "en-IN" : "mr-IN", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
             </div>
           </div>
 
@@ -323,7 +359,6 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                 ✨ {isEn ? "Light & Healthy Dinner" : "पचनास हलका व सात्विक आहार"}
               </div>
             </div>
-
           </div>
         </div>
 
@@ -341,7 +376,7 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
           </button>
           {config.weeklySchedule.map((item: FoodScheduleRow, i: number) => {
             const isToday = item.day === todayMarathi;
-            const dayText = isEn ? (DAYS_MAP_EN[i % 7] || item.day) : item.day;
+            const dayText = isEn ? DAYS_MAP_EN[i % 7] || item.day : item.day;
             return (
               <button
                 key={item.day}
@@ -350,8 +385,8 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                   selectedDay === item.day
                     ? "bg-[#810B38] text-white shadow-md scale-105"
                     : isToday
-                    ? "bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200"
-                    : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
+                      ? "bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200"
+                      : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
                 }`}
               >
                 <span>{dayText}</span>
@@ -367,10 +402,14 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
 
         {/* ── TABLE 1: WEEKLY FOOD MENU SCHEDULE ── */}
         <div className="bg-white rounded-3xl shadow-xl border border-rose-100 overflow-hidden">
-          <div className="bg-gradient-to-r from-[#810B38] via-rose-700 to-[#810B38] px-6 py-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="bg-linear-to-r from-[#810B38] via-rose-700 to-[#810B38] px-6 py-4 text-white flex flex-col sm:flex-row items-center justify-between gap-3">
             <h3 className="text-lg sm:text-xl font-black flex items-center gap-2">
               <span>📅</span>
-              <span>{isEn ? "Annapurna Food Court Weekly Timetable" : "अन्नपूर्णा भोजनालय साप्ताहिक वेळापत्रक"}</span>
+              <span>
+                {isEn
+                  ? "Annapurna Food Court Weekly Timetable"
+                  : "अन्नपूर्णा भोजनालय साप्ताहिक वेळापत्रक"}
+              </span>
             </h3>
             <span className="text-xs bg-white/20 text-white font-extrabold px-3 py-1 rounded-full border border-white/30">
               {isEn ? "Monday to Sunday Regular Service" : "सोमवार ते रविवार नियमित सेवा"}
@@ -378,22 +417,36 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[900px] text-center border-collapse">
+            <table className="w-full min-w-225 text-center border-collapse">
               <thead>
                 <tr className="bg-rose-50 text-[#810B38] font-black text-sm border-b-2 border-rose-200">
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[7%]">{isEn ? "Sr." : "अ.क्र."}</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[11%]">{isEn ? "Day" : "वार"}</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[10%]">{isEn ? "Morning Tea (7-9 AM)" : "सकाळी चहा (७ ते ९)"}</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[20%]">{isEn ? "Breakfast (7-9 AM)" : "सकाळी नाष्टा (७ ते ९)"}</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[26%]">{isEn ? "Lunch (1-2 PM)" : "दुपारचे जेवण (१ ते २)"}</th>
-                  <th className="py-3.5 px-3 border-r border-rose-100 w-[13%]">{isEn ? "Evening Tea/Snack (5-6 PM)" : "सायंकाळी चहा व नाष्टा (५ ते ६)"}</th>
-                  <th className="py-3.5 px-3 w-[13%]">{isEn ? "Dinner (8-9 PM)" : "रात्रीचे जेवण (८ ते ९)"}</th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[7%]">
+                    {isEn ? "Sr." : "अ.क्र."}
+                  </th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[11%]">
+                    {isEn ? "Day" : "वार"}
+                  </th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[10%]">
+                    {isEn ? "Morning Tea (7-9 AM)" : "सकाळी चहा (७ ते ९)"}
+                  </th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[20%]">
+                    {isEn ? "Breakfast (7-9 AM)" : "सकाळी नाष्टा (७ ते ९)"}
+                  </th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[26%]">
+                    {isEn ? "Lunch (1-2 PM)" : "दुपारचे जेवण (१ ते २)"}
+                  </th>
+                  <th className="py-3.5 px-3 border-r border-rose-100 w-[13%]">
+                    {isEn ? "Evening Tea/Snack (5-6 PM)" : "सायंकाळी चहा व नाष्टा (५ ते ६)"}
+                  </th>
+                  <th className="py-3.5 px-3 w-[13%]">
+                    {isEn ? "Dinner (8-9 PM)" : "रात्रीचे जेवण (८ ते ९)"}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 text-xs sm:text-sm">
                 {filteredSchedule.map((row: FoodScheduleRow, idx: number) => {
                   const isToday = row.day === todayMarathi;
-                  const dayDisplay = isEn ? (DAYS_MAP_EN[(row.srNo - 1) % 7] || row.day) : row.day;
+                  const dayDisplay = isEn ? DAYS_MAP_EN[(row.srNo - 1) % 7] || row.day : row.day;
 
                   return (
                     <tr
@@ -402,8 +455,8 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                         isToday
                           ? "bg-amber-50/90 font-bold border-l-4 border-l-amber-500 hover:bg-amber-100/80"
                           : row.srNo % 2 === 0
-                          ? "bg-slate-50/50 hover:bg-rose-50/40"
-                          : "bg-white hover:bg-rose-50/40"
+                            ? "bg-slate-50/50 hover:bg-rose-50/40"
+                            : "bg-white hover:bg-rose-50/40"
                       }`}
                     >
                       <td className="py-3.5 px-3 font-black text-slate-500 border-r border-slate-200">
@@ -446,7 +499,6 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
 
         {/* ── TABLES 2 & 3: RATE LIST & EXTRA ITEMS (2-COLUMN GRID) ── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-
           {/* LEFT COLUMN: BASIC RATE CARD */}
           <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-xl border-2 border-rose-200 space-y-5 flex flex-col justify-between">
             <div>
@@ -464,7 +516,7 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
               <div className="overflow-x-auto rounded-2xl border border-slate-200 shadow-xs">
                 <table className="w-full text-left text-xs sm:text-sm">
                   <thead>
-                    <tr className="bg-gradient-to-r from-[#810B38] to-rose-700 text-white font-black">
+                    <tr className="bg-linear-to-r from-[#810B38] to-rose-700 text-white font-black">
                       <th className="py-2.5 px-4">{isEn ? "Item Name" : "पदार्थ (Item)"}</th>
                       <th className="py-2.5 px-3 text-center">{isEn ? "1 Time" : "१ वेळ"}</th>
                       <th className="py-2.5 px-3 text-center">{isEn ? "1 Month" : "१ महिना"}</th>
@@ -476,7 +528,13 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                       return (
                         <tr
                           key={idx}
-                          className={isCombo ? "bg-amber-50 font-black text-[#810B38]" : idx % 2 === 0 ? "bg-white" : "bg-slate-50"}
+                          className={
+                            isCombo
+                              ? "bg-amber-50 font-black text-[#810B38]"
+                              : idx % 2 === 0
+                                ? "bg-white"
+                                : "bg-slate-50"
+                          }
                         >
                           <td className="py-2.5 px-4">
                             <span className={isCombo ? "text-[#810B38] font-black" : ""}>
@@ -496,7 +554,6 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                 </table>
               </div>
             </div>
-
           </div>
 
           {/* RIGHT COLUMN: EXTRA ITEMS AVAILABLE */}
@@ -508,7 +565,9 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                 </div>
                 <div>
                   <h3 className="text-xl font-black text-slate-900">
-                    {isEn ? "Extra Delicacies & Snacks Available" : "आवडीनुसार व गरजेनुसार ज्यादाचे पदार्थ उपलब्ध"}
+                    {isEn
+                      ? "Extra Delicacies & Snacks Available"
+                      : "आवडीनुसार व गरजेनुसार ज्यादाचे पदार्थ उपलब्ध"}
                   </h3>
                 </div>
               </div>
@@ -518,7 +577,7 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                 {config.extraItems.map((extra: ExtraFoodItem, idx: number) => (
                   <div
                     key={idx}
-                    className="p-3 rounded-2xl bg-gradient-to-br from-amber-50/60 to-orange-50/40 border border-amber-200/80 flex flex-col justify-between hover:border-amber-400 hover:shadow-md transition-all"
+                    className="p-3 rounded-2xl bg-linear-to-br from-amber-50/60 to-orange-50/40 border border-amber-200/80 flex flex-col justify-between hover:border-amber-400 hover:shadow-md transition-all"
                   >
                     <div className="flex items-start justify-between gap-1">
                       <span className="font-extrabold text-slate-900 text-xs sm:text-sm leading-snug">
@@ -539,23 +598,24 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                 ))}
               </div>
             </div>
-
           </div>
-
         </div>
 
         {/* ── FOOTER HEALTH ADVICE NOTE CARD ── */}
-        <div className="bg-gradient-to-r from-rose-600 via-pink-600 to-[#810B38] rounded-3xl p-6 sm:p-8 text-white shadow-xl text-center relative overflow-hidden">
+        <div className="bg-linear-to-r from-rose-600 via-pink-600 to-[#810B38] rounded-3xl p-6 sm:p-8 text-white shadow-xl text-center relative overflow-hidden">
           <div className="max-w-3xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-amber-200 px-4 py-1.5 rounded-full text-xs font-black border border-white/30">
               ❤️ {isEn ? "Healthy Living Advice" : "आरोग्यदायी आहाराचा संदेश"} ❤️
             </div>
             <h3 className="text-xl sm:text-2xl md:text-3xl font-black leading-relaxed tracking-wide drop-shadow-md">
-              “{isEn ? "Nutritious organic meals for a healthy and joyful golden life." : config.healthNote}”
+              “
+              {isEn
+                ? "Nutritious organic meals for a healthy and joyful golden life."
+                : config.healthNote}
+              ”
             </h3>
           </div>
         </div>
-
       </div>
     </div>
   );

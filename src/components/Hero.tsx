@@ -1,12 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  Heart,
-  ShieldCheck,
-  Users,
-  ArrowRight,
-  Phone,
-  Award,
-} from "lucide-react";
+import { Heart, ShieldCheck, Users, ArrowRight, Phone, Award } from "lucide-react";
 
 // Use the existing building image from assets
 import building from "../assets/preetam-building.jpg";
@@ -38,14 +31,12 @@ const features = [
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-pink-50 via-white to-blue-50 pt-36 pb-24">
-
+    <section className="relative overflow-hidden bg-linear-to-br from-pink-50 via-white to-blue-50 pt-36 pb-24">
       {/* Background blobs */}
       <div className="absolute -top-32 -left-20 w-96 h-96 bg-pink-300 rounded-full blur-[120px] opacity-30" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-300 rounded-full blur-[150px] opacity-25" />
+      <div className="absolute bottom-0 right-0 w-125 h-125 bg-blue-300 rounded-full blur-[150px] opacity-25" />
 
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-
         {/* ── LEFT ── */}
         <motion.div
           initial={{ opacity: 0, x: -70 }}
@@ -59,7 +50,7 @@ export default function Hero() {
           <h1 className="text-5xl lg:text-7xl font-black leading-tight text-gray-900">
             ज्येष्ठांचा
             <br />
-            <span className="bg-gradient-to-r from-pink-400 via-fuchsia-500 to-blue-600 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-pink-400 via-fuchsia-500 to-blue-600 bg-clip-text text-transparent">
               सन्मान,
             </span>
             <br />
@@ -67,13 +58,14 @@ export default function Hero() {
           </h1>
 
           <p className="mt-8 text-lg leading-8 text-gray-600 max-w-xl">
-            प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> ही ज्येष्ठांसाठी प्रेम, सुरक्षितता,
-            आरोग्य, सहवास आणि आनंदाने भरलेले आयुष्य देणारे दुसरे घर आहे.
+            प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span> ही
+            ज्येष्ठांसाठी प्रेम, सुरक्षितता, आरोग्य, सहवास आणि आनंदाने भरलेले आयुष्य देणारे दुसरे घर
+            आहे.
           </p>
 
           {/* Buttons */}
           <div className="flex flex-wrap gap-5 mt-10">
-            <button className="group px-8 py-4 rounded-full bg-gradient-to-r from-pink-400 to-blue-500 text-white font-semibold shadow-xl hover:scale-105 transition">
+            <button className="group px-8 py-4 rounded-full bg-linear-to-r from-pink-400 to-blue-500 text-white font-semibold shadow-xl hover:scale-105 transition">
               <span className="flex items-center gap-2">
                 अधिक जाणून घ्या
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition" />
@@ -100,7 +92,7 @@ export default function Hero() {
                 className="rounded-3xl bg-white shadow-xl p-6 text-center cursor-pointer"
               >
                 <div
-                  className={`w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r ${item.color} flex items-center justify-center text-white mb-4`}
+                  className={`w-16 h-16 mx-auto rounded-2xl bg-linear-to-r ${item.color} flex items-center justify-center text-white mb-4`}
                 >
                   <item.icon size={30} />
                 </div>
@@ -122,7 +114,7 @@ export default function Hero() {
             <img
               src={building}
               alt="प्रीतम ज्येष्ठ नागरिक आनंदशाळा - Preetam Senior Citizen Campus"
-              className="w-full h-[650px] object-cover"
+              className="w-full h-162.5 object-cover"
             />
           </div>
 
@@ -132,7 +124,9 @@ export default function Hero() {
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
             className="absolute -left-10 top-12 bg-white rounded-3xl shadow-2xl p-7 w-72"
           >
-            <h3 className="font-bold text-xl mb-5"><span className="text-[#db2777] font-black">आनंदशाळेचा</span> प्रवास</h3>
+            <h3 className="font-bold text-xl mb-5">
+              <span className="text-[#db2777] font-black">आनंदशाळेचा</span> प्रवास
+            </h3>
             <div className="space-y-5">
               {stats.map((item, i) => (
                 <div key={i} className="flex justify-between border-b pb-3">
@@ -147,7 +141,7 @@ export default function Hero() {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-            className="absolute -bottom-10 right-0 bg-gradient-to-r from-pink-400 to-blue-500 text-white rounded-3xl shadow-xl p-6 flex gap-4 items-center"
+            className="absolute -bottom-10 right-0 bg-linear-to-r from-pink-400 to-blue-500 text-white rounded-3xl shadow-xl p-6 flex gap-4 items-center"
           >
             <Award size={40} />
             <div>
@@ -156,7 +150,6 @@ export default function Hero() {
             </div>
           </motion.div>
         </motion.div>
-
       </div>
     </section>
   );

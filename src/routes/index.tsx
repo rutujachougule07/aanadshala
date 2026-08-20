@@ -18,7 +18,6 @@ import ActivityHallsSection from "@/components/ActivityHallsSection/ActivityHall
 import TestimonialsSection from "@/components/TestimonialsSection";
 import JourneyTimeline from "@/components/journey-v2/JourneyTimeline";
 
-
 const publicImages = [
   "/images/Screenshot 2026-07-31 103107.png",
   "/images/Screenshot 2026-07-31 103131.png",
@@ -34,44 +33,197 @@ const publicImages = [
 ];
 
 const reasonsList = [
-  { mr: "माझ्या मनातील व जीवनातील राहून गेलेल्या बऱ्याच गोष्टी, खेळ, आवडी-निवडी मला आनंदाने करण्यासाठी.", en: "To happily fulfill lifelong unfulfilled hobbies, games, and passions." },
-  { mr: "मला माझ्या मनासारखे आनंदी व स्वावलंबी जीवन जगता येण्यासाठी.", en: "To live a happy and self-reliant life on my own terms." },
-  { mr: "माझ्या कलागुणांना वाव, मानधन व आत्मसन्मान मिळण्यासाठी.", en: "To showcase my artistic talents, earn stipends, and gain self-dignity." },
-  { mr: "कोणाच्या बंधनात राहून, मन मारून, चार भिंतीत एकटेपणाने जीवन जगावे लागणार नाही यासाठी.", en: "To avoid living in restriction, solitude, or suppressed desires within 4 walls." },
-  { mr: "घरी एक-दोघे राहून, साहित्य आणून, विश्वास ठेवून जीवन जगणे जास्त खर्चिक व त्रासाचे असते, हे समजण्यासाठी.", en: "To realize that living alone at home managing groceries is costly & stressful." },
-  { mr: "आयुष्याला त्रासून-कष्टून मरण मागावे लागणार नाही यासाठी.", en: "To live golden years with joy instead of feeling exhausted or hopeless." },
-  { mr: "एकटेपणाला कंटाळून नैराश्य, चिडचिड होणार नाही यासाठी.", en: "To overcome loneliness, depression, and irritability effortlessly." },
-  { mr: "घरगुती कटकटी, अबोला, त्रास व भांडणापासून मुक्ती मिळवण्यासाठी.", en: "To get relief from domestic stress, silence, and daily friction." },
-  { mr: "स्वतः कमावलेल्या पैशांचा थोडातरी स्वतःसाठी उपभोग घेण्यासाठी.", en: "To enjoy at least a portion of hard-earned savings for oneself." },
-  { mr: "जीवनाची सायंकाळ आनंदाने उत्साहाने मनसोक्त जगून करण्यासाठी.", en: "To spend the evening of life enthusiastically and to the fullest." },
-  { mr: "आप्तजन व स्वतःसाठी खूप गरजेची व अभिमानास्पद गोष्ट आहे.", en: "A deeply essential and proud step for oneself and loved ones." },
-  { mr: "दूर राहून प्रेम, आपुलकी, जिव्हाळा व नातेसंबंध वाढवण्यासाठी.", en: "To nurture deeper love, affection, and strong family relationships." },
-  { mr: "आपल्या वयाच्या विचारांच्या मित्र-मैत्रिणींसोबत माणसांसोबत आनंदाने स्वाभिमानाने जगण्यासाठी.", en: "To live with self-respect alongside like-minded peers of one's age group." },
-  { mr: "मनसोक्त, आनंदी, उत्साही व स्वावलंबी जीवन जगता आले म्हणून देवाचे आभार मानण्यासाठी.", en: "To thank Almighty God for a joyful, energetic, and independent life." },
-  { mr: "पैसा नसला तरी थोडेसे काम श्रमदान करून आनंदी जीवन कसे जगता येते ते दाखवण्यासाठी.", en: "To demonstrate how joyful life can be lived through voluntary contribution." },
-  { mr: "पैसा म्हणजे सर्वकाही नाही, मानवता धर्म व स्वतःसाठी व इतरांसाठी जगणे शिकण्यासाठी.", en: "To learn that money isn't everything; humanity & living for others matters." },
-  { mr: "मानव जन्म मिळाला ते आनंदाने जीवन जगण्यासाठी.", en: "To honor human birth by living every single day happily." },
-  { mr: "आपल्या माणसांवर रुसणे, अबोला, ओझे होण्यासाठी जीवन नाही हे सिद्ध करण्यासाठी.", en: "To prove life isn't meant for resentment or becoming a burden on anyone." },
-  { mr: "नातेवाईक, लोक काय म्हणतील याचा विचार करू नका, स्वतःच्या आनंदासाठी आजच प्रवेश घ्या.", en: "Do not worry what society says — take admission for your own happiness." },
-  { mr: "कल्पना न केलेले, कधी न उपभोगलेले, आपलेपण काय असते ते जग अनुभवण्यासाठी.", en: "To experience true warmth and belonging never imagined before." },
-  { mr: "पैसा असून सुद्धा सर्व सुखसोई उपभोग विकत घेऊ शकत नाहीत परंतु येथे घेऊ शकतो ते दाखवण्यासाठी.", en: "To experience comforts money alone cannot buy at home." },
-  { mr: "प्रचंड पैसा असून सुद्धा ह्या सर्व सोयी सुविधा मी स्वतःच्या घरात करू शकत नाही हे लक्षात घेण्यासाठी.", en: "To realize that even with wealth, creating such a 1.5 acre hub at home is impossible." },
-  { mr: "आपल्या वयाच्या लोकांसोबत गप्पा-गोष्टी-खेळ खेळण्यासाठी.", en: "To chat, share stories, and play games with friends of your age." },
+  {
+    mr: "माझ्या मनातील व जीवनातील राहून गेलेल्या बऱ्याच गोष्टी, खेळ, आवडी-निवडी मला आनंदाने करण्यासाठी.",
+    en: "To happily fulfill lifelong unfulfilled hobbies, games, and passions.",
+  },
+  {
+    mr: "मला माझ्या मनासारखे आनंदी व स्वावलंबी जीवन जगता येण्यासाठी.",
+    en: "To live a happy and self-reliant life on my own terms.",
+  },
+  {
+    mr: "माझ्या कलागुणांना वाव, मानधन व आत्मसन्मान मिळण्यासाठी.",
+    en: "To showcase my artistic talents, earn stipends, and gain self-dignity.",
+  },
+  {
+    mr: "कोणाच्या बंधनात राहून, मन मारून, चार भिंतीत एकटेपणाने जीवन जगावे लागणार नाही यासाठी.",
+    en: "To avoid living in restriction, solitude, or suppressed desires within 4 walls.",
+  },
+  {
+    mr: "घरी एक-दोघे राहून, साहित्य आणून, विश्वास ठेवून जीवन जगणे जास्त खर्चिक व त्रासाचे असते, हे समजण्यासाठी.",
+    en: "To realize that living alone at home managing groceries is costly & stressful.",
+  },
+  {
+    mr: "आयुष्याला त्रासून-कष्टून मरण मागावे लागणार नाही यासाठी.",
+    en: "To live golden years with joy instead of feeling exhausted or hopeless.",
+  },
+  {
+    mr: "एकटेपणाला कंटाळून नैराश्य, चिडचिड होणार नाही यासाठी.",
+    en: "To overcome loneliness, depression, and irritability effortlessly.",
+  },
+  {
+    mr: "घरगुती कटकटी, अबोला, त्रास व भांडणापासून मुक्ती मिळवण्यासाठी.",
+    en: "To get relief from domestic stress, silence, and daily friction.",
+  },
+  {
+    mr: "स्वतः कमावलेल्या पैशांचा थोडातरी स्वतःसाठी उपभोग घेण्यासाठी.",
+    en: "To enjoy at least a portion of hard-earned savings for oneself.",
+  },
+  {
+    mr: "जीवनाची सायंकाळ आनंदाने उत्साहाने मनसोक्त जगून करण्यासाठी.",
+    en: "To spend the evening of life enthusiastically and to the fullest.",
+  },
+  {
+    mr: "आप्तजन व स्वतःसाठी खूप गरजेची व अभिमानास्पद गोष्ट आहे.",
+    en: "A deeply essential and proud step for oneself and loved ones.",
+  },
+  {
+    mr: "दूर राहून प्रेम, आपुलकी, जिव्हाळा व नातेसंबंध वाढवण्यासाठी.",
+    en: "To nurture deeper love, affection, and strong family relationships.",
+  },
+  {
+    mr: "आपल्या वयाच्या विचारांच्या मित्र-मैत्रिणींसोबत माणसांसोबत आनंदाने स्वाभिमानाने जगण्यासाठी.",
+    en: "To live with self-respect alongside like-minded peers of one's age group.",
+  },
+  {
+    mr: "मनसोक्त, आनंदी, उत्साही व स्वावलंबी जीवन जगता आले म्हणून देवाचे आभार मानण्यासाठी.",
+    en: "To thank Almighty God for a joyful, energetic, and independent life.",
+  },
+  {
+    mr: "पैसा नसला तरी थोडेसे काम श्रमदान करून आनंदी जीवन कसे जगता येते ते दाखवण्यासाठी.",
+    en: "To demonstrate how joyful life can be lived through voluntary contribution.",
+  },
+  {
+    mr: "पैसा म्हणजे सर्वकाही नाही, मानवता धर्म व स्वतःसाठी व इतरांसाठी जगणे शिकण्यासाठी.",
+    en: "To learn that money isn't everything; humanity & living for others matters.",
+  },
+  {
+    mr: "मानव जन्म मिळाला ते आनंदाने जीवन जगण्यासाठी.",
+    en: "To honor human birth by living every single day happily.",
+  },
+  {
+    mr: "आपल्या माणसांवर रुसणे, अबोला, ओझे होण्यासाठी जीवन नाही हे सिद्ध करण्यासाठी.",
+    en: "To prove life isn't meant for resentment or becoming a burden on anyone.",
+  },
+  {
+    mr: "नातेवाईक, लोक काय म्हणतील याचा विचार करू नका, स्वतःच्या आनंदासाठी आजच प्रवेश घ्या.",
+    en: "Do not worry what society says — take admission for your own happiness.",
+  },
+  {
+    mr: "कल्पना न केलेले, कधी न उपभोगलेले, आपलेपण काय असते ते जग अनुभवण्यासाठी.",
+    en: "To experience true warmth and belonging never imagined before.",
+  },
+  {
+    mr: "पैसा असून सुद्धा सर्व सुखसोई उपभोग विकत घेऊ शकत नाहीत परंतु येथे घेऊ शकतो ते दाखवण्यासाठी.",
+    en: "To experience comforts money alone cannot buy at home.",
+  },
+  {
+    mr: "प्रचंड पैसा असून सुद्धा ह्या सर्व सोयी सुविधा मी स्वतःच्या घरात करू शकत नाही हे लक्षात घेण्यासाठी.",
+    en: "To realize that even with wealth, creating such a 1.5 acre hub at home is impossible.",
+  },
+  {
+    mr: "आपल्या वयाच्या लोकांसोबत गप्पा-गोष्टी-खेळ खेळण्यासाठी.",
+    en: "To chat, share stories, and play games with friends of your age.",
+  },
 ];
 
 const activityHalls = [
-  { icon: "♟️", titleMr: "बैठे खेळ हॉल", titleEn: "Indoor Games Hall", textMr: "कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी खेळ खेळणे.", textEn: "Play Carrom, Chess, Cards, Snakes & Ladders.", image: "baithe khel.png" },
-  { icon: "🎨", titleMr: "आर्ट हॉल", titleEn: "Arts & Crafts Hall", textMr: "चित्रकला, हस्तकला, विणकाम व कला शिकणे व सराव करणे.", textEn: "Learn painting, handicrafts, knitting & creative arts.", image: "aart hall.png" },
-  { icon: "🎵", titleMr: "संगीत उपकरणे हॉल", titleEn: "Music Instrument Hall", textMr: "तबला, गिटार, हार्मोनिअम, पेटी, पियानो, सॅक्सोफोन, बासरी शिकणे व आनंद घेणे.", textEn: "Play & learn Tabla, Guitar, Harmonium, Piano, Saxophone & Flute.", image: "sangit hall.png" },
-  { icon: "💻", titleMr: "माहिती तंत्रज्ञान हॉल", titleEn: "IT & Digital Learning Hall", textMr: "कॉम्प्युटर, लॅपटॉप, मोबाईल, इंटरनेट व प्रिंटर शिकणे.", textEn: "Learn computer basics, smartphones, internet & printing.", image: "mahiti tantradyan hall.png" },
-  { icon: "🥳", titleMr: "करमणूक हॉल", titleEn: "Recreation & Fun Hall", textMr: "गप्पा-गोष्टी, अंताक्षरी, पासिंग गेम व समूह खेळ खेळणे.", textEn: "Enjoy Antakshari, group games, conversations & storytelling.", image: "karmnuk hall.png" },
-  { icon: "🏊", titleMr: "स्विमिंग पूल", titleEn: "Swimming Pool", textMr: "पोहण्याचा व स्वच्छ पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.", textEn: "Enjoy swimming in clean filtered water pool.", image: "swimming hall.png" },
-  { icon: "📽️", titleMr: "संस्कार व संप्रदाय हॉल", titleEn: "Spiritual & Cultural Hall", textMr: "विविध धार्मिक कार्यक्रम, संस्कार वर्ग व व्हिडिओ पाहणे.", textEn: "Spiritual discourses, value classes & video screenings.", image: "sanskar sampraday hall.png" },
-  { icon: "🏸", titleMr: "विविध खेळ हॉल", titleEn: "Sports Hall", textMr: "बॅडमिंटन, टेबल टेनिस, स्नुकर व स्क्वॅश खेळणे.", textEn: "Play Badminton, Table Tennis, Snooker & Squash.", image: "tebal tenis.png" },
-  { icon: "🏋️", titleMr: "व्यायाम हॉल", titleEn: "Fitness & Wellness Hall", textMr: "जीम, योगा, मेडिटेशन, झुम्बा व डान्स इत्यादी करणे.", textEn: "Gym, Yoga, Meditation, Zumba & Dance sessions.", image: "vyayam hall.png" },
-  { icon: "🍲", titleMr: "पाककृती हॉल", titleEn: "Culinary & Cooking Hall", textMr: "स्वयंपाक, नाश्ता, जेवण, आईस्क्रीम, सरबते व मिठाई इत्यादी बनवणे शिकणे.", textEn: "Learn culinary skills, mocktails, sweets & snacks.", image: "pakruti hall.png" },
-  { icon: "🛌", titleMr: "विश्रांती हॉल", titleEn: "Relaxation Hall", textMr: "वाचन करणे, शांत झोपणे किंवा आराम खुर्चीत विश्रांती घेणे.", textEn: "Read books, quiet nap, or relax on recliners.", image: "vishranti hall.png" },
-  { icon: "🎬", titleMr: "थिएटर हॉल", titleEn: "Mini Theatre Hall", textMr: "टी.व्ही., सिनेमा, नाटक व सांस्कृतिक कार्यक्रम पाहणे.", textEn: "Watch movies, TV shows, dramas & cultural performances.", image: "ChatGPT Image Aug 5, 2026, 04_15_03 PM.png" },
+  {
+    icon: "♟️",
+    titleMr: "बैठे खेळ हॉल",
+    titleEn: "Indoor Games Hall",
+    textMr: "कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी खेळ खेळणे.",
+    textEn: "Play Carrom, Chess, Cards, Snakes & Ladders.",
+    image: "baithe khel.png",
+  },
+  {
+    icon: "🎨",
+    titleMr: "आर्ट हॉल",
+    titleEn: "Arts & Crafts Hall",
+    textMr: "चित्रकला, हस्तकला, विणकाम व कला शिकणे व सराव करणे.",
+    textEn: "Learn painting, handicrafts, knitting & creative arts.",
+    image: "aart hall.png",
+  },
+  {
+    icon: "🎵",
+    titleMr: "संगीत उपकरणे हॉल",
+    titleEn: "Music Instrument Hall",
+    textMr: "तबला, गिटार, हार्मोनिअम, पेटी, पियानो, सॅक्सोफोन, बासरी शिकणे व आनंद घेणे.",
+    textEn: "Play & learn Tabla, Guitar, Harmonium, Piano, Saxophone & Flute.",
+    image: "sangit hall.png",
+  },
+  {
+    icon: "💻",
+    titleMr: "माहिती तंत्रज्ञान हॉल",
+    titleEn: "IT & Digital Learning Hall",
+    textMr: "कॉम्प्युटर, लॅपटॉप, मोबाईल, इंटरनेट व प्रिंटर शिकणे.",
+    textEn: "Learn computer basics, smartphones, internet & printing.",
+    image: "mahiti tantradyan hall.png",
+  },
+  {
+    icon: "🥳",
+    titleMr: "करमणूक हॉल",
+    titleEn: "Recreation & Fun Hall",
+    textMr: "गप्पा-गोष्टी, अंताक्षरी, पासिंग गेम व समूह खेळ खेळणे.",
+    textEn: "Enjoy Antakshari, group games, conversations & storytelling.",
+    image: "karmnuk hall.png",
+  },
+  {
+    icon: "🏊",
+    titleMr: "स्विमिंग पूल",
+    titleEn: "Swimming Pool",
+    textMr: "पोहण्याचा व स्वच्छ पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.",
+    textEn: "Enjoy swimming in clean filtered water pool.",
+    image: "swimming hall.png",
+  },
+  {
+    icon: "📽️",
+    titleMr: "संस्कार व संप्रदाय हॉल",
+    titleEn: "Spiritual & Cultural Hall",
+    textMr: "विविध धार्मिक कार्यक्रम, संस्कार वर्ग व व्हिडिओ पाहणे.",
+    textEn: "Spiritual discourses, value classes & video screenings.",
+    image: "sanskar sampraday hall.png",
+  },
+  {
+    icon: "🏸",
+    titleMr: "विविध खेळ हॉल",
+    titleEn: "Sports Hall",
+    textMr: "बॅडमिंटन, टेबल टेनिस, स्नुकर व स्क्वॅश खेळणे.",
+    textEn: "Play Badminton, Table Tennis, Snooker & Squash.",
+    image: "tebal tenis.png",
+  },
+  {
+    icon: "🏋️",
+    titleMr: "व्यायाम हॉल",
+    titleEn: "Fitness & Wellness Hall",
+    textMr: "जीम, योगा, मेडिटेशन, झुम्बा व डान्स इत्यादी करणे.",
+    textEn: "Gym, Yoga, Meditation, Zumba & Dance sessions.",
+    image: "vyayam hall.png",
+  },
+  {
+    icon: "🍲",
+    titleMr: "पाककृती हॉल",
+    titleEn: "Culinary & Cooking Hall",
+    textMr: "स्वयंपाक, नाश्ता, जेवण, आईस्क्रीम, सरबते व मिठाई इत्यादी बनवणे शिकणे.",
+    textEn: "Learn culinary skills, mocktails, sweets & snacks.",
+    image: "pakruti hall.png",
+  },
+  {
+    icon: "🛌",
+    titleMr: "विश्रांती हॉल",
+    titleEn: "Relaxation Hall",
+    textMr: "वाचन करणे, शांत झोपणे किंवा आराम खुर्चीत विश्रांती घेणे.",
+    textEn: "Read books, quiet nap, or relax on recliners.",
+    image: "vishranti hall.png",
+  },
+  {
+    icon: "🎬",
+    titleMr: "थिएटर हॉल",
+    titleEn: "Mini Theatre Hall",
+    textMr: "टी.व्ही., सिनेमा, नाटक व सांस्कृतिक कार्यक्रम पाहणे.",
+    textEn: "Watch movies, TV shows, dramas & cultural performances.",
+    image: "ChatGPT Image Aug 5, 2026, 04_15_03 PM.png",
+  },
 ];
 
 const dailySchedule = [
@@ -84,7 +236,12 @@ const dailySchedule = [
     textMr: "विद्यार्थी एकत्र येऊन प्रार्थना व सकारात्मक ऊर्जा घेणे.",
     textEn: "Gathering for morning prayer & positive energy meditation.",
     iconSvg: (
-      <svg className="size-7 stroke-[#B8860B] fill-none stroke-[2]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        className="size-7 stroke-[#B8860B] fill-none stroke-[2]"
+        viewBox="0 0 24 24"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
       </svg>
@@ -99,7 +256,12 @@ const dailySchedule = [
     textMr: "आवडीनुसार विविध हॉलमध्ये उपक्रम.",
     textEn: "Activity sessions across 15 specialized halls.",
     iconSvg: (
-      <svg className="size-7 stroke-[#B8860B] fill-none stroke-[2]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        className="size-7 stroke-[#B8860B] fill-none stroke-[2]"
+        viewBox="0 0 24 24"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <rect x="2" y="3" width="20" height="12" rx="2" />
         <path d="M12 15v6M8 21h8" />
         <path d="M7 8h10M7 11h6" />
@@ -115,7 +277,12 @@ const dailySchedule = [
     textMr: "खेळ, पोहणे व फिटनेस सराव.",
     textEn: "Sports, swimming, and fitness workouts.",
     iconSvg: (
-      <svg className="size-7 stroke-[#B8860B] fill-none stroke-[2]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        className="size-7 stroke-[#B8860B] fill-none stroke-[2]"
+        viewBox="0 0 24 24"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M4 11a8 8 0 0 0 16 0H4z" />
         <path d="M6 7c1.5 1 2.5 1 4 0s2.5-1 4 0 2.5 1 4 0" />
         <path d="M12 19v2M9 21h6" />
@@ -131,7 +298,12 @@ const dailySchedule = [
     textMr: "सकस, घरगुती, स्वच्छ आहार घेणे.",
     textEn: "Nutritious, home-cooked pure veg meal.",
     iconSvg: (
-      <svg className="size-7 stroke-[#B8860B] fill-none stroke-[2]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        className="size-7 stroke-[#B8860B] fill-none stroke-[2]"
+        viewBox="0 0 24 24"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <circle cx="12" cy="12" r="7" />
         <path d="M5 4v6a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V4M7 12v8" />
         <path d="M19 4v16M19 4c-1.5 2-2 4-2 6v2" />
@@ -147,7 +319,12 @@ const dailySchedule = [
     textMr: "चिकित्सक विचार, छोटी प्रयोगे आणि अनुभवाधारित शिकणे.",
     textEn: "Critical thinking, small experiments & hands-on learning.",
     iconSvg: (
-      <svg className="size-7 stroke-[#B8860B] fill-none stroke-[2]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        className="size-7 stroke-[#B8860B] fill-none stroke-[2]"
+        viewBox="0 0 24 24"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M10 2v5.5L4.5 17A2 2 0 0 0 6.2 20h11.6a2 2 0 0 0 1.7-3L14 7.5V2" />
         <path d="M8.5 2h7M7 15h10" />
       </svg>
@@ -162,7 +339,12 @@ const dailySchedule = [
     textMr: "रंगकाम, मॉडेलिंग, क्राफ्ट आणि सर्जनशील उपक्रम.",
     textEn: "Painting, modeling, craft & creative activities.",
     iconSvg: (
-      <svg className="size-7 stroke-[#B8860B] fill-none stroke-[2]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        className="size-7 stroke-[#B8860B] fill-none stroke-[2]"
+        viewBox="0 0 24 24"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M12 2a10 10 0 1 0 10 10c0-1.7-1.3-3-3-3h-1.5a1.5 1.5 0 0 1-1.5-1.5V6a4 4 0 0 0-4-4z" />
         <circle cx="7.5" cy="7.5" r="1" fill="#B8860B" />
         <circle cx="12" cy="6.5" r="1" fill="#B8860B" />
@@ -180,7 +362,12 @@ const dailySchedule = [
     textMr: "चर्चा, नाट्य, गप्पा व भजनाने सांगता.",
     textEn: "Group discussion, drama, chats & devotional songs.",
     iconSvg: (
-      <svg className="size-7 stroke-[#B8860B] fill-none stroke-[2]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        className="size-7 stroke-[#B8860B] fill-none stroke-[2]"
+        viewBox="0 0 24 24"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
         <circle cx="9" cy="7" r="4" />
         <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -191,14 +378,78 @@ const dailySchedule = [
 ];
 
 const keyHighlights = [
-  { num: "01", titleMr: "आनंद निवास", titleEn: "Anand Nivas Residence", icon: "🏠", textMr: "फुल फर्निश्ड निवास (सिंगल, कपल, 2-3 शेअरिंग, AC / Non-AC पर्याय).", textEn: "Fully furnished rooms (Single, Couple, Sharing, AC/Non-AC).", color: "#f472b6" },
-  { num: "02", titleMr: "नियोजित गोशाळा", titleEn: "Proposed Gaushala", icon: "🐄", textMr: "देशी गायांचे पालन, गोपूजा व सेंद्रिय दुधाची सोय.", textEn: "Indigenous cow shelter, worship & organic milk facility.", color: "#9B1B54" },
-  { num: "03", titleMr: "नियोजित श्रीकृष्ण मंदिर", titleEn: "Shri Krishna Temple", icon: "🛕", textMr: "55 फुटांची भव्य राधाकृष्ण मूर्ती व अध्यात्मिक वातावरण.", textEn: "55ft grand Radha Krishna statue in serene atmosphere.", color: "#D97706" },
-  { num: "04", titleMr: "स्विमिंग पूल", titleEn: "Swimming Pool Complex", icon: "🏊", textMr: "जागतिक दर्जाचा शुद्ध पाण्याचा तरणतलाव व सुरक्षितता.", textEn: "World-class clean water pool with safety standards.", color: "#0284C7" },
-  { num: "05", titleMr: "स्पोर्ट्स व फिटनेस कॉम्प्लेक्स", titleEn: "Sports & Fitness Hub", icon: "🏸", textMr: "जिम, इनडोअर बॅडमिंटन, टेनिस, टर्फ व क्रीडा संकूल.", textEn: "Gym, indoor badminton, tennis court, artificial turf.", color: "#0D9488" },
-  { num: "06", titleMr: "अध्यायावत फूड कोर्ट व लक्झरी हॉटेल", titleEn: "Food Court & Luxury Hotel", icon: "🍽️", textMr: "PREETAM FOOD COURT - चवदार नाष्टा व चवदार जेवणाची उत्तम सोय.", textEn: "PREETAM FOOD COURT - Healthy breakfast & delicious veg meals.", color: "#7E22CE" },
-  { num: "07", titleMr: "कार्यक्रम स्टेज, गार्डन व लॉन", titleEn: "Stage, Gardens & Lawns", icon: "🎭", textMr: "सांस्कृतिक कार्यक्रम, हिरवळ, कारंजे व निसर्गरम्य वातावरण.", textEn: "Cultural performance stage, lush green lawns & fountains.", color: "#15803D" },
-  { num: "08", titleMr: "टर्फ - क्रिकेट व स्पोर्ट्स", titleEn: "Sports Turf Ground", icon: "⚽", textMr: "क्रिकेट, फुटबॉल व मैदानी खेळांसाठी सुसज्ज टर्फ मैदान.", textEn: "Fully equipped artificial turf for mini cricket & football.", color: "#1E40AF" },
+  {
+    num: "01",
+    titleMr: "आनंद निवास",
+    titleEn: "Anand Nivas Residence",
+    icon: "🏠",
+    textMr: "फुल फर्निश्ड निवास (सिंगल, कपल, 2-3 शेअरिंग, AC / Non-AC पर्याय).",
+    textEn: "Fully furnished rooms (Single, Couple, Sharing, AC/Non-AC).",
+    color: "#f472b6",
+  },
+  {
+    num: "02",
+    titleMr: "नियोजित गोशाळा",
+    titleEn: "Proposed Gaushala",
+    icon: "🐄",
+    textMr: "देशी गायांचे पालन, गोपूजा व सेंद्रिय दुधाची सोय.",
+    textEn: "Indigenous cow shelter, worship & organic milk facility.",
+    color: "#9B1B54",
+  },
+  {
+    num: "03",
+    titleMr: "नियोजित श्रीकृष्ण मंदिर",
+    titleEn: "Shri Krishna Temple",
+    icon: "🛕",
+    textMr: "55 फुटांची भव्य राधाकृष्ण मूर्ती व अध्यात्मिक वातावरण.",
+    textEn: "55ft grand Radha Krishna statue in serene atmosphere.",
+    color: "#D97706",
+  },
+  {
+    num: "04",
+    titleMr: "स्विमिंग पूल",
+    titleEn: "Swimming Pool Complex",
+    icon: "🏊",
+    textMr: "जागतिक दर्जाचा शुद्ध पाण्याचा तरणतलाव व सुरक्षितता.",
+    textEn: "World-class clean water pool with safety standards.",
+    color: "#0284C7",
+  },
+  {
+    num: "05",
+    titleMr: "स्पोर्ट्स व फिटनेस कॉम्प्लेक्स",
+    titleEn: "Sports & Fitness Hub",
+    icon: "🏸",
+    textMr: "जिम, इनडोअर बॅडमिंटन, टेनिस, टर्फ व क्रीडा संकूल.",
+    textEn: "Gym, indoor badminton, tennis court, artificial turf.",
+    color: "#0D9488",
+  },
+  {
+    num: "06",
+    titleMr: "अध्यायावत फूड कोर्ट व लक्झरी हॉटेल",
+    titleEn: "Food Court & Luxury Hotel",
+    icon: "🍽️",
+    textMr: "PREETAM FOOD COURT - चवदार नाष्टा व चवदार जेवणाची उत्तम सोय.",
+    textEn: "PREETAM FOOD COURT - Healthy breakfast & delicious veg meals.",
+    color: "#7E22CE",
+  },
+  {
+    num: "07",
+    titleMr: "कार्यक्रम स्टेज, गार्डन व लॉन",
+    titleEn: "Stage, Gardens & Lawns",
+    icon: "🎭",
+    textMr: "सांस्कृतिक कार्यक्रम, हिरवळ, कारंजे व निसर्गरम्य वातावरण.",
+    textEn: "Cultural performance stage, lush green lawns & fountains.",
+    color: "#15803D",
+  },
+  {
+    num: "08",
+    titleMr: "टर्फ - क्रिकेट व स्पोर्ट्स",
+    titleEn: "Sports Turf Ground",
+    icon: "⚽",
+    textMr: "क्रिकेट, फुटबॉल व मैदानी खेळांसाठी सुसज्ज टर्फ मैदान.",
+    textEn: "Fully equipped artificial turf for mini cricket & football.",
+    color: "#1E40AF",
+  },
 ];
 
 function IndexComponent() {
@@ -206,7 +457,6 @@ function IndexComponent() {
   const [showIntroBanner, setShowIntroBanner] = useState(true);
   const { isEn } = useLanguage();
   const store = useAdminStore();
-
 
   // Clean Pure Architectural Renders & Photos from Admin Store
   const card1Images = useMemo(() => {
@@ -323,9 +573,13 @@ function IndexComponent() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSportsLightboxIndex(null);
       if (e.key === "ArrowLeft")
-        setSportsLightboxIndex((prev) => (prev === null || prev === 0 ? sportsClub.gallery.length - 1 : prev - 1));
+        setSportsLightboxIndex((prev) =>
+          prev === null || prev === 0 ? sportsClub.gallery.length - 1 : prev - 1,
+        );
       if (e.key === "ArrowRight")
-        setSportsLightboxIndex((prev) => (prev === null || prev === sportsClub.gallery.length - 1 ? 0 : prev + 1));
+        setSportsLightboxIndex((prev) =>
+          prev === null || prev === sportsClub.gallery.length - 1 ? 0 : prev + 1,
+        );
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -337,8 +591,7 @@ function IndexComponent() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1a0429] via-[#2d0739] to-[#150424] animate-fade-up">
-
+    <div className="min-h-screen bg-linear-to-br from-[#1a0429] via-[#2d0739] to-[#150424] animate-fade-up">
       <AnimatePresence>
         {showIntroBanner && (
           <motion.div
@@ -371,7 +624,7 @@ function IndexComponent() {
             className="
               fixed
               inset-0
-              z-[999999]
+              z-999999
 
               w-screen
               h-screen
@@ -417,7 +670,9 @@ function IndexComponent() {
                   className="font-sans font-black text-base sm:text-xl lg:text-2xl tracking-normal leading-relaxed cursor-pointer"
                 >
                   {(() => {
-                    const rawTitle = store.siteData.welcomePosterTitle || "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club";
+                    const rawTitle =
+                      store.siteData.welcomePosterTitle ||
+                      "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club";
                     if (rawTitle.includes("&")) {
                       const [line1, line2] = rawTitle.split("&");
                       const line1Parts = line1.split(/(Anandshala|Anandashala|आनंदशाळा)/gi);
@@ -426,12 +681,15 @@ function IndexComponent() {
                           <span className="block text-white drop-shadow-md">
                             {line1Parts.map((part, i) =>
                               /Anandshala|Anandashala|आनंदशाळा/i.test(part) ? (
-                                <span key={i} className="text-[#ff7ec7] font-black drop-shadow-[0_0_15px_rgba(255,126,199,0.95)] px-1">
+                                <span
+                                  key={i}
+                                  className="text-[#ff7ec7] font-black drop-shadow-[0_0_15px_rgba(255,126,199,0.95)] px-1"
+                                >
                                   {part}
                                 </span>
                               ) : (
                                 part
-                              )
+                              ),
                             )}
                             {" &"}
                           </span>
@@ -446,17 +704,19 @@ function IndexComponent() {
                 </h2>
               </div>
             </div>
-
           </motion.div>
         )}
       </AnimatePresence>
       {/* ============================================================== */}
       {selectedSection === null && !showIntroBanner && (
-        <section id="sections" className="relative h-screen h-[100dvh] max-h-screen w-screen overflow-hidden bg-gradient-to-br from-[#fff5f8] via-[#f8fafc] to-[#f0f4ff] p-3 sm:p-5 flex flex-col justify-between items-center select-none">
+        <section
+          id="sections"
+          className="relative h-screen h-[100dvh] max-h-screen w-screen overflow-hidden bg-linear-to-br from-[#fff5f8] via-[#f8fafc] to-[#f0f4ff] p-3 sm:p-5 flex flex-col justify-between items-center select-none"
+        >
           {/* FLOATING RICH AMBIENT LIGHT ORBS */}
-          <div className="pointer-events-none absolute top-5 left-5 size-[350px] sm:size-[450px] rounded-full bg-pink-300/35 blur-[130px] animate-pulse" />
-          <div className="pointer-events-none absolute bottom-5 right-5 size-[350px] sm:size-[450px] rounded-full bg-indigo-300/35 blur-[130px] animate-float" />
-          <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[500px] rounded-full bg-rose-200/25 blur-[140px]" />
+          <div className="pointer-events-none absolute top-5 left-5 size-87.5 sm:size-112.5 rounded-full bg-pink-300/35 blur-[130px] animate-pulse" />
+          <div className="pointer-events-none absolute bottom-5 right-5 size-87.5 sm:size-112.5 rounded-full bg-indigo-300/35 blur-[130px] animate-float" />
+          <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-125 rounded-full bg-rose-200/25 blur-[140px]" />
 
           {/* BACK ARROW BUTTON */}
           <button
@@ -464,24 +724,45 @@ function IndexComponent() {
             aria-label="Back to Welcome Page"
             className="absolute top-2.5 left-2.5 sm:top-4 sm:left-5 z-30 size-9 sm:size-11 rounded-full bg-white/90 hover:bg-rose-100 active:scale-90 backdrop-blur-md border border-rose-200 text-[#1A05A2] flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 cursor-pointer group"
           >
-            <span className="text-sm sm:text-lg group-hover:-translate-x-0.5 transition-transform">⬅️</span>
+            <span className="text-sm sm:text-lg group-hover:-translate-x-0.5 transition-transform">
+              ⬅️
+            </span>
           </button>
 
           {/* BRAND HEADER (SPACIOUS, PROMINENT & BOLD) */}
           <div className="animate-fade-up text-center max-w-4xl mx-auto relative z-10 px-2 shrink-0 pt-2 pb-1">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-xl border border-rose-200 text-[#1A05A2] font-black text-xs sm:text-sm md:text-base shadow-sm tracking-wide">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-xl border border-rose-200 text-[#0044cc] font-black text-xs sm:text-sm md:text-base shadow-sm tracking-wide">
               <span className="inline-block size-2.5 rounded-full bg-[#db2777] animate-ping" />
-              <span>✨ {isEn ? <>India's First &amp; Only <span className="text-[#db2777] font-black">Anandshala</span></> : <>भारतातील पहिली आणि एकमेव <span className="text-[#db2777] font-black">आनंदशाळा</span></>}</span>
+              <span>
+                ✨{" "}
+                {isEn ? (
+                  <>
+                    India's First &amp; Only{" "}
+                    <span className="text-[#db2777] font-black">Anandshala</span>
+                  </>
+                ) : (
+                  <>
+                    भारतातील पहिली आणि एकमेव{" "}
+                    <span className="text-[#db2777] font-black">आनंदशाळा</span>
+                  </>
+                )}
+              </span>
             </div>
-            <h1 className="font-display font-black text-xl sm:text-3xl lg:text-4xl tracking-tight text-[#1A05A2] leading-tight my-2 max-w-3xl mx-auto drop-shadow-sm">
+            <h1 className="font-sans font-black text-xl sm:text-3xl lg:text-4xl tracking-tight text-[#0044cc] leading-tight my-2 max-w-3xl mx-auto drop-shadow-sm">
               {isEn ? (
                 <>
-                  <span className="block text-[#1A05A2]">Preetam Senior Citizen <span className="text-[#db2777] font-black drop-shadow-xs">Anandshala</span></span>
+                  <span className="block text-[#0044cc]">
+                    Preetam Senior Citizen{" "}
+                    <span className="text-[#db2777] font-black drop-shadow-xs">Anandshala</span>
+                  </span>
                   <span className="block text-[#810B38] mt-1">&amp; Sports Fitness Club</span>
                 </>
               ) : (
                 <>
-                  <span className="block text-[#1A05A2]">प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black drop-shadow-xs">आनंदशाळा</span></span>
+                  <span className="block text-[#0044cc]">
+                    प्रीतम ज्येष्ठ नागरिक{" "}
+                    <span className="text-[#db2777] font-black drop-shadow-xs">आनंदशाळा</span>
+                  </span>
                   <span className="block text-[#810B38] mt-1">व स्पोर्ट्स अँड फिटनेस क्लब</span>
                 </>
               )}
@@ -496,7 +777,6 @@ function IndexComponent() {
 
           {/* 2 MAIN CARDS - COMPACT PROPORTIONS & HIGH CONTRAST CLEAR TEXT */}
           <div className="flex-1 w-full max-w-5xl sm:max-w-6xl mx-auto my-2 grid grid-cols-1 lg:grid-cols-2 items-center gap-4 lg:gap-6 relative z-10 min-h-0 overflow-hidden px-2">
-
             {/* SECTION 1 CARD: PREETAM AANANDASHRAM */}
             <motion.div
               initial={{ opacity: 0, x: -80 }}
@@ -504,8 +784,9 @@ function IndexComponent() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
               onClick={() => handleSectionSelect("aanandshala")}
-              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-[250px] sm:h-[300px] lg:h-[335px] w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-pink-400 flex flex-col justify-between p-4 sm:p-6 ${selectedSection === "aanandshala" ? "ring-4 ring-pink-500 scale-[1.02]" : ""
-                }`}
+              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-62.5 sm:h-75 lg:h-83.75 w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-pink-400 flex flex-col justify-between p-4 sm:p-6 ${
+                selectedSection === "aanandshala" ? "ring-4 ring-pink-500 scale-[1.02]" : ""
+              }`}
             >
               {/* ANIMATED IMAGE SLIDER BACKGROUND */}
               <AnimatePresence>
@@ -530,7 +811,7 @@ function IndexComponent() {
               </AnimatePresence>
 
               {/* SUBTLE BOTTOM GRADIENT FOR MAXIMUM IMAGE CLARITY & BRIGHTNESS */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/15 to-transparent pointer-events-none" />
 
               {/* TOP SLIDER DOTS */}
               <div className="relative z-10 flex items-center justify-end gap-2">
@@ -550,9 +831,13 @@ function IndexComponent() {
               <div className="relative z-10 space-y-1 pt-2">
                 <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight leading-tight drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)]">
                   {isEn ? (
-                    <>Preetam Senior Citizen <span className="text-pink-400">Anandshala</span></>
+                    <>
+                      Preetam Senior Citizen <span className="text-pink-400">Anandshala</span>
+                    </>
                   ) : (
-                    <>प्रीतम ज्येष्ठ नागरिक <span className="text-pink-400">आनंदशाळा</span></>
+                    <>
+                      प्रीतम ज्येष्ठ नागरिक <span className="text-pink-400">आनंदशाळा</span>
+                    </>
                   )}
                 </h3>
               </div>
@@ -565,8 +850,9 @@ function IndexComponent() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               onClick={() => handleSectionSelect("sports")}
-              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-[250px] sm:h-[300px] lg:h-[335px] w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-purple-400 flex flex-col justify-between p-4 sm:p-6 ${selectedSection === "sports" ? "ring-4 ring-purple-500 scale-[1.02]" : ""
-                }`}
+              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-62.5 sm:h-75 lg:h-83.75 w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-purple-400 flex flex-col justify-between p-4 sm:p-6 ${
+                selectedSection === "sports" ? "ring-4 ring-purple-500 scale-[1.02]" : ""
+              }`}
             >
               {/* ANIMATED IMAGE SLIDER BACKGROUND */}
               <AnimatePresence>
@@ -591,7 +877,7 @@ function IndexComponent() {
               </AnimatePresence>
 
               {/* SUBTLE BOTTOM GRADIENT FOR MAXIMUM IMAGE CLARITY & BRIGHTNESS */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/15 to-transparent pointer-events-none" />
 
               {/* TOP SLIDER DOTS */}
               <div className="relative z-10 flex items-center justify-end gap-2">
@@ -614,7 +900,6 @@ function IndexComponent() {
                 </h3>
               </div>
             </motion.div>
-
           </div>
         </section>
       )}
@@ -629,14 +914,8 @@ function IndexComponent() {
           {/* 8 MILESTONES TIMELINE SLIDER (PROJECT TAPPE DIRECTLY BELOW SLIDER) */}
           <JourneyTimeline />
 
-
-
-
-
           {/* 23 REASONS CAROUSEL */}
           <SpecialReasons />
-
-
 
           {/* PRICING SECTION */}
           <PricingSection />

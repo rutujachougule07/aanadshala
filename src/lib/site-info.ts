@@ -9,7 +9,8 @@ export const site = {
   email: "Preetamanandshala@gmail.com",
   website: "www.preetamseniorcitizenanandshala.com",
   addressMr: "सर्वे नंबर 39/1, 2, 3 आनंद नगरी, माधवनगर धनंजय गार्डन रोड, रेल्वे गेट शेजारी, सांगली",
-  addressEn: "Survey No. 39/1, 2, 3 Anand Nagari, Madhavnagar Dhananjay Garden Road, Near Railway Gate, Sangli",
+  addressEn:
+    "Survey No. 39/1, 2, 3 Anand Nagari, Madhavnagar Dhananjay Garden Road, Near Railway Gate, Sangli",
   timingMr: "आनंदशाळेची वेळ : सकाळी ११ ते सायं. ५",
   timingEn: "Anandshala Timing: 11:00 AM to 5:00 PM",
   founderMr: "श्री. अभिनय जगन्नाथ कामाजी",
@@ -25,14 +26,62 @@ export const navLinks = [
 ] as const;
 
 export const facilities = [
-  { icon: "🏠", titleMr: "फुल फर्निश्ड निवास", titleEn: "Fully Furnished Living", textMr: "सिंगल, कपल, शेअरिंग, ए.सी. रूम, 1RK व 1BHK पर्याय उपलब्ध.", textEn: "Single, Couple, Sharing, AC Rooms, 1RK and 1BHK options available." },
-  { icon: "🍽️", titleMr: "फूड कोर्ट व जेवण", titleEn: "Food Court & Meals", textMr: "अद्ययावत फूड कोर्ट, प्युअर व्हेज हॉटेल, चहा-नाश्ता व सकस जेवण.", textEn: "Modern food court, pure veg restaurant, tea, snacks & nutritious meals." },
-  { icon: "🩺", titleMr: "दवाखाना व मेडिकल", titleEn: "Clinic & Medical Care", textMr: "आरोग्य तपासणी, दवाखाना व मेडिकल सुविधा आवारातच.", textEn: "Health checkups, clinic & medical facilities inside campus." },
-  { icon: "🏊", titleMr: "स्विमिंग पूल व जीम", titleEn: "Swimming Pool & Gym", textMr: "भव्य स्पोर्ट्स व फिटनेस कॉम्प्लेक्स, बॅडमिंटन, टेनिस, जीम.", textEn: "Grand sports & fitness complex, badminton, tennis, gym." },
-  { icon: "🛕", titleMr: "मंदिर व गोशाळा", titleEn: "Temple & Gaushala", textMr: "५५ फुटांची राधाकृष्ण मूर्ती, मंदिर व गोशाळा.", textEn: "55 ft Radha Krishna Statue, Temple & Gaushala." },
-  { icon: "📚", titleMr: "वाचनालय व कलाशिक्षण", titleEn: "Library & Arts", textMr: "वाचनालय, कलागुणांना वाव, मानधन व आत्मसन्मान.", textEn: "Library, arts platform, stipend and self-respect." },
-  { icon: "🚐", titleMr: "जाणे-येणे सुविधा", titleEn: "Transport Facility", textMr: "स्कूल व्हॅन व ई-रिक्षाने आनंदशाळेत ये-जा करता येते.", textEn: "Van & E-ricksha transport available for commute." },
-  { icon: "🎉", titleMr: "सण व वाढदिवस", titleEn: "Festivals & Birthdays", textMr: "सर्व धार्मिक उत्सव, सण व वाढदिवस आनंदाने साजरे.", textEn: "All festivals, religious celebrations and birthdays celebrated with joy." },
+  {
+    icon: "🏠",
+    titleMr: "फुल फर्निश्ड निवास",
+    titleEn: "Fully Furnished Living",
+    textMr: "सिंगल, कपल, शेअरिंग, ए.सी. रूम, 1RK व 1BHK पर्याय उपलब्ध.",
+    textEn: "Single, Couple, Sharing, AC Rooms, 1RK and 1BHK options available.",
+  },
+  {
+    icon: "🍽️",
+    titleMr: "फूड कोर्ट व जेवण",
+    titleEn: "Food Court & Meals",
+    textMr: "अद्ययावत फूड कोर्ट, प्युअर व्हेज हॉटेल, चहा-नाश्ता व सकस जेवण.",
+    textEn: "Modern food court, pure veg restaurant, tea, snacks & nutritious meals.",
+  },
+  {
+    icon: "🩺",
+    titleMr: "दवाखाना व मेडिकल",
+    titleEn: "Clinic & Medical Care",
+    textMr: "आरोग्य तपासणी, दवाखाना व मेडिकल सुविधा आवारातच.",
+    textEn: "Health checkups, clinic & medical facilities inside campus.",
+  },
+  {
+    icon: "🏊",
+    titleMr: "स्विमिंग पूल व जीम",
+    titleEn: "Swimming Pool & Gym",
+    textMr: "भव्य स्पोर्ट्स व फिटनेस कॉम्प्लेक्स, बॅडमिंटन, टेनिस, जीम.",
+    textEn: "Grand sports & fitness complex, badminton, tennis, gym.",
+  },
+  {
+    icon: "🛕",
+    titleMr: "मंदिर व गोशाळा",
+    titleEn: "Temple & Gaushala",
+    textMr: "५५ फुटांची राधाकृष्ण मूर्ती, मंदिर व गोशाळा.",
+    textEn: "55 ft Radha Krishna Statue, Temple & Gaushala.",
+  },
+  {
+    icon: "📚",
+    titleMr: "वाचनालय व कलाशिक्षण",
+    titleEn: "Library & Arts",
+    textMr: "वाचनालय, कलागुणांना वाव, मानधन व आत्मसन्मान.",
+    textEn: "Library, arts platform, stipend and self-respect.",
+  },
+  {
+    icon: "🚐",
+    titleMr: "जाणे-येणे सुविधा",
+    titleEn: "Transport Facility",
+    textMr: "स्कूल व्हॅन व ई-रिक्षाने आनंदशाळेत ये-जा करता येते.",
+    textEn: "Van & E-ricksha transport available for commute.",
+  },
+  {
+    icon: "🎉",
+    titleMr: "सण व वाढदिवस",
+    titleEn: "Festivals & Birthdays",
+    textMr: "सर्व धार्मिक उत्सव, सण व वाढदिवस आनंदाने साजरे.",
+    textEn: "All festivals, religious celebrations and birthdays celebrated with joy.",
+  },
 ];
 
 export const admissionPlans = [
@@ -42,8 +91,18 @@ export const admissionPlans = [
     price: "₹ ६००",
     unitMr: "/ प्रति व्यक्ती",
     unitEn: "/ per person",
-    pointsMr: ["वेळ : स. ११ ते सायं. ५", "चहा, नाश्ता व जेवण", "परिसर दर्शन व खेळ", "सर्व सुविधांचा आनंद"],
-    pointsEn: ["Timing: 11 AM to 5 PM", "Tea, Snacks & Meals", "Campus Tour & Games", "Access to all amenities"],
+    pointsMr: [
+      "वेळ : स. ११ ते सायं. ५",
+      "चहा, नाश्ता व जेवण",
+      "परिसर दर्शन व खेळ",
+      "सर्व सुविधांचा आनंद",
+    ],
+    pointsEn: [
+      "Timing: 11 AM to 5 PM",
+      "Tea, Snacks & Meals",
+      "Campus Tour & Games",
+      "Access to all amenities",
+    ],
     featured: false,
   },
   {
@@ -52,8 +111,18 @@ export const admissionPlans = [
     price: "₹ ११,०००",
     unitMr: "/ महिना पासून",
     unitEn: "/ month onwards",
-    pointsMr: ["राहणे + आनंदशाळा", "नाश्ता २, जेवण २, चहा २", "सर्व उपक्रम व सुविधा", "*GST अतिरिक्त"],
-    pointsEn: ["Accommodation + Anandshala", "2 Snacks, 2 Meals, 2 Teas", "All Activities & Amenities", "*GST Extra"],
+    pointsMr: [
+      "राहणे + आनंदशाळा",
+      "नाश्ता २, जेवण २, चहा २",
+      "सर्व उपक्रम व सुविधा",
+      "*GST अतिरिक्त",
+    ],
+    pointsEn: [
+      "Accommodation + Anandshala",
+      "2 Snacks, 2 Meals, 2 Teas",
+      "All Activities & Amenities",
+      "*GST Extra",
+    ],
     featured: true,
   },
   {
@@ -62,28 +131,64 @@ export const admissionPlans = [
     price: "₹ ३,०००",
     unitMr: "/ महिना पासून",
     unitEn: "/ month onwards",
-    pointsMr: ["स. ११ ते सायं. ५", "खेळ, कला व उपक्रम", "मित्र-मैत्रिणींसोबत वेळ", "आरोग्यदायी दिनचर्या"],
-    pointsEn: ["11 AM to 5 PM", "Games, Arts & Activities", "Time with friends", "Healthy daily routine"],
+    pointsMr: [
+      "स. ११ ते सायं. ५",
+      "खेळ, कला व उपक्रम",
+      "मित्र-मैत्रिणींसोबत वेळ",
+      "आरोग्यदायी दिनचर्या",
+    ],
+    pointsEn: [
+      "11 AM to 5 PM",
+      "Games, Arts & Activities",
+      "Time with friends",
+      "Healthy daily routine",
+    ],
     featured: false,
   },
 ];
 
 export const whyPoints = [
-  { mr: "मनातील राहून गेलेल्या आवडी-निवडी आनंदाने पूर्ण करण्यासाठी.", en: "To happily fulfill lifelong unfulfilled hobbies and passions." },
-  { mr: "मनासारखे आनंदी व स्वावलंबी जीवन जगता येण्यासाठी.", en: "To live a joyful and self-reliant life on your own terms." },
-  { mr: "कलागुणांना वाव, मानधन व आत्मसन्मान मिळण्यासाठी.", en: "To showcase artistic talents, earn stipends and gain self-dignity." },
-  { mr: "एकटेपणा, नैराश्य व चिडचिड यापासून मुक्ती मिळण्यासाठी.", en: "To overcome loneliness, depression, and stress effortlessly." },
-  { mr: "आपल्या वयाच्या मित्र-मैत्रिणींसोबत स्वाभिमानाने जगण्यासाठी.", en: "To live respectfully with like-minded friends of your age group." },
-  { mr: "बी.पी., शुगर, टेन्शन कमी करून निरोगी आनंदी जीवनासाठी.", en: "To reduce BP, diabetes, tension for a healthy and joyful life." },
-  { mr: "स्वतः कमावलेल्या पैशाचा थोडा तरी स्वतःसाठी उपभोग घेण्यासाठी.", en: "To enjoy hard-earned savings for your own happiness." },
-  { mr: "जीवनाची सायंकाळ उत्साहाने, मनसोक्त जगण्यासाठी.", en: "To spend the golden years of life with enthusiasm and joy." },
+  {
+    mr: "मनातील राहून गेलेल्या आवडी-निवडी आनंदाने पूर्ण करण्यासाठी.",
+    en: "To happily fulfill lifelong unfulfilled hobbies and passions.",
+  },
+  {
+    mr: "मनासारखे आनंदी व स्वावलंबी जीवन जगता येण्यासाठी.",
+    en: "To live a joyful and self-reliant life on your own terms.",
+  },
+  {
+    mr: "कलागुणांना वाव, मानधन व आत्मसन्मान मिळण्यासाठी.",
+    en: "To showcase artistic talents, earn stipends and gain self-dignity.",
+  },
+  {
+    mr: "एकटेपणा, नैराश्य व चिडचिड यापासून मुक्ती मिळण्यासाठी.",
+    en: "To overcome loneliness, depression, and stress effortlessly.",
+  },
+  {
+    mr: "आपल्या वयाच्या मित्र-मैत्रिणींसोबत स्वाभिमानाने जगण्यासाठी.",
+    en: "To live respectfully with like-minded friends of your age group.",
+  },
+  {
+    mr: "बी.पी., शुगर, टेन्शन कमी करून निरोगी आनंदी जीवनासाठी.",
+    en: "To reduce BP, diabetes, tension for a healthy and joyful life.",
+  },
+  {
+    mr: "स्वतः कमावलेल्या पैशाचा थोडा तरी स्वतःसाठी उपभोग घेण्यासाठी.",
+    en: "To enjoy hard-earned savings for your own happiness.",
+  },
+  {
+    mr: "जीवनाची सायंकाळ उत्साहाने, मनसोक्त जगण्यासाठी.",
+    en: "To spend the golden years of life with enthusiasm and joy.",
+  },
 ];
 
 export const sportsClub = {
   nameMr: "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब",
   nameEn: "Preetam Sports & Fitness Club",
-  taglineMr: "जिम, बॅडमिंटन, स्विमिंगपूल, पिकलबॉल कोर्ट, योगा, टेबल टेनिस, स्नुकर, स्क्वॅश, मेडिटेशन, झुंबा, डान्स कॉम्प्लिमेंटरी मध्ये बैठे खेळ, वाचनालय, संगीत उपकरण हॉल — मोफत प्रवेश",
-  taglineEn: "Gym, Badminton, Swimming Pool, Pickleball Court, Yoga, Table Tennis, Snooker, Squash, Meditation, Zumba, Dance with complimentary Indoor Games, Library & Music Hall access",
+  taglineMr:
+    "जिम, बॅडमिंटन, स्विमिंगपूल, पिकलबॉल कोर्ट, योगा, टेबल टेनिस, स्नुकर, स्क्वॅश, मेडिटेशन, झुंबा, डान्स कॉम्प्लिमेंटरी मध्ये बैठे खेळ, वाचनालय, संगीत उपकरण हॉल — मोफत प्रवेश",
+  taglineEn:
+    "Gym, Badminton, Swimming Pool, Pickleball Court, Yoga, Table Tennis, Snooker, Squash, Meditation, Zumba, Dance with complimentary Indoor Games, Library & Music Hall access",
   logo: "https://d3k88l35vy59af.cloudfront.net/A42/9336/1760175180579.png",
   timingMr: "क्लबची वेळ : सकाळी ६ ते रात्री ९",
   timingEn: "Club Hours: 6:00 AM to 9:00 PM",
@@ -93,12 +198,14 @@ export const sportsClub = {
   founderMr: "श्री. अभिनय जगन्नाथ कामाजी",
   founderEn: "Shri Abhinay Jagannath Kamaji",
   phones: ["+91-9370237633", "+91-9423258859"],
-  whatsapp: "https://wa.me/919370237633?text=Got%20reference%20from%20your%20Digital%20vCard.%20Want%20to%20know%20more%20details.",
+  whatsapp:
+    "https://wa.me/919370237633?text=Got%20reference%20from%20your%20Digital%20vCard.%20Want%20to%20know%20more%20details.",
   email: "Preetamsportclub@gmail.com",
   altEmail: "Preetamanandshala@gmail.com",
   googleMaps: "https://maps.app.goo.gl/KgXVLjLWke5p6PbR7",
   addressMr: "सर्वे नंबर 39/1, 2, 3 आनंद नगरी, माधवनगर धनंजय गार्डन रोड, रेल्वे गेट शेजारी, सांगली",
-  addressEn: "Survey No. 39/1, 2, 3 Anand Nagari, Madhavnagar Dhananjay Garden Road, Near Railway Gate, Sangli",
+  addressEn:
+    "Survey No. 39/1, 2, 3 Anand Nagari, Madhavnagar Dhananjay Garden Road, Near Railway Gate, Sangli",
   socials: {
     youtube: "https://www.youtube.com/@PreetamSportsAndFitnessClub",
     facebook: "https://www.facebook.com/preetamseniorcitizenanandshala",
@@ -111,15 +218,42 @@ export const sportsClub = {
     { value: "सर्व वयोगट", labelMr: "बालके, तरुण व ज्येष्ठ", labelEn: "For All Age Groups" },
   ],
   specialities: [
-    { mr: "मेंबरशिपवर वाचनालय 📚, संगीत हॉल 🎼, बैठे खेळ हॉल आणि भव्य जॉगिंग ट्रॅक 🏃‍♂️ आउटडोअर फिटनेस गार्डन मोफत.", en: "Complimentary Library 📚, Music Hall 🎼, Indoor Games & Jogging Track 🏃‍♂️ with membership." },
-    { mr: "सांगलीतील पहिले आणि सर्वात भव्य स्पोर्ट्स अँड फिटनेस क्लब", en: "First & largest Sports & Fitness Club in Sangli district." },
-    { mr: "जिम, स्विमिंग, योगा अशा २५+ जागतिक दर्जाच्या सुविधा एकाच छताखाली. 🤸‍♀️", en: "25+ world-class facilities including Gym, Swimming, Yoga under one roof." },
-    { mr: "शुद्ध हवा 🌬️ आणि निसर्गरम्य वातावरणात फिटनेस आणि व्यायामाचा आनंद. 🌳", en: "Fitness and exercise in pure air 🌬️ and scenic natural surroundings." },
-    { mr: "स्क्वॉश, स्नूकर, टेबल टेनिस 🏓 आणि पिकलबॉल कोर्ट अशा रोमांचक खेळांसाठी सर्वोत्तम ठिकाण.", en: "Best hub for Squash, Snooker, Table Tennis 🏓 and Pickleball." },
-    { mr: "मेडिटेशन 🧘, झुंबा आणि डान्स द्वारे शारीरिक व मानसिक आरोग्याचा सुंदर संगम.", en: "Perfect harmony of mind and body through Meditation 🧘, Zumba & Dance." },
-    { mr: "श्री. अभिनय जगन्नाथ कामाजी यांच्या संकल्पनेतून साकारलेले सांगलीचे नवीन फिटनेस व स्पोर्ट्स डेस्टिनेशन", en: "Sangli's new sports destination envisioned by Shri Abhinay Jagannath Kamaji." },
-    { mr: "फक्त फिटनेस नाही, तर संपूर्ण कुटुंबासाठी आरोग्य, आनंद आणि मनोरंजनाचे केंद्र. 👨‍👩‍👧‍👦", en: "Not just fitness, a complete health and entertainment hub for whole family." },
-    { mr: "आजच मेंबरशिप घेऊन आपल्या आरोग्य आणि फिटनेस प्रवासाची आनंदाने व उत्साहाने सुरुवात करा! 🚀", en: "Join membership today and start your joyful health journey! 🚀" },
+    {
+      mr: "मेंबरशिपवर वाचनालय 📚, संगीत हॉल 🎼, बैठे खेळ हॉल आणि भव्य जॉगिंग ट्रॅक 🏃‍♂️ आउटडोअर फिटनेस गार्डन मोफत.",
+      en: "Complimentary Library 📚, Music Hall 🎼, Indoor Games & Jogging Track 🏃‍♂️ with membership.",
+    },
+    {
+      mr: "सांगलीतील पहिले आणि सर्वात भव्य स्पोर्ट्स अँड फिटनेस क्लब",
+      en: "First & largest Sports & Fitness Club in Sangli district.",
+    },
+    {
+      mr: "जिम, स्विमिंग, योगा अशा २५+ जागतिक दर्जाच्या सुविधा एकाच छताखाली. 🤸‍♀️",
+      en: "25+ world-class facilities including Gym, Swimming, Yoga under one roof.",
+    },
+    {
+      mr: "शुद्ध हवा 🌬️ आणि निसर्गरम्य वातावरणात फिटनेस आणि व्यायामाचा आनंद. 🌳",
+      en: "Fitness and exercise in pure air 🌬️ and scenic natural surroundings.",
+    },
+    {
+      mr: "स्क्वॉश, स्नूकर, टेबल टेनिस 🏓 आणि पिकलबॉल कोर्ट अशा रोमांचक खेळांसाठी सर्वोत्तम ठिकाण.",
+      en: "Best hub for Squash, Snooker, Table Tennis 🏓 and Pickleball.",
+    },
+    {
+      mr: "मेडिटेशन 🧘, झुंबा आणि डान्स द्वारे शारीरिक व मानसिक आरोग्याचा सुंदर संगम.",
+      en: "Perfect harmony of mind and body through Meditation 🧘, Zumba & Dance.",
+    },
+    {
+      mr: "श्री. अभिनय जगन्नाथ कामाजी यांच्या संकल्पनेतून साकारलेले सांगलीचे नवीन फिटनेस व स्पोर्ट्स डेस्टिनेशन",
+      en: "Sangli's new sports destination envisioned by Shri Abhinay Jagannath Kamaji.",
+    },
+    {
+      mr: "फक्त फिटनेस नाही, तर संपूर्ण कुटुंबासाठी आरोग्य, आनंद आणि मनोरंजनाचे केंद्र. 👨‍👩‍👧‍👦",
+      en: "Not just fitness, a complete health and entertainment hub for whole family.",
+    },
+    {
+      mr: "आजच मेंबरशिप घेऊन आपल्या आरोग्य आणि फिटनेस प्रवासाची आनंदाने व उत्साहाने सुरुवात करा! 🚀",
+      en: "Join membership today and start your joyful health journey! 🚀",
+    },
   ],
   aboutFullMr: `आपण प्रीतम स्पोर्ट्स व फिटनेस क्लब ची मेंबरशिप घेऊन भारतातील प्रथम चालू होत असलेल्या जेष्ठ नागरिक आनंदशाळेला सपोर्ट सहकार्य करा व जेष्ठांचे शुभ आशीर्वाद मिळवा.
 
@@ -149,8 +283,10 @@ Our aim is not merely running a gym, but creating a sanctuary of health, vigor, 
       icon: "💪",
       titleMr: "अत्याधुनिक जिम (State-of-the-Art Gym)",
       titleEn: "State-of-the-Art Gym",
-      descMr: "जागतिक दर्जाची कार्डिओ 🏃‍♀️, वेट ट्रेनिंग 🏋️ आणि स्ट्रेंथ इक्विपमेंट्स उपलब्ध. तज्ज्ञ प्रशिक्षकांचे मार्गदर्शन.",
-      descEn: "World-class cardio 🏃‍♀️, weight training 🏋️ & strength equipment available with certified trainers.",
+      descMr:
+        "जागतिक दर्जाची कार्डिओ 🏃‍♀️, वेट ट्रेनिंग 🏋️ आणि स्ट्रेंथ इक्विपमेंट्स उपलब्ध. तज्ज्ञ प्रशिक्षकांचे मार्गदर्शन.",
+      descEn:
+        "World-class cardio 🏃‍♀️, weight training 🏋️ & strength equipment available with certified trainers.",
       specsMr: [
         "🌐 सुविधा: आंतरराष्ट्रीय दर्जाचे कार्डिओ आणि वेट लिफ्टिंग उपकरणे.",
         "🧑‍🏫 मार्गदर्शन: प्रमाणित आणि अनुभवी प्रशिक्षक नेहमी मदतीसाठी उपलब्ध.",
@@ -169,15 +305,18 @@ Our aim is not merely running a gym, but creating a sanctuary of health, vigor, 
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184838684.jpg",
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184833833.jpg",
       ],
-      whatsapp: "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20your%20Gym%20facility.",
+      whatsapp:
+        "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20your%20Gym%20facility.",
     },
     {
       id: "yoga",
       icon: "🧘",
       titleMr: "योगा स्टुडिओ (Yoga Studio)",
       titleEn: "Yoga Studio",
-      descMr: "शरीर आणि मन यांच्यातील सुंदर समन्वय अनुभवा. प्राणायाम, ध्यान आणि आसने शिकण्यासाठी आदर्श जागा.",
-      descEn: "Experience harmony of mind and body. Ideal studio for Pranayama, Meditation & Asanas.",
+      descMr:
+        "शरीर आणि मन यांच्यातील सुंदर समन्वय अनुभवा. प्राणायाम, ध्यान आणि आसने शिकण्यासाठी आदर्श जागा.",
+      descEn:
+        "Experience harmony of mind and body. Ideal studio for Pranayama, Meditation & Asanas.",
       specsMr: [
         "🧘 फायदे: लवचिकता, मनःशांती आणि तणावमुक्ती.",
         "🙏 प्रकार: हठ योग, पॉवर योग आणि मेडिटेटिव्ह योगाचे क्लासेस.",
@@ -218,7 +357,8 @@ Our aim is not merely running a gym, but creating a sanctuary of health, vigor, 
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203091443.jpg",
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203091444.jpg",
       ],
-      whatsapp: "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Meditation%20Room.",
+      whatsapp:
+        "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Meditation%20Room.",
     },
     {
       id: "zumba",
@@ -316,7 +456,8 @@ Our aim is not merely running a gym, but creating a sanctuary of health, vigor, 
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203952737.jpg",
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203942143.jpg",
       ],
-      whatsapp: "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Badminton%20Courts.",
+      whatsapp:
+        "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Badminton%20Courts.",
     },
     {
       id: "squash",
@@ -388,7 +529,8 @@ Our aim is not merely running a gym, but creating a sanctuary of health, vigor, 
         "https://d3k88l35vy59af.cloudfront.net/A42/9336/1761816054100.jpg",
         "https://d3k88l35vy59af.cloudfront.net/A42/9336/1760115460449.png",
       ],
-      whatsapp: "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Snooker%20and%20Pool.",
+      whatsapp:
+        "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Snooker%20and%20Pool.",
     },
     {
       id: "pickleball",
@@ -414,7 +556,8 @@ Our aim is not merely running a gym, but creating a sanctuary of health, vigor, 
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763201883062.jpg",
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763201883063.jpg",
       ],
-      whatsapp: "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Pickleball%20and%20Turf.",
+      whatsapp:
+        "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Pickleball%20and%20Turf.",
     },
     {
       id: "jogging",
@@ -508,7 +651,8 @@ Our aim is not merely running a gym, but creating a sanctuary of health, vigor, 
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763209644300.jpg",
         "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763209631568.jpg",
       ],
-      whatsapp: "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Children%20Play%20Area.",
+      whatsapp:
+        "https://wa.me/919370237633?text=Hi,%20I%20am%20interested%20in%20Children%20Play%20Area.",
     },
   ],
   gallery: [

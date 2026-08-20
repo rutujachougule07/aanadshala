@@ -19,8 +19,8 @@ function FloatingGlow() {
         absolute
         -left-40
         top-20
-        h-[420px]
-        w-[420px]
+        h-105
+        w-105
         rounded-full
         bg-pink-300/20
         blur-[140px]
@@ -44,8 +44,8 @@ function FloatingGlow() {
         absolute
         right-[-120px]
         top-[30%]
-        h-[500px]
-        w-[500px]
+        h-125
+        w-125
         rounded-full
         bg-blue-300/20
         blur-[170px]
@@ -68,8 +68,8 @@ function FloatingGlow() {
         absolute
         bottom-[-180px]
         left-[35%]
-        h-[450px]
-        w-[450px]
+        h-112.5
+        w-112.5
         rounded-full
         bg-green-300/20
         blur-[160px]

@@ -9,7 +9,10 @@
   left: 0;
   width: 100%;
   z-index: 9999;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 /* ── BACKGROUND BLUR LAYER ── */
@@ -57,7 +60,7 @@
   width: 52px;
   height: 52px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #db2777, #1D4ED8);
+  background: linear-gradient(135deg, #db2777, #1d4ed8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +69,7 @@
 }
 
 .navbar-logo-icon span {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 24px;
   font-weight: 900;
 }
@@ -74,7 +77,7 @@
 .navbar-logo-title {
   font-size: 20px;
   font-weight: 900;
-  color: #0F172A;
+  color: #0f172a;
   line-height: 1.1;
   margin: 0;
   letter-spacing: 0.04em;
@@ -108,10 +111,12 @@
   padding: 10px 20px;
   font-size: 16px;
   font-weight: 800;
-  color: #1A05A2;
+  color: #1a05a2;
   text-decoration: none;
   border-radius: 9999px;
-  transition: color 0.25s ease, background 0.25s ease;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease;
 }
 
 .navbar-nav-link:hover {
@@ -131,7 +136,7 @@
   bottom: 4px;
   height: 3px;
   border-radius: 9999px;
-  background: linear-gradient(90deg, #db2777, #1D4ED8);
+  background: linear-gradient(90deg, #db2777, #1d4ed8);
   animation: slideIn 0.25s ease forwards;
 }
 
@@ -147,8 +152,8 @@
 }
 
 .navbar-cta-btn {
-  background: linear-gradient(135deg, #db2777 0%, #1A05A2 100%);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, #db2777 0%, #1a05a2 100%);
+  color: #ffffff;
   font-size: 15px;
   font-weight: 900;
   padding: 12px 24px;

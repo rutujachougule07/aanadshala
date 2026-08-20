@@ -8,8 +8,8 @@
 .sp-v3-root {
   width: 100%;
   font-family: "Mukta", "Poppins", system-ui, sans-serif;
-  background: #F4F7FB;
-  color: #1E293B;
+  background: #f4f7fb;
+  color: #1e293b;
   overflow-x: hidden;
 }
 
@@ -25,10 +25,10 @@
    HERO SECTION (LUXURY WIDESCREEN DESIGN)
    ══════════════════════════════════════════════════════════════ */
 .sp-clean-sec {
-  padding: 20px 0 36px;
+  padding: 16px 0 8px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
@@ -41,7 +41,9 @@
   height: clamp(480px, 68vh, 660px);
   border-radius: 36px;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.3), 0 0 50px rgba(219, 39, 119, 0.25);
+  box-shadow:
+    0 30px 80px rgba(15, 23, 42, 0.3),
+    0 0 50px rgba(219, 39, 119, 0.25);
   border: 4px solid rgba(255, 255, 255, 0.85);
   background: #090314;
 }
@@ -91,7 +93,12 @@
 .sp-exact-banner-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.5) 40%, rgba(12, 2, 22, 0.95) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.15) 0%,
+    rgba(15, 23, 42, 0.5) 40%,
+    rgba(12, 2, 22, 0.95) 100%
+  );
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -175,14 +182,18 @@
   padding: 13px 36px;
   border-radius: 50px;
   border: 2px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 12px 35px rgba(225, 29, 72, 0.6), 0 0 25px rgba(192, 38, 211, 0.4);
+  box-shadow:
+    0 12px 35px rgba(225, 29, 72, 0.6),
+    0 0 25px rgba(192, 38, 211, 0.4);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sp-hero-cta-btn:hover {
   transform: translateY(-3px) scale(1.04);
-  box-shadow: 0 18px 45px rgba(225, 29, 72, 0.8), 0 0 35px rgba(192, 38, 211, 0.6);
+  box-shadow:
+    0 18px 45px rgba(225, 29, 72, 0.8),
+    0 0 35px rgba(192, 38, 211, 0.6);
   border-color: #ffffff;
 }
 
@@ -236,8 +247,8 @@
   align-items: center;
   gap: 6px;
   background: #ffffff;
-  border: 1.5px solid #E2E8F0;
-  color: #1E293B;
+  border: 1.5px solid #e2e8f0;
+  color: #1e293b;
   font-size: 13.5px;
   font-weight: 800;
   padding: 7px 18px;
@@ -247,8 +258,8 @@
 }
 
 .sp-exact-chip:hover {
-  border-color: #D9232E;
-  color: #D9232E;
+  border-color: #d9232e;
+  color: #d9232e;
   transform: translateY(-2px);
 }
 
@@ -266,7 +277,7 @@
 }
 
 .sp-exact-btn-red {
-  background: #D9232E;
+  background: #d9232e;
   color: #ffffff;
   text-decoration: none;
   font-size: 14.5px;
@@ -274,7 +285,9 @@
   padding: 11px 32px;
   border-radius: 50px;
   box-shadow: 0 8px 20px rgba(217, 35, 46, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .sp-exact-btn-red:hover {
@@ -284,8 +297,8 @@
 
 .sp-exact-btn-wa {
   background: #ffffff;
-  color: #1E293B;
-  border: 1.5px solid #E2E8F0;
+  color: #1e293b;
+  border: 1.5px solid #e2e8f0;
   text-decoration: none;
   font-size: 14.5px;
   font-weight: 800;
@@ -296,8 +309,8 @@
 }
 
 .sp-exact-btn-wa:hover {
-  border-color: #25D366;
-  color: #16A34A;
+  border-color: #25d366;
+  color: #16a34a;
   transform: translateY(-2px);
 }
 
@@ -328,12 +341,12 @@
 }
 
 .sp-pulse-dot {
-  color: #FFD700;
+  color: #ffd700;
   animation: pulseStar 1.5s infinite alternate;
 }
 
 .sp-title-highlight {
-  color: #FF2A85;
+  color: #ff2a85;
 }
 
 /* ATTRACTIVE 4-CARD ULTRA STATS GRID */
@@ -374,23 +387,23 @@
 }
 
 .sp-pro-stat-icon-box.bg-purple {
-  background: #F3E8FF;
-  color: #9333EA;
+  background: #f3e8ff;
+  color: #9333ea;
 }
 
 .sp-pro-stat-icon-box.bg-pink {
-  background: #FFE4E6;
+  background: #ffe4e6;
   color: #f472b6;
 }
 
 .sp-pro-stat-icon-box.bg-blue {
-  background: #E0F2FE;
-  color: #0284C7;
+  background: #e0f2fe;
+  color: #0284c7;
 }
 
 .sp-pro-stat-icon-box.bg-green {
-  background: #DCFCE7;
-  color: #16A34A;
+  background: #dcfce7;
+  color: #16a34a;
 }
 
 .sp-pro-stat-info {
@@ -401,14 +414,14 @@
 .sp-pro-stat-val {
   font-size: 18px;
   font-weight: 900;
-  color: #1A05A2;
+  color: #1a05a2;
   line-height: 1.2;
 }
 
 .sp-pro-stat-lbl {
   font-size: 12.5px;
   font-weight: 700;
-  color: #64748B;
+  color: #64748b;
 }
 
 @media (max-width: 768px) {
@@ -444,7 +457,7 @@
 .sp-logo-title {
   font-size: 19px;
   font-weight: 900;
-  color: #1A05A2;
+  color: #1a05a2;
   line-height: 1;
   letter-spacing: -0.5px;
 }
@@ -466,7 +479,7 @@
 .sp-nav-link {
   font-size: 14px;
   font-weight: 700;
-  color: #33407A;
+  color: #33407a;
   text-decoration: none;
   cursor: pointer;
   position: relative;
@@ -503,13 +516,13 @@
   padding: 8px 16px;
   font-size: 13px;
   font-weight: 700;
-  color: #1A05A2;
+  color: #1a05a2;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(26, 5, 162, 0.05);
 }
 
 .sp-cta-btn {
-  background: linear-gradient(135deg, #f472b6 0%, #FF2A85 100%);
+  background: linear-gradient(135deg, #f472b6 0%, #ff2a85 100%);
   color: #ffffff;
   border: none;
   border-radius: 50px;
@@ -591,7 +604,7 @@
 .sp-title-navy-block {
   font-size: clamp(30px, 3.5vw, 44px);
   font-weight: 900;
-  color: #1A05A2;
+  color: #1a05a2;
   line-height: 1.1;
   letter-spacing: -0.5px;
   display: block;
@@ -600,7 +613,7 @@
 .sp-title-magenta-block {
   font-size: clamp(26px, 3.1vw, 40px);
   font-weight: 900;
-  background: linear-gradient(135deg, #f472b6 0%, #FF2A85 40%, #8B5CF6 100%);
+  background: linear-gradient(135deg, #f472b6 0%, #ff2a85 40%, #8b5cf6 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -611,16 +624,16 @@
 
 .sp-title-city-accent {
   font-size: clamp(24px, 2.6vw, 34px);
-  color: #1A05A2;
-  -webkit-text-fill-color: #1A05A2;
+  color: #1a05a2;
+  -webkit-text-fill-color: #1a05a2;
   font-weight: 900;
 }
 
 .sp-hero-sub-callout {
   font-size: 15px;
   font-weight: 800;
-  color: #1E293B;
-  background: linear-gradient(135deg, #FFF0F6 0%, #EFF6FF 100%);
+  color: #1e293b;
+  background: linear-gradient(135deg, #fff0f6 0%, #eff6ff 100%);
   border-left: 4px solid #f472b6;
   padding: 10px 18px;
   border-radius: 0 14px 14px 0;
@@ -642,7 +655,7 @@
   gap: 6px;
   background: #ffffff;
   border: 1.5px solid rgba(26, 5, 162, 0.12);
-  color: #1A05A2;
+  color: #1a05a2;
   font-size: 13px;
   font-weight: 800;
   padding: 7px 16px;
@@ -673,7 +686,7 @@
 }
 
 .sp-btn-pink-hero {
-  background: linear-gradient(135deg, #f472b6 0%, #FF2A85 100%);
+  background: linear-gradient(135deg, #f472b6 0%, #ff2a85 100%);
   color: #ffffff;
   border-radius: 50px;
   padding: 13px 30px;
@@ -685,7 +698,9 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  transition: transform 0.25s, box-shadow 0.25s;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
   text-decoration: none;
 }
 
@@ -705,7 +720,7 @@
 
 .sp-btn-white-hero {
   background: #ffffff;
-  color: #1A05A2;
+  color: #1a05a2;
   border: 2px solid rgba(26, 5, 162, 0.2);
   border-radius: 50px;
   padding: 12px 26px;
@@ -722,7 +737,7 @@
 
 .sp-btn-white-hero:hover {
   transform: translateY(-2px);
-  border-color: #1A05A2;
+  border-color: #1a05a2;
   box-shadow: 0 10px 24px rgba(26, 5, 162, 0.15);
 }
 
@@ -745,7 +760,7 @@
   gap: 6px;
   font-size: 12px;
   font-weight: 800;
-  color: #1A05A2;
+  color: #1a05a2;
 }
 
 /* FLOATING BADGES ON RIGHT IMAGE */
@@ -807,7 +822,6 @@
 }
 
 @keyframes floatBounce {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -838,7 +852,7 @@
 .sp-hero-overlay-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  background: linear-gradient(145deg, #1C2760 0%, #10173E 100%);
+  background: linear-gradient(145deg, #1c2760 0%, #10173e 100%);
   border: 2px solid rgba(255, 255, 255, 0.22);
   border-radius: 28px;
   padding: 16px 6px;
@@ -848,7 +862,9 @@
   width: calc(100% - 20px);
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 20px 48px rgba(16, 23, 62, 0.45), 0 6px 20px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 20px 48px rgba(16, 23, 62, 0.45),
+    0 6px 20px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(16px);
 }
 
@@ -886,7 +902,7 @@
 
 .sp-overlay-desc {
   font-size: 10px;
-  color: #94A3B8;
+  color: #94a3b8;
   line-height: 1.3;
 }
 
@@ -902,7 +918,7 @@
   text-align: center;
   font-size: 24px;
   font-weight: 900;
-  color: #541A1A;
+  color: #541a1a;
   margin-bottom: 28px;
   display: flex;
   align-items: center;
@@ -975,31 +991,42 @@
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
   border: 2.5px solid transparent;
-  background-image: linear-gradient(#ffffff, #ffffff),
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
     linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6, #f59e0b, #ec4899);
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  background-size: 100% 100%, 300% 300%;
+  background-size:
+    100% 100%,
+    300% 300%;
   animation: borderRotateGlow 6s linear infinite;
 }
 
 @keyframes borderRotateGlow {
   0% {
-    background-position: 0% 0%, 0% 50%;
+    background-position:
+      0% 0%,
+      0% 50%;
   }
 
   50% {
-    background-position: 0% 0%, 100% 50%;
+    background-position:
+      0% 0%,
+      100% 50%;
   }
 
   100% {
-    background-position: 0% 0%, 0% 50%;
+    background-position:
+      0% 0%,
+      0% 50%;
   }
 }
 
 .sp-fac-card-v2:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 45px rgba(236, 72, 153, 0.35), 0 0 25px rgba(139, 92, 246, 0.25);
+  box-shadow:
+    0 20px 45px rgba(236, 72, 153, 0.35),
+    0 0 25px rgba(139, 92, 246, 0.25);
   animation-duration: 2.5s;
 }
 
@@ -1018,10 +1045,7 @@
   left: -60%;
   width: 50%;
   height: 200%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.45),
-      transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
   transform: rotate(25deg);
   transition: all 0.75s ease;
   pointer-events: none;
@@ -1056,7 +1080,7 @@
 .sp-fac-info-title {
   font-size: 17px;
   font-weight: 900;
-  color: #541A1A;
+  color: #541a1a;
   margin-bottom: 2px;
   line-height: 1.25;
 }
@@ -1076,17 +1100,19 @@
   font-size: 11.5px;
   font-weight: 800;
   margin-top: 2px;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
 .sp-fac-card-v2:hover .sp-fac-cta-pill {
   transform: translateX(4px);
-  color: #1A05A2;
+  color: #1a05a2;
 }
 
 /* ── FULL WIDTH MAGENTA GRADIENT STATS BAR ── */
 .sp-gradient-stats-banner {
-  background: linear-gradient(90deg, #1A05A2 0%, #f472b6 50%, #C83DFF 100%);
+  background: linear-gradient(90deg, #1a05a2 0%, #f472b6 50%, #c83dff 100%);
   border-radius: 20px;
   padding: 22px 32px;
   color: #ffffff;
@@ -1136,7 +1162,9 @@
   margin: 36px 0;
   width: 100%;
   max-width: 100%;
-  box-shadow: 0 25px 60px -10px rgba(219, 39, 119, 0.15), 0 10px 30px rgba(84, 26, 26, 0.05);
+  box-shadow:
+    0 25px 60px -10px rgba(219, 39, 119, 0.15),
+    0 10px 30px rgba(84, 26, 26, 0.05);
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
@@ -1188,7 +1216,7 @@
 .sp-journey-title {
   font-size: clamp(28px, 2.5vw, 36px);
   font-weight: 900;
-  color: #541A1A;
+  color: #541a1a;
   line-height: 1.25;
   margin: 0 0 12px;
 }
@@ -1268,7 +1296,9 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 3px solid #ffffff;
   position: relative;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .sp-collage-img-box:hover {
@@ -1306,7 +1336,7 @@
 
 /* ── FOOTER ── */
 .sp-footer {
-  background: #0D1636;
+  background: #0d1636;
   color: #ffffff;
   padding: 48px 0 20px;
   border-top: 3px solid #f472b6;
@@ -1329,14 +1359,14 @@
 
 .sp-footer-brand-desc {
   font-size: 12px;
-  color: #94A3B8;
+  color: #94a3b8;
   line-height: 1.6;
 }
 
 .sp-footer-col-title {
   font-size: 14px;
   font-weight: 800;
-  color: #FF4F9C;
+  color: #ff4f9c;
   margin-bottom: 12px;
 }
 
@@ -1348,17 +1378,17 @@
 
 .sp-footer-link {
   font-size: 12px;
-  color: #CBD5E1;
+  color: #cbd5e1;
   text-decoration: none;
 }
 
 .sp-footer-link:hover {
-  color: #FF4F9C;
+  color: #ff4f9c;
 }
 
 .sp-footer-contact {
   font-size: 12px;
-  color: #CBD5E1;
+  color: #cbd5e1;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1368,13 +1398,13 @@
   width: 100%;
   height: 100px;
   border-radius: 14px;
-  background: #1E293B;
+  background: #1e293b;
   border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 11px;
-  color: #94A3B8;
+  color: #94a3b8;
 }
 
 .sp-footer-bottom {
@@ -1382,11 +1412,10 @@
   padding-top: 18px;
   text-align: center;
   font-size: 12px;
-  color: #64748B;
+  color: #64748b;
 }
 
 @media (max-width: 1024px) {
-
   .sp-hero-grid,
   .sp-journey-grid,
   .sp-facilities-grid,
@@ -1425,7 +1454,7 @@
 
 .sp-sec-subtitle {
   font-size: 14px;
-  color: #64748B;
+  color: #64748b;
   margin-top: 4px;
   font-weight: 600;
 }
@@ -1438,7 +1467,9 @@
 
 .sp-fac-card-v2.active-card {
   border: 2.5px solid #f472b6;
-  box-shadow: 0 0 0 4px rgba(230, 0, 103, 0.15), 0 20px 40px rgba(230, 0, 103, 0.18);
+  box-shadow:
+    0 0 0 4px rgba(230, 0, 103, 0.15),
+    0 20px 40px rgba(230, 0, 103, 0.18);
   animation-play-state: paused;
 }
 
@@ -1454,7 +1485,9 @@
   padding: 4px 12px;
   border-radius: 50px;
   opacity: 0;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
   transform: translateY(4px);
 }
 
@@ -1680,7 +1713,7 @@
 }
 
 .sp-feat-check {
-  color: #16A34A;
+  color: #16a34a;
   font-weight: 900;
 }
 
@@ -1693,7 +1726,7 @@
 
 .sp-modal-btn-call {
   flex: 1;
-  background: linear-gradient(135deg, #f472b6 0%, #FF2A85 100%);
+  background: linear-gradient(135deg, #f472b6 0%, #ff2a85 100%);
   color: #ffffff;
   text-decoration: none;
   font-size: 13px;
@@ -1713,7 +1746,7 @@
 .sp-modal-btn-wa {
   flex: 1;
   background: #ffffff;
-  color: #1A05A2;
+  color: #1a05a2;
   border: 2px solid rgba(26, 5, 162, 0.2);
   text-decoration: none;
   font-size: 13px;
@@ -1727,7 +1760,7 @@
 }
 
 .sp-modal-btn-wa:hover {
-  border-color: #1A05A2;
+  border-color: #1a05a2;
   transform: translateY(-2px);
 }
 

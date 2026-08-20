@@ -10,7 +10,8 @@
 .specialReasonsSection {
   width: 100%;
   padding: 48px 16px 52px;
-  background: radial-gradient(circle at 50% 20%, rgba(255, 245, 226, 0.45), transparent 60%), #fffdf9;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255, 245, 226, 0.45), transparent 60%), #fffdf9;
   font-family: "Mukta", sans-serif;
 }
 
@@ -72,7 +73,7 @@
   font-size: 14px;
 }
 
-.reasonsHeading>p {
+.reasonsHeading > p {
   margin: 0;
   color: #475569;
   font-size: 1.05rem;

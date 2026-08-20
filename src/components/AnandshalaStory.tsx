@@ -19,7 +19,7 @@ import {
   Star,
   VolumeX,
   Wind,
-  Sun
+  Sun,
 } from "lucide-react";
 
 import buildingImage from "../assets/anandshala-building.png";
@@ -32,8 +32,10 @@ const AnandshalaStory: React.FC = () => {
   const mainStoryImage = aboutData.storyMainImage || "/images/imgever.JPG";
   const titleMr = aboutData.storyTitleMr || "प्रीतम आनंदशाळा : एक परिचय व संकल्पना";
   const titleEn = aboutData.storyTitleEn || "Preetam Anandshala : Introduction & Vision";
-  const defaultMrText = "“प्रीतम सीनियर सिटिझन आनंदशाळा” ही सांगली, महाराष्ट्र, भारत येथे स्थित एक विशेष ज्येष्ठ नागरिक सेवा सुविधा आणि मनोरंजन केंद्र आहे. उद्योजक श्री. अभिनय जगन्नाथ कामाजी यांनी प्रीतम बिझनेस ग्रुपच्या अंतर्गत याची स्थापना केली आहे. ज्येष्ठ नागरिकांसाठी समर्पित केअरटेकर सेवा, सहवास आणि आरोग्यविषयक सहाय्य उपलब्ध करून देणारे एक प्रीमियम केंद्र म्हणून याची ओळख निर्माण झाली आहे.";
-  const defaultEnText = "Preetam Senior Citizen Anandshala is a specialized elderly care facility and recreational centre located in Sangli, Maharashtra, India. Founded by entrepreneur Shri Abhinay Jagannath Kamaji under the Preetam Business Group, it brands itself as a premier destination offering dedicated senior citizen caretaker services, companionship, and healthcare support.";
+  const defaultMrText =
+    "“प्रीतम सीनियर सिटिझन आनंदशाळा” ही सांगली, महाराष्ट्र, भारत येथे स्थित एक विशेष ज्येष्ठ नागरिक सेवा सुविधा आणि मनोरंजन केंद्र आहे. उद्योजक श्री. अभिनय जगन्नाथ कामाजी यांनी प्रीतम बिझनेस ग्रुपच्या अंतर्गत याची स्थापना केली आहे. ज्येष्ठ नागरिकांसाठी समर्पित केअरटेकर सेवा, सहवास आणि आरोग्यविषयक सहाय्य उपलब्ध करून देणारे एक प्रीमियम केंद्र म्हणून याची ओळख निर्माण झाली आहे.";
+  const defaultEnText =
+    "Preetam Senior Citizen Anandshala is a specialized elderly care facility and recreational centre located in Sangli, Maharashtra, India. Founded by entrepreneur Shri Abhinay Jagannath Kamaji under the Preetam Business Group, it brands itself as a premier destination offering dedicated senior citizen caretaker services, companionship, and healthcare support.";
   const descMr = aboutData.storyDescMr || defaultMrText;
   const descEn = aboutData.storyDescEn || defaultEnText;
 
@@ -43,29 +45,29 @@ const AnandshalaStory: React.FC = () => {
       title: isEn ? "Away from City Hustle-Bustle" : "१. शहराच्या गजबजाटापासून दूर",
       label: isEn
         ? "Serene, calm & peaceful environment away from city noise."
-        : "शांत, निवांत आणि प्रसन्न वातावरण."
+        : "शांत, निवांत आणि प्रसन्न वातावरण.",
     },
     {
       icon: <VolumeX className="as-stat-icon" />,
       title: isEn ? "Zero Noise & Sound Pollution" : "२. ध्वनी व ध्वनिप्रदूषणापासून मुक्त",
       label: isEn
         ? "No noise and sound pollution – pure peace and soothing tranquility."
-        : "शांतता आणि सुकून देणारे वातावरण."
+        : "शांतता आणि सुकून देणारे वातावरण.",
     },
     {
       icon: <Wind className="as-stat-icon" />,
       title: isEn ? "Surrounded by Farms (AQI 30-45)" : "३. चहूबाजूंनी शेतीने वेढलेले",
       label: isEn
         ? "Surrounded by agricultural fields, pure air with an average AQI of 30 to 45."
-        : "शुद्ध, स्वच्छ हवा आणि सरासरी AQI ३० ते ४५ इतका उत्तम हवेचा दर्जा."
+        : "शुद्ध, स्वच्छ हवा आणि सरासरी AQI ३० ते ४५ इतका उत्तम हवेचा दर्जा.",
     },
     {
       icon: <Sun className="as-stat-icon" />,
       title: isEn ? "Continuous Fresh Air Flow" : "४. सतत वाहणारा वारा",
       label: isEn
         ? "Wind keeps the air fresh and crisp, beats all stagnation."
-        : "हवा ताजी, स्वच्छ आणि प्रसन्न ठेवतो; त्यामुळे हवेतील कोंदटपणा जाणवत नाही."
-    }
+        : "हवा ताजी, स्वच्छ आणि प्रसन्न ठेवतो; त्यामुळे हवेतील कोंदटपणा जाणवत नाही.",
+    },
   ];
 
   return (
@@ -75,7 +77,6 @@ const AnandshalaStory: React.FC = () => {
       <div className="as-bg-glow-2" />
 
       <div className="as-container">
-
         {/* ====================================
             1. SECTION HEADER
         ==================================== */}
@@ -98,30 +99,7 @@ const AnandshalaStory: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            {(() => {
-              const text = isEn ? titleEn : titleMr;
-              if (text.includes("आनंदशाळा")) {
-                const parts = text.split("आनंदशाळा");
-                return (
-                  <>
-                    {parts[0]}
-                    <span className="text-[#db2777]">आनंदशाळा</span>
-                    {parts.slice(1).join("आनंदशाळा")}
-                  </>
-                );
-              }
-              if (text.includes("Anandshala")) {
-                const parts = text.split("Anandshala");
-                return (
-                  <>
-                    {parts[0]}
-                    <span className="text-[#db2777]">Anandshala</span>
-                    {parts.slice(1).join("Anandshala")}
-                  </>
-                );
-              }
-              return text;
-            })()}
+            <HighlightText text={isEn ? titleEn : titleMr} />
           </motion.h2>
 
           <motion.div className="as-title-underline" />
@@ -141,7 +119,15 @@ const AnandshalaStory: React.FC = () => {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 text-xs font-extrabold uppercase tracking-wider">
               <Sparkles size={14} className="text-pink-600 animate-pulse" />
-              {isEn ? <>ABOUT PREETAM <span className="text-[#db2777]">ANANDSHALA</span></> : <>प्रीतम <span className="text-[#db2777]">आनंदशाळा</span> परिचय</>}
+              {isEn ? (
+                <>
+                  ABOUT PREETAM <span className="text-[#db2777]">ANANDSHALA</span>
+                </>
+              ) : (
+                <>
+                  प्रीतम <span className="text-[#db2777]">आनंदशाळा</span> परिचय
+                </>
+              )}
             </span>
 
             <p className="text-slate-700 text-sm sm:text-base font-medium leading-relaxed">
@@ -160,8 +146,10 @@ const AnandshalaStory: React.FC = () => {
             <img
               src={encodeURI(mainStoryImage)}
               alt={isEn ? "Preetam Anandshala Ceremony" : "प्रीतम आनंदशाळा सोहळा"}
-              className="w-full h-[280px] sm:h-[340px] md:h-[380px] object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
-              onError={(e) => { e.currentTarget.src = "/images/aandshala%20sahal%201.jpeg"; }}
+              className="w-full h-70 sm:h-85 md:h-95 object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
+              onError={(e) => {
+                e.currentTarget.src = "/images/aandshala%20sahal%201.jpeg";
+              }}
             />
           </motion.div>
         </div>
@@ -177,18 +165,22 @@ const AnandshalaStory: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {stats.map((st, index) => (
-            <div key={index} className="as-stat-card flex items-start gap-3 p-4 bg-white rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition-all">
-              <div className="as-stat-icon-wrapper shrink-0">
-                {st.icon}
-              </div>
+            <div
+              key={index}
+              className="as-stat-card flex items-start gap-3 p-4 bg-white rounded-2xl border border-rose-100 shadow-sm hover:shadow-md transition-all"
+            >
+              <div className="as-stat-icon-wrapper shrink-0">{st.icon}</div>
               <div className="as-stat-text text-left">
-                <h4 className="as-stat-title font-black text-sm sm:text-base text-[#1A05A2] leading-snug">{st.title}</h4>
-                <p className="as-stat-label text-xs sm:text-sm font-bold text-slate-600 mt-1 leading-relaxed">{st.label}</p>
+                <h4 className="as-stat-title font-black text-sm sm:text-base text-[#1A05A2] leading-snug">
+                  {st.title}
+                </h4>
+                <p className="as-stat-label text-xs sm:text-sm font-bold text-slate-600 mt-1 leading-relaxed">
+                  {st.label}
+                </p>
               </div>
             </div>
           ))}
         </motion.div>
-
       </div>
     </section>
   );

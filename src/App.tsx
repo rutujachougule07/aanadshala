@@ -18,7 +18,7 @@ export default function App() {
   useEffect(() => {
     const checkNav = () => {
       setIsHeaderHidden(
-        location.pathname === "/" && document.body.classList.contains("hide-nav-links")
+        location.pathname === "/" && document.body.classList.contains("hide-nav-links"),
       );
     };
     checkNav();
@@ -32,7 +32,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       {!isAdmin && <SiteHeader />}
-      <main className={`flex-1 ${shouldPadTop ? "pt-[56px] sm:pt-[62px]" : ""}`}>
+      <main className={`flex-1 ${shouldPadTop ? "pt-14 sm:pt-15.5" : ""}`}>
         <Routes>
           <Route path="/" element={<IndexComponent />} />
           <Route path="/about" element={<AboutPage />} />

@@ -3,10 +3,21 @@ import "./HomeHero.css";
 import { useLanguage } from "@/lib/use-language";
 import { useAdminStore } from "@/lib/admin-store";
 import {
-  Users, Calendar, Award, ShieldCheck,
-  ArrowRight, Landmark, Flower2,
-  Dumbbell, BookOpen, Music, Utensils,
-  Bus, HeartHandshake, PhoneCall, Sparkles
+  Users,
+  Calendar,
+  Award,
+  ShieldCheck,
+  ArrowRight,
+  Landmark,
+  Flower2,
+  Dumbbell,
+  BookOpen,
+  Music,
+  Utensils,
+  Bus,
+  HeartHandshake,
+  PhoneCall,
+  Sparkles,
 } from "lucide-react";
 
 export const HomeHero: React.FC = () => {
@@ -15,28 +26,35 @@ export const HomeHero: React.FC = () => {
   const store = useAdminStore();
 
   const defaultImages = ["/images/slider1.JPG", "/images/slider2.JPG", "/images/slider3.png"];
-  const heroImages = store.siteData.heroImages && store.siteData.heroImages.length > 0
-    ? store.siteData.heroImages
-    : defaultImages;
+  const heroImages =
+    store.siteData.heroImages && store.siteData.heroImages.length > 0
+      ? store.siteData.heroImages
+      : defaultImages;
 
   const heroSlides = [
     {
       image: heroImages[0] || defaultImages[0],
       tag: isEn ? "🏛️ Main Anandshala Campus" : "🏛️ मुख्य आनंदशाळा वास्तू",
       title: isEn ? "1.5 Acre Scenic Campus" : "१.५ एकर निसर्गरम्य परिसर",
-      subtitle: isEn ? "Sangli's premier & fully equipped senior citizen hub" : "सांगली जिल्ह्यातील भव्य व सर्व सोयींनी युक्त ज्येष्ठ नागरिक संकूल",
+      subtitle: isEn
+        ? "Sangli's premier & fully equipped senior citizen hub"
+        : "सांगली जिल्ह्यातील भव्य व सर्व सोयींनी युक्त ज्येष्ठ नागरिक संकूल",
     },
     {
       image: heroImages[1] || defaultImages[1],
       tag: isEn ? "🏊‍♂️ Preetam Sports & Fitness Club" : "🏊‍♂️ प्रीतम क्रीडा & फिटनेस क्लब",
       title: isEn ? "Olympic Pool & AC Gym" : "ऑलिंपिक स्विमिंग पूल व AC जिम",
-      subtitle: isEn ? "Badminton, Pickleball, Table Tennis, Library & Modern Halls" : "बॅडमिंटन, पिकलबॉल, टेबल टेनिस, वाचनालय व अत्याधुनिक हॉल्स",
+      subtitle: isEn
+        ? "Badminton, Pickleball, Table Tennis, Library & Modern Halls"
+        : "बॅडमिंटन, पिकलबॉल, टेबल टेनिस, वाचनालय व अत्याधुनिक हॉल्स",
     },
     {
       image: heroImages[2] || defaultImages[2],
       tag: isEn ? "🌸 Joyful Golden Years" : "🌸 आनंदी सुवर्णवर्षे",
       title: isEn ? "Warm Belonging & Family Bond" : "आपुलकीचे नाते व कौटुंबिक आनंद",
-      subtitle: isEn ? "Vibrant, joyful & secure golden years with peer friends" : "आपल्या वयाच्या मित्र-मैत्रिणींसोबत उत्साही व सुरक्षित जीवन सोहळा",
+      subtitle: isEn
+        ? "Vibrant, joyful & secure golden years with peer friends"
+        : "आपल्या वयाच्या मित्र-मैत्रिणींसोबत उत्साही व सुरक्षित जीवन सोहळा",
     },
   ];
 
@@ -48,7 +66,7 @@ export const HomeHero: React.FC = () => {
         img.src = s.image;
       }
     });
-  }, [JSON.stringify(heroSlides.map(s => s.image))]);
+  }, [JSON.stringify(heroSlides.map((s) => s.image))]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -59,7 +77,6 @@ export const HomeHero: React.FC = () => {
 
   return (
     <div className="hero-section-clean">
-
       {/* ══════════════════════════════════════════════════════════════
           1. TOP HALF: 100% FULL-WIDTH PURE IMAGE CAROUSEL SLIDER (ZERO WHITESPACE)
          ══════════════════════════════════════════════════════════════ */}
@@ -90,7 +107,6 @@ export const HomeHero: React.FC = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

@@ -15,6 +15,6 @@ if (rootElement) {
           <App />
         </AuthProvider>
       </BrowserRouter>
-    </React.StrictMode>
+    </React.StrictMode>,
   );
 }

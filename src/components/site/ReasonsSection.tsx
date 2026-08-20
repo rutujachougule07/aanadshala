@@ -157,18 +157,18 @@ function ReasonCard({ reason, index }: { reason: (typeof reasonsList)[number]; i
   return (
     /* Extra top padding so the floating teardrop pin badge sits above the card */
     <div
-      className="relative w-[300px] sm:w-[320px] shrink-0 group/card cursor-pointer"
+      className="relative w-75 sm:w-80 shrink-0 group/card cursor-pointer"
       style={{ paddingTop: "40px" }}
     >
       {/* ── 3-D Coloured backing panel (shifted right + down) ── */}
       <div
-        className="absolute left-5 right-0 top-[44px] bottom-0 rounded-[2rem] transition-transform duration-500 group-hover/card:translate-x-1.5 group-hover/card:translate-y-1 shadow-lg"
+        className="absolute left-5 right-0 top-11 bottom-0 rounded-4xl transition-transform duration-500 group-hover/card:translate-x-1.5 group-hover/card:translate-y-1 shadow-lg"
         style={{ backgroundColor: t.color }}
       />
 
       {/* ── Main white card ── */}
       <div
-        className="relative z-10 w-full rounded-[2rem] bg-white dark:bg-slate-900 border border-[#E6D2BF]/80 shadow-[0_10px_40px_rgba(0,0,0,0.10)] group-hover/card:-translate-y-2 group-hover/card:shadow-[0_20px_55px_rgba(0,0,0,0.20)] transition-all duration-500 flex flex-col items-center text-center"
+        className="relative z-10 w-full rounded-4xl bg-white dark:bg-slate-900 border border-[#E6D2BF]/80 shadow-[0_10px_40px_rgba(0,0,0,0.10)] group-hover/card:-translate-y-2 group-hover/card:shadow-[0_20px_55px_rgba(0,0,0,0.20)] transition-all duration-500 flex flex-col items-center text-center"
         style={{ minHeight: "340px", padding: "48px 28px 28px" }}
       >
         {/* ── Teardrop pin badge ── */}
@@ -218,7 +218,7 @@ function ReasonCard({ reason, index }: { reason: (typeof reasonsList)[number]; i
           }}
         >
           <div
-            className="size-[76px] rounded-full grid place-items-center border-dashed border"
+            className="size-19 rounded-full grid place-items-center border-dashed border"
             style={{ borderColor: t.color }}
           >
             {t.icon}
@@ -231,7 +231,7 @@ function ReasonCard({ reason, index }: { reason: (typeof reasonsList)[number]; i
         </p>
 
         {/* ── 7-dot bottom divider ── */}
-        <div className="mt-auto pt-5 flex items-center justify-center gap-[5px]">
+        <div className="mt-auto pt-5 flex items-center justify-center gap-1.25">
           {[0.3, 0.5, 0.7, 1, 0.7, 0.5, 0.3].map((op, di) => (
             <span
               key={di}
@@ -255,7 +255,7 @@ export function ReasonsSection() {
   const { isEn } = useLanguage();
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden bg-gradient-to-b from-[#FFFDF9] via-[#FAF5EE] to-[#FFFDF9] dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border-t border-[#E6D2BF]">
+    <section className="relative py-20 px-4 overflow-hidden bg-linear-to-b from-[#FFFDF9] via-[#FAF5EE] to-[#FFFDF9] dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border-t border-[#E6D2BF]">
       {/* SVG gradient definitions for teardrop pins */}
       <svg className="absolute size-0 pointer-events-none" aria-hidden="true">
         <defs>
@@ -291,9 +291,9 @@ export function ReasonsSection() {
           </h2>
           {/* Ornamental divider */}
           <div className="flex items-center justify-center gap-3 my-3">
-            <div className="h-[1.5px] w-16 bg-gradient-to-r from-transparent via-[#CC0D50]/50 to-transparent" />
+            <div className="h-0.375 w-16 bg-linear-to-r from-transparent via-[#CC0D50]/50 to-transparent" />
             <span className="text-[#CC0D50] text-sm font-bold">❦</span>
-            <div className="h-[1.5px] w-16 bg-gradient-to-r from-transparent via-[#CC0D50]/50 to-transparent" />
+            <div className="h-0.375 w-16 bg-linear-to-r from-transparent via-[#CC0D50]/50 to-transparent" />
           </div>
           <p className="text-sm sm:text-base text-foreground/80 font-bold max-w-2xl mx-auto">
             {isEn
@@ -305,11 +305,11 @@ export function ReasonsSection() {
         {/* ── Infinite marquee carousel ── */}
         <div className="relative overflow-x-hidden group/marquee pb-8">
           {/* Side fade masks */}
-          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-[#FAF5EE] dark:from-slate-950 to-transparent z-30" />
-          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-[#FAF5EE] dark:from-slate-950 to-transparent z-30" />
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-linear-to-r from-[#FAF5EE] dark:from-slate-950 to-transparent z-30" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-linear-to-l from-[#FAF5EE] dark:from-slate-950 to-transparent z-30" />
 
           <div
-            className="flex w-max animate-marquee gap-7 group-hover/marquee:[animation-play-state:paused] pt-10"
+            className="flex w-max animate-marquee gap-7 group-hover/marquee:paused pt-10"
             style={{ animationDuration: "110s" }}
           >
             {/* Two identical loops create a seamless infinite effect */}

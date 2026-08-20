@@ -1,6 +1,22 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { useAdminStore, uploadImageToFirebase, uploadVideoToFirebase, useResolvedVideoUrl, resetFirebaseDatabase, setStoredData, STORAGE_KEYS, SangliPlaceOverride } from "@/lib/admin-store";
+import {
+  useAdminStore,
+  uploadImageToFirebase,
+  uploadVideoToFirebase,
+  useResolvedVideoUrl,
+  resetFirebaseDatabase,
+  setStoredData,
+  STORAGE_KEYS,
+  SangliPlaceOverride,
+  RateItem,
+  BhojanalayaConfig,
+  FoodScheduleRow,
+  FoodRateItem,
+  ExtraFoodItem,
+  SportsMembershipTier,
+  initialSportsMembershipTiers,
+} from "@/lib/admin-store";
 import { auth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "@/firebase";
 import {
   Home,
@@ -23,23 +39,47 @@ import {
   Building2,
   Save,
   Film,
-  Video
+  Video,
+  Utensils,
+  Tag,
 } from "lucide-react";
 import { HighlightText } from "@/components/HighlightText";
 
 // Helper to convert Marathi numerals and month names to English date strings
 function formatInquiryDateToEnglish(dateStr?: string): string {
-  if (!dateStr) return new Date().toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+  if (!dateStr)
+    return new Date().toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
 
   const marathiDigits: Record<string, string> = {
-    "०": "0", "१": "1", "२": "2", "३": "3", "४": "4",
-    "५": "5", "६": "6", "७": "7", "८": "8", "९": "9"
+    "०": "0",
+    "१": "1",
+    "२": "2",
+    "३": "3",
+    "४": "4",
+    "५": "5",
+    "६": "6",
+    "७": "7",
+    "८": "8",
+    "९": "9",
   };
 
   const marathiMonths: Record<string, string> = {
-    "जानेवारी": "January", "फेब्रुवारी": "February", "मार्च": "March", "एप्रिल": "April",
-    "मे": "May", "जून": "June", "जुलै": "July", "ऑगस्ट": "August",
-    "सप्टेंबर": "September", "ऑक्टोबर": "October", "नोव्हेंबर": "November", "डिसेंबर": "December"
+    जानेवारी: "January",
+    फेब्रुवारी: "February",
+    मार्च: "March",
+    एप्रिल: "April",
+    मे: "May",
+    जून: "June",
+    जुलै: "July",
+    ऑगस्ट: "August",
+    सप्टेंबर: "September",
+    ऑक्टोबर: "October",
+    नोव्हेंबर: "November",
+    डिसेंबर: "December",
   };
 
   let clean = dateStr;
@@ -73,11 +113,26 @@ function sanitizeInquiryText(text?: string): string {
   // Message bodies
   clean = clean.replace(/प्रवेश\s*\/\s*मेंबरशिप चौकशी:\s*/g, "Admission / Membership Inquiry: ");
   clean = clean.replace(/साठी ऑनलाईन नाव नोंदवले आहे\.?/g, " online inquiry submitted.");
-  clean = clean.replace(/माझ्या आई-वडिलांसाठी आनंदशाळा डे-केअर प्रवेशासाठी माहिती हवी आहे\.?/g, "Information required regarding Day-Care admission for my parents.");
-  clean = clean.replace(/आमच्या ज्येष्ठ नागरिक संघासाठी १ दिवस सहल पास बुकिंग कसे करावे\?/g, "How can we book 1-Day Tour passes for our Senior Citizen Group?");
-  clean = clean.replace(/१ महिन्याच्या आनंदनिवास निवासाची फी आणि सोयी-सुविधांची विचारणा\.?/g, "Inquiry regarding 1-month stay fees and amenities at Anandnivas.");
-  clean = clean.replace(/जिम व ऑलिंपिक स्विमिंग पूल मेंबरशिपसाठी चौकशी करत आहे\.?/g, "Inquiring for gym and Olympic swimming pool membership.");
-  clean = clean.replace(/साप्ताहिक बॅडमिंटन आणि स्पोर्ट्स टर्फ बुकिंगची माहिती द्यावी\.?/g, "Please provide information for weekly badminton and sports turf booking.");
+  clean = clean.replace(
+    /माझ्या आई-वडिलांसाठी आनंदशाळा डे-केअर प्रवेशासाठी माहिती हवी आहे\.?/g,
+    "Information required regarding Day-Care admission for my parents.",
+  );
+  clean = clean.replace(
+    /आमच्या ज्येष्ठ नागरिक संघासाठी १ दिवस सहल पास बुकिंग कसे करावे\?/g,
+    "How can we book 1-Day Tour passes for our Senior Citizen Group?",
+  );
+  clean = clean.replace(
+    /१ महिन्याच्या आनंदनिवास निवासाची फी आणि सोयी-सुविधांची विचारणा\.?/g,
+    "Inquiry regarding 1-month stay fees and amenities at Anandnivas.",
+  );
+  clean = clean.replace(
+    /जिम व ऑलिंपिक स्विमिंग पूल मेंबरशिपसाठी चौकशी करत आहे\.?/g,
+    "Inquiring for gym and Olympic swimming pool membership.",
+  );
+  clean = clean.replace(
+    /साप्ताहिक बॅडमिंटन आणि स्पोर्ट्स टर्फ बुकिंगची माहिती द्यावी\.?/g,
+    "Please provide information for weekly badminton and sports turf booking.",
+  );
 
   return clean;
 }
@@ -89,8 +144,11 @@ type TabKey =
   | "gallery"
   | "brochure"
   | "inquiries"
+  | "pricing"
+  | "bhojanalaya"
   | "sports_home"
   | "sports_facilities"
+  | "sports_pricing"
   | "sports_gallery"
   | "sports_brochure"
   | "sports_inquiries";
@@ -103,7 +161,13 @@ type EditModalData = {
   subtitle?: string;
   desc?: string;
   category?: string;
-  onSave: (newTitle: string, newUrl: string, newSubtitle?: string, newCategory?: string, newDesc?: string) => void;
+  onSave: (
+    newTitle: string,
+    newUrl: string,
+    newSubtitle?: string,
+    newCategory?: string,
+    newDesc?: string,
+  ) => void;
 };
 
 const galleryCategoriesList = [
@@ -205,7 +269,7 @@ function ImageDropzone({
         </div>
       ) : (
         <div className="flex flex-col items-center text-center space-y-1 py-1 pointer-events-none">
-          <div className="size-12 rounded-2xl bg-gradient-to-r from-pink-600 via-purple-600 to-[#1A05A2] flex items-center justify-center text-white shadow-md shadow-pink-500/20">
+          <div className="size-12 rounded-2xl bg-linear-to-r from-pink-600 via-purple-600 to-[#1A05A2] flex items-center justify-center text-white shadow-md shadow-pink-500/20">
             <UploadCloud size={24} />
           </div>
           <p className="text-xs sm:text-sm font-black text-[#1A05A2] mt-1.5">
@@ -220,7 +284,15 @@ function ImageDropzone({
   );
 }
 
-function AdminVideoThumbnail({ embedUrl, thumbnail, title }: { embedUrl: string; thumbnail?: string; title: string }) {
+function AdminVideoThumbnail({
+  embedUrl,
+  thumbnail,
+  title,
+}: {
+  embedUrl: string;
+  thumbnail?: string;
+  title: string;
+}) {
   const resolvedUrl = useResolvedVideoUrl(embedUrl);
   const isDirect =
     resolvedUrl.startsWith("data:") ||
@@ -233,18 +305,15 @@ function AdminVideoThumbnail({ embedUrl, thumbnail, title }: { embedUrl: string;
 
   if (isDirect && resolvedUrl) {
     return (
-      <video
-        src={resolvedUrl}
-        className="w-full h-full object-cover"
-        muted
-        preload="metadata"
-      />
+      <video src={resolvedUrl} className="w-full h-full object-cover" muted preload="metadata" />
     );
   }
 
   return (
     <img
-      src={thumbnail && !thumbnail.includes("Screenshot") ? thumbnail : "/images/gallery imgage1.JPG"}
+      src={
+        thumbnail && !thumbnail.includes("Screenshot") ? thumbnail : "/images/gallery imgage1.JPG"
+      }
       alt={title}
       className="w-full h-full object-cover"
       onError={(e) => {
@@ -316,10 +385,11 @@ function VideoDropzone({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${isDragging
-        ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
-        : "border-purple-300 hover:border-pink-600 bg-purple-50/50 hover:bg-pink-50/80"
-        } ${compact ? "p-3" : "p-4"}`}
+      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${
+        isDragging
+          ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
+          : "border-purple-300 hover:border-pink-600 bg-purple-50/50 hover:bg-pink-50/80"
+      } ${compact ? "p-3" : "p-4"}`}
     >
       <input
         ref={inputRef}
@@ -335,12 +405,10 @@ function VideoDropzone({
         </div>
       ) : (
         <div className="flex flex-col items-center text-center space-y-1 py-1 pointer-events-none">
-          <div className="size-11 rounded-2xl bg-gradient-to-r from-pink-600 via-purple-600 to-[#1A05A2] flex items-center justify-center text-white shadow-md shadow-pink-500/20">
+          <div className="size-11 rounded-2xl bg-linear-to-r from-pink-600 via-purple-600 to-[#1A05A2] flex items-center justify-center text-white shadow-md shadow-pink-500/20">
             <Film size={22} />
           </div>
-          <p className="text-xs font-black text-[#1A05A2] mt-1">
-            🎥 Drag & Drop Video File Here
-          </p>
+          <p className="text-xs font-black text-[#1A05A2] mt-1">🎥 Drag & Drop Video File Here</p>
           <p className="text-[10px] font-extrabold text-slate-500">
             Click or drag video file from computer (MP4, WEBM, MOV)
           </p>
@@ -371,24 +439,36 @@ export default function AdminPage() {
   // HALL DESCRIPTIONS — stored in separate localStorage key, completely isolated from Firebase sync
   const HALL_DESCS_KEY = "anandshala_hall_descs_v1";
   const [hallDescOverrides, setHallDescOverrides] = useState<Record<string, string>>(() => {
-    try { return JSON.parse(localStorage.getItem("anandshala_hall_descs_v1") || "{}"); } catch { return {}; }
+    try {
+      return JSON.parse(localStorage.getItem("anandshala_hall_descs_v1") || "{}");
+    } catch {
+      return {};
+    }
   });
   const saveHallDesc = (hallId: string, desc: string) => {
     const updated = { ...hallDescOverrides, [hallId]: desc };
     setHallDescOverrides(updated);
-    try { localStorage.setItem(HALL_DESCS_KEY, JSON.stringify(updated)); } catch (_) { }
+    try {
+      localStorage.setItem(HALL_DESCS_KEY, JSON.stringify(updated));
+    } catch (_) {}
   };
   const getHallDesc = (hallId: string, fallback = "") => hallDescOverrides[hallId] ?? fallback;
 
   // SPORTS FACILITY DESCRIPTIONS — stored in separate localStorage key
   const SPORTS_DESCS_KEY = "sports_facility_descs_v1";
   const [sportsDescOverrides, setSportsDescOverrides] = useState<Record<string, string>>(() => {
-    try { return JSON.parse(localStorage.getItem("sports_facility_descs_v1") || "{}"); } catch { return {}; }
+    try {
+      return JSON.parse(localStorage.getItem("sports_facility_descs_v1") || "{}");
+    } catch {
+      return {};
+    }
   });
   const saveSportsDesc = (facId: string, desc: string) => {
     const updated = { ...sportsDescOverrides, [facId]: desc };
     setSportsDescOverrides(updated);
-    try { localStorage.setItem(SPORTS_DESCS_KEY, JSON.stringify(updated)); } catch (_) { }
+    try {
+      localStorage.setItem(SPORTS_DESCS_KEY, JSON.stringify(updated));
+    } catch (_) {}
   };
   const getSportsDesc = (facId: string, fallback = "") => sportsDescOverrides[facId] ?? fallback;
 
@@ -431,7 +511,7 @@ export default function AdminPage() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-    } catch (e) { }
+    } catch (e) {}
     setIsLoggedIn(false);
     localStorage.removeItem("preetam_admin_auth");
   };
@@ -499,7 +579,7 @@ export default function AdminPage() {
     setModalImageUrl(item.imageUrl || "");
     setModalSubtitle(item.subtitle || "");
     // Read desc from dedicated localStorage first (never overwritten by Firebase)
-    const storedDesc = item.id ? (hallDescOverrides[item.id] ?? item.desc ?? "") : (item.desc || "");
+    const storedDesc = item.id ? (hallDescOverrides[item.id] ?? item.desc ?? "") : item.desc || "";
     setModalDesc(storedDesc);
   };
 
@@ -508,14 +588,14 @@ export default function AdminPage() {
   // --------------------------------------------------------------------------
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#fff5f8] via-[#f8fafc] to-[#f0f4ff] flex items-center justify-center p-4 font-sans relative overflow-hidden">
+      <div className="min-h-screen bg-linear-to-br from-[#fff5f8] via-[#f8fafc] to-[#f0f4ff] flex items-center justify-center p-4 font-sans relative overflow-hidden">
         {/* LIGHT AMBIENT ORBS */}
-        <div className="pointer-events-none absolute top-10 left-10 size-[450px] rounded-full bg-pink-300/30 blur-[130px]" />
-        <div className="pointer-events-none absolute bottom-10 right-10 size-[450px] rounded-full bg-indigo-300/30 blur-[130px]" />
+        <div className="pointer-events-none absolute top-10 left-10 size-112.5 rounded-full bg-pink-300/30 blur-[130px]" />
+        <div className="pointer-events-none absolute bottom-10 right-10 size-112.5 rounded-full bg-indigo-300/30 blur-[130px]" />
 
         <div className="w-full max-w-md bg-white/95 backdrop-blur-2xl border-2 border-rose-200 rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(219,39,119,0.12)] text-slate-800 relative z-10">
           <div className="text-center space-y-3 mb-8">
-            <div className="inline-flex size-16 items-center justify-center rounded-2xl bg-gradient-to-r from-[#db2777] via-purple-600 to-[#1A05A2] shadow-lg shadow-pink-500/25">
+            <div className="inline-flex size-16 items-center justify-center rounded-2xl bg-linear-to-r from-[#db2777] via-purple-600 to-[#1A05A2] shadow-lg shadow-pink-500/25">
               <Lock className="size-8 text-white" />
             </div>
             <h1 className="text-2xl font-black tracking-tight text-[#1A05A2]">
@@ -542,9 +622,7 @@ export default function AdminPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-black text-slate-700 mb-1.5">
-                Password
-              </label>
+              <label className="block text-xs font-black text-slate-700 mb-1.5">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -572,14 +650,17 @@ export default function AdminPage() {
 
             <button
               type="submit"
-              className="w-full rounded-xl bg-gradient-to-r from-[#db2777] via-purple-600 to-[#1A05A2] py-3.5 text-sm font-black text-white shadow-xl shadow-pink-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+              className="w-full rounded-xl bg-linear-to-r from-[#db2777] via-purple-600 to-[#1A05A2] py-3.5 text-sm font-black text-white shadow-xl shadow-pink-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
             >
               Login →
             </button>
           </form>
 
           <div className="mt-6 pt-6 border-t border-slate-100 text-center">
-            <Link to="/" className="text-xs text-[#db2777] hover:text-[#1A05A2] hover:underline font-black">
+            <Link
+              to="/"
+              className="text-xs text-[#db2777] hover:text-[#1A05A2] hover:underline font-black"
+            >
               ← Go to Main Website
             </Link>
           </div>
@@ -627,6 +708,18 @@ export default function AdminPage() {
       icon: Mail,
       count: store.anandshalaInquiries.filter((i) => !i.read).length,
     },
+    {
+      id: "pricing" as TabKey,
+      label: "Anandshala Rate Card",
+      subLabel: "Pricing Tiers & Fees",
+      icon: Tag,
+    },
+    {
+      id: "bhojanalaya" as TabKey,
+      label: "Annapurna Bhojanalaya",
+      subLabel: "Food Timetable & Rates",
+      icon: Utensils,
+    },
   ];
 
   const sportsMenuItems = [
@@ -641,6 +734,12 @@ export default function AdminPage() {
       label: "Sports Facilities",
       subLabel: "Gym, Pool & Courts",
       icon: Dumbbell,
+    },
+    {
+      id: "sports_pricing" as TabKey,
+      label: "Sports Rate Card",
+      subLabel: "Sports Club Tiers & Fees",
+      icon: Tag,
     },
     {
       id: "sports_gallery" as TabKey,
@@ -666,15 +765,11 @@ export default function AdminPage() {
   const menuItems = activeModule === "anandshala" ? anandshalaMenuItems : sportsMenuItems;
 
   return (
-    <div className="h-screen bg-gradient-to-br from-[#f8fafc] via-[#fff8fb] to-[#f0f4ff] text-slate-800 font-sans flex flex-col lg:flex-row relative overflow-hidden">
-
-
-
+    <div className="h-screen bg-linear-to-br from-[#f8fafc] via-[#fff8fb] to-[#f0f4ff] text-slate-800 font-sans flex flex-col lg:flex-row relative overflow-hidden">
       {/* EDIT MODAL OVERLAY */}
       {editingModal && (
-        <div className="fixed inset-0 z-[999999] bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-999999 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-white border-2 border-rose-200 rounded-3xl p-5 max-w-sm w-full shadow-2xl max-h-[92vh] overflow-y-auto">
-
             {/* HEADER */}
             <div className="flex items-center justify-between border-b border-rose-100 pb-3 mb-4">
               <h3 className="font-black text-sm text-[#1A05A2] flex items-center gap-2">
@@ -692,7 +787,9 @@ export default function AdminPage() {
             <div className="space-y-3">
               {editingModal?.type === "video" ? (
                 <div>
-                  <label className="block text-[11px] font-black text-slate-500 mb-1">🎥 Change Video File (Drag & Drop Video)</label>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">
+                    🎥 Change Video File (Drag & Drop Video)
+                  </label>
                   <VideoDropzone
                     compact
                     onFileSelected={(file) =>
@@ -708,7 +805,9 @@ export default function AdminPage() {
                 </div>
               ) : (
                 <div>
-                  <label className="block text-[11px] font-black text-slate-500 mb-1">📸 Change Photo</label>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">
+                    📸 Change Photo
+                  </label>
                   <ImageDropzone
                     compact
                     label="Drag & Drop Photo Here"
@@ -731,7 +830,9 @@ export default function AdminPage() {
 
               {/* TITLE INPUT */}
               <div>
-                <label className="block text-[11px] font-black text-slate-500 mb-1">🏷️ Title / Name</label>
+                <label className="block text-[11px] font-black text-slate-500 mb-1">
+                  🏷️ Title / Name
+                </label>
                 <input
                   type="text"
                   value={modalTitle}
@@ -744,7 +845,9 @@ export default function AdminPage() {
               {/* SUBTITLE / DISTANCE INPUT FOR SANGLI ATTRACTION */}
               {editingModal?.type === "sangliAttraction" && (
                 <div>
-                  <label className="block text-[11px] font-black text-slate-500 mb-1">📍 Distance & Time (e.g. 3 km / 10 mins)</label>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">
+                    📍 Distance & Time (e.g. 3 km / 10 mins)
+                  </label>
                   <input
                     type="text"
                     value={modalSubtitle}
@@ -756,9 +859,15 @@ export default function AdminPage() {
               )}
 
               {/* DESCRIPTION TEXTAREA */}
-              {(editingModal?.type === "hall" || editingModal?.type === "sports" || editingModal?.type === "video" || editingModal?.type === "sangliAttraction" || (modalDesc && modalDesc.length > 0)) && (
+              {(editingModal?.type === "hall" ||
+                editingModal?.type === "sports" ||
+                editingModal?.type === "video" ||
+                editingModal?.type === "sangliAttraction" ||
+                (modalDesc && modalDesc.length > 0)) && (
                 <div>
-                  <label className="block text-[11px] font-black text-slate-500 mb-1">📝 Description & Details</label>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">
+                    📝 Description & Details
+                  </label>
                   <textarea
                     value={modalDesc}
                     onChange={(e) => setModalDesc(e.target.value)}
@@ -780,7 +889,13 @@ export default function AdminPage() {
               </button>
               <button
                 onClick={async () => {
-                  editingModal.onSave(modalTitle, modalImageUrl, modalSubtitle, undefined, modalDesc);
+                  editingModal.onSave(
+                    modalTitle,
+                    modalImageUrl,
+                    modalSubtitle,
+                    undefined,
+                    modalDesc,
+                  );
                   setEditingModal(null);
                   showToast("✅ Photo saved and synced to Cloud!");
                   try {
@@ -789,13 +904,12 @@ export default function AdminPage() {
                     console.warn("Auto-sync background warning:", e);
                   }
                 }}
-                className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-xs font-black text-white shadow-md cursor-pointer hover:scale-105 transition-transform flex items-center gap-2"
+                className="px-5 py-2 rounded-xl bg-linear-to-r from-[#db2777] to-[#1A05A2] text-xs font-black text-white shadow-md cursor-pointer hover:scale-105 transition-transform flex items-center gap-2"
               >
                 <Save size={13} />
                 <span>Save</span>
               </button>
             </div>
-
           </div>
         </div>
       )}
@@ -803,7 +917,7 @@ export default function AdminPage() {
       {/* MOBILE HEADER */}
       <div className="lg:hidden flex items-center justify-between p-4 bg-white border-b border-rose-100 sticky top-0 z-40 shadow-sm">
         <div className="flex items-center gap-2">
-          <div className="size-9 rounded-xl bg-gradient-to-r from-[#db2777] to-[#1A05A2] flex items-center justify-center font-black text-white text-xs">
+          <div className="size-9 rounded-xl bg-linear-to-r from-[#db2777] to-[#1A05A2] flex items-center justify-center font-black text-white text-xs">
             P
           </div>
           <span className="font-black text-sm text-[#1A05A2]">
@@ -820,13 +934,14 @@ export default function AdminPage() {
 
       {/* LIGHT ELEGANT SIDEBAR */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-rose-200/80 p-5 flex flex-col justify-between transition-transform duration-300 shadow-lg lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 overflow-y-auto ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-rose-200/80 p-5 flex flex-col justify-between transition-transform duration-300 shadow-lg lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 overflow-y-auto ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <div>
           {/* SIDEBAR HEADER */}
           <div className="flex items-center gap-3 px-2 py-3 mb-6 border-b border-rose-100">
-            <div className="size-11 rounded-2xl bg-gradient-to-r from-[#db2777] via-purple-600 to-[#1A05A2] flex items-center justify-center shadow-md shadow-pink-500/20 font-black text-white text-lg border border-white">
+            <div className="size-11 rounded-2xl bg-linear-to-r from-[#db2777] via-purple-600 to-[#1A05A2] flex items-center justify-center shadow-md shadow-pink-500/20 font-black text-white text-lg border border-white">
               ✨
             </div>
             <div>
@@ -851,12 +966,15 @@ export default function AdminPage() {
                     setActiveTab(item.id);
                     setSidebarOpen(false);
                   }}
-                  className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer group ${isActive
-                    ? "bg-gradient-to-r from-[#db2777] via-purple-600 to-[#1A05A2] text-white shadow-md shadow-pink-500/20"
-                    : "text-slate-700 hover:bg-rose-50/80 hover:text-[#db2777]"
-                    }`}
+                  className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer group ${
+                    isActive
+                      ? "bg-linear-to-r from-[#db2777] via-purple-600 to-[#1A05A2] text-white shadow-md shadow-pink-500/20"
+                      : "text-slate-700 hover:bg-rose-50/80 hover:text-[#db2777]"
+                  }`}
                 >
-                  <Icon className={`size-5 shrink-0 ${isActive ? "text-white" : "text-[#1A05A2] group-hover:text-[#db2777]"}`} />
+                  <Icon
+                    className={`size-5 shrink-0 ${isActive ? "text-white" : "text-[#1A05A2] group-hover:text-[#db2777]"}`}
+                  />
                   <div className="text-left">
                     <div className="text-sm leading-tight">{item.label}</div>
                   </div>
@@ -880,7 +998,6 @@ export default function AdminPage() {
 
       {/* MAIN CONTENT AREA */}
       <main className="flex-1 p-4 sm:p-8 max-w-7xl mx-auto overflow-y-auto h-screen w-full">
-
         {/* TOP PRIMARY MODULE SWITCHER BUTTONS BAR (CENTERED & PINK ANANDSHALA) */}
         <div className="mb-6 flex flex-wrap items-center justify-center gap-3.5">
           <button
@@ -888,13 +1005,25 @@ export default function AdminPage() {
               setActiveModule("anandshala");
               setActiveTab("home");
             }}
-            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${activeModule === "anandshala"
-              ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
-              : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
-              }`}
+            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${
+              activeModule === "anandshala"
+                ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
+                : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
+            }`}
           >
             <span>🌸</span>
-            <span>Preetam <span className={activeModule === "anandshala" ? "text-[#ff2a85] font-black" : "text-[#be185d] font-black"}>Anandshala</span></span>
+            <span>
+              Preetam{" "}
+              <span
+                className={
+                  activeModule === "anandshala"
+                    ? "text-[#ff2a85] font-black"
+                    : "text-[#be185d] font-black"
+                }
+              >
+                Anandshala
+              </span>
+            </span>
           </button>
 
           <button
@@ -902,10 +1031,11 @@ export default function AdminPage() {
               setActiveModule("sports");
               setActiveTab("sports_home");
             }}
-            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${activeModule === "sports"
-              ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
-              : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
-              }`}
+            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${
+              activeModule === "sports"
+                ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
+                : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
+            }`}
           >
             <span>🏋️‍♂️</span>
             <span>Preetam Sports & Fitness Club</span>
@@ -953,10 +1083,16 @@ export default function AdminPage() {
                         onClick={() =>
                           openEditModal({
                             type: "welcomePoster",
-                            title: siteForm.welcomePosterTitle || "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club",
+                            title:
+                              siteForm.welcomePosterTitle ||
+                              "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club",
                             imageUrl: siteForm.welcomePosterUrl || "",
                             onSave: (newTitle, newUrl) => {
-                              const newForm = { ...siteForm, welcomePosterUrl: newUrl, welcomePosterTitle: newTitle };
+                              const newForm = {
+                                ...siteForm,
+                                welcomePosterUrl: newUrl,
+                                welcomePosterTitle: newTitle,
+                              };
                               setSiteForm(newForm);
                               store.updateSiteData(newForm);
                             },
@@ -981,8 +1117,11 @@ export default function AdminPage() {
                       </button>
                     </div>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
-                      <p className="font-black text-xs drop-shadow-md truncate">{siteForm.welcomePosterTitle || "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club"}</p>
+                    <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
+                      <p className="font-black text-xs drop-shadow-md truncate">
+                        {siteForm.welcomePosterTitle ||
+                          "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club"}
+                      </p>
                     </div>
                   </div>
                 ) : (
@@ -990,16 +1129,22 @@ export default function AdminPage() {
                     onClick={() =>
                       openEditModal({
                         type: "welcomePoster",
-                        title: siteForm.welcomePosterTitle || "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club",
+                        title:
+                          siteForm.welcomePosterTitle ||
+                          "Welcome to Preetam Senior Citizen Anandshala & Preetam Sports and Fitness Club",
                         imageUrl: "/images/welcome-building.jpg",
                         onSave: (newTitle, newUrl) => {
-                          const newForm = { ...siteForm, welcomePosterUrl: newUrl, welcomePosterTitle: newTitle };
+                          const newForm = {
+                            ...siteForm,
+                            welcomePosterUrl: newUrl,
+                            welcomePosterTitle: newTitle,
+                          };
                           setSiteForm(newForm);
                           store.updateSiteData(newForm);
                         },
                       })
                     }
-                    className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-xs font-black text-white shadow-md hover:scale-105 transition-transform cursor-pointer"
+                    className="px-6 py-3 rounded-2xl bg-linear-to-r from-[#db2777] to-[#1A05A2] text-xs font-black text-white shadow-md hover:scale-105 transition-transform cursor-pointer"
                   >
                     + Add New Welcome Poster
                   </button>
@@ -1030,7 +1175,9 @@ export default function AdminPage() {
                       src={encodeURI(siteForm.aanandshalaImages?.[0] || "/images/slider4.JPG")}
                       alt="Anandshala Card"
                       className="w-full h-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/slider4.JPG"; }}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "/images/slider4.JPG";
+                      }}
                     />
 
                     {/* FLOATING BUTTONS DIRECTLY ON IMAGE */}
@@ -1039,10 +1186,15 @@ export default function AdminPage() {
                         onClick={() =>
                           openEditModal({
                             type: "aanandshalaCard",
-                            title: siteForm.aanandshalaTitle || "Preetam Senior Citizen Anandshala & Residence",
+                            title:
+                              siteForm.aanandshalaTitle ||
+                              "Preetam Senior Citizen Anandshala & Residence",
                             imageUrl: siteForm.aanandshalaImages?.[0] || "/images/slider4.JPG",
                             onSave: (newTitle, newUrl) => {
-                              const updatedImages = [newUrl, ...(siteForm.aanandshalaImages?.slice(1) || [])];
+                              const updatedImages = [
+                                newUrl,
+                                ...(siteForm.aanandshalaImages?.slice(1) || []),
+                              ];
                               const newForm = {
                                 ...siteForm,
                                 aanandshalaTitle: newTitle,
@@ -1073,9 +1225,14 @@ export default function AdminPage() {
                       </button>
                     </div>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
+                    <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
                       <p className="font-black text-xs text-white drop-shadow-md truncate">
-                        <HighlightText text={siteForm.aanandshalaTitle || "Preetam Senior Citizen Anandshala & Residence"} />
+                        <HighlightText
+                          text={
+                            siteForm.aanandshalaTitle ||
+                            "Preetam Senior Citizen Anandshala & Residence"
+                          }
+                        />
                       </p>
                     </div>
                   </div>
@@ -1094,7 +1251,9 @@ export default function AdminPage() {
                       src={encodeURI(siteForm.sportsImages?.[0] || "/images/sports%20img.png")}
                       alt="Sports Club Card"
                       className="w-full h-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).src = "/images/sports%20img.png"; }}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "/images/sports%20img.png";
+                      }}
                     />
 
                     {/* FLOATING BUTTONS DIRECTLY ON IMAGE */}
@@ -1106,7 +1265,10 @@ export default function AdminPage() {
                             title: siteForm.sportsTitle || "Preetam Sports & Fitness Club",
                             imageUrl: siteForm.sportsImages?.[0] || "/images/sports img.png",
                             onSave: (newTitle, newUrl) => {
-                              const updatedImages = [newUrl, ...(siteForm.sportsImages?.slice(1) || [])];
+                              const updatedImages = [
+                                newUrl,
+                                ...(siteForm.sportsImages?.slice(1) || []),
+                              ];
                               const newForm = {
                                 ...siteForm,
                                 sportsTitle: newTitle,
@@ -1137,7 +1299,7 @@ export default function AdminPage() {
                       </button>
                     </div>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
+                    <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
                       <p className="font-black text-xs drop-shadow-md truncate">
                         {siteForm.sportsTitle || "Preetam Sports & Fitness Club"}
                       </p>
@@ -1146,7 +1308,6 @@ export default function AdminPage() {
                 </div>
               </div>
             </div>
-
           </div>
         )}
 
@@ -1190,9 +1351,10 @@ export default function AdminPage() {
                   "/images/subimg/karmnuk hall.png",
                 ];
 
-                const currentHalls = (store.siteData.activityHalls && store.siteData.activityHalls.length > 0)
-                  ? store.siteData.activityHalls
-                  : [];
+                const currentHalls =
+                  store.siteData.activityHalls && store.siteData.activityHalls.length > 0
+                    ? store.siteData.activityHalls
+                    : [];
 
                 return currentHalls.map((hall, idx) => {
                   const hallId = hall.id || `hall-${idx + 1}`;
@@ -1201,7 +1363,10 @@ export default function AdminPage() {
                   const currentDesc = getHallDesc(hallId, hall.desc || "");
 
                   return (
-                    <div key={hallId} className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm hover:border-rose-300 transition-colors relative group">
+                    <div
+                      key={hallId}
+                      className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm hover:border-rose-300 transition-colors relative group"
+                    >
                       <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-64">
                         <img
                           src={displayImage}
@@ -1228,10 +1393,16 @@ export default function AdminPage() {
                                 // Save desc to dedicated localStorage (Firebase-proof)
                                 saveHallDesc(hallId, newDesc || "");
                                 // Also update the store (title + imageUrl)
-                                const updatedHalls = (store.siteData.activityHalls || []).map((h, i) =>
-                                  i === idx
-                                    ? { ...h, title: newTitle, imageUrl: newUrl, desc: newDesc || h.desc || "" }
-                                    : h
+                                const updatedHalls = (store.siteData.activityHalls || []).map(
+                                  (h, i) =>
+                                    i === idx
+                                      ? {
+                                          ...h,
+                                          title: newTitle,
+                                          imageUrl: newUrl,
+                                          desc: newDesc || h.desc || "",
+                                        }
+                                      : h,
                                 );
                                 const newForm = { ...store.siteData, activityHalls: updatedHalls };
                                 setSiteForm(newForm);
@@ -1246,9 +1417,13 @@ export default function AdminPage() {
                           <span>Edit</span>
                         </button>
 
-                        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
-                          <p className="font-black text-xs text-white drop-shadow-md truncate"><HighlightText text={hall.title} /></p>
-                          <p className="text-[10px] text-rose-200 opacity-90 truncate">{hall.category}</p>
+                        <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
+                          <p className="font-black text-xs text-white drop-shadow-md truncate">
+                            <HighlightText text={hall.title} />
+                          </p>
+                          <p className="text-[10px] text-rose-200 opacity-90 truncate">
+                            {hall.category}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1273,7 +1448,8 @@ export default function AdminPage() {
                   <span>About Us Page Manager</span>
                 </h1>
                 <p className="text-xs text-slate-500 mt-1 font-semibold">
-                  Manage About Us intro story, building photos, and Sangli attractions with Edit & Delete options.
+                  Manage About Us intro story, building photos, and Sangli attractions with Edit &
+                  Delete options.
                 </p>
               </div>
             </div>
@@ -1288,7 +1464,9 @@ export default function AdminPage() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                 {/* Left Column: Ceremony Main Image */}
                 <div className="lg:col-span-5 space-y-2">
-                  <label className="block text-xs font-black text-slate-700">📸 Main Ceremony Photo</label>
+                  <label className="block text-xs font-black text-slate-700">
+                    📸 Main Ceremony Photo
+                  </label>
                   <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md">
                     <img
                       src={aboutForm.storyMainImage || "/images/imgever.JPG"}
@@ -1318,7 +1496,7 @@ export default function AdminPage() {
                       </button>
                     </div>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
+                    <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
                       <p className="font-black text-xs drop-shadow-md">Anandshala Ceremony Photo</p>
                     </div>
                   </div>
@@ -1327,20 +1505,29 @@ export default function AdminPage() {
                 {/* Right Column: Title & Text Inputs */}
                 <div className="lg:col-span-7 space-y-4">
                   <div>
-                    <label className="block text-xs font-black text-slate-700 mb-1">🏷️ Main Title</label>
+                    <label className="block text-xs font-black text-slate-700 mb-1">
+                      🏷️ Main Title
+                    </label>
                     <input
                       type="text"
-                      value={aboutForm.storyTitleMr || "Preetam Anandshala : Concept & Introduction"}
+                      value={
+                        aboutForm.storyTitleMr || "Preetam Anandshala : Concept & Introduction"
+                      }
                       onChange={(e) => setAboutForm({ ...aboutForm, storyTitleMr: e.target.value })}
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 font-bold focus:border-[#db2777] focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-black text-slate-700 mb-1">📝 Description & Intro Text</label>
+                    <label className="block text-xs font-black text-slate-700 mb-1">
+                      📝 Description & Intro Text
+                    </label>
                     <textarea
                       rows={4}
-                      value={aboutForm.storyDescMr || "“Preetam Senior Citizen Anandshala” is a specialized senior citizen hub located in Sangli, Maharashtra, India. Established by entrepreneur Mr. Abhinay Jaganath Kamaji under the Preetam Business Group, it offers premier caretaker, companionship, and healthcare support for senior citizens."}
+                      value={
+                        aboutForm.storyDescMr ||
+                        "“Preetam Senior Citizen Anandshala” is a specialized senior citizen hub located in Sangli, Maharashtra, India. Established by entrepreneur Mr. Abhinay Jaganath Kamaji under the Preetam Business Group, it offers premier caretaker, companionship, and healthcare support for senior citizens."
+                      }
                       onChange={(e) => setAboutForm({ ...aboutForm, storyDescMr: e.target.value })}
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 font-medium focus:border-[#db2777] focus:outline-none"
                     />
@@ -1351,7 +1538,7 @@ export default function AdminPage() {
                       store.updateAboutData(aboutForm);
                       showToast("✅ About Us details saved!");
                     }}
-                    className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-xs font-black text-white shadow-md hover:scale-105 transition-transform cursor-pointer flex items-center gap-2"
+                    className="px-6 py-3 rounded-2xl bg-linear-to-r from-[#db2777] to-[#1A05A2] text-xs font-black text-white shadow-md hover:scale-105 transition-transform cursor-pointer flex items-center gap-2"
                   >
                     <Save size={14} />
                     <span>Save About Us Details</span>
@@ -1372,31 +1559,124 @@ export default function AdminPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {[
-                  { id: "sangli-ganpati", title: "1. Sangli Royal Ganapati Temple", dist: "3 km (10 mins)", desc: "1843 historic black stone palace temple...", img: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "sangli-fort-rajwada", title: "2. Sangli Fort & Rajwada Area", dist: "3.5 km (12 mins)", desc: "Patwardhan Sansthan Rajwada fort area...", img: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "sangmeshwar-haripur", title: "3. Sangmeshwar Temple (Haripur)", dist: "5 km (15 mins)", desc: "Confluence of Krishna and Warna rivers...", img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "krishna-irwin-bridge", title: "4. Krishna River & Irwin Bridge", dist: "4 km (10 mins)", desc: "1929 British era red stone bridge...", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "miraj-dargah", title: "5. Miraj Khwaja Meerasaheb Dargah", dist: "10 km (20 mins)", desc: "Historic shrine & musical instruments hub...", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "audumbar-temple", title: "6. Audumbar Shri Dattatreya Temple", dist: "25 km (40 mins)", desc: "Sacred Datta pilgrimage on Krishna bank...", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "dandoba-hills", title: "7. Dandoba Hills & Forest Shrine", dist: "25 km (30 mins)", desc: "Forest reserve and cave Shiva temple...", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "sagareshwar-sanctuary", title: "8. Sagareshwar Wildlife Sanctuary", dist: "30 km (45 mins)", desc: "1000+ deer, blackbucks, peafowls & ancient temples...", img: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "bahubali-kumbhojgiri", title: "9. Bahubali Hill, Kumbhojgiri", dist: "35 km (50 mins)", desc: "28ft grand Bahubali statue Jain shrine...", img: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "ramling-island-bahe", title: "10. Ramling Island, Bahe", dist: "38 km (50 mins)", desc: "Scenic river island and Lord Ram temple...", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "chandoli-national-park", title: "11. Chandoli National Park & Dam", dist: "65 km (1.5 hrs)", desc: "Sahyadri tiger reserve and massive dam...", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "gokak-waterfall", title: "12. Gokak Spectacular Waterfall", dist: "75 km (1.5 hrs)", desc: "177ft waterfall & historic hanging bridge...", img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "machhindragad-fort", title: "13. Machhindragad Fort & Temple", dist: "45 km (1 hr)", desc: "Built by Chhatrapati Shivaji Maharaj in 1676...", img: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop" },
-                  { id: "kolhapur-excursion", title: "14. Kolhapur Day Tour (Mahalaxmi)", dist: "50 km (1 hr)", desc: "Shri Mahalaxmi Temple, New Palace & Rankala...", img: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop" },
+                  {
+                    id: "sangli-ganpati",
+                    title: "1. Sangli Royal Ganapati Temple",
+                    dist: "3 km (10 mins)",
+                    desc: "1843 historic black stone palace temple...",
+                    img: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "sangli-fort-rajwada",
+                    title: "2. Sangli Fort & Rajwada Area",
+                    dist: "3.5 km (12 mins)",
+                    desc: "Patwardhan Sansthan Rajwada fort area...",
+                    img: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "sangmeshwar-haripur",
+                    title: "3. Sangmeshwar Temple (Haripur)",
+                    dist: "5 km (15 mins)",
+                    desc: "Confluence of Krishna and Warna rivers...",
+                    img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "krishna-irwin-bridge",
+                    title: "4. Krishna River & Irwin Bridge",
+                    dist: "4 km (10 mins)",
+                    desc: "1929 British era red stone bridge...",
+                    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "miraj-dargah",
+                    title: "5. Miraj Khwaja Meerasaheb Dargah",
+                    dist: "10 km (20 mins)",
+                    desc: "Historic shrine & musical instruments hub...",
+                    img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "audumbar-temple",
+                    title: "6. Audumbar Shri Dattatreya Temple",
+                    dist: "25 km (40 mins)",
+                    desc: "Sacred Datta pilgrimage on Krishna bank...",
+                    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "dandoba-hills",
+                    title: "7. Dandoba Hills & Forest Shrine",
+                    dist: "25 km (30 mins)",
+                    desc: "Forest reserve and cave Shiva temple...",
+                    img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "sagareshwar-sanctuary",
+                    title: "8. Sagareshwar Wildlife Sanctuary",
+                    dist: "30 km (45 mins)",
+                    desc: "1000+ deer, blackbucks, peafowls & ancient temples...",
+                    img: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "bahubali-kumbhojgiri",
+                    title: "9. Bahubali Hill, Kumbhojgiri",
+                    dist: "35 km (50 mins)",
+                    desc: "28ft grand Bahubali statue Jain shrine...",
+                    img: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "ramling-island-bahe",
+                    title: "10. Ramling Island, Bahe",
+                    dist: "38 km (50 mins)",
+                    desc: "Scenic river island and Lord Ram temple...",
+                    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "chandoli-national-park",
+                    title: "11. Chandoli National Park & Dam",
+                    dist: "65 km (1.5 hrs)",
+                    desc: "Sahyadri tiger reserve and massive dam...",
+                    img: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "gokak-waterfall",
+                    title: "12. Gokak Spectacular Waterfall",
+                    dist: "75 km (1.5 hrs)",
+                    desc: "177ft waterfall & historic hanging bridge...",
+                    img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "machhindragad-fort",
+                    title: "13. Machhindragad Fort & Temple",
+                    dist: "45 km (1 hr)",
+                    desc: "Built by Chhatrapati Shivaji Maharaj in 1676...",
+                    img: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop",
+                  },
+                  {
+                    id: "kolhapur-excursion",
+                    title: "14. Kolhapur Day Tour (Mahalaxmi)",
+                    dist: "50 km (1 hr)",
+                    desc: "Shri Mahalaxmi Temple, New Palace & Rankala...",
+                    img: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop",
+                  },
                 ].map((attraction) => {
-                  const ov: SangliPlaceOverride = (store.aboutData?.sangliPlacesOverrides?.[attraction.id] || {}) as SangliPlaceOverride;
+                  const ov: SangliPlaceOverride = (store.aboutData?.sangliPlacesOverrides?.[
+                    attraction.id
+                  ] || {}) as SangliPlaceOverride;
                   const currentImage = ov.image || attraction.img;
                   const currentTitle = ov.titleMr || attraction.title;
                   const currentDist = ov.distanceMr || attraction.dist;
                   const currentDesc = ov.shortDescMr || attraction.desc;
 
                   return (
-                    <div key={attraction.id} className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group">
+                    <div
+                      key={attraction.id}
+                      className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group"
+                    >
                       <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-48">
-                        <img src={currentImage} alt={currentTitle} className="w-full h-full object-cover" />
+                        <img
+                          src={currentImage}
+                          alt={currentTitle}
+                          className="w-full h-full object-cover"
+                        />
                         <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black text-[#810B38] border border-rose-200 shadow-xs">
                           {currentDist}
                         </span>
@@ -1410,7 +1690,8 @@ export default function AdminPage() {
                               subtitle: currentDist,
                               desc: currentDesc,
                               onSave: (newTitle, newUrl, newDist, _cat, newDesc) => {
-                                const currentOverrides = store.aboutData?.sangliPlacesOverrides || {};
+                                const currentOverrides =
+                                  store.aboutData?.sangliPlacesOverrides || {};
                                 const updatedOverrides = {
                                   ...currentOverrides,
                                   [attraction.id]: {
@@ -1421,7 +1702,10 @@ export default function AdminPage() {
                                     shortDescMr: newDesc || currentDesc,
                                   },
                                 };
-                                const updatedAbout = { ...aboutForm, sangliPlacesOverrides: updatedOverrides };
+                                const updatedAbout = {
+                                  ...aboutForm,
+                                  sangliPlacesOverrides: updatedOverrides,
+                                };
                                 setAboutForm(updatedAbout);
                                 store.updateAboutData(updatedAbout);
                                 showToast(`✅ ${newTitle} saved!`);
@@ -1434,8 +1718,10 @@ export default function AdminPage() {
                           <span>Edit</span>
                         </button>
 
-                        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
-                          <p className="font-black text-xs drop-shadow-md truncate">{currentTitle}</p>
+                        <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
+                          <p className="font-black text-xs drop-shadow-md truncate">
+                            {currentTitle}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -1443,7 +1729,6 @@ export default function AdminPage() {
                 })}
               </div>
             </div>
-
           </div>
         )}
 
@@ -1473,22 +1758,28 @@ export default function AdminPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">Select Category</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                      Select Category
+                    </label>
                     <select
                       value={newGalleryCategory}
                       onChange={(e) => setNewGalleryCategory(e.target.value)}
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-medium"
                     >
-                      {galleryCategoriesList.filter((c) => c !== "All").map((cat) => (
-                        <option key={cat} value={cat}>
-                          {cat}
-                        </option>
-                      ))}
+                      {galleryCategoriesList
+                        .filter((c) => c !== "All")
+                        .map((cat) => (
+                          <option key={cat} value={cat}>
+                            {cat}
+                          </option>
+                        ))}
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">Photo Caption / Title</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                      Photo Caption / Title
+                    </label>
                     <input
                       type="text"
                       value={newGalleryCaption}
@@ -1500,7 +1791,8 @@ export default function AdminPage() {
 
                   <button
                     onClick={() => {
-                      if (!newGalleryUrl) return showToast("⚠️ Please select or upload a photo first!");
+                      if (!newGalleryUrl)
+                        return showToast("⚠️ Please select or upload a photo first!");
                       store.addGalleryItem({
                         url: newGalleryUrl,
                         caption: newGalleryCaption || "Preetam Anandshala Photo",
@@ -1510,7 +1802,7 @@ export default function AdminPage() {
                       setNewGalleryCaption("");
                       showToast("✅ Photo added to gallery!");
                     }}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-[#db2777] via-purple-600 to-[#1A05A2] text-xs font-black text-white shadow-md cursor-pointer hover:scale-[1.02] transition-transform"
+                    className="w-full py-3 rounded-xl bg-linear-to-r from-[#db2777] via-purple-600 to-[#1A05A2] text-xs font-black text-white shadow-md cursor-pointer hover:scale-[1.02] transition-transform"
                   >
                     + Add Photo to Gallery
                   </button>
@@ -1543,10 +1835,11 @@ export default function AdminPage() {
                 <button
                   key={cat}
                   onClick={() => setGalleryFilter(cat)}
-                  className={`px-4 py-2 rounded-xl text-xs font-black shrink-0 transition-all cursor-pointer ${galleryFilter === cat
-                    ? "bg-gradient-to-r from-[#db2777] to-[#1A05A2] text-white shadow-sm"
-                    : "bg-white text-slate-600 hover:text-[#db2777] border border-rose-100 shadow-xs"
-                    }`}
+                  className={`px-4 py-2 rounded-xl text-xs font-black shrink-0 transition-all cursor-pointer ${
+                    galleryFilter === cat
+                      ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white shadow-sm"
+                      : "bg-white text-slate-600 hover:text-[#db2777] border border-rose-100 shadow-xs"
+                  }`}
                 >
                   {cat}
                 </button>
@@ -1558,9 +1851,16 @@ export default function AdminPage() {
               {store.gallery
                 .filter((item) => galleryFilter === "All" || item.category?.includes(galleryFilter))
                 .map((item) => (
-                  <div key={item.id} className="relative group rounded-2xl overflow-hidden bg-white border border-slate-200 p-2 shadow-xs">
+                  <div
+                    key={item.id}
+                    className="relative group rounded-2xl overflow-hidden bg-white border border-slate-200 p-2 shadow-xs"
+                  >
                     <div className="relative rounded-xl overflow-hidden bg-slate-50 border h-48">
-                      <img src={item.url} alt={item.caption} className="w-full h-full object-cover" />
+                      <img
+                        src={item.url}
+                        alt={item.caption}
+                        className="w-full h-full object-cover"
+                      />
 
                       {/* CLEAN FLOATING BUTTONS DIRECTLY ON IMAGE */}
                       <div className="absolute top-2 right-2 flex items-center gap-1.5 z-20">
@@ -1573,7 +1873,7 @@ export default function AdminPage() {
                               imageUrl: item.url,
                               onSave: (newTitle, newUrl) => {
                                 const updated = store.gallery.map((g) =>
-                                  g.id === item.id ? { ...g, caption: newTitle, url: newUrl } : g
+                                  g.id === item.id ? { ...g, caption: newTitle, url: newUrl } : g,
                                 );
                                 setStoredData(STORAGE_KEYS.gallery, updated);
                                 showToast(`✅ Photo updated!`);
@@ -1597,7 +1897,7 @@ export default function AdminPage() {
                         </button>
                       </div>
 
-                      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2 text-white">
+                      <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-2 text-white">
                         <p className="font-black text-xs drop-shadow-md truncate">{item.caption}</p>
                       </div>
                     </div>
@@ -1626,7 +1926,9 @@ export default function AdminPage() {
                 </h3>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 mb-1">Video Title</label>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    Video Title
+                  </label>
                   <input
                     type="text"
                     placeholder="e.g. Dr. Girish Oak Speech at Anandshala"
@@ -1670,7 +1972,9 @@ export default function AdminPage() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 mb-1">Video Description</label>
+                  <label className="block text-[11px] font-bold text-slate-700 mb-1">
+                    Video Description
+                  </label>
                   <input
                     type="text"
                     placeholder="Short description of the video..."
@@ -1696,7 +2000,8 @@ export default function AdminPage() {
                         title: finalTitle,
                         category: "Special Remarks",
                         embedUrl: finalEmbed,
-                        thumbnail: newVideoThumb.trim() || "/images/Screenshot 2026-07-31 103107.png",
+                        thumbnail:
+                          newVideoThumb.trim() || "/images/Screenshot 2026-07-31 103107.png",
                         desc: newVideoDesc.trim() || "",
                         duration: "03:00 mins",
                         date: "2026",
@@ -1708,7 +2013,7 @@ export default function AdminPage() {
                       setNewVideoDesc("");
                       showToast("✅ New video saved!");
                     }}
-                    className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white font-black text-xs shadow-md hover:scale-105 transition cursor-pointer"
+                    className="px-6 py-2.5 rounded-xl bg-linear-to-r from-pink-600 via-purple-600 to-indigo-600 text-white font-black text-xs shadow-md hover:scale-105 transition cursor-pointer"
                   >
                     + Save Video
                   </button>
@@ -1718,9 +2023,16 @@ export default function AdminPage() {
               {/* EXISTING VIDEOS LIST WITH EDIT & DELETE BUTTONS */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {store.videos.map((item) => (
-                  <div key={item.id} className="relative group rounded-2xl overflow-hidden bg-white border-2 border-rose-100 p-3 space-y-2 shadow-xs">
+                  <div
+                    key={item.id}
+                    className="relative group rounded-2xl overflow-hidden bg-white border-2 border-rose-100 p-3 space-y-2 shadow-xs"
+                  >
                     <div className="relative rounded-xl overflow-hidden bg-slate-900 h-44">
-                      <AdminVideoThumbnail embedUrl={item.embedUrl} thumbnail={item.thumbnail} title={item.title} />
+                      <AdminVideoThumbnail
+                        embedUrl={item.embedUrl}
+                        thumbnail={item.thumbnail}
+                        title={item.title}
+                      />
                       <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                         <div className="size-10 rounded-full bg-pink-600/95 text-white flex items-center justify-center border border-white shadow-md">
                           ▶
@@ -1782,10 +2094,744 @@ export default function AdminPage() {
                       <h4 className="text-xs font-black text-[#1A05A2] truncate">
                         <HighlightText text={item.title} />
                       </h4>
-                      <p className="text-[10px] text-slate-500 truncate">{item.desc || item.embedUrl}</p>
+                      <p className="text-[10px] text-slate-500 truncate">
+                        {item.desc || item.embedUrl}
+                      </p>
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================== */}
+        {/* TAB: ANANDSHALA RATE CARD (आनंदशाळा दरपत्रक)                      */}
+        {/* ================================================================== */}
+        {activeTab === "pricing" && (
+          <div className="space-y-6 animate-fade-up">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-rose-200 pb-4">
+              <div>
+                <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
+                  <Tag className="text-[#db2777]" />
+                  <span>आनंदशाळा दरपत्रक (Anandshala Rate Card Manager)</span>
+                </h1>
+                <p className="text-xs text-slate-500 mt-1 font-semibold">
+                  Edit fee structures, daily/weekly/monthly/yearly rates for all Anandshala packages.
+                </p>
+              </div>
+              <button
+                onClick={async () => {
+                  store.updatePricingItems(store.pricingItems);
+                  try {
+                    await store.syncAllToFirebaseCloud();
+                  } catch (e) {}
+                  showToast("✅ Anandshala Rate Card saved & synced to Cloud!");
+                }}
+                className="px-5 py-2.5 rounded-2xl bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white text-xs font-black shadow-md hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Save size={15} />
+                <span>Save All Rates</span>
+              </button>
+            </div>
+
+            {/* RATE ITEMS TABLE */}
+            <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 shadow-sm space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-black text-[#810B38] flex items-center gap-2">
+                  <span>🏷️</span>
+                  <span>दरपत्रक यादी (Pricing Tiers)</span>
+                </h2>
+                <button
+                  onClick={() => {
+                    const newItem: RateItem = {
+                      id: (store.pricingItems.length + 1).toString(),
+                      idEn: (store.pricingItems.length + 1).toString(),
+                      titleMr: "नवीन सुविधा फी",
+                      titleEn: "New Facility Fee",
+                      categoryMr: "सामान्य",
+                      categoryEn: "General",
+                      yearly: "0/-",
+                      monthly: "0/-",
+                      weekly: "0/-",
+                      daily: "0/-",
+                    };
+                    store.updatePricingItems([...store.pricingItems, newItem]);
+                    showToast("➕ New Rate Item added!");
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-pink-50 text-[#db2777] border border-pink-200 text-xs font-black hover:bg-pink-100 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Plus size={14} />
+                  <span>Add New Fee Tier</span>
+                </button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-rose-50/80 text-[#810B38] border-b border-rose-200">
+                      <th className="p-3 font-black">क्र.</th>
+                      <th className="p-3 font-black">शीर्षक (मराठी)</th>
+                      <th className="p-3 font-black">वर्ग (Category)</th>
+                      <th className="p-3 font-black">वार्षिक (Yearly)</th>
+                      <th className="p-3 font-black">मासिक (Monthly)</th>
+                      <th className="p-3 font-black">साप्ताहिक (Weekly)</th>
+                      <th className="p-3 font-black">दैनिक (Daily)</th>
+                      <th className="p-3 font-black text-right">कृती (Actions)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-rose-100">
+                    {store.pricingItems.map((item, idx) => (
+                      <tr key={item.idEn || idx} className="hover:bg-rose-50/40">
+                        <td className="p-3 font-bold text-slate-500">{item.id || idx + 1}</td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={item.titleMr}
+                            onChange={(e) => {
+                              const updated = [...store.pricingItems];
+                              updated[idx].titleMr = e.target.value;
+                              store.updatePricingItems(updated);
+                            }}
+                            className="w-full min-w-[200px] p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={item.categoryMr}
+                            onChange={(e) => {
+                              const updated = [...store.pricingItems];
+                              updated[idx].categoryMr = e.target.value;
+                              store.updatePricingItems(updated);
+                            }}
+                            className="w-full min-w-[140px] p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={item.yearly}
+                            onChange={(e) => {
+                              const updated = [...store.pricingItems];
+                              updated[idx].yearly = e.target.value;
+                              store.updatePricingItems(updated);
+                            }}
+                            className="w-24 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-emerald-700 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={item.monthly}
+                            onChange={(e) => {
+                              const updated = [...store.pricingItems];
+                              updated[idx].monthly = e.target.value;
+                              store.updatePricingItems(updated);
+                            }}
+                            className="w-24 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-blue-700 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={item.weekly}
+                            onChange={(e) => {
+                              const updated = [...store.pricingItems];
+                              updated[idx].weekly = e.target.value;
+                              store.updatePricingItems(updated);
+                            }}
+                            className="w-24 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-purple-700 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={item.daily}
+                            onChange={(e) => {
+                              const updated = [...store.pricingItems];
+                              updated[idx].daily = e.target.value;
+                              store.updatePricingItems(updated);
+                            }}
+                            className="w-24 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-rose-700 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3 text-right">
+                          <button
+                            onClick={() => {
+                              const updated = store.pricingItems.filter((_, i) => i !== idx);
+                              store.updatePricingItems(updated);
+                              showToast("🗑️ Item removed!");
+                            }}
+                            className="p-2 rounded-xl bg-rose-100 text-rose-600 hover:bg-rose-200 cursor-pointer"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================== */}
+        {/* TAB: ANNAPURNA BHOJANALAYA (अन्नपूर्णा भोजनालय)                   */}
+        {/* ================================================================== */}
+        {activeTab === "bhojanalaya" && (
+          <div className="space-y-6 animate-fade-up">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-rose-200 pb-4">
+              <div>
+                <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
+                  <Utensils className="text-[#db2777]" />
+                  <span>अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक</span>
+                </h1>
+                <p className="text-xs text-slate-500 mt-1 font-semibold">
+                  Edit 7-day food menu schedule, meal rates, extra items & health notes.
+                </p>
+              </div>
+              <button
+                onClick={async () => {
+                  store.updateBhojanalayaConfig(store.bhojanalayaConfig);
+                  try {
+                    await store.syncAllToFirebaseCloud();
+                  } catch (e) {}
+                  showToast("✅ Bhojanalaya timetable & rates saved & synced!");
+                }}
+                className="px-5 py-2.5 rounded-2xl bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white text-xs font-black shadow-md hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Save size={15} />
+                <span>Save Bhojanalaya Config</span>
+              </button>
+            </div>
+
+            {/* HEADER & HEALTH NOTE EDITORS */}
+            <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 shadow-sm space-y-4">
+              <h2 className="text-base font-black text-[#810B38] flex items-center gap-2">
+                <span>📝</span>
+                <span>शीर्षक व संदेश (Header & Health Message)</span>
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">
+                    शीर्षक (Header Title)
+                  </label>
+                  <input
+                    type="text"
+                    value={store.bhojanalayaConfig.headerTitle}
+                    onChange={(e) =>
+                      store.updateBhojanalayaConfig({
+                        ...store.bhojanalayaConfig,
+                        headerTitle: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-[#db2777]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">
+                    उपशीर्षक (Subtitle)
+                  </label>
+                  <input
+                    type="text"
+                    value={store.bhojanalayaConfig.subtitle}
+                    onChange={(e) =>
+                      store.updateBhojanalayaConfig({
+                        ...store.bhojanalayaConfig,
+                        subtitle: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-[#db2777]"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-[11px] font-black text-slate-500 mb-1">
+                    आरोग्य संदेश (Health Care Note)
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={store.bhojanalayaConfig.healthNote}
+                    onChange={(e) =>
+                      store.updateBhojanalayaConfig({
+                        ...store.bhojanalayaConfig,
+                        healthNote: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-[#db2777] resize-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 7-DAY WEEKLY SCHEDULE TABLE */}
+            <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 shadow-sm space-y-4">
+              <h2 className="text-base font-black text-[#810B38] flex items-center gap-2">
+                <span>📅</span>
+                <span>७ दिवसांचे जेवण वेळापत्रक (Weekly Menu Schedule)</span>
+              </h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-rose-50/80 text-[#810B38] border-b border-rose-200">
+                      <th className="p-3 font-black">वार (Day)</th>
+                      <th className="p-3 font-black">सकाळचा चहा</th>
+                      <th className="p-3 font-black">सकाळचा नाष्टा</th>
+                      <th className="p-3 font-black">दुपारचे जेवण</th>
+                      <th className="p-3 font-black">संध्या. चहा/नाष्टा</th>
+                      <th className="p-3 font-black">रात्रीचे जेवण</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-rose-100">
+                    {store.bhojanalayaConfig.weeklySchedule.map((row, idx) => (
+                      <tr key={row.day} className="hover:bg-rose-50/40">
+                        <td className="p-3 font-black text-pink-700 w-24">{row.day}</td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={row.morningTea}
+                            onChange={(e) => {
+                              const newSchedule = [...store.bhojanalayaConfig.weeklySchedule];
+                              newSchedule[idx].morningTea = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                weeklySchedule: newSchedule,
+                              });
+                            }}
+                            className="w-full min-w-[80px] p-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={row.morningBreakfast}
+                            onChange={(e) => {
+                              const newSchedule = [...store.bhojanalayaConfig.weeklySchedule];
+                              newSchedule[idx].morningBreakfast = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                weeklySchedule: newSchedule,
+                              });
+                            }}
+                            className="w-full min-w-[160px] p-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <textarea
+                            rows={2}
+                            value={row.afternoonLunch}
+                            onChange={(e) => {
+                              const newSchedule = [...store.bhojanalayaConfig.weeklySchedule];
+                              newSchedule[idx].afternoonLunch = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                weeklySchedule: newSchedule,
+                              });
+                            }}
+                            className="w-full min-w-[200px] p-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-800 text-xs focus:outline-none focus:border-[#db2777] resize-none"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={row.eveningTeaSnack}
+                            onChange={(e) => {
+                              const newSchedule = [...store.bhojanalayaConfig.weeklySchedule];
+                              newSchedule[idx].eveningTeaSnack = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                weeklySchedule: newSchedule,
+                              });
+                            }}
+                            className="w-full min-w-[140px] p-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={row.nightDinner}
+                            onChange={(e) => {
+                              const newSchedule = [...store.bhojanalayaConfig.weeklySchedule];
+                              newSchedule[idx].nightDinner = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                weeklySchedule: newSchedule,
+                              });
+                            }}
+                            className="w-full min-w-[180px] p-2 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* ITEM RATE LIST & EXTRA ITEMS GRID */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* FOOD RATE LIST */}
+              <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 shadow-sm space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-base font-black text-[#810B38] flex items-center gap-2">
+                    <span>☕</span>
+                    <span>भोजनालय पदार्थ दरपत्रक (Item Rates)</span>
+                  </h2>
+                  <button
+                    onClick={() => {
+                      const newRate: FoodRateItem = { item: "नवीन पदार्थ", oneTime: "0/-", oneMonth: "0/-" };
+                      store.updateBhojanalayaConfig({
+                        ...store.bhojanalayaConfig,
+                        rateList: [...store.bhojanalayaConfig.rateList, newRate],
+                      });
+                      showToast("➕ New Food Rate Item added!");
+                    }}
+                    className="px-3.5 py-1.5 rounded-xl bg-pink-50 text-[#db2777] border border-pink-200 text-xs font-black hover:bg-pink-100 flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Plus size={14} />
+                    <span>Add Item</span>
+                  </button>
+                </div>
+
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-rose-50/80 text-[#810B38] border-b border-rose-200">
+                      <th className="p-2.5 font-black">पदार्थ (Item Name)</th>
+                      <th className="p-2.5 font-black">१ वेळ दर (Single)</th>
+                      <th className="p-2.5 font-black">१ महिना दर (Monthly)</th>
+                      <th className="p-2.5 font-black text-right">कृती</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-rose-100">
+                    {store.bhojanalayaConfig.rateList.map((r, idx) => (
+                      <tr key={idx} className="hover:bg-rose-50/40">
+                        <td className="p-2.5">
+                          <input
+                            type="text"
+                            value={r.item}
+                            onChange={(e) => {
+                              const updated = [...store.bhojanalayaConfig.rateList];
+                              updated[idx].item = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                rateList: updated,
+                              });
+                            }}
+                            className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-2.5">
+                          <input
+                            type="text"
+                            value={r.oneTime}
+                            onChange={(e) => {
+                              const updated = [...store.bhojanalayaConfig.rateList];
+                              updated[idx].oneTime = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                rateList: updated,
+                              });
+                            }}
+                            className="w-20 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-pink-700 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-2.5">
+                          <input
+                            type="text"
+                            value={r.oneMonth}
+                            onChange={(e) => {
+                              const updated = [...store.bhojanalayaConfig.rateList];
+                              updated[idx].oneMonth = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                rateList: updated,
+                              });
+                            }}
+                            className="w-24 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-purple-700 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-2.5 text-right">
+                          <button
+                            onClick={() => {
+                              const updated = store.bhojanalayaConfig.rateList.filter((_, i) => i !== idx);
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                rateList: updated,
+                              });
+                            }}
+                            className="p-1.5 rounded-lg bg-rose-100 text-rose-600 hover:bg-rose-200 cursor-pointer"
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* EXTRA ITEMS */}
+              <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 shadow-sm space-y-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-base font-black text-[#810B38] flex items-center gap-2">
+                    <span>🥗</span>
+                    <span>जादाचे पदार्थ व दर (Extra Items & Specials)</span>
+                  </h2>
+                  <button
+                    onClick={() => {
+                      const newExtra: ExtraFoodItem = { name: "नवीन पदार्थ", price: "10/-" };
+                      store.updateBhojanalayaConfig({
+                        ...store.bhojanalayaConfig,
+                        extraItems: [...store.bhojanalayaConfig.extraItems, newExtra],
+                      });
+                      showToast("➕ Extra Item added!");
+                    }}
+                    className="px-3.5 py-1.5 rounded-xl bg-pink-50 text-[#db2777] border border-pink-200 text-xs font-black hover:bg-pink-100 flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Plus size={14} />
+                    <span>Add Extra Item</span>
+                  </button>
+                </div>
+
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-rose-50/80 text-[#810B38] border-b border-rose-200">
+                      <th className="p-2.5 font-black">पदार्थ (Name)</th>
+                      <th className="p-2.5 font-black">किंमत (Price)</th>
+                      <th className="p-2.5 font-black">वार विशेष (Special Day)</th>
+                      <th className="p-2.5 font-black text-right">कृती</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-rose-100">
+                    {store.bhojanalayaConfig.extraItems.map((ex, idx) => (
+                      <tr key={idx} className="hover:bg-rose-50/40">
+                        <td className="p-2.5">
+                          <input
+                            type="text"
+                            value={ex.name}
+                            onChange={(e) => {
+                              const updated = [...store.bhojanalayaConfig.extraItems];
+                              updated[idx].name = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                extraItems: updated,
+                              });
+                            }}
+                            className="w-full p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-2.5">
+                          <input
+                            type="text"
+                            value={ex.price}
+                            onChange={(e) => {
+                              const updated = [...store.bhojanalayaConfig.extraItems];
+                              updated[idx].price = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                extraItems: updated,
+                              });
+                            }}
+                            className="w-20 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-emerald-700 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-2.5">
+                          <input
+                            type="text"
+                            placeholder="उदा. सोमवार"
+                            value={ex.daySpecial || ""}
+                            onChange={(e) => {
+                              const updated = [...store.bhojanalayaConfig.extraItems];
+                              updated[idx].daySpecial = e.target.value;
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                extraItems: updated,
+                              });
+                            }}
+                            className="w-28 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-indigo-700 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-2.5 text-right">
+                          <button
+                            onClick={() => {
+                              const updated = store.bhojanalayaConfig.extraItems.filter(
+                                (_, i) => i !== idx,
+                              );
+                              store.updateBhojanalayaConfig({
+                                ...store.bhojanalayaConfig,
+                                extraItems: updated,
+                              });
+                            }}
+                            className="p-1.5 rounded-lg bg-rose-100 text-rose-600 hover:bg-rose-200 cursor-pointer"
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================== */}
+        {/* SPORTS TAB: SPORTS RATE CARD (स्पोर्ट्स क्लब दरपत्रक)                */}
+        {/* ================================================================== */}
+        {activeTab === "sports_pricing" && (
+          <div className="space-y-6 animate-fade-up">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-rose-200 pb-4">
+              <div>
+                <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
+                  <Tag className="text-[#db2777]" />
+                  <span>स्पोर्ट्स क्लब दरपत्रक (Sports Club Rate Card Manager)</span>
+                </h1>
+                <p className="text-xs text-slate-500 mt-1 font-semibold">
+                  Edit fee structures, membership duration offers & facility rates for Sports Club.
+                </p>
+              </div>
+              <button
+                onClick={async () => {
+                  store.updateSportsPricingItems(store.sportsPricingItems);
+                  store.updateSportsMembershipTiers(store.sportsMembershipTiers);
+                  try {
+                    await store.syncAllToFirebaseCloud();
+                  } catch (e) {}
+                  showToast("✅ Sports Club Rate Card saved & synced to Cloud!");
+                }}
+                className="px-5 py-2.5 rounded-2xl bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white text-xs font-black shadow-md hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Save size={15} />
+                <span>Save All Sports Rates</span>
+              </button>
+            </div>
+
+            {/* 4-ROW MEMBERSHIP DURATION TIERS TABLE (MATCHING USER SCREENSHOT) */}
+            <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 shadow-sm space-y-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-base font-black text-[#810B38] flex items-center gap-2">
+                  <span>🏆</span>
+                  <span>कालावधी व ऑफर दरपत्रक (Membership Duration Offers Table)</span>
+                </h2>
+                <button
+                  onClick={() => {
+                    const newTier: SportsMembershipTier = {
+                      id: (store.sportsMembershipTiers.length + 1).toString(),
+                      badgeMr: "नवीन पॅकेज",
+                      badgeEn: "NEW PACKAGE",
+                      durationMr: "नवीन कालावधी",
+                      durationEn: "New Duration",
+                      rackRate: "0",
+                      offerPrice: "0",
+                      savings: "0",
+                    };
+                    store.updateSportsMembershipTiers([...store.sportsMembershipTiers, newTier]);
+                    showToast("➕ New Membership Tier added!");
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-pink-50 text-[#db2777] border border-pink-200 text-xs font-black hover:bg-pink-100 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Plus size={14} />
+                  <span>Add Duration Package</span>
+                </button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-rose-50/80 text-[#810B38] border-b border-rose-200">
+                      <th className="p-3 font-black">क्र.</th>
+                      <th className="p-3 font-black">कालावधी (Duration / Package)</th>
+                      <th className="p-3 font-black">टॅग / बॅज (Badge)</th>
+                      <th className="p-3 font-black">मूळ दर ₹ (Rack Rate)</th>
+                      <th className="p-3 font-black">प्री-लाँच ऑफर ₹ (Offer Price)</th>
+                      <th className="p-3 font-black">एकूण बचत ₹ (Savings)</th>
+                      <th className="p-3 font-black text-right">कृती</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-rose-100">
+                    {store.sportsMembershipTiers.map((tier, idx) => (
+                      <tr key={tier.id || idx} className="hover:bg-rose-50/40">
+                        <td className="p-3 font-bold text-slate-500">{idx + 1}</td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={tier.durationMr}
+                            onChange={(e) => {
+                              const updated = [...store.sportsMembershipTiers];
+                              updated[idx].durationMr = e.target.value;
+                              store.updateSportsMembershipTiers(updated);
+                            }}
+                            className="w-full min-w-[200px] p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={tier.badgeMr}
+                            onChange={(e) => {
+                              const updated = [...store.sportsMembershipTiers];
+                              updated[idx].badgeMr = e.target.value;
+                              store.updateSportsMembershipTiers(updated);
+                            }}
+                            className="w-full min-w-[130px] p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-800 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={tier.rackRate}
+                            onChange={(e) => {
+                              const updated = [...store.sportsMembershipTiers];
+                              updated[idx].rackRate = e.target.value;
+                              store.updateSportsMembershipTiers(updated);
+                            }}
+                            className="w-24 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={tier.offerPrice}
+                            onChange={(e) => {
+                              const updated = [...store.sportsMembershipTiers];
+                              updated[idx].offerPrice = e.target.value;
+                              store.updateSportsMembershipTiers(updated);
+                            }}
+                            className="w-24 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-pink-600 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3">
+                          <input
+                            type="text"
+                            value={tier.savings}
+                            onChange={(e) => {
+                              const updated = [...store.sportsMembershipTiers];
+                              updated[idx].savings = e.target.value;
+                              store.updateSportsMembershipTiers(updated);
+                            }}
+                            className="w-24 p-2 bg-slate-50 border border-slate-200 rounded-xl font-bold text-emerald-600 text-xs focus:outline-none focus:border-[#db2777]"
+                          />
+                        </td>
+                        <td className="p-3 text-right">
+                          <button
+                            onClick={() => {
+                              const updated = store.sportsMembershipTiers.filter(
+                                (_, i) => i !== idx,
+                              );
+                              store.updateSportsMembershipTiers(updated);
+                              showToast("🗑️ Duration tier removed!");
+                            }}
+                            className="p-2 rounded-xl bg-rose-100 text-rose-600 hover:bg-rose-200 cursor-pointer"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -1829,7 +2875,10 @@ export default function AdminPage() {
                         title: siteForm.sportsTitle || "Preetam Sports & Fitness Club",
                         imageUrl: siteForm.sportsImages?.[0] || "/images/sports img.png",
                         onSave: (newTitle, newUrl) => {
-                          const updatedImages = [newUrl, ...(siteForm.sportsImages?.slice(1) || [])];
+                          const updatedImages = [
+                            newUrl,
+                            ...(siteForm.sportsImages?.slice(1) || []),
+                          ];
                           const newForm = {
                             ...siteForm,
                             sportsTitle: newTitle,
@@ -1860,7 +2909,7 @@ export default function AdminPage() {
                   </button>
                 </div>
 
-                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
+                <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
                   <p className="font-black text-xs drop-shadow-md truncate">
                     {siteForm.sportsTitle || "Preetam Sports & Fitness Club"}
                   </p>
@@ -1893,9 +2942,16 @@ export default function AdminPage() {
                 const currentDesc = getSportsDesc(facId, fac.description || "");
 
                 return (
-                  <div key={facId} className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group">
+                  <div
+                    key={facId}
+                    className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group"
+                  >
                     <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-48">
-                      <img src={fac.imageUrl || "/images/sports img.png"} alt={fac.title} className="w-full h-full object-cover" />
+                      <img
+                        src={fac.imageUrl || "/images/sports img.png"}
+                        alt={fac.title}
+                        className="w-full h-full object-cover"
+                      />
                       <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-white/90 text-base border border-rose-200 shadow-xs">
                         {fac.icon}
                       </span>
@@ -1911,7 +2967,14 @@ export default function AdminPage() {
                             onSave: (newTitle, newUrl, _sub, _cat, newDesc) => {
                               saveSportsDesc(facId, newDesc || "");
                               const updated = (siteForm.sportsFacilities || []).map((f) =>
-                                f.id === facId ? { ...f, title: newTitle, imageUrl: newUrl, description: newDesc || f.description || "" } : f
+                                f.id === facId
+                                  ? {
+                                      ...f,
+                                      title: newTitle,
+                                      imageUrl: newUrl,
+                                      description: newDesc || f.description || "",
+                                    }
+                                  : f,
                               );
                               const newForm = { ...siteForm, sportsFacilities: updated };
                               setSiteForm(newForm);
@@ -1926,9 +2989,11 @@ export default function AdminPage() {
                         <span>Edit</span>
                       </button>
 
-                      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
+                      <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
                         <p className="font-black text-xs drop-shadow-md truncate">{fac.title}</p>
-                        <p className="text-[10px] text-rose-200 opacity-90 truncate">{currentDesc}</p>
+                        <p className="text-[10px] text-rose-200 opacity-90 truncate">
+                          {currentDesc}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1957,9 +3022,16 @@ export default function AdminPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {(siteForm.sportsGallery || []).map((url, idx) => (
-                <div key={idx} className="relative group rounded-2xl overflow-hidden bg-white border border-slate-200 p-2 shadow-xs">
+                <div
+                  key={idx}
+                  className="relative group rounded-2xl overflow-hidden bg-white border border-slate-200 p-2 shadow-xs"
+                >
                   <div className="relative rounded-xl overflow-hidden bg-slate-50 border h-48">
-                    <img src={url} alt={`Sports Gallery ${idx + 1}`} className="w-full h-full object-cover" />
+                    <img
+                      src={url}
+                      alt={`Sports Gallery ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
 
                     <div className="absolute top-2 right-2 flex items-center gap-1.5 z-20">
                       <button
@@ -1985,8 +3057,10 @@ export default function AdminPage() {
                       </button>
                     </div>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2 text-white">
-                      <p className="font-black text-xs drop-shadow-md truncate">Sports Photo #{idx + 1}</p>
+                    <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-2 text-white">
+                      <p className="font-black text-xs drop-shadow-md truncate">
+                        Sports Photo #{idx + 1}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -2026,7 +3100,8 @@ export default function AdminPage() {
                       openEditModal({
                         type: "sportsBrochure",
                         title: "Sports Club Brochure",
-                        imageUrl: siteForm.sportsBrochureUrl || "/images/Screenshot 2026-07-31 103659.png",
+                        imageUrl:
+                          siteForm.sportsBrochureUrl || "/images/Screenshot 2026-07-31 103659.png",
                         onSave: (_newTitle, newUrl) => {
                           const newForm = { ...siteForm, sportsBrochureUrl: newUrl };
                           setSiteForm(newForm);
@@ -2065,16 +3140,25 @@ export default function AdminPage() {
 
             <div className="space-y-3">
               {store.sportsInquiries.map((inq) => {
-                const cleanSubject = inq.subject ? sanitizeInquiryText(inq.subject) : "Sports Club Membership Inquiry";
+                const cleanSubject = inq.subject
+                  ? sanitizeInquiryText(inq.subject)
+                  : "Sports Club Membership Inquiry";
                 const cleanMsg = sanitizeInquiryText(inq.message) || "Online membership inquiry.";
                 const cleanDate = formatInquiryDateToEnglish(inq.date);
 
                 return (
-                  <div key={inq.id} className="bg-white border-2 border-rose-100 rounded-2xl p-4 sm:p-5 space-y-2 shadow-sm relative group">
+                  <div
+                    key={inq.id}
+                    className="bg-white border-2 border-rose-100 rounded-2xl p-4 sm:p-5 space-y-2 shadow-sm relative group"
+                  >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-rose-50 pb-2 pr-8">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-black text-sm text-slate-900">{inq.name}</span>
-                        {inq.email && <span className="text-xs font-semibold text-slate-500">({inq.email})</span>}
+                        {inq.email && (
+                          <span className="text-xs font-semibold text-slate-500">
+                            ({inq.email})
+                          </span>
+                        )}
                         <span className="text-xs font-black text-[#db2777]">📞 {inq.phone}</span>
                       </div>
                       <span className="text-xs font-bold text-slate-400 font-mono">
@@ -2083,8 +3167,12 @@ export default function AdminPage() {
                     </div>
 
                     <div className="space-y-1">
-                      {cleanSubject && <p className="text-xs font-black text-[#1A05A2]">{cleanSubject}</p>}
-                      <p className="text-xs text-slate-600 font-medium bg-slate-50 p-2.5 rounded-xl border border-slate-100">{cleanMsg}</p>
+                      {cleanSubject && (
+                        <p className="text-xs font-black text-[#1A05A2]">{cleanSubject}</p>
+                      )}
+                      <p className="text-xs text-slate-600 font-medium bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        {cleanMsg}
+                      </p>
                     </div>
 
                     <button
@@ -2122,9 +3210,16 @@ export default function AdminPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {store.brochures.map((item, idx) => (
-                <div key={item.id} className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group">
+                <div
+                  key={item.id}
+                  className="bg-white border-2 border-rose-100 rounded-3xl p-3 space-y-2 shadow-sm relative group"
+                >
                   <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-52">
-                    <img src={item.fileUrl} alt={item.title} className="w-full h-full object-cover" />
+                    <img
+                      src={item.fileUrl}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                    />
                     <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black text-[#810B38] border border-rose-200 shadow-xs">
                       Page #{idx + 1}
                     </span>
@@ -2139,7 +3234,7 @@ export default function AdminPage() {
                           imageUrl: item.fileUrl,
                           onSave: (newTitle, newUrl) => {
                             const updated = store.brochures.map((b) =>
-                              b.id === item.id ? { ...b, title: newTitle, fileUrl: newUrl } : b
+                              b.id === item.id ? { ...b, title: newTitle, fileUrl: newUrl } : b,
                             );
                             setStoredData(STORAGE_KEYS.brochures, updated);
                             showToast(`✅ ${newTitle} updated!`);
@@ -2152,7 +3247,7 @@ export default function AdminPage() {
                       <span>Edit</span>
                     </button>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
+                    <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
                       <p className="font-black text-xs drop-shadow-md truncate">{item.title}</p>
                     </div>
                   </div>
@@ -2181,16 +3276,25 @@ export default function AdminPage() {
 
             <div className="space-y-3">
               {store.anandshalaInquiries.map((inq) => {
-                const cleanSubject = inq.subject ? sanitizeInquiryText(inq.subject) : "Online Membership Inquiry";
+                const cleanSubject = inq.subject
+                  ? sanitizeInquiryText(inq.subject)
+                  : "Online Membership Inquiry";
                 const cleanMsg = sanitizeInquiryText(inq.message) || "Online membership inquiry.";
                 const cleanDate = formatInquiryDateToEnglish(inq.date);
 
                 return (
-                  <div key={inq.id} className="bg-white border-2 border-rose-100 rounded-2xl p-4 sm:p-5 space-y-2 shadow-sm relative group">
+                  <div
+                    key={inq.id}
+                    className="bg-white border-2 border-rose-100 rounded-2xl p-4 sm:p-5 space-y-2 shadow-sm relative group"
+                  >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-rose-50 pb-2 pr-8">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-black text-sm text-slate-900">{inq.name}</span>
-                        {inq.email && <span className="text-xs font-semibold text-slate-500">({inq.email})</span>}
+                        {inq.email && (
+                          <span className="text-xs font-semibold text-slate-500">
+                            ({inq.email})
+                          </span>
+                        )}
                         <span className="text-xs font-black text-[#db2777]">📞 {inq.phone}</span>
                       </div>
                       <span className="text-xs font-bold text-slate-400 font-mono">
@@ -2199,8 +3303,12 @@ export default function AdminPage() {
                     </div>
 
                     <div className="space-y-1">
-                      {cleanSubject && <p className="text-xs font-black text-[#1A05A2]">{cleanSubject}</p>}
-                      <p className="text-xs text-slate-600 font-medium bg-slate-50 p-2.5 rounded-xl border border-slate-100">{cleanMsg}</p>
+                      {cleanSubject && (
+                        <p className="text-xs font-black text-[#1A05A2]">{cleanSubject}</p>
+                      )}
+                      <p className="text-xs text-slate-600 font-medium bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        {cleanMsg}
+                      </p>
                     </div>
 
                     <button
@@ -2218,7 +3326,6 @@ export default function AdminPage() {
             </div>
           </div>
         )}
-
       </main>
     </div>
   );

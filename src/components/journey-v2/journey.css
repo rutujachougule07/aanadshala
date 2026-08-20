@@ -4,7 +4,7 @@
 
 .journey-exact-v2 {
   position: relative;
-  background: linear-gradient(180deg, #F4F8FC 0%, #EBF3FA 100%);
+  background: linear-gradient(180deg, #f4f8fc 0%, #ebf3fa 100%);
   padding: 20px 20px 120px 20px;
   overflow: hidden;
   font-family: inherit;
@@ -16,7 +16,7 @@
   left: 30px;
   width: 180px;
   height: 180px;
-  background-image: radial-gradient(#CBD5E1 1.5px, transparent 1.5px);
+  background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
   background-size: 14px 14px;
   opacity: 0.5;
   pointer-events: none;
@@ -75,7 +75,7 @@
 .ornament-line {
   width: 60px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #F472B6, transparent);
+  background: linear-gradient(90deg, transparent, #f472b6, transparent);
 }
 
 .ornament-node {
@@ -109,14 +109,14 @@
 .line-dashed {
   width: 2px;
   height: 100%;
-  border-left: 2px dashed #94A3B8;
+  border-left: 2px dashed #94a3b8;
 }
 
 .line-end-circle {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid #94A3B8;
+  border: 2px solid #94a3b8;
   background: #ffffff;
   margin-top: -6px;
 }
@@ -214,14 +214,14 @@
 .card-title {
   font-size: 20px !important;
   font-weight: 900 !important;
-  color: #1F2B8D !important;
+  color: #1f2b8d !important;
   line-height: 1.35 !important;
   margin-top: 4px;
 }
 
 .card-desc {
   font-size: 14px !important;
-  color: #64748B !important;
+  color: #64748b !important;
   margin-top: 10px;
   line-height: 1.6 !important;
   font-weight: 500 !important;
@@ -271,7 +271,7 @@
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-right: 14px solid #1D4ED8;
+    border-right: 14px solid #1d4ed8;
   }
 }
 
@@ -280,7 +280,7 @@
    --------------------------------------------------------- */
 .journey-quote-box {
   position: relative;
-  background: #EFF3FF;
+  background: #eff3ff;
   border-left: 5px solid #f472b6;
   border-radius: 20px;
   padding: 28px 32px;
@@ -302,7 +302,7 @@
   font-size: 38px;
   font-family: Georgia, serif;
   font-weight: 900;
-  color: #1F2B8D;
+  color: #0044cc;
   line-height: 1;
   user-select: none;
 }
@@ -320,7 +320,7 @@
 .quote-text {
   font-size: 19px;
   font-weight: 800;
-  color: #1F2B8D;
+  color: #0044cc;
   line-height: 1.5;
   text-align: center;
   position: relative;
@@ -346,8 +346,8 @@
 
 .quote-standalone-card {
   position: relative;
-  background: linear-gradient(135deg, #EFF6FF 0%, #FDF2F8 100%);
-  border: 2px solid #FCCEE4;
+  background: linear-gradient(135deg, #eff6ff 0%, #fdf2f8 100%);
+  border: 2px solid #fccee4;
   border-left: 6px solid #db2777;
   border-radius: 24px;
   padding: 24px 32px;
