@@ -59,7 +59,7 @@ export function SiteHeader() {
           <div className="leading-tight min-w-0">
             <span
               className="block font-display text-[11px] sm:text-sm lg:text-base font-black tracking-tight leading-tight truncate sm:whitespace-normal"
-              style={{ color: "#0044cc" }}
+              style={{ color: "#1a05a2" }}
             >
               {isMr ? (
                 <>
@@ -95,7 +95,7 @@ export function SiteHeader() {
                   }
                 }}
                 className="group relative rounded-full px-3.5 py-1.5 text-sm font-extrabold transition-all duration-300 hover:text-[#db2777]"
-                style={{ color: isActive ? "#db2777" : "#0044cc" }}
+                style={{ color: isActive ? "#db2777" : "#1a05a2" }}
               >
                 {isMr ? l.label : l.en}
                 <span
@@ -113,14 +113,14 @@ export function SiteHeader() {
             style={{
               borderColor: "rgba(12, 35, 112, 0.3)",
               background: "#FFFFFF",
-              color: "#0044cc",
+              color: "#1a05a2",
             }}
             title="Switch Language / भाषा बदला"
           >
             <span
               className={
                 isEn
-                  ? "text-[#0044cc] font-black border-b-2 border-[#0044cc]"
+                  ? "text-[#1a05a2] font-black border-b-2 border-[#1a05a2]"
                   : "text-slate-400 font-extrabold opacity-70"
               }
             >
@@ -130,7 +130,7 @@ export function SiteHeader() {
             <span
               className={
                 isMr
-                  ? "text-[#0044cc] font-black border-b-2 border-[#0044cc]"
+                  ? "text-[#1a05a2] font-black border-b-2 border-[#1a05a2]"
                   : "text-slate-400 font-extrabold opacity-70"
               }
             >
@@ -143,7 +143,7 @@ export function SiteHeader() {
             href="tel:+919370237633"
             className="ml-2 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-2 text-xs sm:text-sm font-black text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
             style={{
-              background: "linear-gradient(135deg, #db2777 0%, #0044cc 100%)",
+              background: "linear-gradient(135deg, #db2777 0%, #1a05a2 100%)",
             }}
           >
             <span className="text-sm">🏛️</span>
@@ -156,7 +156,7 @@ export function SiteHeader() {
           {/* MOBILE LANGUAGE TOGGLE BUTTON */}
           <button
             onClick={toggleLanguage}
-            className="inline-flex items-center justify-center rounded-full border px-3 py-1 text-[11px] font-black cursor-pointer shadow-xs bg-white text-[#0044cc] min-w-21"
+            className="inline-flex items-center justify-center rounded-full border px-3 py-1 text-[11px] font-black cursor-pointer shadow-xs bg-white text-[#1a05a2] min-w-21"
             style={{
               borderColor: "rgba(12, 35, 112, 0.3)",
             }}
@@ -165,7 +165,7 @@ export function SiteHeader() {
             <span
               className={
                 isEn
-                  ? "text-[#0044cc] font-black border-b-2 border-[#0044cc]"
+                  ? "text-[#1a05a2] font-black border-b-2 border-[#1a05a2]"
                   : "text-slate-400 font-extrabold opacity-70"
               }
             >
@@ -175,7 +175,7 @@ export function SiteHeader() {
             <span
               className={
                 isMr
-                  ? "text-[#0044cc] font-black border-b-2 border-[#0044cc]"
+                  ? "text-[#1a05a2] font-black border-b-2 border-[#1a05a2]"
                   : "text-slate-400 font-extrabold opacity-70"
               }
             >
@@ -187,7 +187,7 @@ export function SiteHeader() {
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
-            className="grid size-9 sm:size-10 place-items-center rounded-xl transition-all duration-200 cursor-pointer shadow-xs bg-white text-[#0044cc]"
+            className="grid size-9 sm:size-10 place-items-center rounded-xl transition-all duration-200 cursor-pointer shadow-xs bg-white text-[#1a05a2]"
             style={{
               border: "1.5px solid rgba(12, 35, 112, 0.25)",
             }}
@@ -209,7 +209,7 @@ export function SiteHeader() {
         >
           <div
             className="h-1 w-full"
-            style={{ background: "linear-gradient(90deg, #0044cc, #db2777, #0284C7)" }}
+            style={{ background: "linear-gradient(90deg, #1a05a2, #db2777, #0284C7)" }}
           />
           <nav className="w-full px-6 py-6 flex flex-col gap-2">
             {navLinks.map((l) => {
@@ -227,7 +227,7 @@ export function SiteHeader() {
                   }}
                   className="rounded-2xl px-5 py-3.5 text-base font-black transition-all"
                   style={{
-                    color: isActive ? "#db2777" : "#0044cc",
+                    color: isActive ? "#db2777" : "#1a05a2",
                     background: isActive ? "rgba(219, 39, 119, 0.08)" : "transparent",
                   }}
                 >
@@ -240,7 +240,7 @@ export function SiteHeader() {
               href="tel:+919370237633"
               className="mt-3 flex items-center justify-center gap-2 rounded-2xl py-4 text-base font-black text-white shadow-lg"
               style={{
-                background: "linear-gradient(135deg, #db2777 0%, #0044cc 100%)",
+                background: "linear-gradient(135deg, #db2777 0%, #1a05a2 100%)",
               }}
             >
               <span>🏛️</span>

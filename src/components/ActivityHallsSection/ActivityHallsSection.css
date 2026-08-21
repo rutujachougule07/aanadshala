@@ -22,7 +22,7 @@
 }
 
 .ah-header-subtitle {
-  color: #002277;
+  color: #1a05a2;
   font-size: 1.5rem;
   font-weight: 800;
   display: flex;
@@ -38,14 +38,16 @@
   display: block;
   width: 40px;
   height: 2px;
-  background-color: #002277;
+  background-color: #1a05a2;
 }
 
 .ah-header-title {
-  color: #0044cc;
-  font-size: clamp(26px, 4vw, 42px);
-  font-weight: 900;
-  line-height: 1.25;
+  font-family: var(--font-display) !important;
+  color: #1a05a2 !important;
+  font-size: clamp(30px, 4.5vw, 54px) !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.015em !important;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -54,7 +56,7 @@
 }
 
 .ah-header-title span.blue-text {
-  color: #0044cc;
+  color: #1a05a2;
   font-size: inherit;
 }
 
@@ -148,30 +150,37 @@
   .ah-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .ah-badge-left,
   .ah-badge-right {
     display: none;
   }
 }
+
 @media (max-width: 640px) {
   .ah-grid {
     grid-template-columns: 1fr;
   }
+
   .ah-header {
     margin-bottom: 2.5rem;
   }
+
   .ah-header-subtitle {
     font-size: 1.15rem;
     gap: 0.5rem;
   }
+
   .ah-header-subtitle::before,
   .ah-header-subtitle::after {
     width: 20px;
   }
+
   .ah-header-desc {
     font-size: 0.95rem;
     gap: 0.5rem;
   }
+
   .ah-header-desc::before,
   .ah-header-desc::after {
     display: none;
@@ -220,11 +229,13 @@
 }
 
 .theme-blue .ah-card-num {
-  background: #0044cc;
+  background: #1a05a2;
 }
+
 .theme-purple .ah-card-num {
   background: #7c3aed;
 }
+
 .theme-pink .ah-card-num {
   background: #db2777;
 }
@@ -283,10 +294,12 @@
   background: #eff6ff;
   color: #2563eb;
 }
+
 .theme-purple .ah-card-icon {
   background: #f5f3ff;
   color: #7c3aed;
 }
+
 .theme-pink .ah-card-icon {
   background: #fdf2f8;
   color: #db2777;
@@ -448,6 +461,7 @@
     transform: scale(0.9) translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: scale(1) translateY(0);
     opacity: 1;
@@ -542,14 +556,17 @@
 .ah-modal-right-content::-webkit-scrollbar {
   width: 6px;
 }
+
 .ah-modal-right-content::-webkit-scrollbar-track {
   background: #f1f5f9;
   border-radius: 4px;
 }
+
 .ah-modal-right-content::-webkit-scrollbar-thumb {
   background: #f472b6;
   border-radius: 4px;
 }
+
 .ah-modal-right-content::-webkit-scrollbar-thumb:hover {
   background: #db2777;
 }

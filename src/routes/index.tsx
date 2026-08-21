@@ -731,7 +731,7 @@ function IndexComponent() {
 
           {/* BRAND HEADER (SPACIOUS, PROMINENT & BOLD) */}
           <div className="animate-fade-up text-center max-w-4xl mx-auto relative z-10 px-2 shrink-0 pt-2 pb-1">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-xl border border-rose-200 text-[#0044cc] font-black text-xs sm:text-sm md:text-base shadow-sm tracking-wide">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/95 backdrop-blur-xl border border-rose-200 text-[#1a05a2] font-black text-xs sm:text-sm md:text-base shadow-sm tracking-wide">
               <span className="inline-block size-2.5 rounded-full bg-[#db2777] animate-ping" />
               <span>
                 ✨{" "}
@@ -748,10 +748,10 @@ function IndexComponent() {
                 )}
               </span>
             </div>
-            <h1 className="font-sans font-black text-xl sm:text-3xl lg:text-4xl tracking-tight text-[#0044cc] leading-tight my-2 max-w-3xl mx-auto drop-shadow-sm">
+            <h1 className="font-sans font-black text-xl sm:text-3xl lg:text-4xl tracking-tight text-[#1a05a2] leading-tight my-2 max-w-3xl mx-auto drop-shadow-sm">
               {isEn ? (
                 <>
-                  <span className="block text-[#0044cc]">
+                  <span className="block text-[#1a05a2]">
                     Preetam Senior Citizen{" "}
                     <span className="text-[#db2777] font-black drop-shadow-xs">Anandshala</span>
                   </span>
@@ -759,7 +759,7 @@ function IndexComponent() {
                 </>
               ) : (
                 <>
-                  <span className="block text-[#0044cc]">
+                  <span className="block text-[#1a05a2]">
                     प्रीतम ज्येष्ठ नागरिक{" "}
                     <span className="text-[#db2777] font-black drop-shadow-xs">आनंदशाळा</span>
                   </span>

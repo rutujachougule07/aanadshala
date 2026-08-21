@@ -270,20 +270,20 @@ const ActivityHallsSection = () => {
   const activeHalls: HallDetail[] =
     store.siteData.activityHalls && store.siteData.activityHalls.length > 0
       ? store.siteData.activityHalls.map((h, idx) => {
-          const fallback = hallsData[idx];
-          return {
-            id: String(idx + 1).padStart(2, "0"),
-            titleMr: h.title,
-            titleEn: fallback ? fallback.titleEn : h.title,
-            categoryMr: h.category,
-            categoryEn: fallback ? fallback.categoryEn : h.category,
-            descMr: h.desc,
-            descEn: fallback ? fallback.descEn : h.desc,
-            icon: fallback?.icon || <Sparkles size={28} />,
-            image: h.imageUrl || fallback?.image || "/images/slider1.JPG",
-            theme: fallback?.theme || (idx % 2 === 0 ? "theme-pink" : "theme-blue"),
-          };
-        })
+        const fallback = hallsData[idx];
+        return {
+          id: String(idx + 1).padStart(2, "0"),
+          titleMr: h.title,
+          titleEn: fallback ? fallback.titleEn : h.title,
+          categoryMr: h.category,
+          categoryEn: fallback ? fallback.categoryEn : h.category,
+          descMr: h.desc,
+          descEn: fallback ? fallback.descEn : h.desc,
+          icon: fallback?.icon || <Sparkles size={28} />,
+          image: h.imageUrl || fallback?.image || "/images/slider1.JPG",
+          theme: fallback?.theme || (idx % 2 === 0 ? "theme-pink" : "theme-blue"),
+        };
+      })
       : hallsData;
 
   return (
@@ -315,8 +315,8 @@ const ActivityHallsSection = () => {
             )}{" "}
             <span style={{ color: "#db2777" }}>❖</span>
           </div>
-          <h2 className="text-[32px] sm:text-[44px] md:text-[52px] font-black text-[#0044cc] leading-snug tracking-tight flex items-center justify-center gap-3 sm:gap-4 my-2">
-            <span className="hidden sm:inline-block w-10 sm:w-16 h-0.75 bg-[#0044cc] rounded-full shrink-0" />
+          <h2 className="text-[32px] sm:text-[44px] md:text-[52px] font-black text-[#1a05a2] leading-snug tracking-tight flex items-center justify-center gap-3 sm:gap-4 my-2">
+            <span className="hidden sm:inline-block w-10 sm:w-16 h-0.75 bg-[#1a05a2] rounded-full shrink-0" />
             <span>
               {isEn ? (
                 <>
@@ -328,7 +328,7 @@ const ActivityHallsSection = () => {
                 </>
               )}
             </span>
-            <span className="hidden sm:inline-block w-10 sm:w-16 h-0.75 bg-[#0044cc] rounded-full shrink-0" />
+            <span className="hidden sm:inline-block w-10 sm:w-16 h-0.75 bg-[#1a05a2] rounded-full shrink-0" />
           </h2>
           <div className="ah-header-desc">
             <p className="ah-header-desc-text">

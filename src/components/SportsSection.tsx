@@ -25,10 +25,10 @@ const sportsMilestonesData = [
     id: 1,
     stepNoMr: "१",
     stepNoEn: "1",
-    titleMr: "१० वर्षांचे कौटुंबिक सभासदत्व (Family Membership)",
+    titleMr: "१० वर्षांचे कौटुंबिक सभासदत्व",
     titleEn: "10 Years Family Membership",
     descMr:
-      "कुटुंबातील ४ सदस्यांसाठी सलग १० वर्षे स्पोर्ट्स क्लबच्या\nसर्व क्रीडा व फिटनेस सुविधांचा अमर्याद आनंद.",
+      "कुटुंबातील ४ सदस्यांसाठी सलग १० वर्षे सर्व क्रीडा व फिटनेस सुविधांचा विनामूल्य अमर्याद आनंद.",
     descEn: "10 Years unlimited access for 4 family members across all sports & club amenities.",
     color: "#db2777",
     bgColor: "#FDE8F3",
@@ -41,14 +41,14 @@ const sportsMilestonesData = [
     id: 2,
     stepNoMr: "२",
     stepNoEn: "2",
-    titleMr: "२,२०० चौ. फूट भव्य प्रिमियम जिम (Premium Gym)",
+    titleMr: "२,२०० चौ. फूट भव्य जीम",
     titleEn: "2,200 sq.ft. Premium Gym",
     descMr:
-      "अत्याधुनिक व्यायाम साहित्याने सुसज्ज कार्डिओ झोन,\nवेट ट्रेनिंग आणि पर्सनल ट्रेनर्सचे उत्तम मार्गदर्शन.",
-    descEn: "State-of-the-art machines, cardio zone and functional training areas.",
-    color: "#db2777",
-    bgColor: "#FDE8F3",
-    borderColor: "#FCCEE4",
+      "अत्याधुनिक व्यायाम साहित्याने सुसज्ज कार्डिओ झोन, वेट ट्रेनिंग व वैयक्तिक ट्रेनर्सचे मार्गदर्शन.",
+    descEn: "State-of-the-art machines, cardio zone and functional training areas with personal trainers.",
+    color: "#1D4ED8",
+    bgColor: "#EFF6FF",
+    borderColor: "#BFDBFE",
     nodeIcon: Dumbbell,
     cardIcon: Dumbbell,
     side: "right",
@@ -57,14 +57,14 @@ const sportsMilestonesData = [
     id: 3,
     stepNoMr: "३",
     stepNoEn: "3",
-    titleMr: "ऑलिंपिक स्टँडर्ड स्विमिंग पूल (Olympic Swimming Pool)",
+    titleMr: "ऑलिंपिक मानकांचा स्विमिंग पूल",
     titleEn: "Olympic Size Swimming Pool",
     descMr:
-      "संपूर्ण शरीराचा व्यायाम, फिटनेस, जलतरण सराव आणि\nतणावमुक्तीसाठी सुरक्षित व शुद्ध पाण्याचा पूल.",
-    descEn: "Designed for full-body conditioning and stress relief pool.",
-    color: "#db2777",
-    bgColor: "#FDE8F3",
-    borderColor: "#FCCEE4",
+      "संपूर्ण शरीराचा व्यायाम, जलतरण सराव आणि तणावमुक्तीसाठी ऑलिंपिक मानकांचा शुद्ध पाण्याचा तलाव.",
+    descEn: "Designed for full-body conditioning, water aerobics and stress relief in clean filtered water.",
+    color: "#0284C7",
+    bgColor: "#F0F9FF",
+    borderColor: "#BAE6FD",
     nodeIcon: Waves,
     cardIcon: Waves,
     side: "left",
@@ -73,13 +73,14 @@ const sportsMilestonesData = [
     id: 4,
     stepNoMr: "४",
     stepNoEn: "4",
-    titleMr: "जागतिक दर्जाचे इनडोअर क्रीडा संकुल (Sports Courts)",
+    titleMr: "इनडोअर क्रीडा संकुल",
     titleEn: "Professional Sports Courts",
-    descMr: "आंतरराष्ट्रीय मानकांचे इनडोअर बॅडमिंटन,\nस्क्वॅश कोर्ट्स आणि टेबल टेनिस टेबल्स.",
-    descEn: "International standard Badminton, Squash Courts and Table Tennis tables.",
-    color: "#db2777",
-    bgColor: "#FDE8F3",
-    borderColor: "#FCCEE4",
+    descMr:
+      "आंतरराष्ट्रीय मानकांचे इनडोअर बॅडमिंटन, पिकलबॉल, स्क्वॅश कोर्ट्स, टेबल टेनिस व स्नूकर टेबल्स.",
+    descEn: "International standard wooden Badminton, Pickleball, Squash Courts, Table Tennis & Snooker tables.",
+    color: "#059669",
+    bgColor: "#ECFDF5",
+    borderColor: "#A7F3D0",
     nodeIcon: Trophy,
     cardIcon: Trophy,
     side: "right",
@@ -88,13 +89,14 @@ const sportsMilestonesData = [
     id: 5,
     stepNoMr: "५",
     stepNoEn: "5",
-    titleMr: "निसर्गरम्य आउटडोअर फिटनेस झोन",
+    titleMr: "आउटडोअर फिटनेस झोन",
     titleEn: "Outdoor Fitness Zone",
-    descMr: "मोकळ्या हवेतील जॉगिंग ट्रॅक, ओपन एअर जिम आणि\nफंक्शनल फिटनेस गार्डनची प्रसन्न सुविधा.",
-    descEn: "Jogging Track & Fitness Garden with functional training rigs.",
-    color: "#db2777",
-    bgColor: "#FDE8F3",
-    borderColor: "#FCCEE4",
+    descMr:
+      "मोकळ्या हवेतील जॉगिंग ट्रॅक, ओपन एअर जीम, स्पोर्ट्स टर्फ आणि फिटनेस गार्डनची प्रसन्न सोय.",
+    descEn: "Jogging Track, sports turf ground & Fitness Garden with open air functional training rigs.",
+    color: "#7C3AED",
+    bgColor: "#F5F3FF",
+    borderColor: "#DDD6FE",
     nodeIcon: Footprints,
     cardIcon: Footprints,
     side: "left",
@@ -103,14 +105,14 @@ const sportsMilestonesData = [
     id: 6,
     stepNoMr: "६",
     stepNoEn: "6",
-    titleMr: "विशेष व्ही.आय.पी. क्लब प्राधान्य (VIP Priority Access)",
+    titleMr: "विशेष व्ही.आय.पी. क्लब प्राधान्य",
     titleEn: "Priority Club Access",
     descMr:
-      "क्लबातर्फे आयोजित सर्व क्रीडा स्पर्धा, आरोग्य कार्यशाळा\nआणि सांस्कृतिक उपक्रमांमध्ये विशेष प्राधान्य प्रवेश.",
-    descEn: "Priority access for all club events, tournaments and workshops.",
-    color: "#db2777",
-    bgColor: "#FDE8F3",
-    borderColor: "#FCCEE4",
+      "सर्व क्रीडा स्पर्धा, आरोग्य कार्यशाळा, सांस्कृतिक कार्यक्रम व क्लब उपक्रमांमध्ये विशेष प्राधान्य.",
+    descEn: "Priority access for all club tournaments, health workshops, cultural events & networking programs.",
+    color: "#D97706",
+    bgColor: "#FEF3C7",
+    borderColor: "#FDE68A",
     nodeIcon: Star,
     cardIcon: Star,
     side: "right",
@@ -457,7 +459,7 @@ export default function SportsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.5 }}
               viewport={{ once: true }}
-              className="journey-exact-title text-[26px] sm:text-[36px] md:text-[42px] font-black text-[#0044cc] leading-snug tracking-tight"
+              className="journey-exact-title text-[26px] sm:text-[36px] md:text-[42px] font-black text-[#1a05a2] leading-snug tracking-tight"
             >
               {isEn ? "Sports Club Key Highlights" : "स्पोर्ट्स क्लबची ६ प्रमुख वैशिष्ट्ये"}
             </motion.h2>
@@ -525,7 +527,7 @@ export default function SportsSection() {
                             <h3 className="card-title text-xl sm:text-2xl font-black text-[#db2777] leading-snug">
                               {item.id}. <HighlightText text={title} />
                             </h3>
-                            <p className="card-desc text-sm sm:text-base text-slate-700 font-extrabold leading-relaxed">
+                            <p className="card-desc">
                               <HighlightText text={description} />
                             </p>
                           </div>
@@ -593,7 +595,7 @@ export default function SportsSection() {
                             <h3 className="card-title text-xl sm:text-2xl font-black text-[#db2777] leading-snug">
                               {item.id}. <HighlightText text={title} />
                             </h3>
-                            <p className="card-desc text-sm sm:text-base text-slate-700 font-extrabold leading-relaxed">
+                            <p className="card-desc">
                               <HighlightText text={description} />
                             </p>
                           </div>
@@ -621,10 +623,10 @@ export default function SportsSection() {
            ══════════════════════════════════════════════════════════════ */}
         <section className="sp-facilities-sec">
           <div className="sp-sec-header text-center">
-            <div className="sp-sec-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#0044cc] font-black text-xs sm:text-sm mb-3 shadow-xs">
+            <div className="sp-sec-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#1a05a2] font-black text-xs sm:text-sm mb-3 shadow-xs">
               {isEn ? "✨ Premium Amenities" : "✨ प्रिमियम सोयी सुविधा"}
             </div>
-            <h2 className="typo-heading-main text-[#0044cc] leading-tight text-center my-2">
+            <h2 className="typo-heading-main text-[#1a05a2] leading-tight text-center my-2">
               {isEn ? "Our Facilities" : "आमच्या सुविधा"}
             </h2>
           </div>
@@ -672,7 +674,7 @@ export default function SportsSection() {
 
                     <h3 className="ah-card-title">{isEn ? item.titleEn : item.titleMr}</h3>
 
-                    <p className="text-xs text-slate-500 font-extrabold mb-1">
+                    <p className="text-sm sm:text-base text-slate-700 font-extrabold leading-relaxed mb-1">
                       {isEn ? item.subEn : item.subMr}
                     </p>
                   </div>

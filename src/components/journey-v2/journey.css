@@ -54,14 +54,21 @@
 }
 
 .journey-exact-title {
-  font-weight: 900;
+  font-family: var(--font-display) !important;
+  font-size: clamp(30px, 4.5vw, 54px) !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.015em !important;
+  color: #1a05a2 !important;
   margin-top: 10px;
-  letter-spacing: -0.3px;
 }
 
 .journey-exact-subtitle {
   margin-top: 8px;
-  font-weight: 700;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #475569 !important;
+  line-height: 1.6 !important;
 }
 
 .journey-ornament {
@@ -220,10 +227,11 @@
 }
 
 .card-desc {
-  font-size: 14px !important;
+  font-family: var(--font-body) !important;
+  font-size: 16px !important;
   color: #64748b !important;
   margin-top: 10px;
-  line-height: 1.6 !important;
+  line-height: 1.65 !important;
   font-weight: 500 !important;
 }
 
@@ -302,7 +310,7 @@
   font-size: 38px;
   font-family: Georgia, serif;
   font-weight: 900;
-  color: #0044cc;
+  color: #1a05a2;
   line-height: 1;
   user-select: none;
 }
@@ -320,7 +328,7 @@
 .quote-text {
   font-size: 19px;
   font-weight: 800;
-  color: #0044cc;
+  color: #1a05a2;
   line-height: 1.5;
   text-align: center;
   position: relative;

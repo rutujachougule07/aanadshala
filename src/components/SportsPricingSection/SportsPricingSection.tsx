@@ -258,7 +258,7 @@ const SportsPricingSection = () => {
       <section className="ps-exact-table-section" id="sports-pricing">
         {/* ── HEADER BLOCK (MATCHING ANANDSHALA RATE CARD) ── */}
         <div className="ps-exact-header text-center mb-6">
-          <h2 className="typo-heading-main text-[#0044cc] leading-tight text-center my-2">
+          <h2 className="typo-heading-main text-[#1a05a2] leading-tight text-center my-2">
             {isEn ? (
               <>
                 Preetam Sports & Fitness Club{" "}
