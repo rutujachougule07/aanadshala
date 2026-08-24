@@ -754,10 +754,10 @@ export function AboutSangli() {
         {/* ── GETTING THERE / TRANSPORT SECTION ── */}
         <div className="mt-20">
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 font-extrabold text-xs uppercase tracking-wider mb-3">
-              <Navigation size={14} /> {isEn ? "GETTING THERE" : "कसे पोहोचावे"}
+            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#db2777] font-black text-xs sm:text-sm mb-3 shadow-xs">
+              <Navigation size={14} className="text-[#db2777]" /> {isEn ? "GETTING THERE" : "कसे पोहोचावे"}
             </span>
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2]">
+            <h3 className="text-2xl sm:text-3xl lg:text-[37px] font-black text-[#1A05A2]">
               {isEn ? (
                 <>
                   How to Reach Sangli &amp; <span className="text-[#db2777]">Anandshala</span>

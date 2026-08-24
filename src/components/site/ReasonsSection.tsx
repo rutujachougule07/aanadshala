@@ -281,10 +281,10 @@ export function ReasonsSection() {
       <div className="container-page relative z-10 max-w-7xl mx-auto">
         {/* ── Section header ── */}
         <Reveal className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#CC0D50] font-extrabold bg-[#CC0D50]/10 px-4 py-1.5 rounded-full border border-[#CC0D50]/20">
+          <span className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.25em] text-[#db2777] font-black bg-pink-100/90 px-4 py-1.5 rounded-full border border-pink-300/80 shadow-xs">
             ✦ {isEn ? "Special Reasons" : "विशेष कारणे"} ✦
           </span>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl font-black text-[#1A05A2] dark:text-white tracking-tight drop-shadow-sm">
+          <h2 className="mt-4 font-display text-2xl sm:text-[37px] md:text-[37px] font-black text-[#1A05A2] dark:text-white tracking-tight drop-shadow-sm">
             {isEn
               ? "Why Join Anandshala? (23 Special Reasons)"
               : "आनंदशाळेतच प्रवेश का घ्यायचा? (२३ विशेष कारणे)"}

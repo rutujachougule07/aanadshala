@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
-import { useAdminStore, initialSportsRateItems } from "@/lib/admin-store";
+import {
+  useAdminStore,
+  initialSportsRateItems,
+  initialSportsMembershipTiers,
+  SportsMembershipTier,
+} from "@/lib/admin-store";
 import { useLanguage } from "@/lib/use-language";
 import {
   CalendarDays,
@@ -261,13 +266,11 @@ const SportsPricingSection = () => {
           <h2 className="typo-heading-main text-[#1a05a2] leading-tight text-center my-2">
             {isEn ? (
               <>
-                Preetam Sports & Fitness Club{" "}
-                <span className="text-[#db2777]">Official Rate Chart</span>
+                Preetam Sports & Fitness Club Official Rate Chart
               </>
             ) : (
               <>
-                प्रीतम स्पोर्ट्स अँड फिटनेस क्लब{" "}
-                <span className="text-[#db2777]">अधिकृत दरपत्रक</span>
+                प्रीतम स्पोर्ट्स अँड फिटनेस क्लब अधिकृत दरपत्रक
               </>
             )}
           </h2>
@@ -303,7 +306,7 @@ const SportsPricingSection = () => {
                 store.sportsMembershipTiers && store.sportsMembershipTiers.length > 0
                   ? store.sportsMembershipTiers
                   : initialSportsMembershipTiers
-              ).map((tier, idx) => (
+              ).map((tier: SportsMembershipTier, idx: number) => (
                 <tr key={tier.id || idx} className="ps-table-row">
                   <td className="td-title-cell text-left py-4 px-5 font-black text-slate-900 text-base">
                     <div className="flex items-center gap-3">
@@ -339,7 +342,7 @@ const SportsPricingSection = () => {
             store.sportsMembershipTiers && store.sportsMembershipTiers.length > 0
               ? store.sportsMembershipTiers
               : initialSportsMembershipTiers
-          ).map((tier, idx) => (
+          ).map((tier: SportsMembershipTier, idx: number) => (
             <div key={tier.id || idx} className="ps-mobile-item-card">
               <div className="mobile-card-header">
                 <span className="mobile-id-badge">{formatNum((idx + 1).toString())}</span>

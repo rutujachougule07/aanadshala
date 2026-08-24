@@ -2107,6 +2107,40 @@ export function useAdminStore() {
       });
       unsubscribes.push(inquiriesUnsub);
 
+      const sportsPricingUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.sportsPricing), (snapshot) => {
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const remoteTs = snapshot.data()?.updatedAt || 0;
+          const localTs = getStoredTimestamp(STORAGE_KEYS.sportsPricing);
+          if (localTs > remoteTs) return;
+
+          const val = sanitizeBlobUrls(snapshot.data().data);
+          if (Array.isArray(val) && val.length > 0) {
+            setSportsPricingItemsState(val);
+            try {
+              localStorage.setItem(STORAGE_KEYS.sportsPricing, JSON.stringify(val));
+            } catch (e) {}
+          }
+        }
+      });
+      unsubscribes.push(sportsPricingUnsub);
+
+      const sportsMembershipUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.sportsMembership), (snapshot) => {
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
+          const remoteTs = snapshot.data()?.updatedAt || 0;
+          const localTs = getStoredTimestamp(STORAGE_KEYS.sportsMembership);
+          if (localTs > remoteTs) return;
+
+          const val = sanitizeBlobUrls(snapshot.data().data);
+          if (Array.isArray(val) && val.length > 0) {
+            setSportsMembershipTiersState(val);
+            try {
+              localStorage.setItem(STORAGE_KEYS.sportsMembership, JSON.stringify(val));
+            } catch (e) {}
+          }
+        }
+      });
+      unsubscribes.push(sportsMembershipUnsub);
+
       const brochuresUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.brochures), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
           const remoteTs = snapshot.data()?.updatedAt || 0;
@@ -2833,11 +2867,17 @@ export function useAdminStore() {
   const updateSportsPricingItems = (newItems: RateItem[]) => {
     setSportsPricingItemsState(newItems);
     setStoredData(STORAGE_KEYS.sportsPricing, newItems);
+    try {
+      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsPricing), { data: newItems, updatedAt: Date.now() }, { merge: true }).catch(() => {});
+    } catch {}
   };
 
   const updateSportsMembershipTiers = (newTiers: SportsMembershipTier[]) => {
     setSportsMembershipTiersState(newTiers);
     setStoredData(STORAGE_KEYS.sportsMembership, newTiers);
+    try {
+      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsMembership), { data: newTiers, updatedAt: Date.now() }, { merge: true }).catch(() => {});
+    } catch {}
   };
 
   return {

@@ -143,13 +143,13 @@ function Contact() {
         </div>
 
         {/* Header Badge */}
-        <span className="relative z-10 inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white/90 backdrop-blur-md px-5 py-2 text-xs font-black tracking-widest text-[#db2777] shadow-sm uppercase mb-5">
+        <span className="relative z-10 inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white/90 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-black tracking-widest text-[#db2777] shadow-sm uppercase mb-5">
           <Phone size={15} className="text-[#db2777] animate-pulse" />
           <span>{isEn ? "GET IN TOUCH • CONTACT US" : "संपर्क साधा • आजच भेट द्या"}</span>
         </span>
 
         {/* Header Title */}
-        <h1 className="relative z-10 text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2] tracking-tight mb-4 drop-shadow-xs">
+        <h1 className="relative z-10 text-2xl sm:text-3xl lg:text-[37px] font-black text-[#1A05A2] tracking-tight mb-4 drop-shadow-xs">
           {isEn ? (
             <>
               Contact Preetam <span className="text-[#db2777]">Anandshala</span>

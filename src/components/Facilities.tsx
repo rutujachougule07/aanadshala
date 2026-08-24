@@ -56,11 +56,11 @@ export default function Facilities() {
           transition={{ duration: 0.7 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <span className="inline-block px-5 py-2 rounded-full bg-pink-100 text-pink-400 font-semibold">
+          <span className="inline-block px-5 py-2 rounded-full bg-pink-100 text-pink-400 font-semibold text-xs sm:text-sm">
             आमच्या सुविधा
           </span>
 
-          <h2 className="text-5xl font-black mt-6 leading-tight">
+          <h2 className="text-3xl sm:text-[37px] lg:text-[37px] font-black mt-6 leading-tight">
             ज्येष्ठांसाठी
             <span className="bg-linear-to-r from-pink-400 to-blue-600 bg-clip-text text-transparent">
               {" "}
@@ -156,7 +156,7 @@ export default function Facilities() {
                 ❤️ प्रेम • सेवा • सन्मान
               </span>
 
-              <h2 className="text-4xl lg:text-5xl font-black text-white mt-6 leading-tight">
+              <h2 className="text-2xl sm:text-[37px] lg:text-[37px] font-black text-white mt-6 leading-tight">
                 प्रत्येक ज्येष्ठासाठी
                 <br />
                 आनंदी आणि सुरक्षित जीवन

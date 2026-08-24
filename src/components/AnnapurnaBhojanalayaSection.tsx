@@ -202,18 +202,10 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
             <span className="text-amber-500 text-base">🌸</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2] tracking-tight leading-tight max-w-4xl mx-auto">
-            {isEn ? (
-              <>
-                Annapurna Food Court{" "}
-                <span className="text-[#db2777] font-black">Weekly Menu &amp; Rate Chart</span>
-              </>
-            ) : (
-              <>
-                प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span>{" "}
-                <span className="text-[#1A05A2]">अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक</span>
-              </>
-            )}
+          <h2 className="text-2xl sm:text-3xl lg:text-[37px] font-black text-[#1A05A2] tracking-tight leading-tight max-w-4xl mx-auto">
+            {isEn
+              ? "Annapurna Food Court Weekly Menu & Rate Chart"
+              : "प्रीतम ज्येष्ठ नागरिक आनंदशाळा अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक"}
           </h2>
 
           <div className="mt-3 text-slate-700 font-extrabold text-sm sm:text-lg max-w-3xl mx-auto flex flex-col items-center justify-center gap-1">
@@ -366,11 +358,10 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-white p-3 rounded-2xl shadow-sm border border-rose-100">
           <button
             onClick={() => setSelectedDay("ALL")}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${
-              selectedDay === "ALL"
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${selectedDay === "ALL"
                 ? "bg-[#810B38] text-white shadow-md scale-105"
                 : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
-            }`}
+              }`}
           >
             🗓️ {isEn ? "Full 7 Days Weekly Timetable" : "संपूर्ण ७ दिवसांचे वेळापत्रक"}
           </button>
@@ -381,13 +372,12 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
               <button
                 key={item.day}
                 onClick={() => setSelectedDay(item.day)}
-                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${
-                  selectedDay === item.day
+                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${selectedDay === item.day
                     ? "bg-[#810B38] text-white shadow-md scale-105"
                     : isToday
                       ? "bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200"
                       : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
-                }`}
+                  }`}
               >
                 <span>{dayText}</span>
                 {isToday && (
@@ -451,13 +441,12 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                   return (
                     <tr
                       key={row.srNo}
-                      className={`transition-colors ${
-                        isToday
+                      className={`transition-colors ${isToday
                           ? "bg-amber-50/90 font-bold border-l-4 border-l-amber-500 hover:bg-amber-100/80"
                           : row.srNo % 2 === 0
                             ? "bg-slate-50/50 hover:bg-rose-50/40"
                             : "bg-white hover:bg-rose-50/40"
-                      }`}
+                        }`}
                     >
                       <td className="py-3.5 px-3 font-black text-slate-500 border-r border-slate-200">
                         {formatNum(row.srNo)}

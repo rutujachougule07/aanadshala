@@ -31,14 +31,14 @@ export default function ScheduleSection({ type = "anandshala" }: ScheduleSection
         {/* HEADER AREA */}
         <div className="flex flex-col items-center text-center mb-10">
           <div className="mb-3">
-            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full font-black text-xs sm:text-sm shadow-sm border bg-indigo-50 border-indigo-200 text-[#1A05A2]">
+            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full font-black text-xs sm:text-sm shadow-sm border bg-pink-100/90 border-pink-300/80 text-[#db2777]">
               <span>
                 🏋️‍♂️ {isEn ? "Preetam Sports & Fitness Club" : "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब"}
               </span>
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight drop-shadow-md flex items-center justify-center flex-wrap gap-2 md:gap-3 py-1.5 bg-linear-to-r from-[#1A05A2] via-purple-700 to-[#db2777] bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-[36px] md:text-[37px] font-black tracking-tight drop-shadow-md flex items-center justify-center flex-wrap gap-2 md:gap-3 py-1.5 bg-linear-to-r from-[#1A05A2] via-purple-700 to-[#db2777] bg-clip-text text-transparent">
             <span className="text-amber-500 opacity-90 text-2xl sm:text-3xl">✨</span>
             <span>
               {isEn
@@ -54,7 +54,7 @@ export default function ScheduleSection({ type = "anandshala" }: ScheduleSection
               {isEn
                 ? "Complete experience of fitness, sports and wellness... Modern gym, swimming pool & all sports facilities."
                 : config.subtitle ||
-                  "फिटनेस, क्रीडा आणि आरोग्याचा परिपूर्ण अनुभव... आधुनिक जिम, स्विमिंग पुल व सर्व खेळांची सोय."}
+                "फिटनेस, क्रीडा आणि आरोग्याचा परिपूर्ण अनुभव... आधुनिक जिम, स्विमिंग पुल व सर्व खेळांची सोय."}
             </span>
             <span className="text-pink-600 text-base sm:text-xl">💖</span>
           </p>

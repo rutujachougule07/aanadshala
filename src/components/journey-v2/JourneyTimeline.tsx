@@ -190,7 +190,7 @@ export default function JourneyTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
             viewport={{ once: true }}
-            className="journey-exact-title text-[26px] sm:text-[36px] md:text-[42px] font-black text-[#1a05a2] leading-snug tracking-tight"
+            className="journey-exact-title text-[26px] sm:text-[36px] md:text-[37px] font-black text-[#1a05a2] leading-snug tracking-tight"
           >
             {isEn ? "Project Journey & Highlights" : "प्रकल्पाची वाटचाल व वैशिष्ट्ये"}
           </motion.h2>

@@ -42,12 +42,10 @@
 }
 
 .ah-header-title {
-  font-family: var(--font-display) !important;
-  color: #1a05a2 !important;
-  font-size: clamp(30px, 4.5vw, 54px) !important;
-  font-weight: 700 !important;
-  line-height: 1.15 !important;
-  letter-spacing: -0.015em !important;
+  color: #1a05a2;
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 900;
+  line-height: 1.25;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -83,12 +81,7 @@
 
 .ah-header-desc::before,
 .ah-header-desc::after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 2px;
-  background-color: #002277;
-  flex-shrink: 0;
+  display: none;
 }
 
 .ah-badge-left {

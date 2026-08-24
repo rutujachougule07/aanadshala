@@ -437,17 +437,17 @@ export default function SportsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="journey-exact-badge inline-flex items-center gap-2 px-5 py-2 rounded-full bg-rose-50 border border-rose-200 text-[#810B38] font-black text-sm sm:text-base md:text-lg mb-3 shadow-xs"
+              className="journey-exact-badge inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#db2777] font-black text-xs sm:text-sm mb-3 shadow-xs"
             >
               <span>🏆</span>
               <span>
                 {isEn ? (
                   <>
-                    Preetam <span className="text-[#db2777]">Sports Club</span> — Key Highlights
+                    Preetam Sports Club — Key Highlights
                   </>
                 ) : (
                   <>
-                    प्रीतम <span className="text-[#db2777]">स्पोर्ट्स क्लब</span> — ६ प्रमुख वैशिष्ट्ये
+                    प्रीतम स्पोर्ट्स क्लब — ६ प्रमुख वैशिष्ट्ये
                   </>
                 )}
               </span>
@@ -459,7 +459,7 @@ export default function SportsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.5 }}
               viewport={{ once: true }}
-              className="journey-exact-title text-[26px] sm:text-[36px] md:text-[42px] font-black text-[#1a05a2] leading-snug tracking-tight"
+              className="journey-exact-title text-[26px] sm:text-[36px] md:text-[37px] font-black text-[#1a05a2] leading-snug tracking-tight"
             >
               {isEn ? "Sports Club Key Highlights" : "स्पोर्ट्स क्लबची ६ प्रमुख वैशिष्ट्ये"}
             </motion.h2>
@@ -623,7 +623,7 @@ export default function SportsSection() {
            ══════════════════════════════════════════════════════════════ */}
         <section className="sp-facilities-sec">
           <div className="sp-sec-header text-center">
-            <div className="sp-sec-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#1a05a2] font-black text-xs sm:text-sm mb-3 shadow-xs">
+            <div className="sp-sec-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#db2777] font-black text-xs sm:text-sm mb-3 shadow-xs">
               {isEn ? "✨ Premium Amenities" : "✨ प्रिमियम सोयी सुविधा"}
             </div>
             <h2 className="typo-heading-main text-[#1a05a2] leading-tight text-center my-2">
@@ -674,7 +674,7 @@ export default function SportsSection() {
 
                     <h3 className="ah-card-title">{isEn ? item.titleEn : item.titleMr}</h3>
 
-                    <p className="text-sm sm:text-base text-slate-700 font-extrabold leading-relaxed mb-1">
+                    <p className="text-[13px] text-slate-700 font-semibold leading-relaxed mb-1">
                       {isEn ? item.subEn : item.subMr}
                     </p>
                   </div>

@@ -70,11 +70,11 @@ export default function About() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <span className="inline-block px-5 py-2 rounded-full bg-pink-100 text-pink-400 font-semibold">
+            <span className="inline-block px-5 py-2 rounded-full bg-pink-100 text-pink-400 font-semibold text-xs sm:text-sm">
               आमच्याबद्दल
             </span>
 
-            <h2 className="text-5xl font-black text-gray-900 mt-6 leading-tight">
+            <h2 className="text-3xl sm:text-[37px] lg:text-[37px] font-black text-gray-900 mt-6 leading-tight">
               प्रेम,{" "}
               <span className="bg-linear-to-r from-pink-400 to-blue-600 bg-clip-text text-transparent">
                 सन्मान

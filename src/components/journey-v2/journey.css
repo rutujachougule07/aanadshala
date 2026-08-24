@@ -54,13 +54,9 @@
 }
 
 .journey-exact-title {
-  font-family: var(--font-display) !important;
-  font-size: clamp(30px, 4.5vw, 54px) !important;
-  font-weight: 700 !important;
-  line-height: 1.15 !important;
-  letter-spacing: -0.015em !important;
-  color: #1a05a2 !important;
+  font-weight: 900;
   margin-top: 10px;
+  letter-spacing: -0.3px;
 }
 
 .journey-exact-subtitle {

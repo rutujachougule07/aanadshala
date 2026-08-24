@@ -748,7 +748,7 @@ function IndexComponent() {
                 )}
               </span>
             </div>
-            <h1 className="font-sans font-black text-xl sm:text-3xl lg:text-4xl tracking-tight text-[#1a05a2] leading-tight my-2 max-w-3xl mx-auto drop-shadow-sm">
+            <h1 className="font-sans font-black text-xl sm:text-3xl lg:text-[37px] tracking-tight text-[#1a05a2] leading-tight my-2 max-w-3xl mx-auto drop-shadow-sm">
               {isEn ? (
                 <>
                   <span className="block text-[#1a05a2]">

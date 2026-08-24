@@ -96,7 +96,7 @@ export default function TestimonialsSection({
                     : "सर्व सदस्यांसाठी विनामूल्य अतिरिक्त सोयी"}
                 </span>
               </div>
-              <h3 className="font-display text-xl sm:text-2xl lg:text-3xl font-black text-[#1A05A2] tracking-tight">
+              <h3 className="font-display text-xl sm:text-2xl lg:text-[37px] font-black text-[#1A05A2] tracking-tight">
                 {isEn ? "Preetam Sports Free Facilities" : "प्रीतम स्पोर्ट्स मोफत सुविधा"}
               </h3>
             </div>
@@ -189,14 +189,14 @@ export default function TestimonialsSection({
 
         {/* HEADER AREA */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A05A2] tracking-tight drop-shadow-xs">
+          <h2 className="font-display text-2xl sm:text-3xl lg:text-[37px] font-black text-[#1A05A2] tracking-tight drop-shadow-xs">
             {isEn ? (
               <>
-                Member &amp; Guest <span className="text-[#db2777]">Video Testimonials</span>
+                Member &amp; Guest Video Testimonials
               </>
             ) : (
               <>
-                मान्यवर व सभासदांचे <span className="text-[#db2777]">व्हिडिओ अभिप्राय</span>
+                मान्यवर व सभासदांचे व्हिडिओ अभिप्राय
               </>
             )}
           </h2>

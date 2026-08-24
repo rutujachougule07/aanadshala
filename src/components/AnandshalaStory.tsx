@@ -117,17 +117,15 @@ const AnandshalaStory: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 text-xs font-extrabold uppercase tracking-wider">
-              <Sparkles size={14} className="text-pink-600 animate-pulse" />
-              {isEn ? (
-                <>
-                  ABOUT PREETAM <span className="text-[#db2777]">ANANDSHALA</span>
-                </>
-              ) : (
-                <>
-                  प्रीतम <span className="text-[#db2777]">आनंदशाळा</span> परिचय
-                </>
-              )}
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-[#810B38] text-xs sm:text-sm font-black uppercase shadow-xs">
+              <Sparkles size={14} className="text-[#db2777] animate-pulse" />
+              <span>
+                {isEn ? (
+                  <>ABOUT PREETAM <span className="text-[#db2777]">ANANDSHALA</span></>
+                ) : (
+                  <>प्रीतम <span className="text-[#db2777]">आनंदशाळा</span> परिचय</>
+                )}
+              </span>
             </span>
 
             <p className="text-slate-700 text-sm sm:text-base font-medium leading-relaxed">
