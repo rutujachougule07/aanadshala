@@ -2834,6 +2834,173 @@ export default function AdminPage() {
                 </table>
               </div>
             </div>
+
+            {/* 👑 PREETAM ELITE 10-YEAR FAMILY MEMBERSHIP DYNAMIC EDITOR */}
+            <div className="bg-white border-2 border-amber-200 rounded-3xl p-5 shadow-sm space-y-4">
+              <div className="flex items-center justify-between border-b border-amber-200 pb-3">
+                <h2 className="text-base font-black text-amber-900 flex items-center gap-2">
+                  <span>👑</span>
+                  <span>प्रीतम एलिट – १० वर्षे फॅमिली मेंबरशिप कार्ड संपादक (Preetam Elite Card Manager)</span>
+                </h2>
+                <span className="text-xs font-black text-amber-800 bg-amber-100 px-3 py-1 rounded-full border border-amber-300">
+                  १० वर्षे फॅमिली मेंबरशिप
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-bold">
+                <div>
+                  <label className="block font-black text-slate-700 mb-1">
+                    👑 कार्ड टॅग / बॅज (Badge Text)
+                  </label>
+                  <input
+                    type="text"
+                    value={store.eliteConfig?.badgeMr || "👑 प्रीतम एलिट १० वर्षे मेंबरशिप"}
+                    onChange={(e) =>
+                      store.updateEliteConfig({
+                        ...store.eliteConfig,
+                        badgeMr: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-[#db2777]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-black text-slate-700 mb-1">
+                    🏷️ मुख्य कार्ड नाव / शीर्षक (Card Title)
+                  </label>
+                  <input
+                    type="text"
+                    value={store.eliteConfig?.titleMr || "प्रीतम एलिट – फॅमिली १० वर्षे मेंबरशिप (Preetam Elite)"}
+                    onChange={(e) =>
+                      store.updateEliteConfig({
+                        ...store.eliteConfig,
+                        titleMr: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-[#db2777]"
+                  />
+                </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block font-black text-slate-700 mb-1">
+                    ℹ️ कार्डवरील माहिती संदेश (Info Description Box)
+                  </label>
+                  <textarea
+                    rows={2}
+                    value={store.eliteConfig?.infoNoteMr || "हा संपूर्ण कुटुंबासाठी (४ सदस्यांसाठी) सलग १० वर्षे सर्व स्पोर्ट्स व ॲक्टिव्हिटी सुविधांचा आनंद देणारा अत्यंत समृद्ध मेंबरशिप पॅकेज आहे."}
+                    onChange={(e) =>
+                      store.updateEliteConfig({
+                        ...store.eliteConfig,
+                        infoNoteMr: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-medium text-slate-800 focus:outline-none focus:border-[#db2777] resize-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-black text-slate-700 mb-1">
+                    ⏳ कालावधी (Duration)
+                  </label>
+                  <input
+                    type="text"
+                    value={store.eliteConfig?.durationMr || "१० वर्षे"}
+                    onChange={(e) =>
+                      store.updateEliteConfig({
+                        ...store.eliteConfig,
+                        durationMr: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-[#db2777]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-black text-slate-700 mb-1">
+                    👨‍👩‍👧‍👦 समाविष्ट सदस्य (Members Count)
+                  </label>
+                  <input
+                    type="text"
+                    value={store.eliteConfig?.membersCountMr || "कुटुंबातील ४ सदस्य"}
+                    onChange={(e) =>
+                      store.updateEliteConfig({
+                        ...store.eliteConfig,
+                        membersCountMr: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-[#db2777]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-black text-slate-700 mb-1">
+                    🏆 समाविष्ट सुविधा (Facilities Included)
+                  </label>
+                  <input
+                    type="text"
+                    value={store.eliteConfig?.accessFacilitiesMr || "सर्व स्पोर्ट्स क्लब सुविधा आणि ॲक्टिव्हिटी झोन सुविधांचा अमर्याद प्रवेश"}
+                    onChange={(e) =>
+                      store.updateEliteConfig({
+                        ...store.eliteConfig,
+                        accessFacilitiesMr: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-[#db2777]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-black text-slate-700 mb-1">
+                    📝 टीप / नोंद (Access Rules Note)
+                  </label>
+                  <input
+                    type="text"
+                    value={store.eliteConfig?.noteMr || "स्लॉट-आधारित प्रवेश; पूर्व-बुकिंग आवश्यक आहे."}
+                    onChange={(e) =>
+                      store.updateEliteConfig({
+                        ...store.eliteConfig,
+                        noteMr: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-[#db2777]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-black text-slate-700 mb-1">
+                    📞 कॉल / WhatsApp मोबाईल नंबर (Contact Phone)
+                  </label>
+                  <input
+                    type="text"
+                    value={store.eliteConfig?.phone || "9370237633"}
+                    onChange={(e) =>
+                      store.updateEliteConfig({
+                        ...store.eliteConfig,
+                        phone: e.target.value,
+                      })
+                    }
+                    className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-[#db2777]"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-2 flex justify-end">
+                <button
+                  onClick={async () => {
+                    store.updateEliteConfig(store.eliteConfig);
+                    try {
+                      await store.syncAllToFirebaseCloud();
+                    } catch (e) {}
+                    showToast("👑 Preetam Elite Membership details saved & synced to Firebase!");
+                  }}
+                  className="px-5 py-2.5 rounded-2xl bg-linear-to-r from-amber-500 to-rose-600 text-white font-black text-xs shadow-md hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  <Save size={15} />
+                  <span>Save &amp; Sync Preetam Elite Card</span>
+                </button>
+              </div>
+            </div>
           </div>
         )}
 

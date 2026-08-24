@@ -387,25 +387,25 @@ const SportsPricingSection = () => {
               <div>
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100 border border-amber-300 text-amber-900 font-black text-xs mb-2 shadow-xs">
                   <span>👑</span>
-                  <span>{isEn ? "Elite Family Membership" : "प्रीतम एलिट १० वर्षे मेंबरशिप"}</span>
+                  <span>{isEn ? (store.eliteConfig?.badgeEn || "Elite Family Membership") : (store.eliteConfig?.badgeMr || "प्रीतम एलिट १० वर्षे मेंबरशिप")}</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
                   {isEn
-                    ? "PREETAM ELITE – Family Lifetime Membership"
-                    : "प्रीतम एलिट – फॅमिली १० वर्षे मेंबरशिप (Preetam Elite)"}
+                    ? (store.eliteConfig?.titleEn || "PREETAM ELITE – Family Lifetime Membership")
+                    : (store.eliteConfig?.titleMr || "प्रीतम एलिट – फॅमिली १० वर्षे मेंबरशिप (Preetam Elite)")}
                 </h3>
               </div>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 shrink-0">
                 <a
-                  href="tel:+919370237633"
+                  href={`tel:+91${store.eliteConfig?.phone || "9370237633"}`}
                   className="px-4 py-2.5 rounded-full bg-linear-to-r from-amber-500 to-rose-600 hover:from-amber-600 hover:to-rose-700 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
                 >
                   <span>📞</span>
-                  <span>{isEn ? "Call 93702 37633" : "कॉल करा: 93702 37633"}</span>
+                  <span>{isEn ? `Call ${store.eliteConfig?.phone || "9370237633"}` : `कॉल करा: ${store.eliteConfig?.phone || "9370237633"}`}</span>
                 </a>
 
                 <a
-                  href={`https://wa.me/919370237633?text=${encodeURIComponent(isEn ? "Hello, I want to inquire about Preetam Elite 10 Years Membership." : "नमस्कार, मला प्रीतम एलिट १० वर्षे फॅमिली मेंबरशिप बद्दल चौकशी करायची आहे.")}`}
+                  href={`https://wa.me/91${store.eliteConfig?.phone || "9370237633"}?text=${encodeURIComponent(isEn ? "Hello, I want to inquire about Preetam Elite 10 Years Membership." : "नमस्कार, मला प्रीतम एलिट १० वर्षे फॅमिली मेंबरशिप बद्दल चौकशी करायची आहे.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
@@ -419,8 +419,8 @@ const SportsPricingSection = () => {
             <p className="text-xs sm:text-sm font-extrabold text-slate-700 mb-6 bg-white/90 p-3.5 rounded-2xl border border-amber-200/70 shadow-xs">
               ℹ️{" "}
               {isEn
-                ? "This is a comprehensive membership package offering extensive access and benefits for 10 years across all amenities."
-                : "हा संपूर्ण कुटुंबासाठी (४ सदस्यांसाठी) सलग १० वर्षे सर्व स्पोर्ट्स व ॲक्टिव्हिटी सुविधांचा आनंद देणारा अत्यंत समृद्ध मेंबरशिप पॅकेज आहे."}
+                ? (store.eliteConfig?.infoNoteEn || "This is a comprehensive membership package offering extensive access and benefits for 10 years across all amenities.")
+                : (store.eliteConfig?.infoNoteMr || "हा संपूर्ण कुटुंबासाठी (४ सदस्यांसाठी) सलग १० वर्षे सर्व स्पोर्ट्स व ॲक्टिव्हिटी सुविधांचा आनंद देणारा अत्यंत समृद्ध मेंबरशिप पॅकेज आहे.")}
             </p>
 
             {/* Desktop Table View */}
@@ -441,7 +441,7 @@ const SportsPricingSection = () => {
                       <span>{isEn ? "Duration" : "कालावधी"}</span>
                     </td>
                     <td className="py-3.5 px-5 text-slate-900 font-black">
-                      {isEn ? "10 Years" : "१० वर्षे"}
+                      {isEn ? (store.eliteConfig?.durationEn || "10 Years") : (store.eliteConfig?.durationMr || "१० वर्षे")}
                     </td>
                   </tr>
                   <tr className="hover:bg-amber-50/50 transition">
@@ -450,7 +450,7 @@ const SportsPricingSection = () => {
                       <span>{isEn ? "Members Included" : "समाविष्ट सदस्य"}</span>
                     </td>
                     <td className="py-3.5 px-5 text-slate-900 font-black">
-                      {isEn ? "4 Members" : "कुटुंबातील ४ सदस्य"}
+                      {isEn ? (store.eliteConfig?.membersCountEn || "4 Members") : (store.eliteConfig?.membersCountMr || "कुटुंबातील ४ सदस्य")}
                     </td>
                   </tr>
                   <tr className="hover:bg-amber-50/50 transition">
@@ -460,8 +460,8 @@ const SportsPricingSection = () => {
                     </td>
                     <td className="py-3.5 px-5 text-slate-900 font-bold">
                       {isEn
-                        ? "Access to all Sports Facilities and Activity Zone Facilities"
-                        : "सर्व स्पोर्ट्स क्लब सुविधा आणि ॲक्टिव्हिटी झोन सुविधांचा अमर्याद प्रवेश"}
+                        ? (store.eliteConfig?.accessFacilitiesEn || "Access to all Sports Facilities and Activity Zone Facilities")
+                        : (store.eliteConfig?.accessFacilitiesMr || "सर्व स्पोर्ट्स क्लब सुविधा आणि ॲक्टिव्हिटी झोन सुविधांचा अमर्याद प्रवेश")}
                     </td>
                   </tr>
                   <tr className="hover:bg-amber-50/50 transition">
@@ -471,8 +471,8 @@ const SportsPricingSection = () => {
                     </td>
                     <td className="py-3.5 px-5 text-slate-700 font-extrabold">
                       {isEn
-                        ? "Slot-based access; pre-booking is required."
-                        : "स्लॉट-आधारित प्रवेश; पूर्व-बुकिंग आवश्यक आहे."}
+                        ? (store.eliteConfig?.noteEn || "Slot-based access; pre-booking is required.")
+                        : (store.eliteConfig?.noteMr || "स्लॉट-आधारित प्रवेश; पूर्व-बुकिंग आवश्यक आहे.")}
                     </td>
                   </tr>
                 </tbody>
@@ -486,7 +486,7 @@ const SportsPricingSection = () => {
                   {isEn ? "⏳ Duration" : "⏳ कालावधी"}
                 </span>
                 <span className="text-slate-900 font-black text-sm">
-                  {isEn ? "10 Years" : "१० वर्षे"}
+                  {isEn ? (store.eliteConfig?.durationEn || "10 Years") : (store.eliteConfig?.durationMr || "१० वर्षे")}
                 </span>
               </div>
               <div className="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-xs">
@@ -494,7 +494,7 @@ const SportsPricingSection = () => {
                   {isEn ? "👨‍👩‍👧‍👦 Members Included" : "👨‍👩‍👧‍👦 समाविष्ट सदस्य"}
                 </span>
                 <span className="text-slate-900 font-black text-sm">
-                  {isEn ? "4 Members" : "कुटुंबातील ४ सदस्य"}
+                  {isEn ? (store.eliteConfig?.membersCountEn || "4 Members") : (store.eliteConfig?.membersCountMr || "कुटुंबातील ४ सदस्य")}
                 </span>
               </div>
               <div className="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-xs">
@@ -503,8 +503,8 @@ const SportsPricingSection = () => {
                 </span>
                 <span className="text-slate-900 font-bold text-xs">
                   {isEn
-                    ? "Access to all Sports Facilities and Activity Zone Facilities"
-                    : "सर्व स्पोर्ट्स क्लब सुविधा आणि ॲक्टिव्हिटी झोन सुविधांचा प्रवेश"}
+                    ? (store.eliteConfig?.accessFacilitiesEn || "Access to all Sports Facilities and Activity Zone Facilities")
+                    : (store.eliteConfig?.accessFacilitiesMr || "सर्व स्पोर्ट्स क्लब सुविधा आणि ॲक्टिव्हिटी झोन सुविधांचा अमर्याद प्रवेश")}
                 </span>
               </div>
               <div className="bg-white p-4 rounded-2xl border-2 border-amber-200 shadow-xs">
@@ -513,8 +513,8 @@ const SportsPricingSection = () => {
                 </span>
                 <span className="text-slate-700 font-bold text-xs">
                   {isEn
-                    ? "Slot-based access; pre-booking is required."
-                    : "स्लॉट-आधारित प्रवेश; पूर्व-बुकिंग आवश्यक."}
+                    ? (store.eliteConfig?.noteEn || "Slot-based access; pre-booking is required.")
+                    : (store.eliteConfig?.noteMr || "स्लॉट-आधारित प्रवेश; पूर्व-बुकिंग आवश्यक आहे.")}
                 </span>
               </div>
             </div>

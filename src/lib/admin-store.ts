@@ -699,6 +699,42 @@ export const initialSportsMembershipTiers: SportsMembershipTier[] = [
   },
 ];
 
+export type PreetamEliteConfig = {
+  badgeMr: string;
+  badgeEn: string;
+  titleMr: string;
+  titleEn: string;
+  infoNoteMr: string;
+  infoNoteEn: string;
+  durationMr: string;
+  durationEn: string;
+  membersCountMr: string;
+  membersCountEn: string;
+  accessFacilitiesMr: string;
+  accessFacilitiesEn: string;
+  noteMr: string;
+  noteEn: string;
+  phone: string;
+};
+
+export const initialEliteConfig: PreetamEliteConfig = {
+  badgeMr: "👑 प्रीतम एलिट १० वर्षे मेंबरशिप",
+  badgeEn: "👑 Elite Family Membership",
+  titleMr: "प्रीतम एलिट – फॅमिली १० वर्षे मेंबरशिप (Preetam Elite)",
+  titleEn: "PREETAM ELITE – Family Lifetime Membership",
+  infoNoteMr: "हा संपूर्ण कुटुंबासाठी (४ सदस्यांसाठी) सलग १० वर्षे सर्व स्पोर्ट्स व ॲक्टिव्हिटी सुविधांचा आनंद देणारा अत्यंत समृद्ध मेंबरशिप पॅकेज आहे.",
+  infoNoteEn: "This is a comprehensive membership package offering extensive access and benefits for 10 years across all amenities.",
+  durationMr: "१० वर्षे",
+  durationEn: "10 Years",
+  membersCountMr: "कुटुंबातील ४ सदस्य",
+  membersCountEn: "4 Members",
+  accessFacilitiesMr: "सर्व स्पोर्ट्स क्लब सुविधा आणि ॲक्टिव्हिटी झोन सुविधांचा अमर्याद प्रवेश",
+  accessFacilitiesEn: "Access to all Sports Facilities and Activity Zone Facilities",
+  noteMr: "स्लॉट-आधारित प्रवेश; पूर्व-बुकिंग आवश्यक आहे.",
+  noteEn: "Slot-based access; pre-booking is required.",
+  phone: "9370237633",
+};
+
 export const initialPackages: PackageItem[] = [
   {
     id: "pkg-1",
@@ -1752,6 +1788,7 @@ export const STORAGE_KEYS = {
   bhojanalaya: "anandshala_bhojanalaya_data_v1",
   sportsPricing: "anandshala_sports_pricing_data_v1",
   sportsMembership: "anandshala_sports_membership_tiers_v1",
+  eliteMembership: "anandshala_elite_membership_data_v1",
 };
 
 export function getStoredData<T>(key: string, fallback: T): T {
@@ -1975,6 +2012,9 @@ export function useAdminStore() {
   const [sportsMembershipTiers, setSportsMembershipTiersState] = useState<
     SportsMembershipTier[]
   >(() => getStoredData(STORAGE_KEYS.sportsMembership, initialSportsMembershipTiers));
+  const [eliteConfig, setEliteConfigState] = useState<PreetamEliteConfig>(() =>
+    getStoredData(STORAGE_KEYS.eliteMembership, initialEliteConfig),
+  );
 
   useEffect(() => {
     if (
@@ -2011,6 +2051,7 @@ export function useAdminStore() {
       setSportsMembershipTiersState(
         getStoredData(STORAGE_KEYS.sportsMembership, initialSportsMembershipTiers),
       );
+      setEliteConfigState(getStoredData(STORAGE_KEYS.eliteMembership, initialEliteConfig));
     };
 
     window.addEventListener("admin_store_updated", handleUpdate);
@@ -2108,38 +2149,49 @@ export function useAdminStore() {
       unsubscribes.push(inquiriesUnsub);
 
       const sportsPricingUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.sportsPricing), (snapshot) => {
-        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
-          const remoteTs = snapshot.data()?.updatedAt || 0;
-          const localTs = getStoredTimestamp(STORAGE_KEYS.sportsPricing);
-          if (localTs > remoteTs) return;
-
-          const val = sanitizeBlobUrls(snapshot.data().data);
-          if (Array.isArray(val) && val.length > 0) {
-            setSportsPricingItemsState(val);
-            try {
-              localStorage.setItem(STORAGE_KEYS.sportsPricing, JSON.stringify(val));
-            } catch (e) {}
+        if (!snapshot.metadata.hasPendingWrites) {
+          if (snapshot.exists() && snapshot.data()?.data) {
+            const val = sanitizeBlobUrls(snapshot.data().data);
+            if (Array.isArray(val) && val.length > 0) {
+              setSportsPricingItemsState(val);
+              try {
+                localStorage.setItem(STORAGE_KEYS.sportsPricing, JSON.stringify(val));
+              } catch (e) {}
+            }
           }
         }
       });
       unsubscribes.push(sportsPricingUnsub);
 
       const sportsMembershipUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.sportsMembership), (snapshot) => {
-        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
-          const remoteTs = snapshot.data()?.updatedAt || 0;
-          const localTs = getStoredTimestamp(STORAGE_KEYS.sportsMembership);
-          if (localTs > remoteTs) return;
-
-          const val = sanitizeBlobUrls(snapshot.data().data);
-          if (Array.isArray(val) && val.length > 0) {
-            setSportsMembershipTiersState(val);
-            try {
-              localStorage.setItem(STORAGE_KEYS.sportsMembership, JSON.stringify(val));
-            } catch (e) {}
+        if (!snapshot.metadata.hasPendingWrites) {
+          if (snapshot.exists() && snapshot.data()?.data) {
+            const val = sanitizeBlobUrls(snapshot.data().data);
+            if (Array.isArray(val) && val.length > 0) {
+              setSportsMembershipTiersState(val);
+              try {
+                localStorage.setItem(STORAGE_KEYS.sportsMembership, JSON.stringify(val));
+              } catch (e) {}
+            }
           }
         }
       });
       unsubscribes.push(sportsMembershipUnsub);
+
+      const eliteMembershipUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.eliteMembership), (snapshot) => {
+        if (!snapshot.metadata.hasPendingWrites) {
+          if (snapshot.exists() && snapshot.data()?.data) {
+            const val = sanitizeBlobUrls(snapshot.data().data);
+            if (val && typeof val === "object") {
+              setEliteConfigState((prev) => ({ ...prev, ...val }));
+              try {
+                localStorage.setItem(STORAGE_KEYS.eliteMembership, JSON.stringify(val));
+              } catch (e) {}
+            }
+          }
+        }
+      });
+      unsubscribes.push(eliteMembershipUnsub);
 
       const brochuresUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.brochures), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
@@ -2770,6 +2822,12 @@ export function useAdminStore() {
         payload: { data: sportsMembershipTiers, updatedAt: now },
       },
       {
+        name: "eliteMembership",
+        key: STORAGE_KEYS.eliteMembership,
+        ref: doc(db, "app_data", STORAGE_KEYS.eliteMembership),
+        payload: { data: eliteConfig, updatedAt: now },
+      },
+      {
         name: "videos",
         key: STORAGE_KEYS.videos,
         ref: doc(db, "app_data", STORAGE_KEYS.videos),
@@ -2857,18 +2915,24 @@ export function useAdminStore() {
   const updatePricingItems = (newItems: RateItem[]) => {
     setPricingItemsState(newItems);
     setStoredData(STORAGE_KEYS.pricing, newItems);
+    try {
+      setDoc(doc(db, "app_data", STORAGE_KEYS.pricing), { data: newItems, updatedAt: Date.now() }).catch(() => {});
+    } catch {}
   };
 
   const updateBhojanalayaConfig = (newConfig: BhojanalayaConfig) => {
     setBhojanalayaConfigState(newConfig);
     setStoredData(STORAGE_KEYS.bhojanalaya, newConfig);
+    try {
+      setDoc(doc(db, "app_data", STORAGE_KEYS.bhojanalaya), { data: newConfig, updatedAt: Date.now() }).catch(() => {});
+    } catch {}
   };
 
   const updateSportsPricingItems = (newItems: RateItem[]) => {
     setSportsPricingItemsState(newItems);
     setStoredData(STORAGE_KEYS.sportsPricing, newItems);
     try {
-      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsPricing), { data: newItems, updatedAt: Date.now() }, { merge: true }).catch(() => {});
+      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsPricing), { data: newItems, updatedAt: Date.now() }).catch(() => {});
     } catch {}
   };
 
@@ -2876,7 +2940,15 @@ export function useAdminStore() {
     setSportsMembershipTiersState(newTiers);
     setStoredData(STORAGE_KEYS.sportsMembership, newTiers);
     try {
-      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsMembership), { data: newTiers, updatedAt: Date.now() }, { merge: true }).catch(() => {});
+      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsMembership), { data: newTiers, updatedAt: Date.now() }).catch(() => {});
+    } catch {}
+  };
+
+  const updateEliteConfig = (newConfig: PreetamEliteConfig) => {
+    setEliteConfigState(newConfig);
+    setStoredData(STORAGE_KEYS.eliteMembership, newConfig);
+    try {
+      setDoc(doc(db, "app_data", STORAGE_KEYS.eliteMembership), { data: newConfig, updatedAt: Date.now() }).catch(() => {});
     } catch {}
   };
 
@@ -2898,6 +2970,7 @@ export function useAdminStore() {
     bhojanalayaConfig,
     sportsPricingItems,
     sportsMembershipTiers,
+    eliteConfig,
     syncAllToFirebaseCloud,
     unreadInquiriesCount: inquiries.filter((i) => !i.read).length,
     unreadSportsInquiriesCount: sportsInquiries.filter((i) => !i.read).length,
@@ -2938,5 +3011,6 @@ export function useAdminStore() {
     updateBhojanalayaConfig,
     updateSportsPricingItems,
     updateSportsMembershipTiers,
+    updateEliteConfig,
   };
 }

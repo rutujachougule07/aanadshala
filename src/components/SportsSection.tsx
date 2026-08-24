@@ -627,7 +627,7 @@ export default function SportsSection() {
               {isEn ? "✨ Premium Amenities" : "✨ प्रिमियम सोयी सुविधा"}
             </div>
             <h2 className="typo-heading-main text-[#1a05a2] leading-tight text-center my-2">
-              {isEn ? "Our Facilities" : "आमच्या सुविधा"}
+              {isEn ? "Preetam Sports Club – Grand Facilities" : "प्रीतम स्पोर्ट्स क्लब – भव्य सुविधा"}
             </h2>
           </div>
 
