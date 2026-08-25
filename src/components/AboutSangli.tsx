@@ -606,11 +606,19 @@ export function AboutSangli() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="as-sangli-subtitle"
+            className="as-sangli-subtitle !font-[300] text-black"
+            style={{ fontWeight: 300, color: "#000000" }}
           >
-            {isEn
-              ? "A curated guide to 14 historic temples, heritage palaces, wildlife sanctuaries, and day-trip excursions within 5 km to 80 km of Preetam Anandshala."
-              : "प्रीतम आनंदशाळेतील सदस्य व पालकांसाठी ५ किमी ते ८० किमी परिसरातील १४ प्रसिद्ध मंदिरे, ऐतिहासिक राजवाडे, अभयारण्य व निसर्गरम्य १ दिवसाच्या सहलींचे संपूर्ण मार्गदर्शक."}
+            {isEn ? (
+              <>
+                A curated guide to 14 historic temples, heritage palaces, wildlife sanctuaries, and day-trip excursions within 5 km to 80 km of Preetam{" "}
+                <span className="text-[#db2777] font-bold">Anandshala</span>.
+              </>
+            ) : (
+              <>
+                प्रीतम <span className="text-[#db2777] font-bold">आनंदशाळेतील</span> सदस्य व पालकांसाठी ५ किमी ते ८० किमी परिसरातील १४ प्रसिद्ध मंदिरे, ऐतिहासिक राजवाडे, अभयारण्य व निसर्गरम्य १ दिवसाच्या सहलींचे संपूर्ण मार्गदर्शक.
+              </>
+            )}
           </motion.p>
         </div>
 

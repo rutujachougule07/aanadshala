@@ -10,6 +10,17 @@ export function SiteHeader() {
   const location = useLocation();
   const pathname = location.pathname;
   const { lang, isMr, isEn, toggleLanguage } = useLanguage();
+  const [activeSection, setActiveSection] = useState<string>(() => {
+    return localStorage.getItem("preetam_active_section") || "aanandshala";
+  });
+
+  useEffect(() => {
+    const handleSec = (e: CustomEvent) => {
+      if (e.detail) setActiveSection(e.detail);
+    };
+    window.addEventListener("section-changed" as any, handleSec);
+    return () => window.removeEventListener("section-changed" as any, handleSec);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -83,11 +94,12 @@ export function SiteHeader() {
         {/* DESKTOP NAV LINKS */}
         <nav className="hidden items-center gap-1 lg:flex">
           {navLinks.map((l) => {
-            const isActive = l.to === "/" ? pathname === "/" : pathname.startsWith(l.to);
+            const targetPath = (l.to === "/about" && (activeSection === "sports" || pathname === "/sports-about")) ? "/sports-about" : l.to;
+            const isActive = targetPath === "/" ? pathname === "/" : pathname.startsWith(targetPath);
             return (
               <Link
                 key={l.to}
-                to={l.to}
+                to={targetPath}
                 onClick={() => {
                   if (l.to === "/") {
                     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -213,11 +225,12 @@ export function SiteHeader() {
           />
           <nav className="w-full px-6 py-6 flex flex-col gap-2">
             {navLinks.map((l) => {
-              const isActive = l.to === "/" ? pathname === "/" : pathname.startsWith(l.to);
+              const targetPath = (l.to === "/about" && (activeSection === "sports" || pathname === "/sports-about")) ? "/sports-about" : l.to;
+              const isActive = targetPath === "/" ? pathname === "/" : pathname.startsWith(targetPath);
               return (
                 <Link
                   key={l.to}
-                  to={l.to}
+                  to={targetPath}
                   onClick={() => {
                     setOpen(false);
                     if (l.to === "/") {

@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 
 import IndexComponent from "./routes/index";
 import AboutPage from "./routes/about";
+import SportsAboutPage from "./routes/sports-about";
 import BrochurePage from "./routes/brochure";
 import GalleryPage from "./routes/gallery";
 import ContactPage from "./routes/contact";
@@ -36,6 +37,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<IndexComponent />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/sports-about" element={<SportsAboutPage />} />
           <Route path="/brochure" element={<BrochurePage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/contact" element={<ContactPage />} />

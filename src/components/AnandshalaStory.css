@@ -13,7 +13,7 @@
     "Segoe UI",
     Roboto,
     sans-serif;
-  padding: 2.5rem 1.5rem 5rem 1.5rem;
+  padding: 1.5rem 1.5rem 4rem 1.5rem;
   color: #1e293b;
   overflow: hidden;
 }
@@ -472,8 +472,8 @@
 
 .as-stat-label {
   font-size: 0.85rem;
-  color: #64748b;
-  font-weight: 600;
+  color: #000000 !important;
+  font-weight: 300 !important;
   margin-top: 0.2rem;
 }
 

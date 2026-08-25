@@ -509,6 +509,8 @@ function IndexComponent() {
     const handleReset = () => {
       setSelectedSection(null);
       setShowIntroBanner(true);
+      localStorage.setItem("preetam_active_section", "aanandshala");
+      window.dispatchEvent(new CustomEvent("section-changed", { detail: "aanandshala" }));
     };
     window.addEventListener("reset-section", handleReset);
     return () => window.removeEventListener("reset-section", handleReset);
@@ -587,6 +589,10 @@ function IndexComponent() {
 
   const handleSectionSelect = (sec: "aanandshala" | "sports" | null) => {
     setSelectedSection(sec);
+    if (sec) {
+      localStorage.setItem("preetam_active_section", sec);
+      window.dispatchEvent(new CustomEvent("section-changed", { detail: sec }));
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -755,7 +761,7 @@ function IndexComponent() {
                     Preetam Senior Citizen{" "}
                     <span className="text-[#db2777] font-black drop-shadow-xs">Anandshala</span>
                   </span>
-                  <span className="block text-[#810B38] mt-1">&amp; Sports Fitness Club</span>
+                  <span className="block text-[#1a05a2] mt-1">&amp; Sports Fitness Club</span>
                 </>
               ) : (
                 <>
@@ -763,13 +769,13 @@ function IndexComponent() {
                     प्रीतम ज्येष्ठ नागरिक{" "}
                     <span className="text-[#db2777] font-black drop-shadow-xs">आनंदशाळा</span>
                   </span>
-                  <span className="block text-[#810B38] mt-1">व स्पोर्ट्स अँड फिटनेस क्लब</span>
+                  <span className="block text-[#1a05a2] mt-1">व स्पोर्ट्स अँड फिटनेस क्लब</span>
                 </>
               )}
             </h1>
             <div className="flex items-center justify-center gap-1.5 pt-0.5">
-              <span className="text-[#db2777] text-sm sm:text-base animate-bounce">📍</span>
-              <span className="font-display font-black text-sm sm:text-xl text-[#db2777] tracking-widest uppercase">
+              <span className="text-[#1a05a2] text-sm sm:text-base animate-bounce">📍</span>
+              <span className="font-display font-black text-sm sm:text-xl text-[#1a05a2] tracking-widest uppercase">
                 {isEn ? "Sangli" : "सांगली"}
               </span>
             </div>

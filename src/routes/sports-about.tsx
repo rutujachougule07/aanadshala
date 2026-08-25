@@ -1,24 +1,24 @@
 import React, { useEffect } from "react";
-import AnandshalaStory from "@/components/AnandshalaStory";
+import SportsAboutSection from "@/components/SportsAboutSection";
 import AboutSangli from "@/components/AboutSangli";
 import SmoothScroll from "@/components/SmoothScroll";
 
-function About() {
+function SportsAboutPage() {
   useEffect(() => {
-    localStorage.setItem("preetam_active_section", "aanandshala");
-    window.dispatchEvent(new CustomEvent("section-changed", { detail: "aanandshala" }));
+    localStorage.setItem("preetam_active_section", "sports");
+    window.dispatchEvent(new CustomEvent("section-changed", { detail: "sports" }));
   }, []);
 
   return (
     <div className="bg-[#faf8f5] min-h-screen pt-6 sm:pt-8">
       <SmoothScroll />
-      <AnandshalaStory />
+      <SportsAboutSection />
       <AboutSangli />
     </div>
   );
 }
 
-export default About;
+export default SportsAboutPage;
 
 
 

@@ -1,9 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { navLinks, site } from "@/lib/site-info";
 import { useLanguage } from "@/lib/use-language";
 
 export function SiteFooter() {
   const { isEn } = useLanguage();
+  const location = useLocation();
+  const pathname = location.pathname;
+  const [activeSection, setActiveSection] = useState<string>(() => {
+    return localStorage.getItem("preetam_active_section") || "aanandshala";
+  });
+
+  useEffect(() => {
+    const handleSec = (e: CustomEvent) => {
+      if (e.detail) setActiveSection(e.detail);
+    };
+    window.addEventListener("section-changed" as any, handleSec);
+    return () => window.removeEventListener("section-changed" as any, handleSec);
+  }, []);
 
   return (
     <footer className="relative mt-0 overflow-hidden text-slate-800 bg-linear-to-b from-[#fff5f8] via-[#fdf2f5] to-[#fbcfe8]/40 border-t border-rose-200 font-sans">
@@ -77,17 +91,20 @@ export function SiteFooter() {
               {isEn ? "Quick Links" : "महत्त्वाची पृष्ठे"}
             </h4>
             <ul className="space-y-3.5">
-              {navLinks.map((l) => (
-                <li key={l.to}>
-                  <Link
-                    to={l.to}
-                    className="group flex items-center gap-3 text-sm font-extrabold text-slate-700 transition-all duration-300 hover:text-[#db2777]"
-                  >
-                    <span className="w-2 h-2 rounded-full bg-rose-300 group-hover:bg-[#db2777] transition-colors duration-300" />
-                    <span>{isEn ? l.en : l.label}</span>
-                  </Link>
-                </li>
-              ))}
+              {navLinks.map((l) => {
+                const targetPath = (l.to === "/about" && (activeSection === "sports" || pathname === "/sports-about")) ? "/sports-about" : l.to;
+                return (
+                  <li key={l.to}>
+                    <Link
+                      to={targetPath}
+                      className="group flex items-center gap-3 text-sm font-extrabold text-slate-700 transition-all duration-300 hover:text-[#db2777]"
+                    >
+                      <span className="w-2 h-2 rounded-full bg-rose-300 group-hover:bg-[#db2777] transition-colors duration-300" />
+                      <span>{isEn ? l.en : l.label}</span>
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

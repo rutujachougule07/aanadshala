@@ -128,7 +128,7 @@ const AnandshalaStory: React.FC = () => {
               </span>
             </span>
 
-            <p className="text-slate-700 text-sm sm:text-base font-medium leading-relaxed">
+            <p className="text-slate-700 text-sm sm:text-base font-normal leading-relaxed">
               <HighlightText text={isEn ? descEn : descMr} />
             </p>
           </motion.div>
@@ -172,7 +172,7 @@ const AnandshalaStory: React.FC = () => {
                 <h4 className="as-stat-title font-black text-sm sm:text-base text-[#1A05A2] leading-snug">
                   {st.title}
                 </h4>
-                <p className="as-stat-label text-xs sm:text-sm font-bold text-slate-600 mt-1 leading-relaxed">
+                <p className="as-stat-label text-xs sm:text-sm font-light text-black mt-1 leading-relaxed">
                   {st.label}
                 </p>
               </div>
