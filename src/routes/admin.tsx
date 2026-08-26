@@ -732,7 +732,7 @@ export default function AdminPage() {
     {
       id: "sports_facilities" as TabKey,
       label: "Sports Facilities",
-      subLabel: "Gym, Pool & Courts",
+      subLabel: "15 Sports Facilities",
       icon: Dumbbell,
     },
     {

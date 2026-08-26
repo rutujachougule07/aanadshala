@@ -258,10 +258,10 @@ export default function SpecialReasons() {
     <section className="specialReasonsSection">
       {/* ── HEADING ── */}
       <div className="reasonsHeading">
-        <div className="miniHeading">
-          <span className="miniDiamond">◆</span>
+        <div className="miniHeading as-badge-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] mb-3 shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
+          <span>✦</span>
           <span>{isEn ? "Special Reasons" : "विशेष कारणे"}</span>
-          <span className="miniDiamond">◆</span>
+          <span>✦</span>
         </div>
         <h2>
           {isEn ? (
@@ -274,12 +274,7 @@ export default function SpecialReasons() {
             </>
           )}
         </h2>
-        <div className="headingOrnament">
-          <span />
-          <b>❖</b>
-          <span />
-        </div>
-        <p>
+        <p className="!font-[300] text-black text-[18px] mt-2" style={{ fontWeight: 300, color: "#000000", fontSize: "18px" }}>
           {isEn ? (
             <>
               Discover the 23 reasons that make{" "}

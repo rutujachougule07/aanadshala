@@ -10,6 +10,7 @@ import {
   Trophy,
   Footprints,
   Star,
+  Sparkles,
 } from "lucide-react";
 import "./SportsSection.css";
 import "./ActivityHallsSection/ActivityHallsSection.css";
@@ -19,6 +20,7 @@ import { site, sportsClub } from "../lib/site-info";
 import { useLanguage } from "@/lib/use-language";
 import { useAdminStore } from "@/lib/admin-store";
 import { HighlightText } from "@/components/HighlightText";
+import { Reveal } from "@/components/site/Reveal";
 
 const sportsMilestonesData = [
   {
@@ -139,224 +141,388 @@ interface FacilityDetail {
 const facilityItems: FacilityDetail[] = [
   {
     id: "gym",
-    icon: "🏋️‍♂️",
-    titleMr: "जिम & बॉडीबिल्डिंग",
-    titleEn: "Gym & Bodybuilding Studio",
-    subMr: "आधुनिक उपकरणांसह प्रशिक्षित ट्रेनर्स",
-    subEn: "Certified trainers with modern fitness equipment",
+    icon: "💪",
+    titleMr: "अत्याधुनिक जिम",
+    titleEn: "State-of-the-Art Gym",
+    subMr: "जागतिक दर्जाची कार्डिओ व वेट ट्रेनिंग उपकरणे",
+    subEn: "World-class cardio & weight training machinery",
     descMr:
-      "जागतिक दर्जाची फिटनेस उपकरणे, पूर्णतः वातानुकूलित परिसर आणि वैयक्तिक प्रमाणित ट्रेनर्सच्या मार्गदर्शनाखाली बॉडीबिल्डिंग व फिटनेस ट्रेनिंग.",
+      "तुमच्या फिटनेस प्रवासाची दमदार सुरुवात करा! प्रीतम स्पोर्ट्स अँड फिटनेस क्लब मधील अत्याधुनिक जिम हे तुमचे सामर्थ्य आणि तंदुरुस्ती वाढवण्याचे केंद्र आहे. जागतिक दर्जाची कार्डिओ, वेट ट्रेनिंग आणि स्ट्रेंथ इक्विपमेंट्स येथे उपलब्ध आहेत. आमच्या तज्ज्ञ प्रशिक्षकांच्या मार्गदर्शनाखाली तुम्ही तुमचे फिटनेस ध्येय सहज साध्य करू शकता.",
     descEn:
-      "World-class fitness equipment, fully air-conditioned campus, and bodybuilding & fitness training guided by certified personal trainers.",
+      "Kickstart your fitness journey with strength & stamina! Preetam Sports Club Gym features world-class cardio, weight training, and strength machinery with expert certified trainers.",
     img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184848892.jpg",
     timingMr: "सकाळी ६:०० ते रात्री ९:३०",
     timingEn: "6:00 AM to 9:30 PM",
     featuresMr: [
-      "प्रमाणित पर्सनल ट्रेनर्स",
-      "वातानुकूलित (AC) प्रिमियम परिसर",
-      "कार्डिओ व व्हेट ट्रेनिंग मशीन्स",
-      "विशेष डायट व पोषण आहार मार्गदर्शन",
+      "🌐 सुविधा: आंतरराष्ट्रीय दर्जाचे कार्डिओ व वेट लिफ्टिंग उपकरणे",
+      "🧑‍🏫 मार्गदर्शन: प्रमाणित व अनुभवी प्रशिक्षक मदतीसाठी उपलब्ध",
+      "⏰ लवचिकता: सोयीस्कर बॅच आणि ट्रेनिंग वेळापत्रक",
+      "🎯 फोकस: स्नायूंची वाढ, वजन कमी करणे आणि तंदुरुस्ती",
     ],
     featuresEn: [
-      "Certified personal trainers",
-      "Air-conditioned (AC) premium studio",
-      "Cardio & weight training machinery",
-      "Personalized diet & nutrition guidance",
-    ],
-  },
-  {
-    id: "swimming",
-    icon: "🏊‍♂️",
-    titleMr: "स्विमिंग पूल",
-    titleEn: "Olympic Size Swimming Pool",
-    subMr: "ऑलिंपिक मानकांचा स्वच्छ पूल",
-    subEn: "Clean Olympic size filtered pool",
-    descMr:
-      "ऑलिंपिक मानकांनुसार बनवलेला स्वच्छ, २५ मीटरचा शुद्ध पाण्याचा पोहण्याचा तलाव. महिला व पुरुषांसाठी सुरक्षित व स्वतंत्र बॅचेस.",
-    descEn:
-      "Clean 25-meter purified water swimming pool built according to Olympic standards. Safe and dedicated separate batches for men and women.",
-    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243460172.jpg",
-    timingMr: "सकाळी ६:०० ते रात्री ८:००",
-    timingEn: "6:00 AM to 8:00 PM",
-    featuresMr: [
-      "ऑलिंपिक स्टँडर्ड फिल्टर्ड पाणी",
-      "सुरक्षा गार्ड व एक्सपर्ट लाइफगार्ड",
-      "स्वतंत्र चेंजिंग रूम व हॉट शॉवर",
-      "लहान मुले व बिगिनर्स साठी विशेष ट्रेनिंग",
-    ],
-    featuresEn: [
-      "Olympic standard purified filtered water",
-      "Safety guards & expert lifeguards",
-      "Separate changing rooms & hot showers",
-      "Special coaching for kids & beginners",
-    ],
-  },
-  {
-    id: "badminton",
-    icon: "🏸",
-    titleMr: "इनडोअर बॅडमिंटन",
-    titleEn: "Indoor Badminton",
-    subMr: "आंतरराष्ट्रीय मानकांच्या कोर्टसह",
-    subEn: "International standard wooden courts",
-    descMr:
-      "लाकडी सिंथेटिक मॅटिंग व आय-प्रोटेक्ट LED लाईटिंगसह सुसज्ज इनडोअर बॅडमिंटन कोर्ट. सर्व वयोगटातील लोकांसाठी खेळण्याची व सराव करण्याची उत्तम सोय.",
-    descEn:
-      "Indoor badminton courts with wooden synthetic matting and eye-protective LED lighting. Great venue for play and practice for all age groups.",
-    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203444303.jpg",
-    timingMr: "सकाळी ६:०० ते रात्री ९:००",
-    timingEn: "6:00 AM to 9:00 PM",
-    featuresMr: [
-      "प्र्रीमियम वूडन सिंथेटिक मॅटिंग",
-      "प्रोफेशनल अँटी-ग्लेअर LED लाईटिंग",
-      "रॅकेट व कॉक उपलब्ध",
-      "टूर्नामेंट स्टँडर्ड कोर्ट्स",
-    ],
-    featuresEn: [
-      "Premium wooden synthetic matting",
-      "Professional anti-glare LED lighting",
-      "Rackets & shuttlecocks available",
-      "Tournament-standard courts",
-    ],
-  },
-  {
-    id: "pickleball",
-    icon: "🏓",
-    titleMr: "पिकलबॉल",
-    titleEn: "Pickleball Court",
-    subMr: "नवीन खेळ, मजा आणि फिटनेस",
-    subEn: "Modern trending sport for total fitness",
-    descMr:
-      "जगातील सर्वात वेगाने लोकप्रिय होणारा पिकलबॉल खेळ! कुटुंबासोबत व मित्रांसोबत खेळण्यासाठी सांगलीतील भव्य पिकलबॉल कोर्ट.",
-    descEn:
-      "Pickleball - the fastest growing sport in the world! A grand court in Sangli to play and enjoy with family and friends.",
-    img: "/images/pickleball-court.png",
-    timingMr: "सकाळी ६:०० ते रात्री ९:००",
-    timingEn: "6:00 AM to 9:00 PM",
-    featuresMr: [
-      "सांगलीतील पहिले भव्य पिकलबॉल कोर्ट",
-      "सोपा व आरोग्यदायी फिटनेस खेळ",
-      "पॅडल्स व बॉल्स उपलब्ध",
-      "सर्व वयोगटांसाठी अत्यंत सोयीचे",
-    ],
-    featuresEn: [
-      "Sangli's 1st grand pickleball court",
-      "Easy, fun & healthy fitness sport",
-      "Paddles & balls available",
-      "Extremely suitable for all ages",
+      "International standard cardio & weight training equipment",
+      "Certified and experienced personal trainers available",
+      "Flexible batch timings suited for your routine",
+      "Focused on muscle gain, weight loss & overall fitness",
     ],
   },
   {
     id: "yoga",
     icon: "🧘",
-    titleMr: "योग & ध्यान कक्ष",
-    titleEn: "Yoga & Meditation Hall",
-    subMr: "शारीरिक व मानसिक आरोग्य संतुलन",
-    subEn: "Physical and mental health harmony",
+    titleMr: "योगा स्टुडिओ",
+    titleEn: "Yoga Studio",
+    subMr: "प्राणायाम, ध्यान आणि आसने शिकण्यासाठी आदर्श",
+    subEn: "Pranayama, meditation and posture mastery",
     descMr:
-      "शांत, प्रसन्न व निसर्गरम्य वातावरणात योगाभ्यास, प्राणायाम व ध्यानधारणा. अनुभवी योगशिक्षकांकडून दररोज सकाळी व संध्याकाळी मार्गदर्शन.",
+      "शरीर आणि मन यांच्यातील सुंदर समन्वय अनुभवा. प्रीतम क्लबचा शांत आणि हवेशीर योगा स्टुडिओ तुम्हाला प्राणायाम, ध्यान आणि आसने शिकण्यासाठी आदर्श जागा आहे. तणाव कमी करून, लवचिकता वाढवून आणि आंतरिक शांती मिळवून तुमचे आरोग्य सुधारा.",
     descEn:
-      "Yoga practice, Pranayama, and Meditation in a calm, serene natural environment. Daily morning and evening guidance by experienced teachers.",
+      "Experience harmony of body and mind. Preetam Club's airy Yoga Studio offers Pranayama, meditation, and postures guided by certified Yoga gurus.",
     img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763188841664.jpg",
     timingMr: "सकाळी ६:३० ते ९:०० व सायं. ५ ते ७",
-    timingEn: "6:30 AM to 9:00 AM & 5:00 PM to 7:00 PM",
+    timingEn: "6:30 AM-9:00 AM & 5:00 PM-7:00 PM",
     featuresMr: [
-      "शांत व प्रसन्न वातानुकूलित हॉल",
-      "प्राणायाम व योगासने वर्ग",
-      "मानसिक ताणतणाव व BP मुक्ती",
-      "ज्येष्ठ नागरिकांसाठी विशेष सोपा योगा",
+      "🧘 फायदे: लवचिकता, मनःशांती आणि तणावमुक्ती",
+      "🙏 प्रकार: हठ योग, पॉवर योग आणि मेडिटेटिव्ह योग क्लासेस",
+      "✨ वातावरण: शांत, नैसर्गिक आणि सकारात्मक ऊर्जा देणारे",
     ],
     featuresEn: [
-      "Peaceful and pleasant AC hall",
-      "Pranayama and yoga classes",
-      "Mental stress and BP relief",
-      "Special easy yoga for senior citizens",
+      "Boosts flexibility, mental peace & stress relief",
+      "Hatha Yoga, Power Yoga & Meditative Yoga sessions",
+      "Serene, airy environment filled with positive energy",
+    ],
+  },
+  {
+    id: "meditation",
+    icon: "🕊️",
+    titleMr: "मेडिटेशन कक्ष",
+    titleEn: "Meditation Room",
+    subMr: "गहन ध्यान, एकाग्रता आणि मानसिक स्पष्टता",
+    subEn: "Deep meditation, focus and mental clarity",
+    descMr:
+      "धावपळीच्या जीवनात मनाला विश्रांती देण्यासाठी समर्पित मेडिटेशन कक्ष हे तुमचे शांत आश्रयस्थान आहे. या विशेष कक्षात तुम्ही गहन ध्यान करून मानसिक स्पष्टता मिळवू शकता आणि कामातून आलेल्या थकव्यावर मात करू शकता.",
+    descEn:
+      "A peaceful sanctuary to rest your mind amidst busy daily life. Experience deep meditation, mental clarity, and rejuvenation in our sound-buffered hall.",
+    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203091441.jpg",
+    timingMr: "सकाळी ६:०० ते रात्री ९:००",
+    timingEn: "6:00 AM to 9:00 PM",
+    featuresMr: [
+      "💡 उद्देश: मानसिक शांती, एकाग्रता आणि तणाव कमी करणे",
+      "🤫 वैशिष्ट्य: शांतता आणि एकाग्रतेसाठी डिझाइन केलेला कक्ष",
+      "🧠 लाभ: मनःस्थिति सुधारण्यास आणि स्मरणशक्ती वाढवण्यास मदत",
+    ],
+    featuresEn: [
+      "Designed for mental clarity, focus & stress reduction",
+      "Dedicated quiet space built for meditation practice",
+      "Helps improve mood regulation and memory retention",
     ],
   },
   {
     id: "zumba",
     icon: "💃",
-    titleMr: "झुंबा & डान्स क्लास",
-    titleEn: "Zumba & Fitness Dance",
-    subMr: "एनर्जेटिक सेशन्स आणि प्रोफेशनल कोडिंग",
-    subEn: "High energy zumba and dance workout",
+    titleMr: "झुंबा क्लासेस",
+    titleEn: "Zumba Classes",
+    subMr: "संगीताच्या तालावर एनर्जेटिक कॅलरी बर्न",
+    subEn: "High-energy dance workout with music",
     descMr:
-      "संगीताच्या तालावर एनर्जेटिक झुंबा व फिटनेस डान्स सेशन्स. वजन नियंत्रित ठेवण्यासाठी व आनंदाने कॅलरी बर्न करण्यासाठी सर्वोत्तम उपक्रम.",
+      "व्यायाम कंटाळवाणा नाही! झुंबा क्लासेसमध्ये संगीताच्या तालावर डान्स करत कॅलरी बर्न करा आणि मजा करा! ही उच्च-ऊर्जा (High-Energy) ॲक्टिव्हिटी तुम्हाला तंदुरुस्त ठेवण्यासोबतच तुमचा मूड सुधारते.",
     descEn:
-      "Energetic Zumba and fitness dance sessions to music. The best way to manage weight and burn calories happily.",
+      "Workout isn't boring! Burn calories while dancing to high-energy rhythm in Zumba classes. Guided by enthusiastic instructors to keep you fit and cheerful.",
     img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357581614.png",
     timingMr: "सकाळी ७:०० ते ८:०० व सायं. ६ ते ७",
     timingEn: "7:00 AM-8:00 AM & 6:00 PM-7:00 PM",
     featuresMr: [
-      "प्रोफेशनल सर्टीफाइड झुंबा ट्रेनर्स",
-      "हाय-फाय साऊंड व म्युझिक सिस्टीम",
-      "मजबूत कार्डिओ वर्कआउट",
-      "उत्साही व आनंदी वातावरण",
+      "🥳 अनुभव: फिटनेस आणि डान्स पार्टीचा जबरदस्त अनुभव",
+      "🔥 परिणाम: वेगाने कॅलरी बर्न आणि संपूर्ण शरीराचा व्यायाम",
+      "🎶 प्रशिक्षक: उत्साही आणि प्रशिक्षित झुंबा प्रशिक्षकांचे मार्गदर्शन",
     ],
     featuresEn: [
-      "Professional certified Zumba trainers",
-      "Hi-fi sound and music system",
-      "Strong cardio workout",
-      "Energetic and joyful environment",
+      "Fun fitness dance party atmosphere",
+      "Rapid calorie burn and full-body cardio workout",
+      "Guided by certified high-energy instructors",
+    ],
+  },
+  {
+    id: "dance",
+    icon: "👯",
+    titleMr: "डान्स क्लासेस",
+    titleEn: "Dance Classes",
+    subMr: "बॉलीवूड, फ्रीस्टाइल व विविध नृत्य प्रकार",
+    subEn: "Bollywood, freestyle & contemporary styles",
+    descMr:
+      "तुमच्यातील कलाकाराला वाव द्या! डान्स क्लासेसमध्ये विविध नृत्य प्रकार (उदा. बॉलीवूड, हिप-हॉप, फ्रीस्टाइल) शिकण्याची संधी मिळते. डान्समुळे केवळ शारीरिक तंदुरुस्तीच मिळत नाही, तर आत्मविश्वास आणि देहबोली सुधारते.",
+    descEn:
+      "Unleash your inner artist! Learn Bollywood, Hip-Hop, and Freestyle dance. Dance enhances physical stamina, self-confidence, and graceful body posture.",
+    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203444303.jpg",
+    timingMr: "सकाळी ८:०० ते ९:०० व सायं. ५ ते ६",
+    timingEn: "8:00 AM-9:00 AM & 5:00 PM-6:00 PM",
+    featuresMr: [
+      "🩰 प्रकार: बॉलीवूड, फ्रीस्टाइल, कंटेम्पररी इत्यादी प्रकार",
+      "💖 फायदे: लवचिकता वाढवणे आणि आत्मविश्वास सुधारणे",
+      "👩‍🏫 शिकणे: खास प्रशिक्षित नृत्य शिक्षकांकडून धडे",
+    ],
+    featuresEn: [
+      "Bollywood, Freestyle & Contemporary dance styles",
+      "Builds body flexibility, rhythm & confidence",
+      "Choreographed by expert dance teachers",
+    ],
+  },
+  {
+    id: "swimming",
+    icon: "🏊‍♂️",
+    titleMr: "भव्य स्विमिंग पूल",
+    titleEn: "Grand Swimming Pool",
+    subMr: "ऑलिंपिक मानकांचा स्वच्छ व शुद्ध पाण्याचा तलाव",
+    subEn: "Clean Olympic standard purified water pool",
+    descMr:
+      "उन्हाळ्यावर मात करा आणि शरीराला आराम द्या! आमचा स्वच्छ आणि मोठा स्विमिंग पूल पोहण्यासाठी एक सुरक्षित आणि आल्हाददायक जागा आहे. पोहणे हा सर्वात उत्तम कार्डिओ व्यायाम मानला जातो, जो सांध्यांवर कोणताही ताण न आणता संपूर्ण शरीराला बळकटी देतो.",
+    descEn:
+      "Beat the heat & strengthen your body! Our large, purified water swimming pool provides safe, hygienic swimming for adults and children with lifeguards.",
+    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243460172.jpg",
+    timingMr: "सकाळी ६:०० ते रात्री ८:००",
+    timingEn: "6:00 AM to 8:00 PM",
+    featuresMr: [
+      "💧 स्वच्छता: नियमित फिल्टरिंग आणि पाणी गुणवत्ता तपासणी",
+      "👨‍🎓 प्रशिक्षण: नवशिक्यांसाठी आणि मुलांसाठी पोहण्याचे क्लासेस",
+      "🌞 अनुभव: संपूर्ण शरीरासाठी प्रभावी आणि आनंददायी व्यायाम",
+    ],
+    featuresEn: [
+      "Daily filtration & water quality maintenance",
+      "Special coaching batches for beginners & kids",
+      "Low-impact full body cardio exercise",
+    ],
+  },
+  {
+    id: "badminton",
+    icon: "🏸",
+    titleMr: "बॅडमिंटन कोर्ट",
+    titleEn: "Badminton Courts Arena",
+    subMr: "आंतरराष्ट्रीय मानकांचे वूडन सिंथेटिक कोर्ट्स",
+    subEn: "International wooden synthetic courts",
+    descMr:
+      "बॅडमिंटनच्या उत्साही खेळासाठी सज्ज व्हा! आमच्या क्लबमध्ये आंतरराष्ट्रीय दर्जाचे बॅडमिंटन कोर्ट्स उपलब्ध आहेत. उत्कृष्ट फ्लोअरिंग आणि योग्य प्रकाशयोजनामुळे येथे खेळण्याचा अनुभव खास असतो.",
+    descEn:
+      "Experience high-energy indoor badminton! Tournament-grade wooden synthetic courts equipped with eye-comfort anti-glare LED lighting.",
+    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203979535.jpg",
+    timingMr: "सकाळी ६:०० ते रात्री ९:००",
+    timingEn: "6:00 AM to 9:00 PM",
+    featuresMr: [
+      "🏆 दर्जा: आंतरराष्ट्रीय मानकांचे उच्च-गुणवत्तेचे कोर्ट्स",
+      "💡 लाईटिंग: डोळ्यांना आरामदायक प्रो LED प्रकाशयोजना",
+      "🤝 उपलब्धता: कोर्ट बुकिंग व मेंबरशिप पर्याय उपलब्ध",
+    ],
+    featuresEn: [
+      "International tournament-standard courts",
+      "Eye-friendly anti-glare LED sports lighting",
+      "Court booking & club membership options",
     ],
   },
   {
     id: "squash",
     icon: "🎾",
-    titleMr: "स्क्वॅश कोर्ट",
-    titleEn: "Squash Court",
-    subMr: "आंतरराष्ट्रीय मानकांच्या स्वच्छ कोर्ट",
-    subEn: "International glass-back squash court",
+    titleMr: "स्क्वॉश कोर्ट",
+    titleEn: "Glass-Back Squash Court",
+    subMr: "उच्च वेगाच्या व तीव्र व्यायामासाठी सोय",
+    subEn: "High-speed intense stamina workout court",
     descMr:
-      "आंतरराष्ट्रीय ग्लास-बॅक मानकांचे स्क्वॅश कोर्ट. जलद हालचाली, स्टॅमिना व उच्च फिटनेससाठी अतिशय उपयुक्त.",
+      "तुमचा वेग आणि प्रतिसाद तपासा! स्क्वॉश हा एक अत्यंत वेगवान आणि ऊर्जा-खर्चीक खेळ आहे. आमच्या सुसज्ज स्क्वॉश कोर्ट्सवर तुम्ही तुमच्या मित्रांना आव्हान देऊ शकता आणि काही मिनिटांत जबरदस्त कॅलरी बर्न करू शकता.",
     descEn:
-      "International glass-back standard squash court. Highly useful for quick movements, stamina, and high fitness.",
-    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184843273.jpg",
+      "Test your reflexes & speed! Our glass-back squash court offers an intense racquet workout to burn calories and boost cardiovascular endurance.",
+    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763206382917.jpg",
     timingMr: "सकाळी ६:०० ते रात्री ९:००",
     timingEn: "6:00 AM to 9:00 PM",
     featuresMr: [
-      "ग्लास-बॅक आंतरराष्ट्रीय मानकांचे कोर्ट",
-      "स्पेशल वूडन स्प्रंग फ्लोअरिंग",
-      "रॅकेट व इक्विपमेंट सोय",
-      "उच्च फिटनेस व स्टॅमिना वर्कआउट",
+      "⚡️ वेग: उच्च वेगाच्या आणि तीव्र व्यायामासाठी उत्तम",
+      "💪 लाभ: हृदय व रक्तवाहिन्यांचे आरोग्य सुधारण्यासाठी",
+      "🎮 खेळ: मित्रांसोबत आव्हानात्मक मॅचेस खेळण्यासाठी उत्तम",
     ],
     featuresEn: [
-      "Glass-back international standard court",
-      "Special wooden sprung flooring",
-      "Rackets and equipment available",
-      "High fitness and stamina workout",
+      "Ideal for high-speed intense racquet workout",
+      "Boosts cardiovascular health & stamina",
+      "Perfect for challenging friends to a match",
+    ],
+  },
+  {
+    id: "table-tennis",
+    icon: "🏓",
+    titleMr: "टेबल टेनिस हॉल",
+    titleEn: "Table Tennis Arena",
+    subMr: "एकाग्रता आणि प्रतिक्रिया गती वाढवणारा खेळ",
+    subEn: "Focus & reaction time boosting TT tables",
+    descMr:
+      "टेबल टेनिसच्या रोमांचक खेळासाठी तयार व्हा! आमच्या टेबल टेनिस हॉलमध्ये तुम्हाला सर्वोत्तम उपकरणे आणि खेळण्यासाठी पुरेसा अवकाश मिळतो. एकाग्रता आणि प्रतिक्रिया गती वाढवण्यासाठी हा खेळ उत्कृष्ट आहे.",
+    descEn:
+      "Sharpen your focus and hand-eye coordination! Our indoor Table Tennis arena is fully equipped with official tables and quality paddles.",
+    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763206867693.jpg",
+    timingMr: "सकाळी ६:०० ते रात्री ९:००",
+    timingEn: "6:00 AM to 9:00 PM",
+    featuresMr: [
+      "🎯 फोकस: एकाग्रता आणि प्रतिक्रिया गती सुधारते",
+      "✅ उपकरणे: उच्च-गुणवत्तेचे टीटी टेबल्स आणि साहित्य",
+      "🕹️ अनुभव: शांत आणि उत्साही वातावरणात खेळण्याचा आनंद",
+    ],
+    featuresEn: [
+      "Boosts concentration & quick reaction speed",
+      "Official high-grade TT tables and gear",
+      "Comfortable spacious indoor arena",
     ],
   },
   {
     id: "snooker",
     icon: "🎱",
-    titleMr: "स्नूकर & पूल टेबल्स",
-    titleEn: "Snooker & Pool",
-    subMr: "एकग्रता वाढवणारा स्नूकर आणि पूल टेबल",
-    subEn: "Concentration boosting snooker and pool table",
+    titleMr: "स्नूकर आणि पूल",
+    titleEn: "Snooker & 8-Ball Pool Studio",
+    subMr: "अचूकता, एकाग्रता व मनोरंजनाची जोड",
+    subEn: "Precision, focus and leisure snooker tables",
     descMr:
-      "प्रीमियम वूलन क्लोथवर आंतरराष्ट्रीय मानकांचे स्नूकर व पूल टेबल्स. वातानुकूलित हॉलमध्ये एकाग्रता व मनोरंजनाचा आनंद.",
+      "विश्रांतीच्या वेळेत मनोरंजनाची जोड द्या. आमच्या स्नूकर आणि पूल सुविधेमध्ये उच्च-गुणवत्तेचे टेबल्स उपलब्ध आहेत. स्नूकर हा खेळ एकाग्रता आणि अचूकता वाढवण्यास मदत करतो.",
     descEn:
-      "International standard snooker and pool tables on premium woolen cloth. Enjoy concentration and entertainment in our AC hall.",
-    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357638129.jpg",
+      "Combine leisure with strategy! Enjoy snooker and 8-ball pool on tournament-grade tables set inside our plush air-conditioned studio.",
+    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243482819.jpg",
     timingMr: "सकाळी १०:०० ते रात्री ९:००",
     timingEn: "10:00 AM to 9:00 PM",
     featuresMr: [
-      "आंतरराष्ट्रीय मानकांचे स्नूकर टेबल्स",
-      "प्रीमियम ८-बॉल पूल टेबल",
-      "एसी हॉल व सोफा सीटिंग",
-      "मित्र-मैत्रिणींसोबत रिलॅक्सिंग वेळ",
+      "🧠 कौशल्य: अचूकता, एकाग्रता व धोरणात्मक विचार वाढवते",
+      "🛋️ सुविधा: आरामदायक बैठक व्यवस्था व एसी हॉल",
+      "👍 उद्देश: सामाजिक व मनोरंजक विरंगुळ्यासाठी उत्तम",
     ],
     featuresEn: [
-      "International standard snooker tables",
-      "Premium 8-ball pool table",
-      "AC hall and sofa seating",
-      "Relaxing time with friends",
+      "Enhances precision, focus & strategic thinking",
+      "Plush sofa lounge seating in air-conditioned hall",
+      "Ideal for friendly games and relaxing leisure",
+    ],
+  },
+  {
+    id: "pickleball-turf",
+    icon: "🥅",
+    titleMr: "पिकलबॉल व टर्फ मैदान",
+    titleEn: "Pickleball Court & Sports Turf",
+    subMr: "पिकलबॉल, क्रिकेट व फुटबॉलसाठी कृत्रिम टर्फ",
+    subEn: "Pickleball court & all-weather artificial turf",
+    descMr:
+      "हिरवीगार आणि उत्कृष्ट कृत्रिम टर्फ मैदान तुमच्या आऊटडोअर खेळांच्या गरजा पूर्ण करते. सोबतच जगातील सर्वात वेगाने लोकप्रिय होणारा पिकलबॉल खेळ खेळण्यासाठी सांगलीतील भव्य पिकलबॉल कोर्ट उपलब्ध आहे.",
+    descEn:
+      "Play your favorite outdoor sports all year round! Features a dedicated Pickleball court along with artificial turf for mini-cricket and football matches.",
+    img: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763202416442.jpg",
+    timingMr: "सकाळी ६:०० ते रात्री १०:००",
+    timingEn: "6:00 AM to 10:00 PM",
+    featuresMr: [
+      "🌿 गुणवत्ता: उच्च-गुणवत्तेचे व सुरक्षित कृत्रिम टर्फ",
+      "📅 बुकिंग: टीम मॅच आणि सरावासाठी तासावर भाड्याने उपलब्ध",
+      "🎮 वापर: पिकलबॉल, फुटबॉल, क्रिकेट व मैदानी खेळ",
+    ],
+    featuresEn: [
+      "High-density safe artificial grass turf",
+      "Hourly slot rental for team matches & practice",
+      "Multi-purpose court for Pickleball, Football & Cricket",
+    ],
+  },
+  {
+    id: "jogging-track",
+    icon: "👟",
+    titleMr: "जॉगिंग ट्रॅक",
+    titleEn: "Jogging Track",
+    subMr: "शुद्ध हवा व निसर्गरम्य हिरवळीत मॉर्निंग वॉक",
+    subEn: "Pure air, fresh greenery & dedicated track",
+    descMr:
+      "निसर्गरम्य आणि शुद्ध हवेत जॉगिंग करा. आमच्या क्लबमधील प्रशस्त जॉगिंग ट्रॅकवर धावणे किंवा चालणे म्हणजे दिवसाची प्रसन्न सुरुवात! शहराच्या गजबजाटापासून दूर शुद्ध हवेत व्यायाम करण्याचा सोपा मार्ग.",
+    descEn:
+      "Start your morning refreshed! Our smooth walking & jogging track winds through lush lawns and greenery away from city pollution.",
+    img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=1200&auto=format&fit=crop",
+    timingMr: "सकाळी ५:३० ते ९:०० व सायं. ४:३० ते ८:००",
+    timingEn: "5:30 AM-9:00 AM & 4:30 PM-8:00 PM",
+    featuresMr: [
+      "🌬️ वातावरण: हिरवळ, ताजी हवा आणि शांत परिसर",
+      "🛡️ सुरक्षा: समतल आणि सुरक्षित जॉगिंग ट्रॅक",
+      "🏃‍♂️ आरोग्य: दररोज सकाळी/संध्याकाळी चालण्यासाठी सर्वोत्तम",
+    ],
+    featuresEn: [
+      "Lush greenery with clean pollution-free air",
+      "Levelled safe track for walking & jogging",
+      "Ideal for daily morning & evening fitness walks",
+    ],
+  },
+  {
+    id: "open-gym",
+    icon: "🏋️‍♂️",
+    titleMr: "ओपन जिम",
+    titleEn: "Open Gym",
+    subMr: "मोकळ्या हवेतील व्यायाम साधने व फिटनेस झोन",
+    subEn: "Open-air workout machinery & bodyweight equipment",
+    descMr:
+      "निसर्गाच्या सान्निध्यात मोकळ्या हवेत व्यायाम करा! ओपन जिममध्ये अत्याधुनिक मोकळ्या हवेतील व्यायाम साधने, स्ट्रेचिंग एरिया आणि कॅलिस्थेनिक्स वर्कआउट झोन उपलब्ध आहे.",
+    descEn:
+      "Workout in fresh open air! Our Open Gym features bodyweight equipment, stretching area and calisthenics rigs.",
+    img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1200&auto=format&fit=crop",
+    timingMr: "सकाळी ५:३० ते ९:०० व सायं. ४:३० ते ८:००",
+    timingEn: "5:30 AM-9:00 AM & 4:30 PM-8:00 PM",
+    featuresMr: [
+      "🏋️‍♂️ साधने: मोकळ्या हवेतील ओपन जिम इक्विपमेंट्स",
+      "🍃 वातावरण: ताजी हवा आणि प्रसन्न निसर्गरम्य परिसर",
+      "💪 वापर: वॉर्म-अप, स्ट्रेचिंग व स्ट्रेन्थ वर्कआउट",
+    ],
+    featuresEn: [
+      "Open-air workout machinery & bodyweight rigs",
+      "Fresh air natural environment",
+      "Great for warm-ups, stretching & strength training",
+    ],
+  },
+  {
+    id: "green-lawn",
+    icon: "🌿",
+    titleMr: "लॉन",
+    titleEn: "Lawn",
+    subMr: "प्रशस्त हिरवळीचे मैदान व निसर्गरम्य विरंगुळा क्षेत्र",
+    subEn: "Spacious green lawn for walking & relaxation",
+    descMr:
+      "१.५ एकर परिसरातील सुंदर हिरवळ मैदान! निसर्गाच्या कुशीत शांत वाचन, मॉर्निंग वॉक, योगा आणि कौटुंबिक विरंगुळ्यासाठी ही उत्तम जागा आहे.",
+    descEn:
+      "Spacious lush green lawns in our 1.5 acre complex! Perfect for relaxation, walking, open exercises, and peaceful family leisure.",
+    img: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1200&auto=format&fit=crop",
+    timingMr: "सकाळी ५:३० ते रात्री ९:००",
+    timingEn: "5:30 AM to 9:00 PM",
+    featuresMr: [
+      "🌿 परिसर: दीड एकर निसर्गरम्य मऊ हिरवळ मैदान",
+      "🕊️ शांतता: शहराच्या गजबजाटापासून दूर प्रसन्न वातावरण",
+      "🧘 वापर: विरंगुळा, चालणे, योगा व कौटुंबिक वेळ",
+    ],
+    featuresEn: [
+      "Spacious soft grass lawn across 1.5 acres",
+      "Quiet pollution-free serene environment",
+      "Ideal for leisure, walking, yoga & family time",
+    ],
+  },
+  {
+    id: "children-play-area",
+    icon: "🛝",
+    titleMr: "चिल्ड्रन्स प्ले एरिया",
+    titleEn: "Children's Play Area",
+    subMr: "लहान मुलांसाठी सुरक्षित खेळणी व घसरगुंडी उद्यान",
+    subEn: "Safe swings, slides & play zone for kids",
+    descMr:
+      "लहान मुलांच्या निरामय आनंदासाठी खास डिझाइन केलेला सुरक्षित चिल्ड्रन्स प्ले एरिया! येथे विविध घसरगुंड्या, झोपाळे आणि मऊ हिरवळीवर खेळण्यासाठी उत्कृष्ट जागा उपलब्ध आहे.",
+    descEn:
+      "A vibrant & safe dedicated play park for kids! Features safe swings, slides, climbing frames, and lush soft grass for children's active fun.",
+    img: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=1200&auto=format&fit=crop",
+    timingMr: "सकाळी ६:०० ते रात्री ८:००",
+    timingEn: "6:00 AM to 8:00 PM",
+    featuresMr: [
+      "🛝 खेळणी: लहान मुलांसाठी झोपाळे, घसरगुंडी व सी-सॉ",
+      "🛡️ सुरक्षा: मऊ हिरवळ व सुरक्षित कुंपण असलेला परिसर",
+      "🎈 आनंद: मुलांच्या शारीरिक व मानसिक विकासासाठी उत्तम",
+    ],
+    featuresEn: [
+      "Swings, slides & child-friendly play equipment",
+      "Soft grass lawn & safe fenced play boundaries",
+      "Promotes physical activity & joyous fun for kids",
     ],
   },
 ];
 
 export default function SportsSection() {
   const { isEn } = useLanguage();
+  const store = useAdminStore();
+  const adminFacilities = store.siteData?.sportsFacilities || [];
+
   const [sportsDescOverrides] = useState<Record<string, string>>(() => {
     try {
       return JSON.parse(localStorage.getItem("sports_facility_descs_v1") || "{}");
@@ -364,6 +530,23 @@ export default function SportsSection() {
       return {};
     }
   });
+
+  const mergedFacilityItems: FacilityDetail[] = facilityItems.map((item) => {
+    const adminFac = adminFacilities.find((f) => f.id === item.id);
+    if (adminFac) {
+      return {
+        ...item,
+        titleMr: adminFac.title || item.titleMr,
+        img: adminFac.imageUrl || item.img,
+        descMr: sportsDescOverrides[item.id] || adminFac.description || item.descMr,
+      };
+    }
+    return {
+      ...item,
+      descMr: sportsDescOverrides[item.id] || item.descMr,
+    };
+  });
+
   const [selectedFacility, setSelectedFacility] = useState<FacilityDetail | null>(null);
   const [showRegModal, setShowRegModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -626,7 +809,7 @@ export default function SportsSection() {
            ══════════════════════════════════════════════════════════════ */}
         <section className="sp-facilities-sec">
           <div className="sp-sec-header text-center">
-            <div className="sp-sec-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#db2777] font-black text-xs sm:text-sm mb-3 shadow-xs">
+            <div className="sp-sec-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] mb-3 shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
               {isEn ? "✨ Premium Amenities" : "✨ प्रिमियम सोयी सुविधा"}
             </div>
             <h2 className="typo-heading-main text-[#1a05a2] leading-tight text-center my-2">
@@ -635,7 +818,7 @@ export default function SportsSection() {
           </div>
 
           <div className="ah-grid">
-            {facilityItems.map((item, index) => {
+            {mergedFacilityItems.map((item, index) => {
               const isActive = selectedFacility?.id === item.id;
               const themes = ["theme-blue", "theme-pink", "theme-purple"];
               const themeClass = item.theme || themes[index % 3];
@@ -677,7 +860,7 @@ export default function SportsSection() {
 
                     <h3 className="ah-card-title">{isEn ? item.titleEn : item.titleMr}</h3>
 
-                    <p className="text-[13px] text-slate-700 font-semibold leading-relaxed mb-1">
+                    <p className="text-[16px] text-slate-800 font-semibold leading-relaxed mb-1" style={{ color: "#1e293b", fontWeight: 600, fontSize: "16px" }}>
                       {isEn ? item.subEn : item.subMr}
                     </p>
                   </div>

@@ -183,18 +183,18 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
         <div className="relative overflow-hidden bg-white rounded-3xl sm:rounded-[32px] p-6 sm:p-10 shadow-xl border-4 border-rose-200 text-center">
           <div className="absolute top-0 inset-x-0 h-3 bg-linear-to-r from-rose-500 via-amber-400 via-pink-500 to-rose-600" />
 
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-rose-50 border border-rose-200 text-[#810B38] font-black text-xs sm:text-sm mb-4 shadow-xs">
+          <div className="ab-badge-pill as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] mb-4 shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
             <span className="text-amber-500 text-base">🌸</span>
             <span>
               {isEn ? (
                 <>
                   Preetam Senior Citizen{" "}
-                  <span className="text-[#db2777] font-black">Anandshala</span> • Annapurna Food
+                  <span className="text-[#db2777] font-extrabold" style={{ fontWeight: 800 }}>Anandshala</span> • Annapurna Food
                   Court
                 </>
               ) : (
                 <>
-                  प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-black">आनंदशाळा</span>{" "}
+                  प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777] font-extrabold" style={{ fontWeight: 800 }}>आनंदशाळा</span>{" "}
                   • अन्नपूर्णा भोजनालय
                 </>
               )}
@@ -202,13 +202,13 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
             <span className="text-amber-500 text-base">🌸</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-[37px] font-black text-[#1A05A2] tracking-tight leading-tight max-w-4xl mx-auto">
+          <h2 className="text-[37px] font-black text-[#1A05A2] tracking-tight leading-tight max-w-6xl mx-auto" style={{ fontSize: "37px", fontWeight: 900 }}>
             {isEn
               ? "Annapurna Food Court Weekly Menu & Rate Chart"
               : "प्रीतम ज्येष्ठ नागरिक आनंदशाळा अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक"}
           </h2>
 
-          <div className="mt-3 text-slate-700 font-extrabold text-sm sm:text-lg max-w-3xl mx-auto flex flex-col items-center justify-center gap-1">
+          <div className="mt-3 text-black text-[16px] !font-[300] max-w-3xl mx-auto flex flex-col items-center justify-center gap-1" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
             <p className="flex items-center justify-center gap-2">
               <span className="text-rose-500">🍲</span>
               <span>
@@ -218,7 +218,7 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
               </span>
               <span className="text-rose-500">🍲</span>
             </p>
-            <p className="text-slate-800 font-extrabold text-xs sm:text-base">
+            <p className="text-black !font-[300] text-[16px]" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
               {isEn ? "Healthy Living & Delicious Taste" : "आरोग्यदायी सहवास व स्वाद"}
             </p>
           </div>

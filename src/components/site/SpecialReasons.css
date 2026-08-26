@@ -26,20 +26,24 @@
 }
 
 .miniHeading {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 4px;
-  color: #f472b6;
-  margin-bottom: 8px;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(217, 70, 239, 0.12));
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  color: #be185d;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 15px rgba(244, 114, 182, 0.12);
 }
 
 .miniDiamond {
-  color: #f472b6;
-  font-size: 9px;
+  color: #be185d;
+  font-size: 12px;
 }
 
 .reasonsHeading h2 {
@@ -73,11 +77,11 @@
   font-size: 14px;
 }
 
-.reasonsHeading>p {
+.reasonsHeading > p {
   margin: 0;
-  color: #475569;
-  font-size: 1.05rem;
-  font-weight: 700;
+  color: #000000 !important;
+  font-size: 18px !important;
+  font-weight: 300 !important;
   line-height: 1.65;
 }
 

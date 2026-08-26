@@ -823,59 +823,108 @@ export const initialSiteData: SiteData = {
   sportsFacilities: [
     {
       id: "gym",
-      title: "जिम & बॉडीबिल्डिंग",
+      title: "अत्याधुनिक जिम",
       description: "आधुनिक फिटनेस उपकरणे, AC हॉल आणि अनुभवी ट्रेनर्सचे मार्गदर्शन.",
       icon: "🏋️‍♂️",
       imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184848892.jpg",
     },
     {
+      id: "yoga",
+      title: "योगा स्टुडिओ",
+      description: "शांत वातावरणात दररोज योगासने, प्राणायाम व ध्यानधारणा सराव.",
+      icon: "🧘",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763188841664.jpg",
+    },
+    {
+      id: "meditation",
+      title: "मेडिटेशन कक्ष",
+      description: "शांतता आणि एकाग्रतेसाठी स्वतंत्र ध्यान कक्ष व अध्यात्मिक वातावरण.",
+      icon: "🕊️",
+      imageUrl: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop",
+    },
+    {
+      id: "zumba",
+      title: "झुंबा क्लासेस",
+      description: "संगीताच्या तालावर एनर्जेटिक झुम्बा आणि डान्स फिटनेस वर्कआउट.",
+      icon: "💃",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357581614.png",
+    },
+    {
+      id: "dance",
+      title: "डान्स क्लासेस",
+      description: "विविध डान्स प्रकार शिकण्यासाठी भव्य स्टुडिओ व तज्ज्ञ कोचेस.",
+      icon: "👯",
+      imageUrl: "https://images.unsplash.com/photo-1547153760-18fc86324498?q=80&w=1200&auto=format&fit=crop",
+    },
+    {
       id: "swimming",
-      title: "स्विमिंग पूल",
+      title: "भव्य स्विमिंग पूल",
       description: "ऑलिंपिक मानकांनुसार स्वच्छ फिल्टर केलेले पाणी व पोहण्याची सोय.",
       icon: "🏊‍♂️",
       imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243460172.jpg",
     },
     {
       id: "badminton",
-      title: "इनडोअर बॅडमिंटन",
+      title: "बॅडमिंटन कोर्ट",
       description: "लाकडी सिंथेटिक मॅटिंग व LED लाईटिंगसह सुसज्ज बॅडमिंटन कोर्ट.",
       icon: "🏸",
       imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763203444303.jpg",
     },
     {
-      id: "pickleball",
-      title: "पिकलबॉल",
-      description: "जगातील वेगाने लोकप्रिय होणारा पिकलबॉल खेळ व अत्याधुनिक कोर्ट.",
-      icon: "🏓",
-      imageUrl: "/images/pickleball-court.png",
-    },
-    {
-      id: "yoga",
-      title: "योग & ध्यान कक्ष",
-      description: "शांत वातावरणात दररोज योगासने, प्राणायाम व ध्यानधारणा सराव.",
-      icon: "🧘",
-      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763188841664.jpg",
-    },
-    {
-      id: "zumba",
-      title: "झुंबा & डान्स क्लास",
-      description: "संगीताच्या तालावर एनर्जेटिक झुम्बा आणि डान्स फिटनेस वर्कआउट.",
-      icon: "💃",
-      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357581614.png",
-    },
-    {
       id: "squash",
-      title: "स्क्वॅश कोर्ट",
+      title: "स्क्वॉश कोर्ट",
       description: "आंतरराष्ट्रीय ग्लास-बॅक मानकांचे स्क्वॅश कोर्ट व फिटनेस सराव.",
       icon: "🎾",
       imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763184843273.jpg",
     },
     {
+      id: "table-tennis",
+      title: "टेबल टेनिस हॉल",
+      description: "जागतिक दर्जाच्या टेबल टेनिस कोष्टकांवर खेळाडूंचा सराव.",
+      icon: "🏓",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243482819.jpg",
+    },
+    {
       id: "snooker",
-      title: "स्नूकर & पूल टेबल्स",
+      title: "स्नूकर आणि पूल",
       description: "प्रीमियम वूलन क्लोथवरील स्नूकर व ८-बॉल पूल टेबल्सवर खेळा.",
       icon: "🎱",
       imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763357638129.jpg",
+    },
+    {
+      id: "pickleball-turf",
+      title: "पिकलबॉल व टर्फ मैदान",
+      description: "पिकलबॉल कोर्ट आणि कृत्रिम टर्फ मैदान मिनी क्रिकेट/फुटबॉलसाठी.",
+      icon: "🥅",
+      imageUrl: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1763202416442.jpg",
+    },
+    {
+      id: "jogging-track",
+      title: "जॉगिंग ट्रॅक",
+      description: "निसर्गरम्य आणि शुद्ध हवेत प्रशस्त जॉगिंग ट्रॅकवर चालणे/धावणे.",
+      icon: "👟",
+      imageUrl: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=1200&auto=format&fit=crop",
+    },
+    {
+      id: "open-gym",
+      title: "ओपन जिम",
+      description: "मोकळ्या हवेतील व्यायाम साधने, स्ट्रेचिंग एरिया व फिटनेस झोन.",
+      icon: "🏋️‍♂️",
+      imageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1200&auto=format&fit=crop",
+    },
+    {
+      id: "green-lawn",
+      title: "लॉन",
+      description: "१.५ एकर परिसरातील सुंदर हिरवळ मैदान व निसर्गरम्य विरंगुळा क्षेत्र.",
+      icon: "🌿",
+      imageUrl: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1200&auto=format&fit=crop",
+    },
+    {
+      id: "children-play-area",
+      title: "चिल्ड्रन्स प्ले एरिया",
+      description: "लहान मुलांसाठी झोपाळे, घसरगुंडी व मऊ हिरवळीवर खेळण्याची सोय.",
+      icon: "🛝",
+      imageUrl: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?q=80&w=1200&auto=format&fit=crop",
     },
   ],
   sportsPackages: [
@@ -1960,9 +2009,17 @@ function mergeSiteData(prev: SiteData, incoming: any): SiteData {
 }
 
 export function useAdminStore() {
-  const [siteData, setSiteDataState] = useState<SiteData>(() =>
-    getStoredData(STORAGE_KEYS.site, initialSiteData),
-  );
+  const [siteData, setSiteDataState] = useState<SiteData>(() => {
+    const loaded = getStoredData(STORAGE_KEYS.site, initialSiteData);
+    if (
+      !loaded.sportsFacilities ||
+      loaded.sportsFacilities.length !== 15 ||
+      loaded.sportsFacilities.some((f) => f.id === "open-gym-lawn")
+    ) {
+      loaded.sportsFacilities = initialSiteData.sportsFacilities;
+    }
+    return loaded;
+  });
   const [aboutData, setAboutDataState] = useState<AboutData>(() => {
     const loaded = getStoredData(STORAGE_KEYS.about, initialAboutData);
     const mergedOverrides = {
@@ -2023,6 +2080,15 @@ export function useAdminStore() {
       siteData.activityHalls[0]?.title !== "बैठे खेळ हॉल"
     ) {
       restoreBaitheKhelHall();
+    }
+    if (
+      !siteData.sportsFacilities ||
+      siteData.sportsFacilities.length !== 15 ||
+      siteData.sportsFacilities.some((f) => f.id === "open-gym-lawn")
+    ) {
+      const updatedSite = { ...siteData, sportsFacilities: initialSiteData.sportsFacilities };
+      setStoredData(STORAGE_KEYS.site, updatedSite);
+      setSiteDataState(updatedSite);
     }
     syncAllToFirebaseCloud().catch(() => {});
   }, []);

@@ -281,7 +281,7 @@ export function ReasonsSection() {
       <div className="container-page relative z-10 max-w-7xl mx-auto">
         {/* ── Section header ── */}
         <Reveal className="text-center max-w-3xl mx-auto mb-14">
-          <span className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.25em] text-[#db2777] font-black bg-pink-100/90 px-4 py-1.5 rounded-full border border-pink-300/80 shadow-xs">
+          <span className="inline-flex items-center gap-2 text-[14px] uppercase tracking-[0.25em] text-[#be185d] font-extrabold bg-pink-100/90 px-4 py-1.5 rounded-full border border-pink-300/80 shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
             ✦ {isEn ? "Special Reasons" : "विशेष कारणे"} ✦
           </span>
           <h2 className="mt-4 font-display text-2xl sm:text-[37px] md:text-[37px] font-black text-[#1A05A2] dark:text-white tracking-tight drop-shadow-sm">
@@ -295,7 +295,7 @@ export function ReasonsSection() {
             <span className="text-[#CC0D50] text-sm font-bold">❦</span>
             <div className="h-0.375 w-16 bg-linear-to-r from-transparent via-[#CC0D50]/50 to-transparent" />
           </div>
-          <p className="text-sm sm:text-base text-foreground/80 font-bold max-w-2xl mx-auto">
+          <p className="text-black text-[16px] !font-[300] max-w-2xl mx-auto" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
             {isEn
               ? "Our goal is the overall development and bright future of every senior citizen."
               : "आमचं ध्येय आहे प्रत्येक विद्यार्थ्याचा सर्वांगीण विकास आणि उज्ज्वल भविष्य."}

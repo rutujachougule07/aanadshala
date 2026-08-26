@@ -166,7 +166,8 @@ export default function JourneyTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="journey-exact-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-[#810B38] font-black text-xs sm:text-sm mb-3 shadow-xs"
+            className="journey-exact-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] mb-3 shadow-xs"
+            style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}
           >
             <span>🌿</span>
             <span>
@@ -190,7 +191,8 @@ export default function JourneyTimeline() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.5 }}
             viewport={{ once: true }}
-            className="journey-exact-title text-[26px] sm:text-[36px] md:text-[37px] font-black text-[#1a05a2] leading-snug tracking-tight"
+            className="journey-exact-title text-[37px] font-black text-[#1a05a2] leading-snug tracking-tight"
+            style={{ fontSize: "37px", fontWeight: 900 }}
           >
             {isEn ? "Project Journey & Highlights" : "प्रकल्पाची वाटचाल व वैशिष्ट्ये"}
           </motion.h2>
@@ -200,7 +202,8 @@ export default function JourneyTimeline() {
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
             viewport={{ once: true }}
-            className="journey-exact-subtitle text-xs sm:text-sm md:text-base font-medium text-slate-500 mt-2 tracking-wide"
+            className="journey-exact-subtitle text-[16px] !font-[300] text-black mt-2 tracking-wide"
+            style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}
           >
             {isEn
               ? "An inspiring journey from initial concept to grand opening..."

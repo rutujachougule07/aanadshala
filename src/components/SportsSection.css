@@ -1531,14 +1531,15 @@
 
 .sp-modal-container {
   background: #ffffff;
-  border-radius: 28px;
-  max-width: 580px;
+  border-radius: 2rem;
+  max-width: 520px;
   width: 100%;
   max-height: 90vh;
+  max-height: 90dvh;
   position: relative;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
-  animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 3px solid #fbcfe8;
+  box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.4), 0 0 35px rgba(219, 39, 119, 0.2);
+  animation: slideUpModal 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid rgba(244, 114, 182, 0.35);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
@@ -1551,7 +1552,7 @@
 
 @keyframes slideUpModal {
   from {
-    transform: translateY(30px) scale(0.96);
+    transform: translateY(20px) scale(0.9);
     opacity: 0;
   }
 
@@ -1563,14 +1564,14 @@
 
 .sp-modal-close-btn {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 20;
-  background: rgba(15, 23, 42, 0.65);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  width: 36px;
-  height: 36px;
+  top: 1rem;
+  right: 1rem;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   font-size: 16px;
   font-weight: 700;
@@ -1578,23 +1579,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(4px);
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .sp-modal-close-btn:hover {
-  background: #ef4444;
+  background: #db2777;
   color: #ffffff;
-  border-color: #ef4444;
-  transform: rotate(90deg) scale(1.05);
+  border-color: #db2777;
+  transform: rotate(90deg) scale(1.1);
 }
 
 .sp-modal-hero-img-box {
   position: relative;
   width: 100%;
-  height: 230px;
+  height: 200px;
+  min-height: 200px;
   overflow: hidden;
-  border-radius: 24px 24px 0 0;
+  background: #0f172a;
+}
+
+@media (min-width: 640px) {
+  .sp-modal-hero-img-box {
+    height: 215px;
+    min-height: 215px;
+  }
 }
 
 .sp-modal-hero-img {
@@ -1607,26 +1617,30 @@
 
 .sp-modal-hero-badge {
   position: absolute;
-  bottom: 12px;
-  left: 14px;
-  background: linear-gradient(135deg, #db2777, #7c3aed);
-  backdrop-filter: blur(8px);
+  bottom: 1rem;
+  left: 1.25rem;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
   color: #ffffff;
-  font-size: 13px;
+  font-size: 0.85rem;
   font-weight: 800;
-  padding: 6px 16px;
-  border-radius: 50px;
+  padding: 0.45rem 1.1rem;
+  border-radius: 2rem;
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .sp-facility-modal-body {
-  padding: 24px;
+  padding: 1.5rem;
   width: 100%;
   box-sizing: border-box;
-  background: linear-gradient(180deg, #ffffff 0%, #fff4f8 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fff0f5 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .sp-modal-header {
@@ -1635,53 +1649,55 @@
   justify-content: space-between;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
-  border-bottom: 2px solid #fbcfe8;
-  padding-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #fecdd3;
 }
 
 .sp-modal-title {
-  font-size: 22px;
+  font-size: 1.5rem;
   font-weight: 900;
-  color: #1e1b4b;
+  color: #541a1a;
   margin: 0;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .sp-modal-timing {
-  font-size: 12.5px;
-  background: #fce7f3;
+  font-size: 0.8rem;
+  background: linear-gradient(135deg, #fff1f2, #ffe4e6);
   color: #be185d;
   padding: 5px 14px;
   border-radius: 50px;
   font-weight: 800;
-  border: 1px solid #fbcfe8;
+  border: 1px solid #fecdd3;
 }
 
 .sp-modal-desc {
-  font-size: 13.5px;
-  color: #334155;
+  font-size: 1rem;
+  color: #1e293b;
   line-height: 1.6;
-  margin-bottom: 18px;
   font-weight: 600;
+  font-family: "Mukta", sans-serif !important;
+  background: linear-gradient(135deg, rgba(255, 241, 242, 0.9), rgba(253, 242, 248, 0.5));
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #fecdd3;
 }
 
 .sp-modal-features-sec {
   background: #ffffff;
-  border-radius: 20px;
-  padding: 16px;
-  margin-bottom: 20px;
-  border: 2px solid #fbcfe8;
+  border-radius: 1.25rem;
+  padding: 1.1rem;
+  border: 1px solid #fecdd3;
   box-shadow: 0 4px 14px rgba(244, 114, 182, 0.08);
 }
 
 .sp-modal-features-title {
-  font-size: 14px;
+  font-size: 0.9rem;
   font-weight: 900;
-  color: #1e1b4b;
-  margin: 0 0 12px;
+  color: #541a1a;
+  margin: 0 0 10px;
 }
 
 .sp-modal-features-list {
@@ -1690,7 +1706,7 @@
   margin: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
 
 @media (max-width: 580px) {
@@ -1700,16 +1716,16 @@
 }
 
 .sp-modal-feat-item {
-  font-size: 12.5px;
-  font-weight: 800;
-  color: #334155;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1e293b;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #fdf2f8;
-  padding: 8px 12px;
-  border-radius: 12px;
-  border: 1px solid #fbcfe8;
+  gap: 6px;
+  background: #fff1f2;
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1px solid #fecdd3;
 }
 
 .sp-feat-check {
@@ -1722,21 +1738,21 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+  padding-top: 0.5rem;
 }
 
 .sp-modal-btn-call {
   flex: 1;
-  background: linear-gradient(135deg, #f472b6 0%, #ff2a85 100%);
+  background: linear-gradient(135deg, #810B38 0%, #db2777 100%);
   color: #ffffff;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: 800;
-  padding: 11px 18px;
-  border-radius: 50px;
+  padding: 12px 20px;
+  border-radius: 12px;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(230, 0, 103, 0.3);
+  box-shadow: 0 8px 20px rgba(219, 39, 119, 0.25);
   transition: transform 0.2s ease;
-  min-width: 180px;
 }
 
 .sp-modal-btn-call:hover {
@@ -1745,18 +1761,17 @@
 
 .sp-modal-btn-wa {
   flex: 1;
-  background: #ffffff;
-  color: #1a05a2;
-  border: 2px solid rgba(26, 5, 162, 0.2);
+  background: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+  color: #ffffff;
+  border: none;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 0.875rem;
   font-weight: 800;
-  padding: 10px 18px;
-  border-radius: 50px;
+  padding: 12px 20px;
+  border-radius: 12px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(26, 5, 162, 0.08);
+  box-shadow: 0 8px 20px rgba(13, 148, 136, 0.25);
   transition: all 0.2s ease;
-  min-width: 180px;
 }
 
 .sp-modal-btn-wa:hover {

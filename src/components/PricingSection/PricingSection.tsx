@@ -1,5 +1,5 @@
 import React from "react";
-import { MapPin, AlertTriangle } from "lucide-react";
+import { MapPin, AlertTriangle, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/site/Reveal";
 import { HighlightText } from "@/components/HighlightText";
 import { useLanguage } from "@/lib/use-language";
@@ -31,21 +31,21 @@ export const PricingSection: React.FC = () => {
             )}
           </h2>
 
-          <p className="ps-subtitle">
+          <p className="ps-subtitle !font-[300] text-black text-[18px]" style={{ fontWeight: 300, color: "#000000", fontSize: "18px" }}>
             {isEn ? (
               <>
                 “Live with joy, nurture health, fulfill your dreams by joining{" "}
-                <span className="text-[#db2777] font-black">Anandshala</span>.” <br />
-                <span className="text-[#c2410c] font-black">
+                <span className="text-[#db2777] font-black text-[18px]" style={{ fontSize: "18px" }}>Anandshala</span>.” <br />
+                <span className="text-[#c2410c] !font-[300] text-[18px]" style={{ fontWeight: 300, fontSize: "18px" }}>
                   Detailed fee structure is provided in the table below:
                 </span>
               </>
             ) : (
               <>
                 “आनंदात जगायचं, आरोग्य जपायचं,{" "}
-                <span className="text-[#db2777] font-black">आनंदशाळेत</span> येऊन स्वप्न साकारायचं.”{" "}
+                <span className="text-[#db2777] font-black text-[18px]" style={{ fontSize: "18px" }}>आनंदशाळेत</span> येऊन स्वप्न साकारायचं.”{" "}
                 <br />
-                <span className="text-[#c2410c] font-black">
+                <span className="text-[#c2410c] !font-[300] text-[18px]" style={{ fontWeight: 300, fontSize: "18px" }}>
                   खालील टेबलमध्ये सविस्तर दर दिले आहेत:
                 </span>
               </>
@@ -144,33 +144,39 @@ export const PricingSection: React.FC = () => {
         })}
       </div>
 
-      <p className="text-center font-black text-slate-800 text-base sm:text-lg md:text-xl mt-4">
-        {isEn
-          ? "* Curated for senior citizens to experience healthy, happy & peaceful golden years."
-          : "* ज्येष्ठ नागरिकांना निरोगी, आनंदी आणि निवांतपणे सोनेरी सायंकाळ अनुभवण्यासाठी."}
-      </p>
+      <div className="flex justify-center my-10 md:my-12">
+        <div className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-gradient-to-r from-pink-50 via-rose-100 to-purple-50 border-2 border-pink-300 shadow-lg text-[#be185d] font-black text-base sm:text-lg md:text-xl text-center max-w-4xl mx-auto">
+          <Sparkles className="w-6 h-6 text-pink-600 shrink-0 animate-pulse" />
+          <span>
+            {isEn
+              ? "Curated for senior citizens to experience healthy, happy & peaceful golden years."
+              : "ज्येष्ठ नागरिकांना निरोगी, आनंदी आणि निवांतपणे सोनेरी सायंकाळ अनुभवण्यासाठी."}
+          </span>
+          <Sparkles className="w-6 h-6 text-pink-600 shrink-0 animate-pulse" />
+        </div>
+      </div>
 
       {/* ── CONTACT DETAILS FOOTER CARD ── */}
       <Reveal delay={250}>
-        <div className="ps-contact-card-footer mt-6">
-          <div className="contact-inner flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="contact-left space-y-2">
+        <div className="ps-contact-card-footer mt-0">
+          <div className="contact-inner flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
+            <div className="contact-left space-y-3.5">
               <span className="contact-badge">
                 📞 {isEn ? "Direct Contact & Booking" : "थेट संपर्क & बुकिंग"}
               </span>
-              <h3 className="text-2xl font-black text-white">
+              <h3 className="text-2xl sm:text-3xl font-black text-white">
                 {isEn ? "Shri Abhinay Jagannath Kamaji" : "श्री. अभिनय जगन्नाथ कामाजी"}
               </h3>
-              <p className="flex items-center gap-1.5 text-xs text-rose-200 font-bold">
-                <MapPin size={15} />
+              <p className="flex items-center gap-1.5 text-xs sm:text-sm text-rose-200 font-bold">
+                <MapPin size={16} />
                 <span>
                   {isEn
                     ? "Address: Preetam House Bldg, Madhavnagar Road, Near Jakat Naka, Sangli."
                     : "पत्ता: प्रीतम हाऊस बिल्डिंग, माधवनगर रोड, जकात नाक्या जवळ, सांगली."}
                 </span>
               </p>
-              <p className="text-[11px] text-amber-200 font-extrabold flex items-center gap-1">
-                <AlertTriangle size={13} className="shrink-0" />
+              <p className="text-[12px] text-amber-200 font-extrabold flex items-center gap-1.5 pt-1">
+                <AlertTriangle size={14} className="shrink-0" />
                 <span>
                   {isEn
                     ? "Note: Tariff subject to modification as needed. Terms and conditions apply."
@@ -179,7 +185,7 @@ export const PricingSection: React.FC = () => {
               </p>
             </div>
 
-            <div className="contact-right-buttons flex flex-col sm:flex-row gap-3">
+            <div className="contact-right-buttons flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
               <a
                 href={`https://wa.me/919370237633?text=${encodeURIComponent("Hi, I am interested in your product/service: Preetam Anandshala Membership & Stay Rate Chart. Please provide more details.")}`}
                 target="_blank"

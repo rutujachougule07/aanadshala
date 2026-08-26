@@ -46,8 +46,8 @@ const hallsData: HallDetail[] = [
     id: "०१",
     titleMr: "बैठे खेळ हॉल",
     titleEn: "Indoor Games Hall",
-    categoryMr: "इनडोअर गेम्स",
-    categoryEn: "Indoor Games",
+    categoryMr: "कॅरम, बुद्धिबळ व इनडोअर खेळ",
+    categoryEn: "Carrom, Chess & Indoor Games",
     descMr: "बैठे खेळ हॉलमध्ये जाऊन कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.",
     descEn: "Enjoy Carrom, Chess, Cards, Snake & Ladders, and various indoor board games.",
     icon: <Puzzle size={28} />,
@@ -58,8 +58,8 @@ const hallsData: HallDetail[] = [
     id: "०२",
     titleMr: "कला दालन",
     titleEn: "Arts & Crafts Hall",
-    categoryMr: "हस्तकला & चित्रकला",
-    categoryEn: "Arts & Handicrafts",
+    categoryMr: "चित्रकला, हस्तकला व विणकाम",
+    categoryEn: "Painting, Crafts & Knitting",
     descMr: "कला दालनमध्ये जाऊन चित्रकला, हस्तकला आणि विणकाम शिकणे.",
     descEn: "Explore painting, handicrafts, knitting, and artistic expression.",
     icon: <Palette size={28} />,
@@ -70,8 +70,8 @@ const hallsData: HallDetail[] = [
     id: "०३",
     titleMr: "संगीत वाद्य दालन",
     titleEn: "Music & Instruments Hall",
-    categoryMr: "गायन व वाद्यवृंद",
-    categoryEn: "Vocal & Instrumental Music",
+    categoryMr: "तबला, गिटार, पेटी व संगीत आनंद",
+    categoryEn: "Harmonium, Tabla & Music",
     descMr:
       "संगीत वाद्य दालनमध्ये जाऊन तबला, गिटार, पेटी, पियानो, वीणा, ढोलकी, बासरी शिकणे आणि संगीताचा आनंद घेणे.",
     descEn: "Learn and play Tabla, Harmonium, Guitar, Piano, Veena, Dholak, and Flute.",
@@ -83,8 +83,8 @@ const hallsData: HallDetail[] = [
     id: "०४",
     titleMr: "माहिती तंत्रज्ञान हॉल",
     titleEn: "IT & Digital Learning Hall",
-    categoryMr: "डिजिटल लर्निंग & IT",
-    categoryEn: "Digital Literacy",
+    categoryMr: "संगणक, मोबाईल व IT ट्रेनिंग",
+    categoryEn: "Computer, Mobile & IT Literacy",
     descMr:
       "माहिती तंत्रज्ञान हॉलमध्ये जाऊन संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.",
     descEn: "Learn computer operations, smartphone usage, internet browsing, and digital skills.",
@@ -96,8 +96,8 @@ const hallsData: HallDetail[] = [
     id: "०५",
     titleMr: "करमणूक हॉल",
     titleEn: "Recreation & Socializing Hall",
-    categoryMr: "करमणूक & अंताक्षरी",
-    categoryEn: "Recreation & Antakshari",
+    categoryMr: "अंताक्षरी, गप्पा-गोष्टी व समूह खेळ",
+    categoryEn: "Antakshari, Group Games & Fun",
     descMr:
       "करमणूक हॉलमध्ये जाऊन गप्पा-गोष्टी करणे, अंताक्षरी, पझल गेम्स, जोक्स व पासिंग गेम इत्यादी समूह खेळ खेळणे.",
     descEn: "Engage in social chit-chats, Antakshari, group games, puzzles, and fun activities.",
@@ -109,8 +109,8 @@ const hallsData: HallDetail[] = [
     id: "०६",
     titleMr: "स्विमिंग पूल",
     titleEn: "Olympic Swimming Pool",
-    categoryMr: "जलतरण & क्रिडा",
-    categoryEn: "Swimming & Sports",
+    categoryMr: "ऑलिंपिक मानकांचा स्वच्छ पूल",
+    categoryEn: "Olympic Size Clean Pool",
     descMr: "स्विमिंग पूलमध्ये जाऊन पोहणे व पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.",
     descEn: "Enjoy refreshing swims in the temperature-controlled Olympic swimming pool.",
     icon: <Waves size={28} />,
@@ -121,8 +121,8 @@ const hallsData: HallDetail[] = [
     id: "०७",
     titleMr: "संस्कार व संप्रदाय हॉल",
     titleEn: "Spiritual & Cultural Hall",
-    categoryMr: "संस्कार & अध्यात्म",
-    categoryEn: "Spirituality & Values",
+    categoryMr: "सांस्कृतिक कार्यक्रम व अध्यात्म",
+    categoryEn: "Cultural & Spiritual Events",
     descMr: "संस्कार व संप्रदाय हॉलमध्ये जाऊन विविध सांस्कृतिक कार्यक्रम आणि व्हिडिओ पाहणे.",
     descEn: "Attend spiritual discourses, cultural programs, and inspiring videos.",
     icon: <Landmark size={28} />,
@@ -133,8 +133,8 @@ const hallsData: HallDetail[] = [
     id: "०८",
     titleMr: "टेबल टेनिस हॉल",
     titleEn: "Table Tennis Hall",
-    categoryMr: "टेबल टेनिस",
-    categoryEn: "Table Tennis",
+    categoryMr: "टेबल टेनिस व इनडोअर स्पोर्ट्स",
+    categoryEn: "Table Tennis & Indoor Sports",
     descMr: "टेबल टेनिस हॉलमध्ये जाऊन टेबल टेनिस खेळण्याचा आनंद घेणे.",
     descEn: "Play indoor Table Tennis on competition-grade tables.",
     icon: <Dumbbell size={28} />,
@@ -302,7 +302,7 @@ const ActivityHallsSection = () => {
             <span>{isEn ? "Joy, Health\n& Values" : "आनंद, आरोग्य\nआणि संस्कार\nयांचा संगम"}</span>
           </div>
 
-          <h2 className="text-[26px] sm:text-[36px] md:text-[37px] font-black text-[#1a05a2] leading-snug tracking-tight text-center my-2">
+          <h2 className="text-[37px] font-black text-[#1a05a2] leading-snug tracking-tight text-center my-2" style={{ fontSize: "37px", fontWeight: 900 }}>
             {isEn ? (
               <>
                 <span className="text-[#db2777]">Anandshala's</span> Special Activity Halls
@@ -314,7 +314,7 @@ const ActivityHallsSection = () => {
             )}
           </h2>
           <div className="ah-header-desc">
-            <p className="ah-header-desc-text">
+            <p className="ah-header-desc-text text-[16px] !font-[300] text-black" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
               {isEn ? (
                 "Fully equipped luxury activity halls for daily joy, recreation and wellness!"
               ) : (
@@ -354,7 +354,7 @@ const ActivityHallsSection = () => {
                       <HighlightText text={title} />
                     </h3>
 
-                    <p className="text-[13px] text-slate-700 font-semibold leading-relaxed mb-1">
+                    <p className="text-[16px] text-slate-800 font-semibold leading-relaxed mb-1" style={{ color: "#1e293b", fontWeight: 600, fontSize: "16px" }}>
                       <HighlightText text={desc} />
                     </p>
                   </div>
@@ -493,10 +493,10 @@ const ActivityHallsSection = () => {
                 onClick={() => setSelectedHall(null)}
                 aria-label="Close"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
 
-              {/* LEFT SIDE: HIGH-RES IMAGE & BADGE */}
+              {/* HERO IMAGE BANNER */}
               <div className="ah-modal-left-img-box">
                 <img
                   src={selectedHall.image}
@@ -505,16 +505,16 @@ const ActivityHallsSection = () => {
                 />
                 <div className="ah-modal-img-gradient" />
                 <div className="ah-modal-img-badge">
-                  <Sparkles size={16} className="text-amber-300" />
+                  <Sparkles size={14} className="text-amber-300 animate-pulse" />
                   <span>
                     {isEn ? (
                       <>
-                        <span className="text-pink-400 font-black">Anandshala</span> Hall{" "}
+                        <span className="text-pink-300 font-black">Anandshala</span> Hall{" "}
                         {selectedHall.id}
                       </>
                     ) : (
                       <>
-                        <span className="text-pink-400 font-black">आनंदशाळा</span> उपक्रम हॉल{" "}
+                        <span className="text-pink-300 font-black">आनंदशाळा</span> उपक्रम हॉल{" "}
                         {selectedHall.id}
                       </>
                     )}
@@ -522,32 +522,39 @@ const ActivityHallsSection = () => {
                 </div>
               </div>
 
-              {/* RIGHT SIDE: DETAILS */}
-              <div className="ah-modal-right-content">
+              {/* DETAILS CONTENT BODY */}
+              <div className="ah-modal-right-content space-y-4 bg-gradient-to-b from-white via-pink-50/20 to-white">
                 {/* CATEGORY BADGE */}
-                <div className="inline-flex items-center gap-2 bg-pink-50 border border-pink-200 text-[#db2777] text-xs font-black px-3.5 py-1.5 rounded-full mb-3 w-fit">
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#810B38] to-[#db2777] text-white text-xs font-black px-4 py-1.5 rounded-full w-fit shadow-md shadow-pink-600/20 tracking-wide">
+                  <Sparkles size={13} className="text-amber-300" />
                   <span>{isEn ? selectedHall.categoryEn : selectedHall.categoryMr}</span>
                 </div>
 
-                {/* TITLE */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-2xl bg-pink-100 border border-pink-300 flex items-center justify-center text-[#db2777] shrink-0 shadow-sm">
+                {/* TITLE WITH LUXURY ICON */}
+                <div className="flex items-center gap-3.5 pt-0.5">
+                  <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-[#810B38] via-[#a21249] to-[#db2777] text-white flex items-center justify-center shrink-0 shadow-lg shadow-pink-600/25 border border-white/20 text-xl">
                     {selectedHall.icon}
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900">
-                    <HighlightText text={isEn ? selectedHall.titleEn : selectedHall.titleMr} />
-                  </h3>
+                  <div>
+                    <h3 className="text-2xl sm:text-3xl font-black text-[#541a1a] leading-tight tracking-tight">
+                      <HighlightText text={isEn ? selectedHall.titleEn : selectedHall.titleMr} />
+                    </h3>
+                    <p className="text-xs font-extrabold text-pink-600/90 mt-0.5">
+                      {isEn ? "Preetam Senior Citizen Anandshala Facility" : "प्रीतम ज्येष्ठ नागरिक आनंदशाळा विशेष सुविधा"}
+                    </p>
+                  </div>
                 </div>
 
-                {/* DESCRIPTION */}
-                <div className="p-4 rounded-2xl bg-rose-50/70 border border-rose-200 mb-5">
-                  <p className="text-sm sm:text-base text-slate-800 font-extrabold leading-relaxed">
+                {/* ACCENTUATED DESCRIPTION BOX */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-rose-50/90 via-pink-50/50 to-purple-50/30 border border-pink-200/80 shadow-xs relative overflow-hidden">
+                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#db2777] to-[#810B38] rounded-l-2xl" />
+                  <p className="text-base text-slate-800 font-semibold leading-relaxed pl-1" style={{ fontFamily: "'Mukta', sans-serif", fontSize: "16px", fontWeight: 600, color: "#1e293b" }}>
                     <HighlightText text={isEn ? selectedHall.descEn : selectedHall.descMr} />
                   </p>
                 </div>
 
                 {/* CALL & WHATSAPP BUTTONS */}
-                <div className="flex flex-col sm:flex-row gap-3 pt-2 mt-auto border-t border-slate-100">
+                <div className="flex flex-col sm:flex-row gap-3 pt-3 mt-auto border-t border-slate-100">
                   <a
                     href={`https://wa.me/919370237633?text=${encodeURIComponent(
                       isEn
@@ -556,7 +563,7 @@ const ActivityHallsSection = () => {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-linear-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
+                    className="flex-1 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-600 text-white font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/20 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
                   >
                     <MessageCircle size={18} />
                     <span>
@@ -567,7 +574,7 @@ const ActivityHallsSection = () => {
                   </a>
                   <a
                     href="tel:9370237633"
-                    className="bg-linear-to-r from-[#810B38] to-[#db2777] text-white font-extrabold text-xs sm:text-sm py-3 px-5 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition shrink-0"
+                    className="bg-gradient-to-r from-[#810B38] to-[#db2777] hover:from-[#9c0d45] hover:to-[#f472b6] text-white font-black text-xs sm:text-sm py-3.5 px-5 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-pink-600/20 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shrink-0"
                   >
                     <PhoneCall size={18} />
                     <span>{isEn ? "Call" : "कॉल करा"}</span>

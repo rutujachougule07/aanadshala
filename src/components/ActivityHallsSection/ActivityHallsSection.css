@@ -207,6 +207,17 @@
   border-color: #f472b6;
 }
 
+.ah-card-content p,
+.ah-card-content p span,
+.ah-card-clean p,
+.ah-card-clean p span {
+  font-family: "Mukta", var(--font-body), system-ui, sans-serif !important;
+  color: #1e293b !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+
 /* Number Tag */
 .ah-card-num {
   position: absolute;
@@ -256,14 +267,14 @@
 
 /* Card Body Content */
 .ah-card-content {
-  padding: 1.25rem 1.25rem 1.5rem 1.25rem;
+  padding: 0.75rem 1.1rem 1rem 1.1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   flex: 1;
   justify-content: flex-start;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .ah-card-icon {
@@ -302,7 +313,7 @@
   font-size: 1.25rem;
   font-weight: 900;
   color: #541a1a;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.35rem;
   line-height: 1.25;
 }
 
@@ -424,8 +435,8 @@
   position: fixed;
   inset: 0;
   z-index: 999999;
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(8px);
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -436,11 +447,11 @@
   background: #ffffff;
   width: 100%;
   max-width: 520px;
-  max-height: 85vh;
-  max-height: 85dvh;
-  border-radius: 2.25rem;
-  border: 3.5px solid #db2777;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  max-height: 90vh;
+  max-height: 90dvh;
+  border-radius: 2rem;
+  border: 2px solid rgba(244, 114, 182, 0.35);
+  box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.4), 0 0 35px rgba(219, 39, 119, 0.2);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -463,35 +474,35 @@
 
 .ah-modal-close-btn {
   position: absolute;
-  top: 0.85rem;
-  right: 0.85rem;
+  top: 1rem;
+  right: 1rem;
   z-index: 30;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(6px);
-  border: 1px solid #cbd5e1;
-  color: #1e293b;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #0f172a;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
 }
 
 .ah-modal-close-btn:hover {
   background: #db2777;
   color: #ffffff;
-  transform: scale(1.08);
+  transform: scale(1.1) rotate(90deg);
 }
 
 .ah-modal-left-img-box {
   position: relative;
   width: 100%;
-  height: 220px;
-  min-height: 220px;
+  height: 200px;
+  min-height: 200px;
   overflow: hidden;
   background: #0f172a;
   flex-shrink: 0;
@@ -499,8 +510,8 @@
 
 @media (min-width: 640px) {
   .ah-modal-left-img-box {
-    height: 250px;
-    min-height: 250px;
+    height: 215px;
+    min-height: 215px;
   }
 }
 
@@ -514,7 +525,7 @@
 .ah-modal-img-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.85) 100%);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.85) 100%);
 }
 
 .ah-modal-img-badge {
@@ -526,17 +537,18 @@
   align-items: center;
   gap: 0.5rem;
   background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   color: #ffffff;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 800;
-  padding: 0.4rem 1.1rem;
+  padding: 0.45rem 1.1rem;
   border-radius: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .ah-modal-right-content {
-  padding: 1.5rem 1.5rem 1.75rem 1.5rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -558,6 +570,10 @@
 .ah-modal-right-content::-webkit-scrollbar-thumb {
   background: #f472b6;
   border-radius: 4px;
+}
+
+.ah-modal-right-content::-webkit-scrollbar-thumb:hover {
+  background: #db2777;
 }
 
 .ah-modal-right-content::-webkit-scrollbar-thumb:hover {

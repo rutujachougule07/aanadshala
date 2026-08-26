@@ -58,9 +58,9 @@
 }
 
 .ps-subtitle {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #475569 !important;
+  font-size: 18px !important;
+  font-weight: 300 !important;
+  color: #000000 !important;
   line-height: 1.65;
 }
 

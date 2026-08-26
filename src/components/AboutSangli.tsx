@@ -588,7 +588,8 @@ export function AboutSangli() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="as-sangli-title"
+            className="as-sangli-title text-[37px] font-black"
+            style={{ fontSize: "37px", fontWeight: 900 }}
           >
             {isEn ? (
               <>
@@ -762,8 +763,8 @@ export function AboutSangli() {
         {/* ── GETTING THERE / TRANSPORT SECTION ── */}
         <div className="mt-20">
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#db2777] font-black text-xs sm:text-sm mb-3 shadow-xs">
-              <Navigation size={14} className="text-[#db2777]" /> {isEn ? "GETTING THERE" : "कसे पोहोचावे"}
+            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] mb-3 shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
+              <Navigation size={14} className="text-[#be185d]" /> {isEn ? "GETTING THERE" : "कसे पोहोचावे"}
             </span>
             <h3 className="text-2xl sm:text-3xl lg:text-[37px] font-black text-[#1A05A2]">
               {isEn ? (
@@ -777,7 +778,7 @@ export function AboutSangli() {
                 </>
               )}
             </h3>
-            <p className="text-slate-600 font-bold text-base mt-2 max-w-2xl mx-auto">
+            <p className="text-black text-[16px] !font-[300] mt-2 max-w-2xl mx-auto" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
               {isEn
                 ? "Excellent connectivity via Air, Rail, and Road from Mumbai, Pune, Bengaluru, and major cities."
                 : "मुंबई, पुणे, बंगळुरू व महाराष्ट्रातील सर्व शहरांमधून विमान, रेल्वे व रस्ते मार्गाने उत्तम जोडणी."}
@@ -1024,7 +1025,7 @@ export function AboutSangli() {
                 </div>
 
                 {/* Full Description */}
-                <p className="text-xs sm:text-sm font-extrabold text-slate-700 leading-relaxed">
+                <p className="text-sm sm:text-base font-semibold text-slate-800 leading-relaxed" style={{ fontFamily: "'Mukta', sans-serif" }}>
                   {formatWithPinkAnandshala(
                     isEn ? selectedPlace.fullDescEn : selectedPlace.fullDescMr,
                   )}
@@ -1032,14 +1033,15 @@ export function AboutSangli() {
 
                 {/* Highlights Box */}
                 <div className="space-y-2 bg-pink-50/90 p-4 rounded-2xl border border-pink-200/80 shadow-xs">
-                  <div className="text-xs uppercase font-black tracking-wider text-pink-700 mb-1 flex items-center gap-1.5">
+                  <div className="text-xs uppercase font-bold tracking-wider text-pink-700 mb-1 flex items-center gap-1.5">
                     <Sparkles size={14} className="text-pink-600" />
                     <span>{isEn ? "Key Highlights:" : "प्रमुख वैशिष्ट्ये:"}</span>
                   </div>
                   {(isEn ? selectedPlace.highlightsEn : selectedPlace.highlightsMr).map((h, i) => (
                     <div
                       key={i}
-                      className="flex items-start gap-2 text-xs sm:text-sm font-bold text-slate-800 leading-snug"
+                      className="flex items-start gap-2 text-xs sm:text-sm font-semibold text-slate-800 leading-snug"
+                      style={{ fontFamily: "'Mukta', sans-serif" }}
                     >
                       <ShieldCheck size={16} className="text-emerald-600 shrink-0 mt-0.5" />
                       <span>{formatWithPinkAnandshala(h)}</span>
@@ -1050,10 +1052,10 @@ export function AboutSangli() {
                 {/* Management Note & WhatsApp Inquiry Logic for 1-Day Trips */}
                 {selectedPlace.category === "daytrips" && (
                   <>
-                    <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl text-xs font-bold text-amber-900 flex items-start gap-2.5">
+                    <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl text-xs font-semibold text-amber-900 flex items-start gap-2.5">
                       <span className="text-base shrink-0">🚌</span>
                       <div>
-                        <span className="font-black block text-amber-950 mb-0.5">
+                        <span className="font-bold block text-amber-950 mb-0.5">
                           {isEn
                             ? "Anandshala Management Scheduled Trip:"
                             : "आनंदशाळा व्यवस्थापन सहल सूचना:"}

@@ -63,7 +63,7 @@ export default function TestimonialsSection({
       return isEn
         ? "Live with joy, cherish health, come to Preetam Anandshala and fulfill your dreams! This is Sangli's first world-class project."
         : item.text ||
-            "आनंदात जगायचं, आरोग्य जपायचं, प्रीतम आनंदशाळेत येऊन स्वप्न साकारायचं! सांगलीतील हा पहिलाच जागतिक दर्जाचा प्रकल्प आहे.";
+        "आनंदात जगायचं, आरोग्य जपायचं, प्रीतम आनंदशाळेत येऊन स्वप्न साकारायचं! सांगलीतील हा पहिलाच जागतिक दर्जाचा प्रकल्प आहे.";
     }
     if (item.name.includes("प्रकाश देशपांडे") || item.name.includes("Prakash Deshpande")) {
       return isEn
@@ -88,7 +88,7 @@ export default function TestimonialsSection({
           <div className="max-w-5xl mx-auto mb-14 font-sans">
             {/* ELEGANT SECTION HEADER */}
             <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#db2777] font-black text-xs sm:text-sm shadow-xs">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
                 <span>🎁</span>
                 <span>
                   {isEn
@@ -189,7 +189,7 @@ export default function TestimonialsSection({
 
         {/* HEADER AREA */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-[37px] font-black text-[#1A05A2] tracking-tight drop-shadow-xs">
+          <h2 className="font-display text-[37px] font-black text-[#1A05A2] tracking-tight drop-shadow-xs" style={{ fontSize: "37px", fontWeight: 900 }}>
             {isEn ? (
               <>
                 Member &amp; Guest Video Testimonials
@@ -200,7 +200,7 @@ export default function TestimonialsSection({
               </>
             )}
           </h2>
-          <p className="text-slate-700 text-sm sm:text-base font-extrabold leading-relaxed">
+          <p className="text-black text-[16px] !font-[300] leading-relaxed" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
             {isEn
               ? "Heartfelt experiences & messages from famous actors, sports champions and members about Preetam Anandshala!"
               : "प्रीतम आनंदशाळा व स्पोर्ट्स क्लबबद्दल प्रसिद्ध अभिनेते, क्रीडापटू व सभासदांचे उत्स्फूर्त अनुभव व संदेश."}
