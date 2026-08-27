@@ -258,7 +258,7 @@ export default function SpecialReasons() {
     <section className="specialReasonsSection">
       {/* ── HEADING ── */}
       <div className="reasonsHeading">
-        <div className="miniHeading as-badge-pill inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] mb-3 shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
+        <div className="as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full mb-3">
           <span>✦</span>
           <span>{isEn ? "Special Reasons" : "विशेष कारणे"}</span>
           <span>✦</span>

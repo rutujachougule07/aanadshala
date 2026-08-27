@@ -302,7 +302,12 @@ const ActivityHallsSection = () => {
             <span>{isEn ? "Joy, Health\n& Values" : "आनंद, आरोग्य\nआणि संस्कार\nयांचा संगम"}</span>
           </div>
 
-          <h2 className="text-[37px] font-black text-[#1a05a2] leading-snug tracking-tight text-center my-2" style={{ fontSize: "37px", fontWeight: 900 }}>
+          <div className="as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full mb-4">
+            <Sparkles size={16} />
+            <span>{isEn ? "Special Activity Halls" : "विशेष उपक्रम हॉल्स"}</span>
+          </div>
+
+          <h2 className="text-2xl sm:text-[35px] font-black text-[#1a05a2] leading-snug tracking-tight text-center mb-3 mt-0" style={{ fontSize: "35px", fontWeight: 900 }}>
             {isEn ? (
               <>
                 <span className="text-[#db2777]">Anandshala's</span> Special Activity Halls
@@ -314,7 +319,7 @@ const ActivityHallsSection = () => {
             )}
           </h2>
           <div className="ah-header-desc">
-            <p className="ah-header-desc-text text-[16px] !font-[300] text-black" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
+            <p className="ah-header-desc-text text-[16px] !font-[300] text-black mt-3" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
               {isEn ? (
                 "Fully equipped luxury activity halls for daily joy, recreation and wellness!"
               ) : (
@@ -531,24 +536,23 @@ const ActivityHallsSection = () => {
                 </div>
 
                 {/* TITLE WITH LUXURY ICON */}
-                <div className="flex items-center gap-3.5 pt-0.5">
-                  <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-[#810B38] via-[#a21249] to-[#db2777] text-white flex items-center justify-center shrink-0 shadow-lg shadow-pink-600/25 border border-white/20 text-xl">
+                <div className="flex flex-col sm:flex-row items-center justify-center text-center gap-3.5 pt-0.5">
+                  <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-[#810B38] via-[#a21249] to-[#db2777] text-white flex items-center justify-center shrink-0 shadow-lg shadow-pink-600/25 border border-white/20 text-xl mx-auto sm:mx-0">
                     {selectedHall.icon}
                   </div>
-                  <div>
-                    <h3 className="text-2xl sm:text-3xl font-black text-[#541a1a] leading-tight tracking-tight">
+                  <div className="text-center sm:text-left">
+                    <h3 className="text-2xl sm:text-3xl font-black text-[#541a1a] leading-tight tracking-tight text-center sm:text-left">
                       <HighlightText text={isEn ? selectedHall.titleEn : selectedHall.titleMr} />
                     </h3>
-                    <p className="text-xs font-extrabold text-pink-600/90 mt-0.5">
+                    <p className="text-xs font-extrabold text-[#be185d] mt-1 text-center sm:text-left">
                       {isEn ? "Preetam Senior Citizen Anandshala Facility" : "प्रीतम ज्येष्ठ नागरिक आनंदशाळा विशेष सुविधा"}
                     </p>
                   </div>
                 </div>
 
-                {/* ACCENTUATED DESCRIPTION BOX */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-rose-50/90 via-pink-50/50 to-purple-50/30 border border-pink-200/80 shadow-xs relative overflow-hidden">
-                  <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#db2777] to-[#810B38] rounded-l-2xl" />
-                  <p className="text-base text-slate-800 font-semibold leading-relaxed pl-1" style={{ fontFamily: "'Mukta', sans-serif", fontSize: "16px", fontWeight: 600, color: "#1e293b" }}>
+                {/* ACCENTUATED DESCRIPTION BOX (CENTER ALIGNED TEXT) */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-rose-50/90 via-pink-50/50 to-purple-50/30 border border-pink-200/80 shadow-xs relative overflow-hidden text-center flex items-center justify-center">
+                  <p className="text-base text-slate-800 font-extrabold leading-relaxed text-center" style={{ fontFamily: "'Mukta', sans-serif", fontSize: "16px", fontWeight: 800, color: "#1e293b" }}>
                     <HighlightText text={isEn ? selectedHall.descEn : selectedHall.descMr} />
                   </p>
                 </div>

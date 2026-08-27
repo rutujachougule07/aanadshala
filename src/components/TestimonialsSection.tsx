@@ -88,7 +88,7 @@ export default function TestimonialsSection({
           <div className="max-w-5xl mx-auto mb-14 font-sans">
             {/* ELEGANT SECTION HEADER */}
             <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
+              <div className="as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full">
                 <span>🎁</span>
                 <span>
                   {isEn
@@ -189,7 +189,7 @@ export default function TestimonialsSection({
 
         {/* HEADER AREA */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <h2 className="font-display text-[37px] font-black text-[#1A05A2] tracking-tight drop-shadow-xs" style={{ fontSize: "37px", fontWeight: 900 }}>
+          <h2 className="font-display text-2xl sm:text-[35px] font-black text-[#1A05A2] tracking-tight drop-shadow-xs" style={{ fontSize: "35px", fontWeight: 900 }}>
             {isEn ? (
               <>
                 Member &amp; Guest Video Testimonials

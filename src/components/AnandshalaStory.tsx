@@ -93,7 +93,8 @@ const AnandshalaStory: React.FC = () => {
           </motion.div>
 
           <motion.h2
-            className="as-hero-title"
+            className="as-hero-title text-2xl sm:text-[35px] font-black"
+            style={{ fontSize: "35px", fontWeight: 900 }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

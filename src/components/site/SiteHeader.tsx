@@ -47,9 +47,8 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-999999 transition-all duration-500 ${
-        scrolled ? "shadow-[0_6px_28px_rgba(12,35,112,0.18)] border-b" : "border-b"
-      }`}
+      className={`fixed top-0 inset-x-0 z-999999 transition-all duration-500 ${scrolled ? "shadow-[0_6px_28px_rgba(12,35,112,0.18)] border-b" : "border-b"
+        }`}
       style={{
         background: scrolled ? "rgba(255, 255, 255, 0.98)" : "rgba(240, 246, 255, 0.96)",
         backdropFilter: "blur(20px)",

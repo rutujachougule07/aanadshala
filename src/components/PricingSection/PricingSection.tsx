@@ -17,6 +17,10 @@ export const PricingSection: React.FC = () => {
       {/* ── HEADER BLOCK ── */}
       <Reveal>
         <div className="ps-exact-header text-center">
+          <div className="as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full mb-3">
+            <Sparkles size={16} />
+            <span>{isEn ? "Official Rate Chart" : "अधिकृत दरपत्रक"}</span>
+          </div>
           <h2 className="ps-main-title">
             {isEn ? (
               <>
@@ -171,8 +175,8 @@ export const PricingSection: React.FC = () => {
                 <MapPin size={16} />
                 <span>
                   {isEn
-                    ? "Address: Preetam House Bldg, Madhavnagar Road, Near Jakat Naka, Sangli."
-                    : "पत्ता: प्रीतम हाऊस बिल्डिंग, माधवनगर रोड, जकात नाक्या जवळ, सांगली."}
+                    ? "Address: Preetam Sports & Fitness Club, Madhavnagar, Karnal, Dhananjay Gadgi Road, Sangli."
+                    : "पत्ता: प्रीतम स्पोर्ट्स आणि फिटनेस क्लब, माधवनगर, कर्नाळ, धनंजय गाडगी रोड, सांगली."}
                 </span>
               </p>
               <p className="text-[12px] text-amber-200 font-extrabold flex items-center gap-1.5 pt-1">

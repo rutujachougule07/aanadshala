@@ -588,8 +588,8 @@ export function AboutSangli() {
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="as-sangli-title text-[37px] font-black"
-            style={{ fontSize: "37px", fontWeight: 900 }}
+            className="as-sangli-title text-2xl sm:text-[35px] font-black"
+            style={{ fontSize: "35px", fontWeight: 900 }}
           >
             {isEn ? (
               <>
@@ -669,11 +669,10 @@ export function AboutSangli() {
 
             <button
               onClick={() => setActiveTab("senior-friendly")}
-              className={`shrink-0 px-6 py-3.5 rounded-full font-black text-sm transition-all duration-300 shadow-xl cursor-pointer ${
-                activeTab === "senior-friendly"
-                  ? "bg-amber-400 text-slate-950 scale-105"
-                  : "bg-white text-purple-900 hover:bg-pink-100 hover:scale-105"
-              }`}
+              className={`shrink-0 px-6 py-3.5 rounded-full font-black text-sm transition-all duration-300 shadow-xl cursor-pointer ${activeTab === "senior-friendly"
+                ? "bg-amber-400 text-slate-950 scale-105"
+                : "bg-white text-purple-900 hover:bg-pink-100 hover:scale-105"
+                }`}
             >
               👴 {isEn ? "View Senior-Friendly Places" : "ज्येष्ठांसाठी सुलभ ठिकाणे पहा"}
             </button>

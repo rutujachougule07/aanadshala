@@ -282,14 +282,14 @@ function Gallery() {
   const activeGalleryImages =
     store.gallery && store.gallery.length > 0
       ? store.gallery.map((item, idx) => ({
-          id: item.id || idx + 1,
-          titleEn: item.caption || "Anandshala Photo",
-          titleMr: item.caption || "आनंदशाळा फोटो",
-          categoryEn: item.category?.[0] || "Senior Citizen Anandshala",
-          categoryMr: item.category?.[0] || "ज्येष्ठ नागरिक आनंदशाळा",
-          date: "२०२६",
-          image: item.url,
-        }))
+        id: item.id || idx + 1,
+        titleEn: item.caption || "Anandshala Photo",
+        titleMr: item.caption || "आनंदशाळा फोटो",
+        categoryEn: item.category?.[0] || "Senior Citizen Anandshala",
+        categoryMr: item.category?.[0] || "ज्येष्ठ नागरिक आनंदशाळा",
+        date: "२०२६",
+        image: item.url,
+      }))
       : galleryImages;
 
   const activeVideos = store.videos || [];
@@ -298,12 +298,12 @@ function Gallery() {
     selectedKey === "all"
       ? activeGalleryImages
       : activeGalleryImages.filter((item) => {
-          if (!selectedCatObj) return true;
-          return (
-            item.categoryMr.includes(selectedCatObj.labelMr) ||
-            item.categoryEn.includes(selectedCatObj.labelEn)
-          );
-        });
+        if (!selectedCatObj) return true;
+        return (
+          item.categoryMr.includes(selectedCatObj.labelMr) ||
+          item.categoryEn.includes(selectedCatObj.labelEn)
+        );
+      });
 
   const closeImage = () => {
     setSelectedIndex(null);
@@ -379,7 +379,7 @@ function Gallery() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
         {/* ===== HEADING ===== */}
         <div className="text-center mb-8 sm:mb-10">
-          <h1 className="text-3xl sm:text-5xl font-black text-[#541A1A]">
+          <h1 className="text-2xl sm:text-[35px] font-black text-[#541A1A]" style={{ fontSize: "35px", fontWeight: 900 }}>
             {isEn ? (
               <>
                 <span className="text-pink-600">Anandshala</span> Gallery
@@ -391,12 +391,11 @@ function Gallery() {
             )}
           </h1>
 
-          <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto font-medium">
-            सांगलीच्या कुशीत, निसर्गरम्य १५ एकर परिसरात साकारलेल्या आनंदी क्षणांची सुंदर चित्रे व
-            व्हिडीओ.
+          <p className="section-main-subtitle mt-2 text-[16px] !font-[300] text-black max-w-2xl mx-auto" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
+            {isEn
+              ? "Beautiful photos and videos of joyful moments created in a picturesque 15-acre campus in Sangli."
+              : "सांगलीच्या कुशीत, निसर्गरम्य १५ एकर परिसरात साकारलेल्या आनंदी क्षणांची सुंदर चित्रे व व्हिडीओ."}
           </p>
-
-          <div className="mt-6 w-24 h-1 rounded-full mx-auto bg-linear-to-r from-pink-500 via-purple-500 to-indigo-500" />
         </div>
 
         {/* ===== 2 MAIN GALLERY MODE SWITCHER BUTTONS (PHOTOS vs VIDEOS) ===== */}
@@ -406,11 +405,10 @@ function Gallery() {
               setActiveGalleryType("photos");
               setSelectedVideo(null);
             }}
-            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
-              activeGalleryType === "photos"
+            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${activeGalleryType === "photos"
                 ? "bg-[#810B38] text-white shadow-md"
                 : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
-            }`}
+              }`}
           >
             {isEn ? "Photo Gallery" : "फोटो गॅलरी"}
           </button>
@@ -420,11 +418,10 @@ function Gallery() {
               setActiveGalleryType("videos");
               setSelectedIndex(null);
             }}
-            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
-              activeGalleryType === "videos"
+            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${activeGalleryType === "videos"
                 ? "bg-[#810B38] text-white shadow-md"
                 : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
-            }`}
+              }`}
           >
             {isEn ? "Video Gallery" : "व्हिडिओ गॅलरी"}
           </button>
@@ -444,11 +441,10 @@ function Gallery() {
                       setSelectedKey(category.key);
                       setSelectedIndex(null);
                     }}
-                    className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
-                      isActive
+                    className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${isActive
                         ? "bg-linear-to-r from-pink-600 to-purple-600 text-white shadow-md scale-105"
                         : "bg-white text-slate-700 border border-slate-200 hover:border-pink-300 hover:text-pink-600 hover:shadow-sm"
-                    }`}
+                      }`}
                   >
                     {isEn ? category.labelEn : category.labelMr}
                   </button>

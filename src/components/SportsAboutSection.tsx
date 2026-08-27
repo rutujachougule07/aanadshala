@@ -352,20 +352,12 @@ export const SportsAboutSection: React.FC = () => {
 
         {/* ── COMPLIMENTARY HAPPINESS HUB SECTION (कॉम्प्लिमेंटरी आनंदाचे केंद्र) ── */}
         <div className="mt-16 mb-12 max-w-5xl mx-auto">
-          {/* Centered Section Header Outside Box */}
-          <div className="text-center max-w-3xl mx-auto mb-8 px-4">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 border border-pink-300 text-[#be185d] font-extrabold text-[14px] mb-3 shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
-              <Sparkles size={14} className="text-[#be185d]" />
+          {/* Badge Pill Outside Table */}
+          <div className="text-center mb-6">
+            <div className="as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full">
+              <Sparkles size={16} className="text-[#be185d]" />
               <span>{isEn ? "Complimentary Happiness Hub" : "कॉम्प्लिमेंटरी मोफत सुविधा"}</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-[#1a05a2] leading-tight mb-3">
-              {isEn ? "Complimentary Happiness Hub" : "कॉम्प्लिमेंटरी आनंदाचे केंद्र:"}
-            </h3>
-            <p className="text-sm sm:text-base font-semibold text-slate-700 leading-relaxed max-w-2xl mx-auto" style={{ fontFamily: "'Mukta', sans-serif" }}>
-              {isEn
-                ? "The biggest feature of Preetam Club is our belief in offering a 'Complete Experience'. Whichever membership you choose, you receive the following complimentary facilities:"
-                : "प्रीतम क्लबचे सर्वात मोठे वैशिष्ट्य म्हणजे 'संपूर्ण अनुभव' देण्यावर आमचा विश्वास आहे. तुम्ही कोणत्याही एका सुविधेची किंवा सर्वांची मेंबरशिप घेतल्यास, तुम्हाला खालील अतिरिक्त आणि मोफत सुविधा (Complimentary) मिळतात:"}
-            </p>
           </div>
 
           {/* Cards Table Container Box */}
@@ -374,93 +366,104 @@ export const SportsAboutSection: React.FC = () => {
             <div className="absolute -bottom-10 -left-10 size-48 bg-pink-400/15 rounded-full blur-2xl pointer-events-none" />
             <div className="absolute -top-10 -right-10 size-48 bg-purple-400/15 rounded-full blur-2xl pointer-events-none" />
 
-            <div className="relative z-10 text-left space-y-6">
-
-            {/* 3 Feature Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4.5">
-              {/* Card 1: Library */}
-              <div className="bg-white/90 backdrop-blur-xs p-5 rounded-2xl border border-purple-200/80 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="size-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-2xl font-black shrink-0 shadow-xs border border-purple-200">
-                    📚
-                  </div>
-                  <div>
-                    <h4 className="font-black text-slate-900 text-base sm:text-lg">
-                      {isEn ? "Library" : "वाचनालय (Library)"}
-                    </h4>
-                    <span className="text-xs font-bold text-purple-600">
-                      {isEn ? "Quiet Reading Space" : "शांत अभ्यासिक जागा"}
-                    </span>
-                  </div>
-                </div>
-                <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed" style={{ fontFamily: "'Mukta', sans-serif" }}>
+            <div className="relative z-10 space-y-6">
+              {/* Centered Section Header Inside Box (Title & Description) */}
+              <div className="text-center max-w-3xl mx-auto mb-6 px-2">
+                <h3 className="text-2xl sm:text-3xl font-black text-[#1a05a2] leading-tight mb-3">
+                  {isEn ? "Complimentary Happiness Hub" : "कॉम्प्लिमेंटरी आनंदाचे केंद्र:"}
+                </h3>
+                <p className="text-sm sm:text-base font-bold text-slate-800 leading-relaxed max-w-2xl mx-auto" style={{ fontFamily: "'Mukta', sans-serif" }}>
                   {isEn
-                    ? "A peaceful corner to satisfy your hunger for knowledge with books & magazines."
-                    : "ज्ञानाची भूक भागवण्यासाठी व वाचनाच्या आवडीसाठी शांत कोपरा."}
+                    ? "Whichever membership you choose, you get: Library, Music Instruments Hall & Carrom-Chess Indoor Games completely free!"
+                    : "तुम्ही कोणतीही मेंबरशिप घेतल्यास तुम्हाला मिळतात: वाचनालय (Library), संगीत उपकरण हॉल व कॅरम-बुद्धीबळ बैठे खेळ पूर्णपणे विनामूल्य!"}
                 </p>
               </div>
 
-              {/* Card 2: Music Hall */}
-              <div className="bg-white/90 backdrop-blur-xs p-5 rounded-2xl border border-rose-200/80 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="size-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center text-2xl font-black shrink-0 shadow-xs border border-rose-200">
-                    🎼
+              {/* 3 Feature Cards Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4.5">
+                {/* Card 1: Library */}
+                <div className="bg-white/90 backdrop-blur-xs p-5 rounded-2xl border border-purple-200/80 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="size-12 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-2xl font-black shrink-0 shadow-xs border border-purple-200">
+                      📚
+                    </div>
+                    <div>
+                      <h4 className="font-black text-slate-900 text-base sm:text-lg">
+                        {isEn ? "Library" : "वाचनालय (Library)"}
+                      </h4>
+                      <span className="text-xs font-bold text-purple-600">
+                        {isEn ? "Quiet Reading Space" : "शांत अभ्यासिक जागा"}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-black text-slate-900 text-base sm:text-lg">
-                      {isEn ? "Music Instruments Hall" : "संगीत उपकरण हॉल"}
-                    </h4>
-                    <span className="text-xs font-bold text-rose-600">
-                      {isEn ? "Musical Platform" : "संगीत कलाकारांसाठी"}
-                    </span>
-                  </div>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed" style={{ fontFamily: "'Mukta', sans-serif" }}>
+                    {isEn
+                      ? "A peaceful corner to satisfy your hunger for knowledge with books & magazines."
+                      : "ज्ञानाची भूक भागवण्यासाठी व वाचनाच्या आवडीसाठी शांत कोपरा."}
+                  </p>
                 </div>
-                <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed" style={{ fontFamily: "'Mukta', sans-serif" }}>
-                  {isEn
-                    ? "A vibrant platform to nurture the artist within you with instruments."
-                    : "तुमच्यातील कलाकाराला वाव देण्यासाठी व संगीताचा रियाझ करण्यासाठी विशेष व्यासपीठ."}
-                </p>
+
+                {/* Card 2: Music Hall */}
+                <div className="bg-white/90 backdrop-blur-xs p-5 rounded-2xl border border-rose-200/80 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="size-12 rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center text-2xl font-black shrink-0 shadow-xs border border-rose-200">
+                      🎼
+                    </div>
+                    <div>
+                      <h4 className="font-black text-slate-900 text-base sm:text-lg">
+                        {isEn ? "Music Instruments Hall" : "संगीत उपकरण हॉल"}
+                      </h4>
+                      <span className="text-xs font-bold text-rose-600">
+                        {isEn ? "Musical Platform" : "संगीत कलाकारांसाठी"}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed" style={{ fontFamily: "'Mukta', sans-serif" }}>
+                    {isEn
+                      ? "A vibrant platform to nurture the artist within you with instruments."
+                      : "तुमच्यातील कलाकाराला वाव देण्यासाठी व संगीताचा रियाझ करण्यासाठी विशेष व्यासपीठ."}
+                  </p>
+                </div>
+
+                {/* Card 3: Indoor Sitting Games */}
+                <div className="bg-white/90 backdrop-blur-xs p-5 rounded-2xl border border-emerald-200/80 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="size-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-black shrink-0 shadow-xs border border-emerald-200">
+                      ♟️
+                    </div>
+                    <div>
+                      <h4 className="font-black text-[#1A05A2] text-base sm:text-lg">
+                        {isEn ? "Indoor Sitting Games Hall" : "बैठे खेळ हॉल"}
+                      </h4>
+                      <span className="text-xs font-bold text-emerald-600">
+                        {isEn ? "Recreation & Mind Games" : "कॅरम, बुद्धिबळ सोय"}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed" style={{ fontFamily: "'Mukta', sans-serif" }}>
+                    {isEn
+                      ? "Fun and recreation through carrom, chess, and board games with friends."
+                      : "आनंददायी विरंगुळ्यासाठी कॅरम, बुद्धिबळ यांसारखे विविध बैठे खेळ."}
+                  </p>
+                </div>
               </div>
 
-              {/* Card 3: Indoor Sitting Games */}
-              <div className="bg-white/90 backdrop-blur-xs p-5 rounded-2xl border border-emerald-200/80 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="size-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl font-black shrink-0 shadow-xs border border-emerald-200">
-                    ♟️
-                  </div>
-                  <div>
-                    <h4 className="font-black text-[#1A05A2] text-base sm:text-lg">
-                      {isEn ? "Indoor Sitting Games Hall" : "बैठे खेळ हॉल"}
-                    </h4>
-                    <span className="text-xs font-bold text-emerald-600">
-                      {isEn ? "Recreation & Mind Games" : "कॅरम, बुद्धिबळ सोय"}
-                    </span>
-                  </div>
+              {/* Bottom Inspiring Tagline Card */}
+              <div className="bg-linear-to-r from-[#810B38] via-[#a21249] to-[#db2777] text-white p-5 rounded-2xl shadow-lg border border-pink-300/30 flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-xl shrink-0">
+                  🏃‍♂️
                 </div>
-                <p className="text-xs sm:text-sm font-semibold text-slate-700 leading-relaxed" style={{ fontFamily: "'Mukta', sans-serif" }}>
+                <p className="text-xs sm:text-sm md:text-base font-semibold leading-relaxed" style={{ fontFamily: "'Mukta', sans-serif" }}>
                   {isEn
-                    ? "Fun and recreation through carrom, chess, and board games with friends."
-                    : "आनंददायी विरंगुळ्यासाठी कॅरम, बुद्धिबळ यांसारखे विविध बैठे खेळ."}
+                    ? "Preetam Sports & Fitness Club inspires every citizen of Sangli to live a healthy, happy, and fulfilling life. Join our family today and start your fitness journey with joy!"
+                    : "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब हे सांगलीच्या प्रत्येक नागरिकाला आरोग्य, आनंद आणि एक समाधानी जीवन जगण्यासाठी प्रेरित करते. आजच आमच्या कुटुंबाचा भाग व्हा आणि आपल्या फिटनेसचा प्रवास आनंदाने सुरू करा!"}
                 </p>
               </div>
-            </div>
-
-            {/* Bottom Inspiring Tagline Card */}
-            <div className="bg-linear-to-r from-[#810B38] via-[#a21249] to-[#db2777] text-white p-5 rounded-2xl shadow-lg border border-pink-300/30 flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-xl shrink-0">
-                🏃‍♂️
-              </div>
-              <p className="text-xs sm:text-sm md:text-base font-semibold leading-relaxed" style={{ fontFamily: "'Mukta', sans-serif" }}>
-                {isEn
-                  ? "Preetam Sports & Fitness Club inspires every citizen of Sangli to live a healthy, happy, and fulfilling life. Join our family today and start your fitness journey with joy!"
-                  : "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब हे सांगलीच्या प्रत्येक नागरिकाला आरोग्य, आनंद आणि एक समाधानी जीवन जगण्यासाठी प्रेरित करते. आजच आमच्या कुटुंबाचा भाग व्हा आणि आपल्या फिटनेसचा प्रवास आनंदाने सुरू करा!"}
-              </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
   );
 };
 

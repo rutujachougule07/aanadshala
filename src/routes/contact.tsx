@@ -143,13 +143,13 @@ function Contact() {
         </div>
 
         {/* Header Badge */}
-        <span className="relative z-10 inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white/90 backdrop-blur-md px-5 py-2 text-xs sm:text-sm font-black tracking-widest text-[#db2777] shadow-sm uppercase mb-5">
-          <Phone size={15} className="text-[#db2777] animate-pulse" />
-          <span>{isEn ? "GET IN TOUCH • CONTACT US" : "संपर्क साधा • आजच भेट द्या"}</span>
+        <span className="as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full mb-4">
+          <Phone size={15} className="text-[#be185d] animate-pulse" />
+          <span>{isEn ? "CONTACT US" : "संपर्क साधा"}</span>
         </span>
 
         {/* Header Title */}
-        <h1 className="relative z-10 text-2xl sm:text-3xl lg:text-[37px] font-black text-[#1A05A2] tracking-tight mb-4 drop-shadow-xs">
+        <h1 className="relative z-10 text-xl sm:text-2xl lg:text-[35px] font-black text-[#1A05A2] tracking-tight mb-3 drop-shadow-xs" style={{ fontSize: "35px", fontWeight: 900 }}>
           {isEn ? (
             <>
               Contact Preetam <span className="text-[#db2777]">Anandshala</span>
@@ -161,13 +161,7 @@ function Contact() {
           )}
         </h1>
 
-        <div className="flex items-center justify-center gap-2 my-2">
-          <span className="block w-12 h-1 bg-linear-to-r from-transparent to-[#db2777] rounded-full"></span>
-          <span className="block w-3 h-3 rounded-full bg-[#db2777]"></span>
-          <span className="block w-12 h-1 bg-linear-to-l from-transparent to-[#db2777] rounded-full"></span>
-        </div>
-
-        <p className="relative z-10 mt-3 max-w-2xl text-base sm:text-lg font-bold text-slate-600 leading-relaxed">
+        <p className="section-main-subtitle relative z-10 mt-3 max-w-2xl text-[16px] !font-[300] text-black leading-relaxed" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
           {isEn
             ? "Contact us today for more information."
             : "अधिक माहितीसाठी आजच आमच्याशी संपर्क साधा."}
@@ -176,30 +170,30 @@ function Contact() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 space-y-12">
         {/* ══════════════════════════════════════════════════════════════
-            4 QUICK CONTACT CARDS (2x2 COMPACT FIT GRID)
+            4 QUICK CONTACT CARDS (PROMINENT LARGE FIT GRID)
            ══════════════════════════════════════════════════════════════ */}
-        <div className="max-w-155 mx-auto grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-3.5">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {/* Card 1: Helpline */}
           <a
             href="tel:+919370237633"
-            className="flex items-center gap-3 bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border-2 border-rose-100 shadow-sm hover:shadow-xl hover:border-pink-300 transition-all group cursor-pointer"
+            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-rose-100 shadow-md hover:shadow-2xl hover:border-pink-300 transition-all group cursor-pointer"
           >
-            <div className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-linear-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
-              <Phone size={20} />
+            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-lg shadow-pink-200 group-hover:scale-110 transition-transform">
+              <Phone size={26} />
             </div>
             <div className="overflow-hidden min-w-0">
-              <p className="text-[11px] sm:text-xs font-black text-slate-500 mb-0.5 truncate">
+              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
                 {isEn ? (
                   <>
-                    <span className="text-pink-600">Anandshala</span> Helpline
+                    <span className="text-pink-600 font-black">Anandshala</span> Helpline
                   </>
                 ) : (
                   <>
-                    <span className="text-pink-600">आनंदशाळा</span> हेल्पलाईन
+                    <span className="text-pink-600 font-black">आनंदशाळा</span> हेल्पलाईन
                   </>
                 )}
               </p>
-              <p className="text-xs sm:text-sm font-black text-[#be185d] tracking-wide whitespace-nowrap group-hover:text-pink-600 transition-colors">
+              <p className="text-base sm:text-lg font-black text-[#be185d] tracking-wide whitespace-nowrap group-hover:text-pink-600 transition-colors">
                 +91-9370237633
               </p>
             </div>
@@ -208,16 +202,16 @@ function Contact() {
           {/* Card 2: Office */}
           <a
             href="tel:+919423258859"
-            className="flex items-center gap-3 bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border-2 border-purple-100 shadow-sm hover:shadow-xl hover:border-purple-300 transition-all group cursor-pointer"
+            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-purple-100 shadow-md hover:shadow-2xl hover:border-purple-300 transition-all group cursor-pointer"
           >
-            <div className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-linear-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
-              <Building size={20} />
+            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-purple-200 group-hover:scale-110 transition-transform">
+              <Building size={26} />
             </div>
             <div className="overflow-hidden min-w-0">
-              <p className="text-[11px] sm:text-xs font-black text-slate-500 mb-0.5 truncate">
+              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
                 {isEn ? "Office Contact" : "कार्यालय संपर्क"}
               </p>
-              <p className="text-xs sm:text-sm font-black text-[#1A05A2] tracking-wide whitespace-nowrap group-hover:text-purple-600 transition-colors">
+              <p className="text-base sm:text-lg font-black text-[#1A05A2] tracking-wide whitespace-nowrap group-hover:text-purple-600 transition-colors">
                 +91-9423258859
               </p>
             </div>
@@ -228,16 +222,16 @@ function Contact() {
             href={sportsClub.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border-2 border-emerald-100 shadow-sm hover:shadow-xl hover:border-emerald-300 transition-all group cursor-pointer"
+            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-emerald-100 shadow-md hover:shadow-2xl hover:border-emerald-300 transition-all group cursor-pointer"
           >
-            <div className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
-              <MessageCircle size={20} />
+            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-lg shadow-emerald-200 group-hover:scale-110 transition-transform">
+              <MessageCircle size={26} />
             </div>
             <div className="overflow-hidden min-w-0">
-              <p className="text-[11px] sm:text-xs font-black text-slate-500 mb-0.5 truncate">
+              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
                 {isEn ? "WhatsApp Chat" : "चॅट WhatsApp"}
               </p>
-              <p className="text-xs sm:text-sm font-black text-emerald-700 tracking-wide whitespace-nowrap group-hover:text-teal-600 transition-colors">
+              <p className="text-base sm:text-lg font-black text-emerald-700 tracking-wide whitespace-nowrap group-hover:text-teal-600 transition-colors">
                 +91-9370237633
               </p>
             </div>
@@ -246,17 +240,17 @@ function Contact() {
           {/* Card 4: Email */}
           <a
             href={`mailto:${site.email}`}
-            className="flex items-center gap-3 bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border-2 border-orange-100 shadow-sm hover:shadow-xl hover:border-orange-300 transition-all group cursor-pointer"
+            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-orange-100 shadow-md hover:shadow-2xl hover:border-orange-300 transition-all group cursor-pointer"
           >
-            <div className="shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-linear-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
-              <Mail size={20} />
+            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white shadow-lg shadow-orange-200 group-hover:scale-110 transition-transform">
+              <Mail size={26} />
             </div>
             <div className="overflow-hidden min-w-0">
-              <p className="text-[11px] sm:text-xs font-black text-slate-500 mb-0.5 truncate">
+              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
                 {isEn ? "Email Address" : "ई-मेल पत्ता"}
               </p>
               <p
-                className="text-[11px] sm:text-xs font-black text-orange-600 tracking-tight truncate group-hover:text-amber-700 transition-colors"
+                className="text-xs sm:text-base font-black text-orange-600 tracking-tight truncate group-hover:text-amber-700 transition-colors"
                 title={site.email}
               >
                 {site.email}

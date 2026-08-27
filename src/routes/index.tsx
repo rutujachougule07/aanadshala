@@ -754,7 +754,7 @@ function IndexComponent() {
                 )}
               </span>
             </div>
-            <h1 className="font-sans font-black text-xl sm:text-3xl lg:text-[37px] tracking-tight text-[#1a05a2] leading-tight my-2 max-w-3xl mx-auto drop-shadow-sm">
+            <h1 className="font-sans font-black text-xl sm:text-2xl lg:text-[30px] tracking-tight text-[#1a05a2] leading-tight my-2 max-w-3xl mx-auto drop-shadow-sm">
               {isEn ? (
                 <>
                   <span className="block text-[#1a05a2]">
@@ -790,9 +790,8 @@ function IndexComponent() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
               onClick={() => handleSectionSelect("aanandshala")}
-              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-62.5 sm:h-75 lg:h-83.75 w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-pink-400 flex flex-col justify-between p-4 sm:p-6 ${
-                selectedSection === "aanandshala" ? "ring-4 ring-pink-500 scale-[1.02]" : ""
-              }`}
+              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-62.5 sm:h-75 lg:h-83.75 w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-pink-400 flex flex-col justify-between p-4 sm:p-6 ${selectedSection === "aanandshala" ? "ring-4 ring-pink-500 scale-[1.02]" : ""
+                }`}
             >
               {/* ANIMATED IMAGE SLIDER BACKGROUND */}
               <AnimatePresence>
@@ -856,9 +855,8 @@ function IndexComponent() {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.85, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               onClick={() => handleSectionSelect("sports")}
-              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-62.5 sm:h-75 lg:h-83.75 w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-purple-400 flex flex-col justify-between p-4 sm:p-6 ${
-                selectedSection === "sports" ? "ring-4 ring-purple-500 scale-[1.02]" : ""
-              }`}
+              className={`group relative overflow-hidden rounded-[1.6rem] sm:rounded-[2.2rem] h-62.5 sm:h-75 lg:h-83.75 w-full bg-slate-950 cursor-pointer transition-all duration-500 hover:shadow-2xl border-2 border-white/30 hover:border-purple-400 flex flex-col justify-between p-4 sm:p-6 ${selectedSection === "sports" ? "ring-4 ring-purple-500 scale-[1.02]" : ""
+                }`}
             >
               {/* ANIMATED IMAGE SLIDER BACKGROUND */}
               <AnimatePresence>

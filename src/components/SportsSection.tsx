@@ -622,7 +622,7 @@ export default function SportsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="journey-exact-badge inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#db2777] font-black text-xs sm:text-sm mb-3 shadow-xs"
+              className="as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full mb-3"
             >
               <span>🏆</span>
               <span>
@@ -809,7 +809,7 @@ export default function SportsSection() {
            ══════════════════════════════════════════════════════════════ */}
         <section className="sp-facilities-sec">
           <div className="sp-sec-header text-center">
-            <div className="sp-sec-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] mb-3 shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
+            <div className="as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full mb-3">
               {isEn ? "✨ Premium Amenities" : "✨ प्रिमियम सोयी सुविधा"}
             </div>
             <h2 className="typo-heading-main text-[#1a05a2] leading-tight text-center my-2">
@@ -870,22 +870,25 @@ export default function SportsSection() {
           </div>
 
           {/* ── ADD-ON FACILITIES (ACTIVITY ZONE) SECTION ── */}
-          <div className="ps-addon-wrapper max-w-5xl mx-auto mt-10 bg-linear-to-br from-amber-50/80 via-white to-pink-50/80 border-2 border-amber-200/80 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden text-left">
-            {/* Background Decorative Glow */}
-            <div className="absolute -top-12 -right-12 size-40 bg-linear-to-br from-amber-300/20 to-pink-400/20 rounded-full blur-2xl pointer-events-none" />
+          <div className="max-w-5xl mx-auto mt-12">
+            {/* Badge Pill Outside Table */}
+            <div className="text-center mb-4">
+              <div className="as-badge-pill inline-flex items-center gap-2 px-5 py-1.5 rounded-full shadow-xs">
+                <span>🌟</span>
+                <span>{isEn ? "Activity Zone Add-Ons" : "ॲक्टिव्हिटी झोन ॲड-ऑन सोयी"}</span>
+              </div>
+            </div>
 
-            <div className="relative z-10 text-left">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b border-amber-200/60 pb-4">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100/90 border border-amber-300 text-amber-900 font-black text-xs mb-2 shadow-xs">
-                    <span>🌟</span>
-                    <span>{isEn ? "Activity Zone Add-Ons" : "ॲक्टिव्हिटी झोन ॲड-ऑन सोयी"}</span>
-                  </div>
+            <div className="ps-addon-wrapper bg-linear-to-br from-amber-50/80 via-white to-pink-50/80 border-2 border-amber-200/80 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden text-left">
+              {/* Background Decorative Glow */}
+              <div className="absolute -top-12 -right-12 size-40 bg-linear-to-br from-amber-300/20 to-pink-400/20 rounded-full blur-2xl pointer-events-none" />
+
+              <div className="relative z-10 text-left">
+                <div className="mb-4 border-b border-amber-200/60 pb-4">
                   <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
                     {isEn ? "Add-On Facilities (Activity Zone)" : "ॲड-ऑन सुविधा (Activity Zone)"}
                   </h3>
                 </div>
-              </div>
 
               <p className="text-xs sm:text-sm font-extrabold text-slate-700 mb-6 bg-white/80 p-3.5 rounded-2xl border border-amber-100 shadow-xs">
                 ℹ️{" "}
@@ -996,7 +999,8 @@ export default function SportsSection() {
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* ══════════════════════════════════════════════════════════════
             FACILITY DETAIL POPUP MODAL

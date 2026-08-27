@@ -183,7 +183,7 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
         <div className="relative overflow-hidden bg-white rounded-3xl sm:rounded-[32px] p-6 sm:p-10 shadow-xl border-4 border-rose-200 text-center">
           <div className="absolute top-0 inset-x-0 h-3 bg-linear-to-r from-rose-500 via-amber-400 via-pink-500 to-rose-600" />
 
-          <div className="ab-badge-pill as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] mb-4 shadow-xs" style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}>
+          <div className="as-badge-pill inline-flex items-center gap-2 px-5 py-2 rounded-full mb-4">
             <span className="text-amber-500 text-base">🌸</span>
             <span>
               {isEn ? (
@@ -202,7 +202,7 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
             <span className="text-amber-500 text-base">🌸</span>
           </div>
 
-          <h2 className="text-[37px] font-black text-[#1A05A2] tracking-tight leading-tight max-w-6xl mx-auto" style={{ fontSize: "37px", fontWeight: 900 }}>
+          <h2 className="text-2xl sm:text-[35px] font-black text-[#1A05A2] tracking-tight leading-tight max-w-6xl mx-auto" style={{ fontSize: "35px", fontWeight: 900 }}>
             {isEn
               ? "Annapurna Food Court Weekly Menu & Rate Chart"
               : "प्रीतम ज्येष्ठ नागरिक आनंदशाळा अन्नपूर्णा भोजनालय वेळापत्रक व दरपत्रक"}
@@ -359,8 +359,8 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
           <button
             onClick={() => setSelectedDay("ALL")}
             className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer ${selectedDay === "ALL"
-                ? "bg-[#810B38] text-white shadow-md scale-105"
-                : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
+              ? "bg-[#810B38] text-white shadow-md scale-105"
+              : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
               }`}
           >
             🗓️ {isEn ? "Full 7 Days Weekly Timetable" : "संपूर्ण ७ दिवसांचे वेळापत्रक"}
@@ -373,10 +373,10 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                 key={item.day}
                 onClick={() => setSelectedDay(item.day)}
                 className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black transition-all cursor-pointer flex items-center gap-1.5 ${selectedDay === item.day
-                    ? "bg-[#810B38] text-white shadow-md scale-105"
-                    : isToday
-                      ? "bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200"
-                      : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
+                  ? "bg-[#810B38] text-white shadow-md scale-105"
+                  : isToday
+                    ? "bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200"
+                    : "bg-slate-100 text-slate-700 hover:bg-rose-50 hover:text-[#810B38]"
                   }`}
               >
                 <span>{dayText}</span>
@@ -442,10 +442,10 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
                     <tr
                       key={row.srNo}
                       className={`transition-colors ${isToday
-                          ? "bg-amber-50/90 font-bold border-l-4 border-l-amber-500 hover:bg-amber-100/80"
-                          : row.srNo % 2 === 0
-                            ? "bg-slate-50/50 hover:bg-rose-50/40"
-                            : "bg-white hover:bg-rose-50/40"
+                        ? "bg-amber-50/90 font-bold border-l-4 border-l-amber-500 hover:bg-amber-100/80"
+                        : row.srNo % 2 === 0
+                          ? "bg-slate-50/50 hover:bg-rose-50/40"
+                          : "bg-white hover:bg-rose-50/40"
                         }`}
                     >
                       <td className="py-3.5 px-3 font-black text-slate-500 border-r border-slate-200">

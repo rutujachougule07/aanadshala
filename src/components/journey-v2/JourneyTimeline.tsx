@@ -169,7 +169,6 @@ export default function JourneyTimeline() {
             className="journey-exact-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100/90 border border-pink-300/80 text-[#be185d] font-extrabold text-[14px] mb-3 shadow-xs"
             style={{ fontSize: "14px", fontWeight: 800, color: "#be185d" }}
           >
-            <span>🌿</span>
             <span>
               {isEn ? (
                 <>
@@ -183,7 +182,6 @@ export default function JourneyTimeline() {
                 </>
               )}
             </span>
-            <span>🌿</span>
           </motion.div>
 
           <motion.h2
