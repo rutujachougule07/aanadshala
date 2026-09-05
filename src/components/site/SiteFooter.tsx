@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { navLinks, site } from "@/lib/site-info";
+import { navLinks, site, sportsClub } from "@/lib/site-info";
 import { useLanguage } from "@/lib/use-language";
 
 export function SiteFooter() {
@@ -13,11 +13,17 @@ export function SiteFooter() {
 
   useEffect(() => {
     const handleSec = (e: CustomEvent) => {
-      if (e.detail) setActiveSection(e.detail);
+      if (e.detail) {
+        setActiveSection(e.detail);
+      }
     };
     window.addEventListener("section-changed" as any, handleSec);
-    return () => window.removeEventListener("section-changed" as any, handleSec);
+    return () => {
+      window.removeEventListener("section-changed" as any, handleSec);
+    };
   }, []);
+
+  const isSports = activeSection === "sports" || pathname === "/sports-about";
 
   return (
     <footer className="relative mt-0 overflow-hidden text-slate-800 bg-linear-to-b from-[#fff5f8] via-[#fdf2f5] to-[#fbcfe8]/40 border-t border-rose-200 font-sans">
@@ -55,18 +61,30 @@ export function SiteFooter() {
                   background: "linear-gradient(135deg, #810B38 0%, #db2777 100%)",
                 }}
               >
-                {isEn ? "P" : "प्री"}
+                {isSports ? (isEn ? "S" : "स्पो") : (isEn ? "P" : "प्री")}
               </div>
               <div>
                 <h3 className="font-display text-xl font-black text-[#810B38] tracking-wide group-hover:text-[#db2777] transition-colors">
-                  {isEn ? (
-                    <>
-                      Preetam Senior Citizen <span className="text-[#db2777]">Anandshala</span>
-                    </>
+                  {isSports ? (
+                    isEn ? (
+                      <>
+                        Preetam <span className="text-[#db2777]">Sports &amp; Fitness Club</span>
+                      </>
+                    ) : (
+                      <>
+                        प्रीतम <span className="text-[#db2777]">स्पोर्ट्स अँड फिटनेस क्लब</span>
+                      </>
+                    )
                   ) : (
-                    <>
-                      प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span>
-                    </>
+                    isEn ? (
+                      <>
+                        Preetam Senior Citizen <span className="text-[#db2777]">Anandshala</span>
+                      </>
+                    ) : (
+                      <>
+                        प्रीतम ज्येष्ठ नागरिक <span className="text-[#db2777]">आनंदशाळा</span>
+                      </>
+                    )
                   )}
                 </h3>
                 <p className="text-[10px] uppercase tracking-[0.3em] font-black text-[#810B38]/70 mt-0.5">
@@ -76,7 +94,9 @@ export function SiteFooter() {
             </Link>
 
             <p className="text-sm font-extrabold leading-relaxed max-w-sm text-slate-700">
-              {isEn ? site.taglineEn : site.taglineMr}
+              {isSports
+                ? (isEn ? sportsClub.taglineEn : sportsClub.taglineMr)
+                : (isEn ? site.taglineEn : site.taglineMr)}
             </p>
 
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-black border border-rose-200 text-[#810B38] bg-white/80 backdrop-blur-sm shadow-xs">
@@ -181,7 +201,11 @@ export function SiteFooter() {
                     <circle cx="12" cy="10" r="3" />
                   </svg>
                 </div>
-                <span>{isEn ? site.addressEn : site.addressMr}</span>
+                <span>
+                  {isSports
+                    ? (isEn ? sportsClub.addressEn : sportsClub.addressMr)
+                    : (isEn ? site.addressEn : site.addressMr)}
+                </span>
               </li>
             </ul>
           </div>

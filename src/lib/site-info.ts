@@ -8,9 +8,9 @@ export const site = {
   phones: ["9370237633", "9423258859", "9970079090"],
   email: "Preetamanandshala@gmail.com",
   website: "www.preetamseniorcitizenanandshala.com",
-  addressMr: "प्रीतम स्पोर्ट्स आणि फिटनेस क्लब, माधवनगर, कर्नाळ, धनंजय गाडगी रोड, सांगली.",
+  addressMr: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा, माधवनगर, कर्नाळ, धनंजय गार्डन रोड, सांगली.",
   addressEn:
-    "Preetam Sports & Fitness Club, Madhavnagar, Karnal, Dhananjay Gadgi Road, Sangli.",
+    "Preetam Senior Citizen Anandshala, Madhavnagar, Karnal, Dhananjay Garden Road, Sangli.",
   timingMr: "आनंदशाळेची वेळ : सकाळी ११ ते सायं. ५",
   timingEn: "Anandshala Timing: 11:00 AM to 5:00 PM",
   founderMr: "श्री. अभिनय जगन्नाथ कामाजी",
@@ -203,9 +203,9 @@ export const sportsClub = {
   email: "Preetamsportclub@gmail.com",
   altEmail: "Preetamanandshala@gmail.com",
   googleMaps: "https://maps.app.goo.gl/KgXVLjLWke5p6PbR7",
-  addressMr: "प्रीतम स्पोर्ट्स आणि फिटनेस क्लब, माधवनगर, कर्नाळ, धनंजय गाडगी रोड, सांगली.",
+  addressMr: "प्रीतम स्पोर्ट्स आणि फिटनेस क्लब, माधवनगर, कर्नाळ, धनंजय गार्डन रोड, सांगली.",
   addressEn:
-    "Preetam Sports & Fitness Club, Madhavnagar, Karnal, Dhananjay Gadgi Road, Sangli.",
+    "Preetam Sports & Fitness Club, Madhavnagar, Karnal, Dhananjay Garden Road, Sangli.",
   socials: {
     youtube: "https://www.youtube.com/@PreetamSportsAndFitnessClub",
     facebook: "https://www.facebook.com/preetamseniorcitizenanandshala",

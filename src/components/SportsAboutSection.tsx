@@ -1,7 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Trophy, Users, Utensils, ShieldCheck, Dumbbell, Gamepad2 } from "lucide-react";
+import { Sparkles, Trophy, Users, Utensils, ShieldCheck, Dumbbell, Gamepad2, MapPin } from "lucide-react";
 import { useLanguage } from "@/lib/use-language";
+import { sportsClub } from "@/lib/site-info";
 import "@/components/AnandshalaStory.css";
 
 export const SportsAboutSection: React.FC = () => {
@@ -220,10 +221,16 @@ export const SportsAboutSection: React.FC = () => {
               }}
             />
             <div className="absolute inset-0 bg-linear-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute bottom-3 left-4 right-4 text-white text-xs sm:text-sm font-black bg-slate-900/80 backdrop-blur-md p-2.5 rounded-xl border border-white/20 text-center shadow-lg">
-              {isEn
-                ? "🏆 Preetam Sports & Fitness Club — Sangli"
-                : "🏆 प्रीतम स्पोर्ट्स अँड फिटनेस क्लब — सांगली"}
+            <div className="absolute bottom-3 left-4 right-4 text-white text-xs sm:text-sm font-black bg-slate-900/80 backdrop-blur-md p-2.5 rounded-xl border border-white/20 text-center shadow-lg space-y-1">
+              <div>
+                {isEn
+                  ? "🏆 Preetam Sports & Fitness Club — Sangli"
+                  : "🏆 प्रीतम स्पोर्ट्स अँड फिटनेस क्लब — सांगली"}
+              </div>
+              <div className="text-[11px] text-pink-300 font-bold flex items-center justify-center gap-1">
+                <MapPin size={12} className="text-pink-400 shrink-0" />
+                <span>{isEn ? sportsClub.addressEn : sportsClub.addressMr}</span>
+              </div>
             </div>
           </motion.div>
         </div>

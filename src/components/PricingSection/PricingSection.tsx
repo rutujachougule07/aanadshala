@@ -175,8 +175,8 @@ export const PricingSection: React.FC = () => {
                 <MapPin size={16} />
                 <span>
                   {isEn
-                    ? "Address: Preetam Sports & Fitness Club, Madhavnagar, Karnal, Dhananjay Gadgi Road, Sangli."
-                    : "पत्ता: प्रीतम स्पोर्ट्स आणि फिटनेस क्लब, माधवनगर, कर्नाळ, धनंजय गाडगी रोड, सांगली."}
+                    ? "Address: Preetam Senior Citizen Anandshala, Madhavnagar, Karnal, Dhananjay Garden Road, Sangli."
+                    : "पत्ता: प्रीतम ज्येष्ठ नागरिक आनंदशाळा, माधवनगर, कर्नाळ, धनंजय गार्डन रोड, सांगली."}
                 </span>
               </p>
               <p className="text-[12px] text-amber-200 font-extrabold flex items-center gap-1.5 pt-1">
@@ -191,17 +191,17 @@ export const PricingSection: React.FC = () => {
 
             <div className="contact-right-buttons flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
               <a
-                href={`https://wa.me/919370237633?text=${encodeURIComponent("Hi, I am interested in your product/service: Preetam Anandshala Membership & Stay Rate Chart. Please provide more details.")}`}
+                href={`https://wa.me/919970079090?text=${encodeURIComponent("Hi, I am interested in your product/service: Preetam Anandshala Membership & Stay Rate Chart. Please provide more details.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-phone-btn bg-emerald-600 border-emerald-500 text-white hover:bg-emerald-700"
               >
                 <span>
-                  💬 {isEn ? "WhatsApp Inquiry (9370237633)" : "WhatsApp चौकशी (९३७०२३७६३३)"}
+                  💬 {isEn ? "WhatsApp Inquiry (9970079090)" : "WhatsApp चौकशी (९९७००७९०९०)"}
                 </span>
               </a>
-              <a href="tel:9370237633" className="contact-phone-btn second">
-                <span>📞 {formatNum("९३७०२३७६३३")}</span>
+              <a href="tel:9970079090" className="contact-phone-btn second">
+                <span>📞 {formatNum("९९७००७९०९०")}</span>
               </a>
             </div>
           </div>

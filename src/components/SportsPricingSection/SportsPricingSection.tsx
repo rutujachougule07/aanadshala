@@ -33,8 +33,10 @@ import {
   Info,
   Check,
   Gift,
+  MapPin,
 } from "lucide-react";
 import { HighlightText } from "@/components/HighlightText";
+import { sportsClub } from "@/lib/site-info";
 import "@/components/PricingSection/PricingSection.css";
 import "./SportsPricingSection.css";
 
@@ -274,6 +276,14 @@ const SportsPricingSection = () => {
               </>
             )}
           </h2>
+          <p className="flex items-center justify-center gap-1.5 text-xs sm:text-sm text-[#db2777] font-extrabold my-2">
+            <MapPin size={16} className="text-[#db2777] shrink-0" />
+            <span>
+              {isEn
+                ? `Address: ${sportsClub.addressEn}`
+                : `पत्ता: ${sportsClub.addressMr}`}
+            </span>
+          </p>
 
           <p className="ps-subtitle typo-subheading max-w-3xl mx-auto text-slate-700 mt-2">
             {isEn

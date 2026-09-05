@@ -538,6 +538,8 @@ function IndexComponent() {
     } else {
       document.body.classList.remove("hide-footer");
       document.body.classList.remove("hide-nav-links");
+      localStorage.setItem("preetam_active_section", selectedSection);
+      window.dispatchEvent(new CustomEvent("section-changed", { detail: selectedSection }));
     }
     return () => {
       document.body.classList.remove("hide-footer");
