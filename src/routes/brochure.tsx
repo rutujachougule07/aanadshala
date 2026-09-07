@@ -524,7 +524,7 @@ const Brochure: React.FC = () => {
           <div className="bcol-3-contact-footer">
             <div className="bcol-contact-row">
               <Phone size={18} />
-              <span>9370237633 / 9422409748</span>
+              <span>9970079090 / 9422409748</span>
             </div>
             <div className="bcol-contact-address flex items-start gap-1.5">
               <MapPin size={16} className="shrink-0 text-pink-400 mt-0.5" />
@@ -602,7 +602,7 @@ const Brochure: React.FC = () => {
               {/* MODAL FOOTER BUTTONS */}
               <div className="flex flex-col sm:flex-row gap-3 w-full">
                 <a
-                  href={`https://wa.me/919370237633?text=${encodeURIComponent(`Hi, I am interested in your product/service: ${selectedDetail.title}. Please provide more details.`)}`}
+                  href={`https://wa.me/919970079090?text=${encodeURIComponent(`Hi, I am interested in your product/service: ${selectedDetail.title}. Please provide more details.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 bg-linear-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
@@ -610,13 +610,13 @@ const Brochure: React.FC = () => {
                   <span>💬</span>
                   <span>
                     {isEn
-                      ? "WhatsApp Inquiry (9370237633)"
-                      : "माहितीसाठी WhatsApp करा (9370237633)"}
+                      ? "WhatsApp Inquiry (9970079090)"
+                      : "माहितीसाठी WhatsApp करा (9970079090)"}
                   </span>
                 </a>
 
                 <a
-                  href="tel:9370237633"
+                  href="tel:9970079090"
                   className="bg-linear-to-r from-pink-600 to-purple-600 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
                 >
                   <PhoneCall size={18} />

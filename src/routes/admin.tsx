@@ -247,13 +247,11 @@ function ImageDropzone({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`border-2 border-dashed rounded-2xl transition-all cursor-pointer flex flex-col items-center justify-center ${
-        compact ? "p-3" : "p-5"
-      } ${
-        isDragging
+      className={`border-2 border-dashed rounded-2xl transition-all cursor-pointer flex flex-col items-center justify-center ${compact ? "p-3" : "p-5"
+        } ${isDragging
           ? "border-pink-500 bg-pink-50/80 scale-[1.01]"
           : "border-pink-200 hover:border-pink-400 bg-rose-50/40 hover:bg-rose-50/80"
-      }`}
+        }`}
     >
       <input
         ref={inputRef}
@@ -385,11 +383,10 @@ function VideoDropzone({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${
-        isDragging
+      className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${isDragging
           ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
           : "border-purple-300 hover:border-pink-600 bg-purple-50/50 hover:bg-pink-50/80"
-      } ${compact ? "p-3" : "p-4"}`}
+        } ${compact ? "p-3" : "p-4"}`}
     >
       <input
         ref={inputRef}
@@ -450,7 +447,7 @@ export default function AdminPage() {
     setHallDescOverrides(updated);
     try {
       localStorage.setItem(HALL_DESCS_KEY, JSON.stringify(updated));
-    } catch (_) {}
+    } catch (_) { }
   };
   const getHallDesc = (hallId: string, fallback = "") => hallDescOverrides[hallId] ?? fallback;
 
@@ -468,7 +465,7 @@ export default function AdminPage() {
     setSportsDescOverrides(updated);
     try {
       localStorage.setItem(SPORTS_DESCS_KEY, JSON.stringify(updated));
-    } catch (_) {}
+    } catch (_) { }
   };
   const getSportsDesc = (facId: string, fallback = "") => sportsDescOverrides[facId] ?? fallback;
 
@@ -511,7 +508,7 @@ export default function AdminPage() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-    } catch (e) {}
+    } catch (e) { }
     setIsLoggedIn(false);
     localStorage.removeItem("preetam_admin_auth");
   };
@@ -864,19 +861,19 @@ export default function AdminPage() {
                 editingModal?.type === "video" ||
                 editingModal?.type === "sangliAttraction" ||
                 (modalDesc && modalDesc.length > 0)) && (
-                <div>
-                  <label className="block text-[11px] font-black text-slate-500 mb-1">
-                    📝 Description & Details
-                  </label>
-                  <textarea
-                    value={modalDesc}
-                    onChange={(e) => setModalDesc(e.target.value)}
-                    placeholder="Enter description..."
-                    rows={3}
-                    className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-medium focus:border-[#db2777] focus:outline-none resize-none"
-                  />
-                </div>
-              )}
+                  <div>
+                    <label className="block text-[11px] font-black text-slate-500 mb-1">
+                      📝 Description & Details
+                    </label>
+                    <textarea
+                      value={modalDesc}
+                      onChange={(e) => setModalDesc(e.target.value)}
+                      placeholder="Enter description..."
+                      rows={3}
+                      className="w-full rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 font-medium focus:border-[#db2777] focus:outline-none resize-none"
+                    />
+                  </div>
+                )}
             </div>
 
             {/* SAVE / CANCEL */}
@@ -934,9 +931,8 @@ export default function AdminPage() {
 
       {/* LIGHT ELEGANT SIDEBAR */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-rose-200/80 p-5 flex flex-col justify-between transition-transform duration-300 shadow-lg lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 overflow-y-auto ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-rose-200/80 p-5 flex flex-col justify-between transition-transform duration-300 shadow-lg lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 overflow-y-auto ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div>
           {/* SIDEBAR HEADER */}
@@ -966,11 +962,10 @@ export default function AdminPage() {
                     setActiveTab(item.id);
                     setSidebarOpen(false);
                   }}
-                  className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer group ${
-                    isActive
+                  className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer group ${isActive
                       ? "bg-linear-to-r from-[#db2777] via-purple-600 to-[#1A05A2] text-white shadow-md shadow-pink-500/20"
                       : "text-slate-700 hover:bg-rose-50/80 hover:text-[#db2777]"
-                  }`}
+                    }`}
                 >
                   <Icon
                     className={`size-5 shrink-0 ${isActive ? "text-white" : "text-[#1A05A2] group-hover:text-[#db2777]"}`}
@@ -1005,11 +1000,10 @@ export default function AdminPage() {
               setActiveModule("anandshala");
               setActiveTab("home");
             }}
-            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${
-              activeModule === "anandshala"
+            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${activeModule === "anandshala"
                 ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
                 : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
-            }`}
+              }`}
           >
             <span>🌸</span>
             <span>
@@ -1031,11 +1025,10 @@ export default function AdminPage() {
               setActiveModule("sports");
               setActiveTab("sports_home");
             }}
-            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${
-              activeModule === "sports"
+            className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${activeModule === "sports"
                 ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
                 : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
-            }`}
+              }`}
           >
             <span>🏋️‍♂️</span>
             <span>Preetam Sports & Fitness Club</span>
@@ -1162,148 +1155,189 @@ export default function AdminPage() {
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* SECTION 1: ANANDSHALA MAIN CARD */}
-                <div className="space-y-2">
+                {/* SECTION 1: ANANDSHALA MAIN CARD SLIDER IMAGES */}
+                <div className="space-y-3 bg-rose-50/50 p-4 rounded-2xl border border-rose-200">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-[#1A05A2] flex items-center gap-1">
-                      <span>🌸</span> Section 1: Anandshala Main Card
+                      <span>🌸</span> Section 1: Anandshala Slider Photos ({siteForm.aanandshalaImages?.length || 2})
                     </span>
+                    <button
+                      onClick={() =>
+                        openEditModal({
+                          type: "aanandshalaCardAdd",
+                          title: siteForm.aanandshalaTitle || "Preetam Senior Citizen Anandshala",
+                          imageUrl: "/images/slider1.JPG",
+                          onSave: (_newTitle, newUrl) => {
+                            const current = siteForm.aanandshalaImages || ["/images/slider4.JPG", "/images/slider3.png"];
+                            const updated = [...current, newUrl];
+                            const newForm = { ...siteForm, aanandshalaImages: updated };
+                            setSiteForm(newForm);
+                            store.updateSiteData(newForm);
+                            showToast("New slider photo added!");
+                          },
+                        })
+                      }
+                      className="px-3 py-1.5 rounded-full bg-[#db2777] text-white text-xs font-black hover:bg-[#be185d] transition-all flex items-center gap-1 shadow-xs cursor-pointer"
+                    >
+                      <Plus size={13} />
+                      <span>Add Slider Photo</span>
+                    </button>
                   </div>
 
-                  <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md h-52 sm:h-60 bg-slate-900">
-                    <img
-                      src={encodeURI(siteForm.aanandshalaImages?.[0] || "/images/slider4.JPG")}
-                      alt="Anandshala Card"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/images/slider4.JPG";
-                      }}
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {(siteForm.aanandshalaImages && siteForm.aanandshalaImages.length > 0
+                      ? siteForm.aanandshalaImages
+                      : ["/images/slider4.JPG", "/images/slider3.png"]
+                    ).map((imgUrl, imgIdx) => (
+                      <div key={imgIdx} className="relative group rounded-2xl overflow-hidden border-2 border-rose-200 shadow-sm h-36 bg-slate-900">
+                        <img
+                          src={encodeURI(imgUrl)}
+                          alt={`Anandshala Slider ${imgIdx + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = "/images/slider4.JPG";
+                          }}
+                        />
 
-                    {/* FLOATING BUTTONS DIRECTLY ON IMAGE */}
-                    <div className="absolute top-3 right-3 flex items-center gap-2 z-20">
-                      <button
-                        onClick={() =>
-                          openEditModal({
-                            type: "aanandshalaCard",
-                            title:
-                              siteForm.aanandshalaTitle ||
-                              "Preetam Senior Citizen Anandshala & Residence",
-                            imageUrl: siteForm.aanandshalaImages?.[0] || "/images/slider4.JPG",
-                            onSave: (newTitle, newUrl) => {
-                              const updatedImages = [
-                                newUrl,
-                                ...(siteForm.aanandshalaImages?.slice(1) || []),
-                              ];
-                              const newForm = {
-                                ...siteForm,
-                                aanandshalaTitle: newTitle,
-                                aanandshalaImages: updatedImages,
-                              };
+                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/60 text-white text-[10px] font-black backdrop-blur-xs">
+                          Photo #{imgIdx + 1}
+                        </span>
+
+                        <div className="absolute top-2 right-2 flex items-center gap-1 z-20">
+                          <button
+                            onClick={() =>
+                              openEditModal({
+                                type: "aanandshalaCardEdit",
+                                title: siteForm.aanandshalaTitle || "Preetam Senior Citizen Anandshala",
+                                imageUrl: imgUrl,
+                                onSave: (newTitle, newUrl) => {
+                                  const current = [...(siteForm.aanandshalaImages || ["/images/slider4.JPG", "/images/slider3.png"])];
+                                  current[imgIdx] = newUrl;
+                                  const newForm = {
+                                    ...siteForm,
+                                    aanandshalaTitle: newTitle,
+                                    aanandshalaImages: current,
+                                  };
+                                  setSiteForm(newForm);
+                                  store.updateSiteData(newForm);
+                                  showToast("Slider photo updated!");
+                                },
+                              })
+                            }
+                            className="p-1.5 rounded-full bg-white/95 text-[#1A05A2] shadow-md hover:bg-rose-50 cursor-pointer"
+                            title="Change Photo"
+                          >
+                            <Edit size={12} className="text-[#db2777]" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              const current = (siteForm.aanandshalaImages || ["/images/slider4.JPG", "/images/slider3.png"]).filter((_, i) => i !== imgIdx);
+                              const newForm = { ...siteForm, aanandshalaImages: current };
                               setSiteForm(newForm);
                               store.updateSiteData(newForm);
-                            },
-                          })
-                        }
-                        className="px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-black text-[#1A05A2] shadow-lg hover:bg-rose-50 hover:scale-105 transition-all flex items-center gap-1.5 border border-rose-200 cursor-pointer"
-                      >
-                        <Edit size={13} className="text-[#db2777]" />
-                        <span>Edit</span>
-                      </button>
-                      <button
-                        onClick={() => {
-                          const updatedImages = siteForm.aanandshalaImages?.slice(1) || [];
-                          const newForm = { ...siteForm, aanandshalaImages: updatedImages };
-                          setSiteForm(newForm);
-                          store.updateSiteData(newForm);
-                          showToast("Photo deleted!");
-                        }}
-                        className="px-3.5 py-1.5 rounded-full bg-rose-600/95 backdrop-blur-md text-xs font-black text-white shadow-lg hover:bg-rose-700 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer border border-white/20"
-                      >
-                        <Trash2 size={13} />
-                        <span>Delete</span>
-                      </button>
-                    </div>
-
-                    <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
-                      <p className="font-black text-xs text-white drop-shadow-md truncate">
-                        <HighlightText
-                          text={
-                            siteForm.aanandshalaTitle ||
-                            "Preetam Senior Citizen Anandshala & Residence"
-                          }
-                        />
-                      </p>
-                    </div>
+                              showToast("Photo deleted!");
+                            }}
+                            className="p-1.5 rounded-full bg-rose-600 text-white shadow-md hover:bg-rose-700 cursor-pointer"
+                            title="Delete Photo"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
-                {/* SECTION 2: SPORTS CLUB MAIN CARD */}
-                <div className="space-y-2">
+                {/* SECTION 2: SPORTS CLUB MAIN CARD SLIDER IMAGES */}
+                <div className="space-y-3 bg-purple-50/50 p-4 rounded-2xl border border-purple-200">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-black text-[#1A05A2] flex items-center gap-1">
-                      <span>🏋️‍♂️</span> Section 2: Sports Club Main Card
+                      <span>🏋️‍♂️</span> Section 2: Sports Club Slider Photos ({siteForm.sportsImages?.length || 2})
                     </span>
+                    <button
+                      onClick={() =>
+                        openEditModal({
+                          type: "sportsCardAdd",
+                          title: siteForm.sportsTitle || "Preetam Sports & Fitness Club",
+                          imageUrl: "/images/sports img.png",
+                          onSave: (_newTitle, newUrl) => {
+                            const current = siteForm.sportsImages || ["/images/sports img.png", "/images/pickleball-court.png"];
+                            const updated = [...current, newUrl];
+                            const newForm = { ...siteForm, sportsImages: updated };
+                            setSiteForm(newForm);
+                            store.updateSiteData(newForm);
+                            showToast("New sports slider photo added!");
+                          },
+                        })
+                      }
+                      className="px-3 py-1.5 rounded-full bg-[#1A05A2] text-white text-xs font-black hover:bg-indigo-900 transition-all flex items-center gap-1 shadow-xs cursor-pointer"
+                    >
+                      <Plus size={13} />
+                      <span>Add Slider Photo</span>
+                    </button>
                   </div>
 
-                  <div className="relative group rounded-3xl overflow-hidden border-2 border-rose-200 shadow-md h-52 sm:h-60 bg-slate-900">
-                    <img
-                      src={encodeURI(siteForm.sportsImages?.[0] || "/images/sports%20img.png")}
-                      alt="Sports Club Card"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/images/sports%20img.png";
-                      }}
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {(siteForm.sportsImages && siteForm.sportsImages.length > 0
+                      ? siteForm.sportsImages
+                      : ["/images/sports img.png", "/images/pickleball-court.png"]
+                    ).map((imgUrl, imgIdx) => (
+                      <div key={imgIdx} className="relative group rounded-2xl overflow-hidden border-2 border-purple-200 shadow-sm h-36 bg-slate-900">
+                        <img
+                          src={encodeURI(imgUrl)}
+                          alt={`Sports Slider ${imgIdx + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = "/images/sports img.png";
+                          }}
+                        />
 
-                    {/* FLOATING BUTTONS DIRECTLY ON IMAGE */}
-                    <div className="absolute top-3 right-3 flex items-center gap-2 z-20">
-                      <button
-                        onClick={() =>
-                          openEditModal({
-                            type: "sportsCard",
-                            title: siteForm.sportsTitle || "Preetam Sports & Fitness Club",
-                            imageUrl: siteForm.sportsImages?.[0] || "/images/sports img.png",
-                            onSave: (newTitle, newUrl) => {
-                              const updatedImages = [
-                                newUrl,
-                                ...(siteForm.sportsImages?.slice(1) || []),
-                              ];
-                              const newForm = {
-                                ...siteForm,
-                                sportsTitle: newTitle,
-                                sportsImages: updatedImages,
-                              };
+                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/60 text-white text-[10px] font-black backdrop-blur-xs">
+                          Photo #{imgIdx + 1}
+                        </span>
+
+                        <div className="absolute top-2 right-2 flex items-center gap-1 z-20">
+                          <button
+                            onClick={() =>
+                              openEditModal({
+                                type: "sportsCardEdit",
+                                title: siteForm.sportsTitle || "Preetam Sports & Fitness Club",
+                                imageUrl: imgUrl,
+                                onSave: (newTitle, newUrl) => {
+                                  const current = [...(siteForm.sportsImages || ["/images/sports img.png", "/images/pickleball-court.png"])];
+                                  current[imgIdx] = newUrl;
+                                  const newForm = {
+                                    ...siteForm,
+                                    sportsTitle: newTitle,
+                                    sportsImages: current,
+                                  };
+                                  setSiteForm(newForm);
+                                  store.updateSiteData(newForm);
+                                  showToast("Sports slider photo updated!");
+                                },
+                              })
+                            }
+                            className="p-1.5 rounded-full bg-white/95 text-[#1A05A2] shadow-md hover:bg-purple-50 cursor-pointer"
+                            title="Change Photo"
+                          >
+                            <Edit size={12} className="text-[#db2777]" />
+                          </button>
+                          <button
+                            onClick={() => {
+                              const current = (siteForm.sportsImages || ["/images/sports img.png", "/images/pickleball-court.png"]).filter((_, i) => i !== imgIdx);
+                              const newForm = { ...siteForm, sportsImages: current };
                               setSiteForm(newForm);
                               store.updateSiteData(newForm);
-                            },
-                          })
-                        }
-                        className="px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-black text-[#1A05A2] shadow-lg hover:bg-rose-50 hover:scale-105 transition-all flex items-center gap-1.5 border border-rose-200 cursor-pointer"
-                      >
-                        <Edit size={13} className="text-[#db2777]" />
-                        <span>Edit</span>
-                      </button>
-                      <button
-                        onClick={() => {
-                          const updatedImages = siteForm.sportsImages?.slice(1) || [];
-                          const newForm = { ...siteForm, sportsImages: updatedImages };
-                          setSiteForm(newForm);
-                          store.updateSiteData(newForm);
-                          showToast("Photo deleted!");
-                        }}
-                        className="px-3.5 py-1.5 rounded-full bg-rose-600/95 backdrop-blur-md text-xs font-black text-white shadow-lg hover:bg-rose-700 hover:scale-105 transition-all flex items-center gap-1.5 cursor-pointer border border-white/20"
-                      >
-                        <Trash2 size={13} />
-                        <span>Delete</span>
-                      </button>
-                    </div>
-
-                    <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-3 text-white">
-                      <p className="font-black text-xs drop-shadow-md truncate">
-                        {siteForm.sportsTitle || "Preetam Sports & Fitness Club"}
-                      </p>
-                    </div>
+                              showToast("Photo deleted!");
+                            }}
+                            className="p-1.5 rounded-full bg-rose-600 text-white shadow-md hover:bg-rose-700 cursor-pointer"
+                            title="Delete Photo"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -1397,11 +1431,11 @@ export default function AdminPage() {
                                   (h, i) =>
                                     i === idx
                                       ? {
-                                          ...h,
-                                          title: newTitle,
-                                          imageUrl: newUrl,
-                                          desc: newDesc || h.desc || "",
-                                        }
+                                        ...h,
+                                        title: newTitle,
+                                        imageUrl: newUrl,
+                                        desc: newDesc || h.desc || "",
+                                      }
                                       : h,
                                 );
                                 const newForm = { ...store.siteData, activityHalls: updatedHalls };
@@ -1835,11 +1869,10 @@ export default function AdminPage() {
                 <button
                   key={cat}
                   onClick={() => setGalleryFilter(cat)}
-                  className={`px-4 py-2 rounded-xl text-xs font-black shrink-0 transition-all cursor-pointer ${
-                    galleryFilter === cat
+                  className={`px-4 py-2 rounded-xl text-xs font-black shrink-0 transition-all cursor-pointer ${galleryFilter === cat
                       ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white shadow-sm"
                       : "bg-white text-slate-600 hover:text-[#db2777] border border-rose-100 shadow-xs"
-                  }`}
+                    }`}
                 >
                   {cat}
                 </button>
@@ -2125,7 +2158,7 @@ export default function AdminPage() {
                   store.updatePricingItems(store.pricingItems);
                   try {
                     await store.syncAllToFirebaseCloud();
-                  } catch (e) {}
+                  } catch (e) { }
                   showToast("✅ Anandshala Rate Card saved & synced to Cloud!");
                 }}
                 className="px-5 py-2.5 rounded-2xl bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white text-xs font-black shadow-md hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
@@ -2297,7 +2330,7 @@ export default function AdminPage() {
                   store.updateBhojanalayaConfig(store.bhojanalayaConfig);
                   try {
                     await store.syncAllToFirebaseCloud();
-                  } catch (e) {}
+                  } catch (e) { }
                   showToast("✅ Bhojanalaya timetable & rates saved & synced!");
                 }}
                 className="px-5 py-2.5 rounded-2xl bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white text-xs font-black shadow-md hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
@@ -2698,7 +2731,7 @@ export default function AdminPage() {
                   store.updateSportsMembershipTiers(store.sportsMembershipTiers);
                   try {
                     await store.syncAllToFirebaseCloud();
-                  } catch (e) {}
+                  } catch (e) { }
                   showToast("✅ Sports Club Rate Card saved & synced to Cloud!");
                 }}
                 className="px-5 py-2.5 rounded-2xl bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white text-xs font-black shadow-md hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
@@ -2991,7 +3024,7 @@ export default function AdminPage() {
                     store.updateEliteConfig(store.eliteConfig);
                     try {
                       await store.syncAllToFirebaseCloud();
-                    } catch (e) {}
+                    } catch (e) { }
                     showToast("👑 Preetam Elite Membership details saved & synced to Firebase!");
                   }}
                   className="px-5 py-2.5 rounded-2xl bg-linear-to-r from-amber-500 to-rose-600 text-white font-black text-xs shadow-md hover:scale-105 transition-all flex items-center gap-2 cursor-pointer"
@@ -3136,11 +3169,11 @@ export default function AdminPage() {
                               const updated = (siteForm.sportsFacilities || []).map((f) =>
                                 f.id === facId
                                   ? {
-                                      ...f,
-                                      title: newTitle,
-                                      imageUrl: newUrl,
-                                      description: newDesc || f.description || "",
-                                    }
+                                    ...f,
+                                    title: newTitle,
+                                    imageUrl: newUrl,
+                                    description: newDesc || f.description || "",
+                                  }
                                   : f,
                               );
                               const newForm = { ...siteForm, sportsFacilities: updated };

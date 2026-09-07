@@ -147,7 +147,7 @@ Timings:
 • Evening Tea & Snacks: 5:00 PM to 6:00 PM
 
 Contact: Preetam Senior Citizen Anandshala, Sangli.
-📞 Phone: 9370237633
+📞 Phone: 9970079090
 `
       : `=====================================================
   प्रीतम ज्येष्ठ नागरिक आनंदशाळा • अन्नपूर्णा भोजनालय
@@ -160,7 +160,7 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
 • सायंकाळी चहा व नाष्टा: सायंकाळी ५:०० ते ६:००
 
 संपर्क: प्रीतम ज्येष्ठ नागरिक आनंदशाळा, सांगली.
-📞 फोन: ९३७०२३७६३३
+📞 फोन: ९९७००७९०९०
 `;
 
     const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" });
@@ -235,14 +235,14 @@ Contact: Preetam Senior Citizen Anandshala, Sangli.
             </div>
 
             <a
-              href={`https://wa.me/919370237633?text=${encodeURIComponent("Hi, I am interested in your product/service: Annapurna Bhojanalaya Dining Menu. Please provide more details.")}`}
+              href={`https://wa.me/919970079090?text=${encodeURIComponent("Hi, I am interested in your product/service: Annapurna Bhojanalaya Dining Menu. Please provide more details.")}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black shadow-md hover:scale-105 transition-transform cursor-pointer"
             >
               <span>💬</span>
               <span>
-                {isEn ? "WhatsApp Inquiry (9370237633)" : "माहितीसाठी WhatsApp करा (9370237633)"}
+                {isEn ? "WhatsApp Inquiry (9970079090)" : "माहितीसाठी WhatsApp करा (9970079090)"}
               </span>
             </a>
 

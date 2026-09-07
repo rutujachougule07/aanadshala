@@ -459,7 +459,7 @@ const ActivityHallsSection = () => {
         <Reveal delay={400}>
           <div className="flex justify-center mt-6">
             <a
-              href={`https://wa.me/919370237633?text=${encodeURIComponent(
+              href={`https://wa.me/919970079090?text=${encodeURIComponent(
                 isEn
                   ? "Hi, I want information regarding Anandshala Special Activity Halls (Timings, facilities & entry details). Please share."
                   : "नमस्कार, मला प्रीतम आनंदशाळेतील विशेष उपक्रम हॉल्सची वेळ, उपलब्ध सुविधा व प्रवेशाबाबत माहिती हवी आहे. कृपया माहिती द्यावी.",
@@ -471,8 +471,8 @@ const ActivityHallsSection = () => {
               <Sparkles size={18} className="text-amber-300 animate-pulse" />
               <span>
                 {isEn
-                  ? "Inquire Activity Halls on WhatsApp (9370237633)"
-                  : "हॉल्सची वेळ व सुविधांबाबत WhatsApp चौकशी करा (9370237633)"}
+                  ? "Inquire Activity Halls on WhatsApp (9970079090)"
+                  : "हॉल्सची वेळ व सुविधांबाबत WhatsApp चौकशी करा (9970079090)"}
               </span>
               <ArrowRight size={16} />
             </a>
@@ -560,7 +560,7 @@ const ActivityHallsSection = () => {
                 {/* CALL & WHATSAPP BUTTONS */}
                 <div className="flex flex-col sm:flex-row gap-3 pt-3 mt-auto border-t border-slate-100">
                   <a
-                    href={`https://wa.me/919370237633?text=${encodeURIComponent(
+                    href={`https://wa.me/919970079090?text=${encodeURIComponent(
                       isEn
                         ? `Hi, I want information regarding Anandshala ${selectedHall.titleEn} (Hall timings, facilities & membership access). Please share details.`
                         : `नमस्कार, मला प्रीतम आनंदशाळेतील '${selectedHall.titleMr}' (हॉलची वेळ, सुविधा व प्रवेशाबाबत) अधिक माहिती हवी आहे. कृपया माहिती द्यावी.`,
@@ -573,11 +573,11 @@ const ActivityHallsSection = () => {
                     <span>
                       {isEn
                         ? "Inquire Hall Timings & Access (WhatsApp)"
-                        : "हॉल वेळ व प्रवेशाबाबत WhatsApp करा (9370237633)"}
+                        : "हॉल वेळ व प्रवेशाबाबत WhatsApp करा (9970079090)"}
                     </span>
                   </a>
                   <a
-                    href="tel:9370237633"
+                    href="tel:9970079090"
                     className="bg-gradient-to-r from-[#810B38] to-[#db2777] hover:from-[#9c0d45] hover:to-[#f472b6] text-white font-black text-xs sm:text-sm py-3.5 px-5 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-pink-600/20 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shrink-0"
                   >
                     <PhoneCall size={18} />

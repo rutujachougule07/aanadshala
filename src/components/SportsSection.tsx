@@ -596,7 +596,7 @@ export default function SportsSection() {
             <div className="sp-banner-glow-orb-right" />
 
             <img
-              src="/images/sports_hero_bg.png"
+              src={store.siteData.sportsHeroImage || "/images/sports_hero_bg.png"}
               alt="Preetam Sports Complex Sangli Aerial View"
               className="sp-exact-banner-img"
               onError={(e) => {
@@ -890,117 +890,117 @@ export default function SportsSection() {
                   </h3>
                 </div>
 
-              <p className="text-xs sm:text-sm font-extrabold text-slate-700 mb-6 bg-white/80 p-3.5 rounded-2xl border border-amber-100 shadow-xs">
-                ℹ️{" "}
-                {isEn ? (
-                  <>
-                    These facilities are available as <strong>Add-Ons</strong> to Individual
-                    Facility Packages (cost not specified in the provided data).
-                  </>
-                ) : (
-                  <>
-                    या सुविधा वैयक्तिक सुविधा पॅकेजेस सोबत <strong>Add-Ons (ॲड-ऑन)</strong> म्हणून
-                    उपलब्ध आहेत (शुल्क पॅकेजमध्ये समाविष्ट आहे किंवा स्वतंत्र सोयीनुसार उपलब्ध).
-                  </>
-                )}
-              </p>
+                <p className="text-xs sm:text-sm font-extrabold text-slate-700 mb-6 bg-white/80 p-3.5 rounded-2xl border border-amber-100 shadow-xs">
+                  ℹ️{" "}
+                  {isEn ? (
+                    <>
+                      These facilities are available as <strong>Add-Ons</strong> to Individual
+                      Facility Packages (cost not specified in the provided data).
+                    </>
+                  ) : (
+                    <>
+                      या सुविधा वैयक्तिक सुविधा पॅकेजेस सोबत <strong>Add-Ons (ॲड-ऑन)</strong> म्हणून
+                      उपलब्ध आहेत (शुल्क पॅकेजमध्ये समाविष्ट आहे किंवा स्वतंत्र सोयीनुसार उपलब्ध).
+                    </>
+                  )}
+                </p>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {/* Card 1: Mind & Body */}
-                <div className="bg-white p-5 rounded-2xl border-2 border-pink-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="size-11 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center text-xl font-black shrink-0 shadow-xs">
-                      🧘‍♀️
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Card 1: Mind & Body */}
+                  <div className="bg-white p-5 rounded-2xl border-2 border-pink-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="size-11 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center text-xl font-black shrink-0 shadow-xs">
+                        🧘‍♀️
+                      </div>
+                      <div>
+                        <span className="text-[10px] uppercase tracking-wider font-black text-pink-600 block">
+                          {isEn ? "Health & Harmony" : "आरोग्य आणि सुसंवाद"}
+                        </span>
+                        <h4 className="font-black text-slate-900 text-base">
+                          {isEn ? "Mind & Body" : "माइंड अँड बॉडी"}
+                        </h4>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-[10px] uppercase tracking-wider font-black text-pink-600 block">
-                        {isEn ? "Health & Harmony" : "आरोग्य आणि सुसंवाद"}
-                      </span>
-                      <h4 className="font-black text-slate-900 text-base">
-                        {isEn ? "Mind & Body" : "माइंड अँड बॉडी"}
-                      </h4>
-                    </div>
+                    <ul className="space-y-2 text-xs sm:text-sm font-extrabold text-slate-700">
+                      <li className="flex items-center gap-2">
+                        <span className="size-2 rounded-full bg-pink-500 shrink-0"></span>
+                        <span>{isEn ? "Zumba" : "झुंबा (Zumba)"}</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="size-2 rounded-full bg-pink-500 shrink-0"></span>
+                        <span>{isEn ? "Dance Workout" : "फिटनेस डान्स (Dance)"}</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="size-2 rounded-full bg-pink-500 shrink-0"></span>
+                        <span>{isEn ? "Yoga & Meditation" : "योग & ध्यान (Yoga)"}</span>
+                      </li>
+                    </ul>
                   </div>
-                  <ul className="space-y-2 text-xs sm:text-sm font-extrabold text-slate-700">
-                    <li className="flex items-center gap-2">
-                      <span className="size-2 rounded-full bg-pink-500 shrink-0"></span>
-                      <span>{isEn ? "Zumba" : "झुंबा (Zumba)"}</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="size-2 rounded-full bg-pink-500 shrink-0"></span>
-                      <span>{isEn ? "Dance Workout" : "फिटनेस डान्स (Dance)"}</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="size-2 rounded-full bg-pink-500 shrink-0"></span>
-                      <span>{isEn ? "Yoga & Meditation" : "योग & ध्यान (Yoga)"}</span>
-                    </li>
-                  </ul>
-                </div>
 
-                {/* Card 2: Recreation */}
-                <div className="bg-white p-5 rounded-2xl border-2 border-indigo-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="size-11 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl font-black shrink-0 shadow-xs">
-                      🎲
+                  {/* Card 2: Recreation */}
+                  <div className="bg-white p-5 rounded-2xl border-2 border-indigo-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="size-11 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl font-black shrink-0 shadow-xs">
+                        🎲
+                      </div>
+                      <div>
+                        <span className="text-[10px] uppercase tracking-wider font-black text-indigo-600 block">
+                          {isEn ? "Leisure & Fun" : "मनोरंजन आणि खेळ"}
+                        </span>
+                        <h4 className="font-black text-slate-900 text-base">
+                          {isEn ? "Recreation" : "मनोरंजन क्षेत्र"}
+                        </h4>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-[10px] uppercase tracking-wider font-black text-indigo-600 block">
-                        {isEn ? "Leisure & Fun" : "मनोरंजन आणि खेळ"}
-                      </span>
-                      <h4 className="font-black text-slate-900 text-base">
-                        {isEn ? "Recreation" : "मनोरंजन क्षेत्र"}
-                      </h4>
-                    </div>
+                    <ul className="space-y-2 text-xs sm:text-sm font-extrabold text-slate-700">
+                      <li className="flex items-center gap-2">
+                        <span className="size-2 rounded-full bg-indigo-500 shrink-0"></span>
+                        <span>
+                          {isEn ? "Indoor Sitting Games" : "इनडोअर सिटिंग गेम्स (Sitting Games)"}
+                        </span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="size-2 rounded-full bg-indigo-500 shrink-0"></span>
+                        <span>{isEn ? "Music Hall" : "म्युझिक हॉल (Music Hall)"}</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="size-2 rounded-full bg-indigo-500 shrink-0"></span>
+                        <span>{isEn ? "Library" : "ग्रंथालय (Library)"}</span>
+                      </li>
+                    </ul>
                   </div>
-                  <ul className="space-y-2 text-xs sm:text-sm font-extrabold text-slate-700">
-                    <li className="flex items-center gap-2">
-                      <span className="size-2 rounded-full bg-indigo-500 shrink-0"></span>
-                      <span>
-                        {isEn ? "Indoor Sitting Games" : "इनडोअर सिटिंग गेम्स (Sitting Games)"}
-                      </span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="size-2 rounded-full bg-indigo-500 shrink-0"></span>
-                      <span>{isEn ? "Music Hall" : "म्युझिक हॉल (Music Hall)"}</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="size-2 rounded-full bg-indigo-500 shrink-0"></span>
-                      <span>{isEn ? "Library" : "ग्रंथालय (Library)"}</span>
-                    </li>
-                  </ul>
-                </div>
 
-                {/* Card 3: Outdoor */}
-                <div className="bg-white p-5 rounded-2xl border-2 border-emerald-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="size-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-black shrink-0 shadow-xs">
-                      🏃‍♂️
+                  {/* Card 3: Outdoor */}
+                  <div className="bg-white p-5 rounded-2xl border-2 border-emerald-100 shadow-md hover:shadow-lg transition-all hover:-translate-y-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="size-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-black shrink-0 shadow-xs">
+                        🏃‍♂️
+                      </div>
+                      <div>
+                        <span className="text-[10px] uppercase tracking-wider font-black text-emerald-600 block">
+                          {isEn ? "Nature & Fitness" : "निसर्ग आणि फिटनेस"}
+                        </span>
+                        <h4 className="font-black text-slate-900 text-base">
+                          {isEn ? "Outdoor" : "आउटडोअर सोयी"}
+                        </h4>
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-[10px] uppercase tracking-wider font-black text-emerald-600 block">
-                        {isEn ? "Nature & Fitness" : "निसर्ग आणि फिटनेस"}
-                      </span>
-                      <h4 className="font-black text-slate-900 text-base">
-                        {isEn ? "Outdoor" : "आउटडोअर सोयी"}
-                      </h4>
-                    </div>
+                    <ul className="space-y-2 text-xs sm:text-sm font-extrabold text-slate-700">
+                      <li className="flex items-center gap-2">
+                        <span className="size-2 rounded-full bg-emerald-500 shrink-0"></span>
+                        <span>{isEn ? "Outdoor Fitness Garden" : "आउटडोअर फिटनेस गार्डन"}</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <span className="size-2 rounded-full bg-emerald-500 shrink-0"></span>
+                        <span>{isEn ? "Jogging Track" : "जागतिक दर्जाचा जॉगिंग ट्रॅक"}</span>
+                      </li>
+                    </ul>
                   </div>
-                  <ul className="space-y-2 text-xs sm:text-sm font-extrabold text-slate-700">
-                    <li className="flex items-center gap-2">
-                      <span className="size-2 rounded-full bg-emerald-500 shrink-0"></span>
-                      <span>{isEn ? "Outdoor Fitness Garden" : "आउटडोअर फिटनेस गार्डन"}</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="size-2 rounded-full bg-emerald-500 shrink-0"></span>
-                      <span>{isEn ? "Jogging Track" : "जागतिक दर्जाचा जॉगिंग ट्रॅक"}</span>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
         {/* ══════════════════════════════════════════════════════════════
             FACILITY DETAIL POPUP MODAL

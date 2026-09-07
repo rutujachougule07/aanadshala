@@ -76,8 +76,8 @@ export async function uploadImageToFirebase(
       compressedBlob instanceof File
         ? compressedBlob
         : new File([compressedBlob], file.name, {
-            type: compressedBlob.type || file.type || "image/jpeg",
-          });
+          type: compressedBlob.type || file.type || "image/jpeg",
+        });
 
     // 2. Generate immediate DataURL (Base64) fallback (~20KB) in 0.05 seconds
     const localDataUrl = await new Promise<string>((resolve) => {
@@ -1280,10 +1280,10 @@ if (typeof window !== "undefined") {
             doc(db, "sangli_attractions", id),
             { ...item, updatedAt: now },
             { merge: true },
-          ).catch(() => {});
+          ).catch(() => { });
         });
       }
-    } catch (_) {}
+    } catch (_) { }
   }, 200);
 }
 
@@ -1890,12 +1890,12 @@ export function setStoredData<T>(key: string, data: T): void {
         localStorage.setItem(key, JSON.stringify(compact));
         localStorage.setItem(`${key}_timestamp`, now.toString());
       }
-    } catch {}
+    } catch { }
   }
 
   try {
     window.dispatchEvent(new Event("admin_store_updated"));
-  } catch {}
+  } catch { }
 
   // Asynchronously sync to Firestore Database
   try {
@@ -1927,7 +1927,7 @@ export async function resetFirebaseDatabase(): Promise<void> {
     Object.values(STORAGE_KEYS).forEach((key) => {
       try {
         localStorage.removeItem(key);
-      } catch (e) {}
+      } catch (e) { }
     });
   }
 
@@ -2090,7 +2090,7 @@ export function useAdminStore() {
       setStoredData(STORAGE_KEYS.site, updatedSite);
       setSiteDataState(updatedSite);
     }
-    syncAllToFirebaseCloud().catch(() => {});
+    syncAllToFirebaseCloud().catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -2138,7 +2138,7 @@ export function useAdminStore() {
               const merged = mergeSiteData(prev, val);
               try {
                 localStorage.setItem(STORAGE_KEYS.site, JSON.stringify(merged));
-              } catch (e) {}
+              } catch (e) { }
               return merged;
             });
           }
@@ -2157,7 +2157,7 @@ export function useAdminStore() {
             setAboutDataState((prev) => ({ ...prev, ...val }));
             try {
               localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(val));
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       });
@@ -2174,7 +2174,7 @@ export function useAdminStore() {
             setGalleryState(val);
             try {
               localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(val));
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       });
@@ -2191,7 +2191,7 @@ export function useAdminStore() {
             setVideosState(val);
             try {
               localStorage.setItem(STORAGE_KEYS.videos, JSON.stringify(val));
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       });
@@ -2208,7 +2208,7 @@ export function useAdminStore() {
             setInquiriesState(val);
             try {
               localStorage.setItem(STORAGE_KEYS.inquiries, JSON.stringify(val));
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       });
@@ -2222,7 +2222,7 @@ export function useAdminStore() {
               setSportsPricingItemsState(val);
               try {
                 localStorage.setItem(STORAGE_KEYS.sportsPricing, JSON.stringify(val));
-              } catch (e) {}
+              } catch (e) { }
             }
           }
         }
@@ -2237,7 +2237,7 @@ export function useAdminStore() {
               setSportsMembershipTiersState(val);
               try {
                 localStorage.setItem(STORAGE_KEYS.sportsMembership, JSON.stringify(val));
-              } catch (e) {}
+              } catch (e) { }
             }
           }
         }
@@ -2252,7 +2252,7 @@ export function useAdminStore() {
               setEliteConfigState((prev) => ({ ...prev, ...val }));
               try {
                 localStorage.setItem(STORAGE_KEYS.eliteMembership, JSON.stringify(val));
-              } catch (e) {}
+              } catch (e) { }
             }
           }
         }
@@ -2270,7 +2270,7 @@ export function useAdminStore() {
             setBrochuresState(val);
             try {
               localStorage.setItem(STORAGE_KEYS.brochures, JSON.stringify(val));
-            } catch (e) {}
+            } catch (e) { }
           }
         }
       });
@@ -2292,9 +2292,9 @@ export function useAdminStore() {
     // Also write to Firebase so desc/changes persist across sessions
     try {
       setDoc(doc(db, "app_data", STORAGE_KEYS.site), { data: updated }, { merge: true }).catch(
-        () => {},
+        () => { },
       ); // silent fail if offline
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const updateAboutData = (newAbout: Partial<AboutData>) => {
@@ -2319,14 +2319,14 @@ export function useAdminStore() {
         doc(db, "about_collection", "main"),
         { ...updated, updatedAt: now },
         { merge: true },
-      ).catch(() => {});
+      ).catch(() => { });
 
       // Save each attraction as an INDIVIDUAL document in 'sangli_attractions' collection (No 1MB Limit!)
       setDoc(
         doc(db, "sangli_attractions", "all"),
         { places: mergedOverrides, updatedAt: now },
         { merge: true },
-      ).catch(() => {});
+      ).catch(() => { });
       Object.entries(mergedOverrides).forEach(([id, item]) => {
         setDoc(
           doc(db, "sangli_attractions", id),
@@ -2334,7 +2334,7 @@ export function useAdminStore() {
           { merge: true },
         ).catch((err) => console.warn(`Error writing sangli_attractions/${id}:`, err));
       });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addGalleryItem = (item: Omit<GalleryItem, "id">) => {
@@ -2346,7 +2346,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.gallery), { data: updated, updatedAt: now });
       setDoc(doc(db, "gallery_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deleteGalleryItem = (id: string) => {
@@ -2357,7 +2357,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.gallery), { data: updated, updatedAt: now });
       setDoc(doc(db, "gallery_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addVideoItem = (video: Omit<VideoItem, "id">) => {
@@ -2369,7 +2369,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
       setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const updateVideoItem = (id: string, updatedVid: Partial<VideoItem>) => {
@@ -2380,7 +2380,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
       setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deleteVideoItem = (id: string) => {
@@ -2391,7 +2391,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.videos), { data: updated, updatedAt: now });
       setDoc(doc(db, "videos_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addInquiry = (inquiry: Omit<InquiryItem, "id" | "date" | "read">) => {
@@ -2460,7 +2460,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const updatePackage = (id: string, updatedPkg: Partial<PackageItem>) => {
@@ -2470,7 +2470,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deletePackage = (id: string) => {
@@ -2480,7 +2480,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.packages), { data: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addBrochure = (broch: Omit<BrochureItem, "id" | "date">) => {
@@ -2500,7 +2500,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: updated, updatedAt: now });
       setDoc(doc(db, "brochures_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deleteBrochure = (id: string) => {
@@ -2511,7 +2511,7 @@ export function useAdminStore() {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: updated, updatedAt: now });
       setDoc(doc(db, "brochures_collection", "all"), { items: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const addHomeNews = (item: Omit<HomeNewsItem, "id" | "date">) => {
@@ -2530,7 +2530,7 @@ export function useAdminStore() {
     try {
       const now = Date.now();
       setDoc(doc(db, "app_data", STORAGE_KEYS.homeNews), { data: updated, updatedAt: now });
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const deleteHomeNews = (id: string) => {
@@ -2982,40 +2982,40 @@ export function useAdminStore() {
     setPricingItemsState(newItems);
     setStoredData(STORAGE_KEYS.pricing, newItems);
     try {
-      setDoc(doc(db, "app_data", STORAGE_KEYS.pricing), { data: newItems, updatedAt: Date.now() }).catch(() => {});
-    } catch {}
+      setDoc(doc(db, "app_data", STORAGE_KEYS.pricing), { data: newItems, updatedAt: Date.now() }).catch(() => { });
+    } catch { }
   };
 
   const updateBhojanalayaConfig = (newConfig: BhojanalayaConfig) => {
     setBhojanalayaConfigState(newConfig);
     setStoredData(STORAGE_KEYS.bhojanalaya, newConfig);
     try {
-      setDoc(doc(db, "app_data", STORAGE_KEYS.bhojanalaya), { data: newConfig, updatedAt: Date.now() }).catch(() => {});
-    } catch {}
+      setDoc(doc(db, "app_data", STORAGE_KEYS.bhojanalaya), { data: newConfig, updatedAt: Date.now() }).catch(() => { });
+    } catch { }
   };
 
   const updateSportsPricingItems = (newItems: RateItem[]) => {
     setSportsPricingItemsState(newItems);
     setStoredData(STORAGE_KEYS.sportsPricing, newItems);
     try {
-      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsPricing), { data: newItems, updatedAt: Date.now() }).catch(() => {});
-    } catch {}
+      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsPricing), { data: newItems, updatedAt: Date.now() }).catch(() => { });
+    } catch { }
   };
 
   const updateSportsMembershipTiers = (newTiers: SportsMembershipTier[]) => {
     setSportsMembershipTiersState(newTiers);
     setStoredData(STORAGE_KEYS.sportsMembership, newTiers);
     try {
-      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsMembership), { data: newTiers, updatedAt: Date.now() }).catch(() => {});
-    } catch {}
+      setDoc(doc(db, "app_data", STORAGE_KEYS.sportsMembership), { data: newTiers, updatedAt: Date.now() }).catch(() => { });
+    } catch { }
   };
 
   const updateEliteConfig = (newConfig: PreetamEliteConfig) => {
     setEliteConfigState(newConfig);
     setStoredData(STORAGE_KEYS.eliteMembership, newConfig);
     try {
-      setDoc(doc(db, "app_data", STORAGE_KEYS.eliteMembership), { data: newConfig, updatedAt: Date.now() }).catch(() => {});
-    } catch {}
+      setDoc(doc(db, "app_data", STORAGE_KEYS.eliteMembership), { data: newConfig, updatedAt: Date.now() }).catch(() => { });
+    } catch { }
   };
 
   return {
