@@ -596,7 +596,7 @@ export default function SportsSection() {
             <div className="sp-banner-glow-orb-right" />
 
             <img
-              src={store.siteData.sportsHeroImage || "/images/sports_hero_bg.png"}
+              src={store.siteData.sportsImages?.[0] || "/images/sports_hero_bg.png"}
               alt="Preetam Sports Complex Sangli Aerial View"
               className="sp-exact-banner-img"
               onError={(e) => {

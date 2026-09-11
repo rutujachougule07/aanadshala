@@ -61,6 +61,7 @@ export function SiteHeader() {
         <Link
           to="/"
           onClick={() => {
+            sessionStorage.removeItem("skip_intro_banner");
             window.scrollTo({ top: 0, behavior: "smooth" });
             window.dispatchEvent(new CustomEvent("reset-section"));
           }}
@@ -101,8 +102,9 @@ export function SiteHeader() {
                 to={targetPath}
                 onClick={() => {
                   if (l.to === "/") {
+                    sessionStorage.setItem("skip_intro_banner", "true");
                     window.scrollTo({ top: 0, behavior: "smooth" });
-                    window.dispatchEvent(new CustomEvent("reset-section"));
+                    window.dispatchEvent(new CustomEvent("show-home-content"));
                   }
                 }}
                 className="group relative rounded-full px-3.5 py-1.5 text-sm font-extrabold transition-all duration-300 hover:text-[#db2777]"
@@ -233,8 +235,9 @@ export function SiteHeader() {
                   onClick={() => {
                     setOpen(false);
                     if (l.to === "/") {
+                      sessionStorage.setItem("skip_intro_banner", "true");
                       window.scrollTo({ top: 0, behavior: "smooth" });
-                      window.dispatchEvent(new CustomEvent("reset-section"));
+                      window.dispatchEvent(new CustomEvent("show-home-content"));
                     }
                   }}
                   className="rounded-2xl px-5 py-3.5 text-base font-black transition-all"

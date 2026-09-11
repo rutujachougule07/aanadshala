@@ -453,8 +453,23 @@ const keyHighlights = [
 ];
 
 function IndexComponent() {
-  const [selectedSection, setSelectedSection] = useState<"aanandshala" | "sports" | null>(null);
-  const [showIntroBanner, setShowIntroBanner] = useState(true);
+  const shouldSkipIntro = useMemo(() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem("skip_intro_banner") === "true") {
+      sessionStorage.removeItem("skip_intro_banner");
+      return true;
+    }
+    return false;
+  }, []);
+
+  const [selectedSection, setSelectedSection] = useState<"aanandshala" | "sports" | null>(() => {
+    if (shouldSkipIntro) {
+      return (localStorage.getItem("preetam_active_section") as any) || "aanandshala";
+    }
+    return null;
+  });
+  const [showIntroBanner, setShowIntroBanner] = useState(() => {
+    return !shouldSkipIntro;
+  });
   const { isEn } = useLanguage();
   const store = useAdminStore();
 
@@ -512,8 +527,16 @@ function IndexComponent() {
       localStorage.setItem("preetam_active_section", "aanandshala");
       window.dispatchEvent(new CustomEvent("section-changed", { detail: "aanandshala" }));
     };
+    const handleShowHomeContent = () => {
+      setShowIntroBanner(false);
+      setSelectedSection((prev) => prev || (localStorage.getItem("preetam_active_section") as any) || "aanandshala");
+    };
     window.addEventListener("reset-section", handleReset);
-    return () => window.removeEventListener("reset-section", handleReset);
+    window.addEventListener("show-home-content", handleShowHomeContent);
+    return () => {
+      window.removeEventListener("reset-section", handleReset);
+      window.removeEventListener("show-home-content", handleShowHomeContent);
+    };
   }, []);
 
   // Lock body scroll when intro banner modal is active
