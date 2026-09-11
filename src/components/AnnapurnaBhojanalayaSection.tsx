@@ -75,6 +75,8 @@ const FOOD_TRANSLATIONS: Record<string, string> = {
   "मसाला दुध": "Masala Milk",
   "हळद दुध": "Turmeric Milk",
   "1 चहा, 1 नाष्टा, 1 जेवण (मासिक कॉम्बो)": "1 Tea, 1 Snack, 1 Meal (Monthly Combo)",
+  "नवीन पदार्थ": "New Item",
+  "स्पेशल जेवण": "Special Meal",
 
   // Extra items
   "दही / ताक वाटी": "Curd / Buttermilk Bowl",

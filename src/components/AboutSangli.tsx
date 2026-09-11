@@ -88,7 +88,7 @@ export function AboutSangli() {
       distanceMr: "३ किमी (१० मिनिटे)",
       distanceEn: "3 km (10 mins)",
       image:
-        "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
       shortDescEn:
@@ -121,7 +121,7 @@ export function AboutSangli() {
       distanceMr: "३.५ किमी (१२ मिनिटे)",
       distanceEn: "3.5 km (12 mins)",
       image:
-        "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
       shortDescEn:
@@ -154,7 +154,7 @@ export function AboutSangli() {
       distanceMr: "५ किमी (१५ मिनिटे)",
       distanceEn: "5 km (15 mins)",
       image:
-        "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
       shortDescEn:
@@ -219,7 +219,7 @@ export function AboutSangli() {
       distanceMr: "१० किमी (२० मिनिटे)",
       distanceEn: "10 km (20 mins)",
       image:
-        "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
       shortDescEn:

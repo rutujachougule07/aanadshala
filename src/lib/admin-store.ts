@@ -1624,6 +1624,8 @@ export const initialBhojanalayaConfig: BhojanalayaConfig = {
     { item: "मसाला दुध", oneTime: "30/-", oneMonth: "750/-" },
     { item: "हळद दुध", oneTime: "30/-", oneMonth: "750/-" },
     { item: "1 चहा, 1 नाष्टा, 1 जेवण (मासिक कॉम्बो)", oneTime: "3500/-", oneMonth: "3500/-" },
+    { item: "नवीन पदार्थ", oneTime: "10/-", oneMonth: "250/-" },
+    { item: "स्पेशल जेवण", oneTime: "150/-", oneMonth: "150/-" },
   ],
   extraItems: [
     { name: "दही / ताक वाटी", price: "10/-" },
@@ -2659,7 +2661,7 @@ export function useAdminStore() {
         shortDescMr:
           "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
         image:
-          "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "sangli-fort-rajwada",
@@ -2669,7 +2671,7 @@ export function useAdminStore() {
         shortDescMr:
           "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
         image:
-          "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "sangmeshwar-haripur",
@@ -2679,7 +2681,7 @@ export function useAdminStore() {
         shortDescMr:
           "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
         image:
-          "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "krishna-irwin-bridge",
@@ -2699,7 +2701,7 @@ export function useAdminStore() {
         shortDescMr:
           "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
         image:
-          "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "audumbar-temple",
@@ -2960,7 +2962,8 @@ export function useAdminStore() {
 
     for (const item of itemsToSync) {
       try {
-        await setDoc(item.ref, item.payload, { merge: true });
+        const cleanPayload = JSON.parse(JSON.stringify(item.payload));
+        await setDoc(item.ref, cleanPayload, { merge: true });
         if (item.key && typeof window !== "undefined") {
           localStorage.setItem(`${item.key}_timestamp`, now.toString());
         }
