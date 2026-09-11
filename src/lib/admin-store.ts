@@ -79,7 +79,7 @@ export async function uploadImageToFirebase(
           type: compressedBlob.type || file.type || "image/jpeg",
         });
 
-    // 2. Generate immediate DataURL (Base64) fallback (~20KB) in 0.05 seconds
+    // 2. Generate immediate DataURL (Base64) fallback
     const localDataUrl = await new Promise<string>((resolve) => {
       const reader = new FileReader();
       reader.onload = (e) => resolve((e.target?.result as string) || "");
@@ -87,7 +87,7 @@ export async function uploadImageToFirebase(
       reader.readAsDataURL(uploadPayload);
     });
 
-    // 3. Try Firebase Storage with a 5-second timeout window
+    // 3. Upload to Firebase Storage with proper error handling
     try {
       const cleanName = file.name.replace(/[^a-zA-Z0-9.]/g, "_");
       const fileRef = ref(storage, `${pathFolder}/${Date.now()}_${cleanName}`);
@@ -98,13 +98,16 @@ export async function uploadImageToFirebase(
       });
 
       const timeoutTask = new Promise<string>((resolve) =>
-        setTimeout(() => resolve(localDataUrl), 5000),
+        setTimeout(() => resolve(""), 12000),
       );
 
       const resultUrl = await Promise.race([uploadTask, timeoutTask]);
-      return resultUrl || localDataUrl;
+      if (resultUrl && resultUrl.startsWith("http")) {
+        return resultUrl;
+      }
+      return localDataUrl;
     } catch (err) {
-      console.warn("Firebase Storage upload fallback to DataURL:", err);
+      console.error("Firebase Storage upload error (check Firebase Storage rules & CORS):", err);
       return localDataUrl;
     }
   } catch (err) {

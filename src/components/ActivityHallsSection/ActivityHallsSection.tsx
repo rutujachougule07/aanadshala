@@ -551,8 +551,11 @@ const ActivityHallsSection = () => {
                 </div>
 
                 {/* ACCENTUATED DESCRIPTION BOX (CENTER ALIGNED TEXT) */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-rose-50/90 via-pink-50/50 to-purple-50/30 border border-pink-200/80 shadow-xs relative overflow-hidden text-center flex items-center justify-center">
-                  <p className="text-base text-slate-800 font-extrabold leading-relaxed text-center" style={{ fontFamily: "'Mukta', sans-serif", fontSize: "16px", fontWeight: 800, color: "#1e293b" }}>
+                <div className="px-5 py-4.5 sm:px-6 sm:py-5 rounded-2xl bg-gradient-to-br from-pink-50/80 via-rose-50/50 to-purple-50/30 border border-pink-200/90 shadow-xs relative overflow-hidden text-center flex flex-col items-center justify-center my-1">
+                  <p
+                    className="text-[16px] sm:text-[17px] text-slate-800 font-bold leading-[1.8] text-center max-w-xl mx-auto"
+                    style={{ fontFamily: "'Mukta', sans-serif", fontSize: "16.5px", fontWeight: 700, lineHeight: "1.8", color: "#1e293b" }}
+                  >
                     <HighlightText text={isEn ? selectedHall.descEn : selectedHall.descMr} />
                   </p>
                 </div>
