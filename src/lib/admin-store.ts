@@ -1832,23 +1832,6 @@ export const initialSportsScheduleConfig: ScheduleConfig = {
 // HELPER FUNCTIONS FOR LOCALSTORAGE & CLEANUP
 // ============================================================================
 
-function sanitizeBlobUrls(obj: any): any {
-  if (!obj) return obj;
-  if (typeof obj === "string") {
-    return obj.startsWith("blob:") ? "" : obj;
-  }
-  if (Array.isArray(obj)) {
-    return obj.map(sanitizeBlobUrls).filter((x) => x !== "");
-  }
-  if (typeof obj === "object") {
-    const clean: any = {};
-    for (const k of Object.keys(obj)) {
-      clean[k] = sanitizeBlobUrls(obj[k]);
-    }
-    return clean;
-  }
-  return obj;
-}
 
 export const STORAGE_KEYS = {
   site: "anandshala_site_data",
@@ -2367,13 +2350,13 @@ export function useAdminStore() {
       // Save each attraction as an INDIVIDUAL document in 'sangli_attractions' collection (No 1MB Limit!)
       setDoc(
         doc(db, "sangli_attractions", "all"),
-        { places: mergedOverrides, updatedAt: now },
+        { places: updatedOverrides, updatedAt: now },
         { merge: true },
       ).catch(() => { });
-      Object.entries(mergedOverrides).forEach(([id, item]) => {
+      Object.entries(updatedOverrides).forEach(([id, item]) => {
         setDoc(
           doc(db, "sangli_attractions", id),
-          { ...item, updatedAt: now },
+          { ...(item as object), updatedAt: now },
           { merge: true },
         ).catch((err) => console.warn(`Error writing sangli_attractions/${id}:`, err));
       });
