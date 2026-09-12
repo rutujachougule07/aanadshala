@@ -2114,6 +2114,27 @@ export function useAdminStore() {
       setStoredData(STORAGE_KEYS.site, updatedSite);
       setSiteDataState(updatedSite);
     }
+
+    // Auto-push any local hall edits from Localhost directly into Firestore Cloud
+    try {
+      const storedSite = getStoredData<SiteData>(STORAGE_KEYS.site, initialSiteData);
+      if (storedSite && storedSite.activityHalls && Array.isArray(storedSite.activityHalls)) {
+        const now = Date.now();
+        setDoc(
+          doc(db, "activity_halls", "all"),
+          { halls: storedSite.activityHalls, updatedAt: now },
+          { merge: true },
+        ).catch(() => { });
+        storedSite.activityHalls.forEach((hall, idx) => {
+          const hallId = hall.id || `hall-${idx + 1}`;
+          setDoc(
+            doc(db, "activity_halls", hallId),
+            { ...hall, updatedAt: now },
+            { merge: true },
+          ).catch(() => { });
+        });
+      }
+    } catch (_) { }
   }, []);
 
   useEffect(() => {

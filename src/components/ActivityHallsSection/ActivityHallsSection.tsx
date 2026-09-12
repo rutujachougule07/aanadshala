@@ -351,7 +351,14 @@ const ActivityHallsSection = () => {
                   <div className="ah-card-num">{formatNum(hall.id)}</div>
 
                   <div className="ah-card-img-wrapper">
-                    <img src={hall.image} alt={title} className="ah-card-img" />
+                    <img
+                      src={hall.image}
+                      alt={title}
+                      className="ah-card-img"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "/images/slider1.JPG";
+                      }}
+                    />
                   </div>
 
                   <div className="ah-card-content">
