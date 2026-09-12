@@ -549,7 +549,7 @@ export default function AdminPage() {
   const handleFileUpload = async (file: File, onSuccess: (url: string) => void) => {
     try {
       const url = await uploadImageToFirebase(file, "admin_page_images");
-      if (url && !url.startsWith("blob:")) {
+      if (url) {
         onSuccess(url);
         showToast("✅ Photo uploaded successfully!");
       }

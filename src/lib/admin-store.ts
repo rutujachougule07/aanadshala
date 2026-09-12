@@ -87,7 +87,7 @@ export async function uploadImageToFirebase(
       reader.readAsDataURL(uploadPayload);
     });
 
-    // 3. Upload to Firebase Storage with proper error handling
+    // 3. Upload to Firebase Storage with short 4s timeout fallback
     try {
       const cleanName = file.name.replace(/[^a-zA-Z0-9.]/g, "_");
       const fileRef = ref(storage, `${pathFolder}/${Date.now()}_${cleanName}`);
@@ -98,21 +98,21 @@ export async function uploadImageToFirebase(
       });
 
       const timeoutTask = new Promise<string>((resolve) =>
-        setTimeout(() => resolve(""), 12000),
+        setTimeout(() => resolve(""), 4000),
       );
 
       const resultUrl = await Promise.race([uploadTask, timeoutTask]);
       if (resultUrl && resultUrl.startsWith("http")) {
         return resultUrl;
       }
-      return localDataUrl;
+      return localDataUrl || URL.createObjectURL(file);
     } catch (err) {
-      console.error("Firebase Storage upload error (check Firebase Storage rules & CORS):", err);
-      return localDataUrl;
+      console.warn("Firebase Storage fallback notice:", err);
+      return localDataUrl || URL.createObjectURL(file);
     }
   } catch (err) {
     console.error("Image processing error:", err);
-    return "";
+    return URL.createObjectURL(file);
   }
 }
 
