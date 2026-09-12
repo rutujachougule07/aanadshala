@@ -2312,12 +2312,17 @@ export function useAdminStore() {
   };
 
   const updateAboutData = (newAbout: Partial<AboutData>) => {
-    const mergedOverrides = {
-      ...initialAboutData.sangliPlacesOverrides,
-      ...(aboutData.sangliPlacesOverrides || {}),
-      ...(newAbout.sangliPlacesOverrides || {}),
-    };
-    const updated = { ...aboutData, ...newAbout, sangliPlacesOverrides: mergedOverrides };
+    const currentOverrides = aboutData.sangliPlacesOverrides || {};
+    const updatedOverrides = { ...currentOverrides };
+    if (newAbout.sangliPlacesOverrides) {
+      Object.entries(newAbout.sangliPlacesOverrides).forEach(([id, item]) => {
+        updatedOverrides[id] = {
+          ...(currentOverrides[id] || {}),
+          ...item,
+        };
+      });
+    }
+    const updated = { ...aboutData, ...newAbout, sangliPlacesOverrides: updatedOverrides };
     setAboutDataState(updated);
     setStoredData(STORAGE_KEYS.about, updated);
     try {
@@ -2803,13 +2808,7 @@ export function useAdminStore() {
       },
     ];
 
-    const masterOverrides: Record<string, SangliPlaceOverride> = {};
-    masterPlacesList.forEach((place) => {
-      masterOverrides[place.id] = place;
-    });
-
     const effectiveOverrides = {
-      ...masterOverrides,
       ...(aboutData.sangliPlacesOverrides || {}),
     };
 
