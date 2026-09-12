@@ -65,6 +65,25 @@ export function compressImageFile(file: File, maxDimension = 1920, quality = 0.8
   });
 }
 
+export function sanitizeBlobUrls<T>(data: T): T {
+  if (!data) return data;
+  if (typeof data === "string") {
+    if (data.startsWith("blob:")) return "" as any;
+    return data;
+  }
+  if (Array.isArray(data)) {
+    return data.map((item) => sanitizeBlobUrls(item)) as any;
+  }
+  if (typeof data === "object") {
+    const cleaned: any = {};
+    Object.entries(data as any).forEach(([k, v]) => {
+      cleaned[k] = sanitizeBlobUrls(v);
+    });
+    return cleaned;
+  }
+  return data;
+}
+
 export async function uploadImageToFirebase(
   file: File,
   pathFolder = "admin_uploads",
@@ -79,7 +98,7 @@ export async function uploadImageToFirebase(
           type: compressedBlob.type || file.type || "image/jpeg",
         });
 
-    // 2. Generate immediate DataURL (Base64) fallback
+    // 2. Generate immediate Base64 DataURL (works everywhere on Vercel & Localhost)
     const localDataUrl = await new Promise<string>((resolve) => {
       const reader = new FileReader();
       reader.onload = (e) => resolve((e.target?.result as string) || "");
@@ -87,7 +106,7 @@ export async function uploadImageToFirebase(
       reader.readAsDataURL(uploadPayload);
     });
 
-    // 3. Upload to Firebase Storage with short 4s timeout fallback
+    // 3. Upload to Firebase Storage with short 4s timeout
     try {
       const cleanName = file.name.replace(/[^a-zA-Z0-9.]/g, "_");
       const fileRef = ref(storage, `${pathFolder}/${Date.now()}_${cleanName}`);
@@ -105,14 +124,19 @@ export async function uploadImageToFirebase(
       if (resultUrl && resultUrl.startsWith("http")) {
         return resultUrl;
       }
-      return localDataUrl || URL.createObjectURL(file);
+      return localDataUrl;
     } catch (err) {
-      console.warn("Firebase Storage fallback notice:", err);
-      return localDataUrl || URL.createObjectURL(file);
+      console.warn("Firebase Storage upload fallback:", err);
+      return localDataUrl;
     }
   } catch (err) {
     console.error("Image processing error:", err);
-    return URL.createObjectURL(file);
+    return new Promise<string>((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve((e.target?.result as string) || "");
+      reader.onerror = () => resolve("");
+      reader.readAsDataURL(file);
+    });
   }
 }
 
