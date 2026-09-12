@@ -66,7 +66,7 @@ export function compressImageFile(file: File, maxDimension = 1920, quality = 0.8
 }
 
 export function sanitizeBlobUrls<T>(data: T): T {
-  if (!data) return data;
+  if (data === null || data === undefined) return data;
   if (typeof data === "string") {
     if (data.startsWith("blob:")) return "" as any;
     return data;
@@ -75,11 +75,19 @@ export function sanitizeBlobUrls<T>(data: T): T {
     return data.map((item) => sanitizeBlobUrls(item)) as any;
   }
   if (typeof data === "object") {
-    const cleaned: any = {};
-    Object.entries(data as any).forEach(([k, v]) => {
-      cleaned[k] = sanitizeBlobUrls(v);
-    });
-    return cleaned;
+    try {
+      const proto = Object.getPrototypeOf(data);
+      if (proto !== null && proto !== Object.prototype) {
+        return data;
+      }
+      const cleaned: any = {};
+      Object.entries(data as any).forEach(([k, v]) => {
+        cleaned[k] = sanitizeBlobUrls(v);
+      });
+      return cleaned;
+    } catch (_) {
+      return data;
+    }
   }
   return data;
 }
@@ -1858,7 +1866,9 @@ export function getStoredData<T>(key: string, fallback: T): T {
     const item = localStorage.getItem(key);
     if (!item) return fallback;
     const parsed = JSON.parse(item);
-    return sanitizeBlobUrls(parsed) as T;
+    if (parsed === null || parsed === undefined) return fallback;
+    const sanitized = sanitizeBlobUrls(parsed);
+    return (sanitized ?? fallback) as T;
   } catch (e) {
     return fallback;
   }
@@ -2022,23 +2032,25 @@ function mergeSiteData(prev: SiteData, incoming: any): SiteData {
 
 export function useAdminStore() {
   const [siteData, setSiteDataState] = useState<SiteData>(() => {
-    const loaded = getStoredData(STORAGE_KEYS.site, initialSiteData);
+    const loaded = getStoredData(STORAGE_KEYS.site, initialSiteData) || initialSiteData;
+    const safeLoaded = { ...initialSiteData, ...loaded };
     if (
-      !loaded.sportsFacilities ||
-      loaded.sportsFacilities.length !== 15 ||
-      loaded.sportsFacilities.some((f) => f.id === "open-gym-lawn")
+      !safeLoaded.sportsFacilities ||
+      !Array.isArray(safeLoaded.sportsFacilities) ||
+      safeLoaded.sportsFacilities.length !== 15 ||
+      safeLoaded.sportsFacilities.some((f) => f && f.id === "open-gym-lawn")
     ) {
-      loaded.sportsFacilities = initialSiteData.sportsFacilities;
+      safeLoaded.sportsFacilities = initialSiteData.sportsFacilities;
     }
-    return loaded;
+    return safeLoaded;
   });
   const [aboutData, setAboutDataState] = useState<AboutData>(() => {
-    const loaded = getStoredData(STORAGE_KEYS.about, initialAboutData);
+    const loaded = getStoredData(STORAGE_KEYS.about, initialAboutData) || initialAboutData;
     const mergedOverrides = {
       ...initialAboutData.sangliPlacesOverrides,
-      ...(loaded.sangliPlacesOverrides || {}),
+      ...((loaded && loaded.sangliPlacesOverrides) || {}),
     };
-    return { ...loaded, sangliPlacesOverrides: mergedOverrides };
+    return { ...initialAboutData, ...loaded, sangliPlacesOverrides: mergedOverrides };
   });
   const [gallery, setGalleryState] = useState<GalleryItem[]>(() =>
     getStoredData(STORAGE_KEYS.gallery, initialGallery),
