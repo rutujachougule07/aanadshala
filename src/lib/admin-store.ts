@@ -2200,6 +2200,32 @@ export function useAdminStore() {
       });
       unsubscribes.push(sangliAttractionsUnsub);
 
+      const activityHallsUnsub = onSnapshot(doc(db, "activity_halls", "all"), (snapshot) => {
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.halls) {
+          const halls = snapshot.data().halls;
+          if (Array.isArray(halls) && halls.length > 0) {
+            setSiteDataState((prev) => {
+              const currentHalls = prev.activityHalls || [];
+              const updatedHalls = halls.map((rHall: any, idx: number) => {
+                const pHall = currentHalls[idx];
+                return {
+                  ...(pHall || {}),
+                  ...rHall,
+                  desc: rHall.desc || pHall?.desc || "",
+                  imageUrl: rHall.imageUrl || pHall?.imageUrl || "",
+                };
+              });
+              const updated = { ...prev, activityHalls: updatedHalls };
+              try {
+                localStorage.setItem(STORAGE_KEYS.site, JSON.stringify(updated));
+              } catch (e) { }
+              return updated;
+            });
+          }
+        }
+      });
+      unsubscribes.push(activityHallsUnsub);
+
       const galleryUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.gallery), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
           const val = sanitizeBlobUrls(snapshot.data().data);
@@ -2319,7 +2345,8 @@ export function useAdminStore() {
   }, []);
 
   const updateSiteData = (newSite: Partial<SiteData>) => {
-    const updated = { ...siteData, ...newSite, updatedAt: Date.now() };
+    const now = Date.now();
+    const updated = { ...siteData, ...newSite, updatedAt: now };
     setSiteDataState(updated);
     setStoredData(STORAGE_KEYS.site, updated);
     // Also write to Firebase so desc/changes persist across sessions
@@ -2327,6 +2354,24 @@ export function useAdminStore() {
       setDoc(doc(db, "app_data", STORAGE_KEYS.site), { data: updated }, { merge: true }).catch(
         () => { },
       ); // silent fail if offline
+
+      // Save activity halls separately in Firestore 'activity_halls' collection (No 1MB Limit!)
+      if (updated.activityHalls && Array.isArray(updated.activityHalls)) {
+        setDoc(
+          doc(db, "activity_halls", "all"),
+          { halls: updated.activityHalls, updatedAt: now },
+          { merge: true },
+        ).catch(() => { });
+
+        updated.activityHalls.forEach((hall, idx) => {
+          const hallId = hall.id || `hall-${idx + 1}`;
+          setDoc(
+            doc(db, "activity_halls", hallId),
+            { ...hall, updatedAt: now },
+            { merge: true },
+          ).catch((err) => console.warn(`Error writing activity_halls/${hallId}:`, err));
+        });
+      }
     } catch (_) { }
   };
 
@@ -2950,6 +2995,12 @@ export function useAdminStore() {
         payload: { places: effectiveOverrides, updatedAt: now },
       },
       {
+        name: "activity_halls_all",
+        key: "activity_halls_all",
+        ref: doc(db, "activity_halls", "all"),
+        payload: { halls: siteData.activityHalls, updatedAt: now },
+      },
+      {
         name: "gallery_collection",
         key: "all_gallery",
         ref: doc(db, "gallery_collection", "all"),
@@ -2983,6 +3034,18 @@ export function useAdminStore() {
         payload: { ...item, updatedAt: now },
       });
     });
+
+    if (siteData.activityHalls && Array.isArray(siteData.activityHalls)) {
+      siteData.activityHalls.forEach((hall, idx) => {
+        const hallId = hall.id || `hall-${idx + 1}`;
+        itemsToSync.push({
+          name: `activity_hall_${hallId}`,
+          key: `activity_hall_${hallId}`,
+          ref: doc(db, "activity_halls", hallId),
+          payload: { ...hall, updatedAt: now },
+        });
+      });
+    }
 
     let successCount = 0;
     let firstError: any = null;
