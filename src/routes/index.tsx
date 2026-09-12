@@ -134,7 +134,7 @@ const activityHalls = [
     titleEn: "Indoor Games Hall",
     textMr: "कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी खेळ खेळणे.",
     textEn: "Play Carrom, Chess, Cards, Snakes & Ladders.",
-    image: "/images/subimg/baithe khel.png",
+    image: "/images/subimg/baithe-khel.png",
   },
   {
     icon: "🎨",
@@ -142,7 +142,7 @@ const activityHalls = [
     titleEn: "Arts & Crafts Hall",
     textMr: "चित्रकला, हस्तकला, विणकाम व कला शिकणे व सराव करणे.",
     textEn: "Learn painting, handicrafts, knitting & creative arts.",
-    image: "/images/subimg/aart hall.png",
+    image: "/images/subimg/aart-hall.png",
   },
   {
     icon: "🎵",
@@ -150,7 +150,7 @@ const activityHalls = [
     titleEn: "Music Instrument Hall",
     textMr: "तबला, गिटार, हार्मोनिअम, पेटी, पियानो, सॅक्सोफोन, बासरी शिकणे व आनंद घेणे.",
     textEn: "Play & learn Tabla, Guitar, Harmonium, Piano, Saxophone & Flute.",
-    image: "/images/subimg/sangit hall.png",
+    image: "/images/subimg/sangit-hall.png",
   },
   {
     icon: "💻",
@@ -158,7 +158,7 @@ const activityHalls = [
     titleEn: "IT & Digital Learning Hall",
     textMr: "कॉम्प्युटर, लॅपटॉप, मोबाईल, इंटरनेट व प्रिंटर शिकणे.",
     textEn: "Learn computer basics, smartphones, internet & printing.",
-    image: "/images/subimg/mahiti tantradyan hall.png",
+    image: "/images/subimg/mahiti-tantradyan-hall.png",
   },
   {
     icon: "🥳",
@@ -166,7 +166,7 @@ const activityHalls = [
     titleEn: "Recreation & Fun Hall",
     textMr: "गप्पा-गोष्टी, अंताक्षरी, पासिंग गेम व समूह खेळ खेळणे.",
     textEn: "Enjoy Antakshari, group games, conversations & storytelling.",
-    image: "/images/subimg/karmnuk hall.png",
+    image: "/images/subimg/karmnuk-hall.png",
   },
   {
     icon: "🏊",
@@ -174,7 +174,7 @@ const activityHalls = [
     titleEn: "Swimming Pool",
     textMr: "पोहण्याचा व स्वच्छ पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.",
     textEn: "Enjoy swimming in clean filtered water pool.",
-    image: "/images/subimg/swimming hall.png",
+    image: "/images/subimg/swimming-hall.png",
   },
   {
     icon: "📽️",
@@ -182,7 +182,7 @@ const activityHalls = [
     titleEn: "Spiritual & Cultural Hall",
     textMr: "विविध धार्मिक कार्यक्रम, संस्कार वर्ग व व्हिडिओ पाहणे.",
     textEn: "Spiritual discourses, value classes & video screenings.",
-    image: "/images/subimg/sanskar sampraday hall.png",
+    image: "/images/subimg/sanskar-sampraday-hall.png",
   },
   {
     icon: "🏸",
@@ -190,7 +190,7 @@ const activityHalls = [
     titleEn: "Sports Hall",
     textMr: "बॅडमिंटन, टेबल टेनिस, स्नुकर व स्क्वॅश खेळणे.",
     textEn: "Play Badminton, Table Tennis, Snooker & Squash.",
-    image: "/images/subimg/tebal tenis.png",
+    image: "/images/subimg/tebal-tenis.png",
   },
   {
     icon: "🏋️",
@@ -198,7 +198,7 @@ const activityHalls = [
     titleEn: "Fitness & Wellness Hall",
     textMr: "जीम, योगा, मेडिटेशन, झुम्बा व डान्स इत्यादी करणे.",
     textEn: "Gym, Yoga, Meditation, Zumba & Dance sessions.",
-    image: "/images/subimg/vyayam hall.png",
+    image: "/images/subimg/vyayam-hall.png",
   },
   {
     icon: "🍲",
@@ -206,7 +206,7 @@ const activityHalls = [
     titleEn: "Culinary & Cooking Hall",
     textMr: "स्वयंपाक, नाश्ता, जेवण, आईस्क्रीम, सरबते व मिठाई इत्यादी बनवणे शिकणे.",
     textEn: "Learn culinary skills, mocktails, sweets & snacks.",
-    image: "/images/subimg/pakruti hall.png",
+    image: "/images/subimg/pakruti-hall.png",
   },
   {
     icon: "🛌",
@@ -214,7 +214,7 @@ const activityHalls = [
     titleEn: "Relaxation Hall",
     textMr: "वाचन करणे, शांत झोपणे किंवा आराम खुर्चीत विश्रांती घेणे.",
     textEn: "Read books, quiet nap, or relax on recliners.",
-    image: "/images/subimg/vishranti hall.png",
+    image: "/images/subimg/vishranti-hall.png",
   },
   {
     icon: "🎬",
@@ -222,7 +222,7 @@ const activityHalls = [
     titleEn: "Mini Theatre Hall",
     textMr: "टी.व्ही., सिनेमा, नाटक व सांस्कृतिक कार्यक्रम पाहणे.",
     textEn: "Watch movies, TV shows, dramas & cultural performances.",
-    image: "/images/subimg/ChatGPT Image Aug 5, 2026, 04_15_03 PM.png",
+    image: "/images/subimg/ChatGPT-Image-Aug-5,-2026,-04_15_03-PM.png",
   },
 ];
 

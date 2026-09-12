@@ -51,7 +51,7 @@ const hallsData: HallDetail[] = [
     descMr: "बैठे खेळ हॉलमध्ये जाऊन कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.",
     descEn: "Enjoy Carrom, Chess, Cards, Snake & Ladders, and various indoor board games.",
     icon: <Puzzle size={28} />,
-    image: "/images/subimg/baithe khel.png",
+    image: "/images/subimg/baithe-khel.png",
     theme: "theme-pink",
   },
   {
@@ -63,7 +63,7 @@ const hallsData: HallDetail[] = [
     descMr: "कला दालनमध्ये जाऊन चित्रकला, हस्तकला आणि विणकाम शिकणे.",
     descEn: "Explore painting, handicrafts, knitting, and artistic expression.",
     icon: <Palette size={28} />,
-    image: "/images/subimg/aart hall.png",
+    image: "/images/subimg/aart-hall.png",
     theme: "theme-blue",
   },
   {
@@ -76,7 +76,7 @@ const hallsData: HallDetail[] = [
       "संगीत वाद्य दालनमध्ये जाऊन तबला, गिटार, पेटी, पियानो, वीणा, ढोलकी, बासरी शिकणे आणि संगीताचा आनंद घेणे.",
     descEn: "Learn and play Tabla, Harmonium, Guitar, Piano, Veena, Dholak, and Flute.",
     icon: <Music size={28} />,
-    image: "/images/subimg/sangit hall.png",
+    image: "/images/subimg/sangit-hall.png",
     theme: "theme-pink",
   },
   {
@@ -89,7 +89,7 @@ const hallsData: HallDetail[] = [
       "माहिती तंत्रज्ञान हॉलमध्ये जाऊन संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.",
     descEn: "Learn computer operations, smartphone usage, internet browsing, and digital skills.",
     icon: <Monitor size={28} />,
-    image: "/images/subimg/mahiti tantradyan hall.png",
+    image: "/images/subimg/mahiti-tantradyan-hall.png",
     theme: "theme-blue",
   },
   {
@@ -102,7 +102,7 @@ const hallsData: HallDetail[] = [
       "करमणूक हॉलमध्ये जाऊन गप्पा-गोष्टी करणे, अंताक्षरी, पझल गेम्स, जोक्स व पासिंग गेम इत्यादी समूह खेळ खेळणे.",
     descEn: "Engage in social chit-chats, Antakshari, group games, puzzles, and fun activities.",
     icon: <Ticket size={28} />,
-    image: "/images/subimg/karmnuk hall.png",
+    image: "/images/subimg/karmnuk-hall.png",
     theme: "theme-purple",
   },
   {
@@ -114,7 +114,7 @@ const hallsData: HallDetail[] = [
     descMr: "स्विमिंग पूलमध्ये जाऊन पोहणे व पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.",
     descEn: "Enjoy refreshing swims in the temperature-controlled Olympic swimming pool.",
     icon: <Waves size={28} />,
-    image: "/images/subimg/swimming hall.png",
+    image: "/images/subimg/swimming-hall.png",
     theme: "theme-blue",
   },
   {
@@ -126,7 +126,7 @@ const hallsData: HallDetail[] = [
     descMr: "संस्कार व संप्रदाय हॉलमध्ये जाऊन विविध सांस्कृतिक कार्यक्रम आणि व्हिडिओ पाहणे.",
     descEn: "Attend spiritual discourses, cultural programs, and inspiring videos.",
     icon: <Landmark size={28} />,
-    image: "/images/subimg/sanskar sampraday hall.png",
+    image: "/images/subimg/sanskar-sampraday-hall.png",
     theme: "theme-pink",
   },
   {
@@ -138,7 +138,7 @@ const hallsData: HallDetail[] = [
     descMr: "टेबल टेनिस हॉलमध्ये जाऊन टेबल टेनिस खेळण्याचा आनंद घेणे.",
     descEn: "Play indoor Table Tennis on competition-grade tables.",
     icon: <Dumbbell size={28} />,
-    image: "/images/subimg/tebal tenis.png",
+    image: "/images/subimg/tebal-tenis.png",
     theme: "theme-purple",
   },
   {
@@ -150,7 +150,7 @@ const hallsData: HallDetail[] = [
     descMr: "बॅडमिंटन कोर्टवर जाऊन बॅडमिंटन खेळण्याचा आनंद घेणे.",
     descEn: "Play badminton on synthetic wooden-floored indoor courts.",
     icon: <Dumbbell size={28} />,
-    image: "/images/subimg/tebal tenis.png",
+    image: "/images/subimg/tebal-tenis.png",
     theme: "theme-blue",
   },
   {
@@ -162,7 +162,7 @@ const hallsData: HallDetail[] = [
     descMr: "स्नूकर हॉलमध्ये जाऊन स्नूकर व बिलियर्ड्स खेळणे.",
     descEn: "Relax and play Snooker and Billiards in a climate-controlled hall.",
     icon: <Dumbbell size={28} />,
-    image: "/images/subimg/tebal tenis.png",
+    image: "/images/subimg/tebal-tenis.png",
     theme: "theme-pink",
   },
   {
@@ -174,7 +174,7 @@ const hallsData: HallDetail[] = [
     descMr: "स्कॅश कोर्टवर जाऊन स्कॅश खेळण्याचा आनंद घेणे.",
     descEn: "Experience high-energy squash games in glass-backed courts.",
     icon: <Dumbbell size={28} />,
-    image: "/images/subimg/tebal tenis.png",
+    image: "/images/subimg/tebal-tenis.png",
     theme: "theme-purple",
   },
   {
@@ -186,7 +186,7 @@ const hallsData: HallDetail[] = [
     descMr: "आधुनिक उपकरणांनी सुसज्ज जिम हॉलमध्ये जाऊन व्यायाम व फिटनेस सराव करणे.",
     descEn: "Work out using modern imported fitness machinery under expert guidance.",
     icon: <Dumbbell size={28} />,
-    image: "/images/subimg/vyayam hall.png",
+    image: "/images/subimg/vyayam-hall.png",
     theme: "theme-blue",
   },
   {
@@ -198,7 +198,7 @@ const hallsData: HallDetail[] = [
     descMr: "योगा हॉलमध्ये जाऊन तज्ज्ञांच्या मार्गदर्शनाखाली दररोज योगासने व प्राणायाम करणे.",
     descEn: "Practice daily Yoga, Pranayama, and Mindful Meditation.",
     icon: <Sparkles size={28} />,
-    image: "/images/subimg/vyayam hall.png",
+    image: "/images/subimg/vyayam-hall.png",
     theme: "theme-pink",
   },
   {
@@ -210,7 +210,7 @@ const hallsData: HallDetail[] = [
     descMr: "झुम्बा हॉलमध्ये जाऊन संगीताच्या तालावर झुम्बा आणि फिटनेस सराव करणे.",
     descEn: "Enjoy rhythmic Zumba dance sessions designed for active health.",
     icon: <Music size={28} />,
-    image: "/images/subimg/vyayam hall.png",
+    image: "/images/subimg/vyayam-hall.png",
     theme: "theme-purple",
   },
   {
@@ -222,7 +222,7 @@ const hallsData: HallDetail[] = [
     descMr: "भोजन कक्षामध्ये जाऊन चहा, नाश्ता आणि जेवण करणे.",
     descEn: "Enjoy delicious, hygienic, and nutritious vegetarian meals & snacks.",
     icon: <Utensils size={28} />,
-    image: "/images/subimg/pakruti hall.png",
+    image: "/images/subimg/pakruti-hall.png",
     theme: "theme-pink",
   },
   {
@@ -234,7 +234,7 @@ const hallsData: HallDetail[] = [
     descMr: "विश्रांती हॉलमध्ये जाऊन आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.",
     descEn: "Relax on recliners, read newspapers, or enjoy a peaceful afternoon nap.",
     icon: <BookOpen size={28} />,
-    image: "/images/subimg/vishranti hall.png",
+    image: "/images/subimg/vishranti-hall.png",
     theme: "theme-purple",
   },
   {
@@ -246,7 +246,7 @@ const hallsData: HallDetail[] = [
     descMr: "थिएटर हॉलमध्ये जाऊन टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.",
     descEn: "Watch classic movies, TV shows, dramas & cultural performances.",
     icon: <Film size={28} />,
-    image: "/images/subimg/karmnuk hall.png",
+    image: "/images/subimg/karmnuk-hall.png",
     theme: "theme-pink",
   },
 ];
@@ -271,6 +271,8 @@ const ActivityHallsSection = () => {
     store.siteData.activityHalls && store.siteData.activityHalls.length > 0
       ? store.siteData.activityHalls.map((h, idx) => {
         const fallback = hallsData[idx];
+        const rawImg = h.imageUrl || fallback?.image || "/images/subimg/baithe-khel.png";
+        const cleanImg = rawImg.startsWith("data:") || rawImg.startsWith("http") ? rawImg : encodeURI(rawImg.replace(/ /g, "-"));
         return {
           id: String(idx + 1).padStart(2, "0"),
           titleMr: h.title,
@@ -280,7 +282,7 @@ const ActivityHallsSection = () => {
           descMr: h.desc,
           descEn: fallback ? fallback.descEn : h.desc,
           icon: fallback?.icon || <Sparkles size={28} />,
-          image: h.imageUrl || fallback?.image || "/images/slider1.JPG",
+          image: cleanImg,
           theme: fallback?.theme || (idx % 2 === 0 ? "theme-pink" : "theme-blue"),
         };
       })
