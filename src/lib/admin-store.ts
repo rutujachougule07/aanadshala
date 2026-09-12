@@ -2132,10 +2132,6 @@ export function useAdminStore() {
     try {
       const siteUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.site), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
-          const remoteTs = snapshot.data()?.updatedAt || 0;
-          const localTs = getStoredTimestamp(STORAGE_KEYS.site);
-          if (localTs > remoteTs) return;
-
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (val && typeof val === "object") {
             setSiteDataState((prev) => {
@@ -2152,10 +2148,6 @@ export function useAdminStore() {
 
       const aboutUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.about), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
-          const remoteTs = snapshot.data()?.updatedAt || 0;
-          const localTs = getStoredTimestamp(STORAGE_KEYS.about);
-          if (localTs > remoteTs) return;
-
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (val && typeof val === "object") {
             setAboutDataState((prev) => ({ ...prev, ...val }));
@@ -2167,12 +2159,30 @@ export function useAdminStore() {
       });
       unsubscribes.push(aboutUnsub);
 
+      const sangliAttractionsUnsub = onSnapshot(doc(db, "sangli_attractions", "all"), (snapshot) => {
+        if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.places) {
+          const places = snapshot.data().places;
+          if (places && typeof places === "object") {
+            setAboutDataState((prev) => {
+              const updated = {
+                ...prev,
+                sangliPlacesOverrides: {
+                  ...(prev.sangliPlacesOverrides || {}),
+                  ...places,
+                },
+              };
+              try {
+                localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(updated));
+              } catch (e) { }
+              return updated;
+            });
+          }
+        }
+      });
+      unsubscribes.push(sangliAttractionsUnsub);
+
       const galleryUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.gallery), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
-          const remoteTs = snapshot.data()?.updatedAt || 0;
-          const localTs = getStoredTimestamp(STORAGE_KEYS.gallery);
-          if (localTs > remoteTs) return;
-
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
             setGalleryState(val);
@@ -2186,10 +2196,6 @@ export function useAdminStore() {
 
       const videosUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.videos), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
-          const remoteTs = snapshot.data()?.updatedAt || 0;
-          const localTs = getStoredTimestamp(STORAGE_KEYS.videos);
-          if (localTs > remoteTs) return;
-
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
             setVideosState(val);
@@ -2203,10 +2209,6 @@ export function useAdminStore() {
 
       const inquiriesUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.inquiries), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
-          const remoteTs = snapshot.data()?.updatedAt || 0;
-          const localTs = getStoredTimestamp(STORAGE_KEYS.inquiries);
-          if (localTs > remoteTs) return;
-
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val)) {
             setInquiriesState(val);
@@ -2265,10 +2267,6 @@ export function useAdminStore() {
 
       const brochuresUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.brochures), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
-          const remoteTs = snapshot.data()?.updatedAt || 0;
-          const localTs = getStoredTimestamp(STORAGE_KEYS.brochures);
-          if (localTs > remoteTs) return;
-
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
             setBrochuresState(val);
