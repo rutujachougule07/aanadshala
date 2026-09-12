@@ -2095,7 +2095,6 @@ export function useAdminStore() {
       setStoredData(STORAGE_KEYS.site, updatedSite);
       setSiteDataState(updatedSite);
     }
-    syncAllToFirebaseCloud().catch(() => { });
   }, []);
 
   useEffect(() => {
