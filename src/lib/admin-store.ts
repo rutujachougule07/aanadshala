@@ -2185,10 +2185,16 @@ export function useAdminStore() {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
-            setGalleryState(val);
-            try {
-              localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(val));
-            } catch (e) { }
+            setGalleryState((prev) => {
+              const map = new Map<string, GalleryItem>();
+              val.forEach((item: GalleryItem) => { if (item.id) map.set(item.id, item); });
+              prev.forEach((item: GalleryItem) => { if (item.id && !map.has(item.id)) map.set(item.id, item); });
+              const merged = Array.from(map.values());
+              try {
+                localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(merged));
+              } catch (e) { }
+              return merged;
+            });
           }
         }
       });
@@ -2198,10 +2204,16 @@ export function useAdminStore() {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (Array.isArray(val) && val.length > 0) {
-            setVideosState(val);
-            try {
-              localStorage.setItem(STORAGE_KEYS.videos, JSON.stringify(val));
-            } catch (e) { }
+            setVideosState((prev) => {
+              const map = new Map<string, VideoItem>();
+              val.forEach((item: VideoItem) => { if (item.id) map.set(item.id, item); });
+              prev.forEach((item: VideoItem) => { if (item.id && !map.has(item.id)) map.set(item.id, item); });
+              const merged = Array.from(map.values());
+              try {
+                localStorage.setItem(STORAGE_KEYS.videos, JSON.stringify(merged));
+              } catch (e) { }
+              return merged;
+            });
           }
         }
       });
