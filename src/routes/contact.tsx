@@ -425,13 +425,7 @@ function Contact() {
                   )}
                 </p>
                 <span className="inline-block bg-white/90 border border-amber-200 text-amber-800 text-[11px] font-black px-2.5 py-0.5 rounded-full mt-1 shadow-2xs">
-                  {activeSection === "sports"
-                    ? isEn
-                      ? "6 AM to 9:30 PM (Daily)"
-                      : "सकाळी ६:०० ते रात्री ९:३०"
-                    : isEn
-                    ? "11 AM - 5 PM (Daily)"
-                    : "सकाळी ११:०० ते सायं. ५:००"}
+                  {isEn ? "11 AM to 5 PM (Daily)" : "सकाळी ११:०० ते सायं. ५:००"}
                 </span>
               </div>
             </div>

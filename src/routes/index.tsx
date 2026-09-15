@@ -465,21 +465,8 @@ function IndexComponent() {
     return false;
   }, []);
 
-  const [selectedSection, setSelectedSection] = useState<"aanandshala" | "sports" | null>(() => {
-    if (typeof window !== "undefined") {
-      const activeSec = localStorage.getItem("preetam_active_section");
-      if (activeSec === "sports" || activeSec === "aanandshala") {
-        return activeSec;
-      }
-    }
-    return shouldSkipIntro ? "aanandshala" : null;
-  });
-  const [showIntroBanner, setShowIntroBanner] = useState(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("preetam_active_section")) {
-      return false;
-    }
-    return !shouldSkipIntro;
-  });
+  const [selectedSection, setSelectedSection] = useState<"aanandshala" | "sports" | null>(null);
+  const [showIntroBanner, setShowIntroBanner] = useState(true);
   const { isEn } = useLanguage();
   const store = useAdminStore();
 

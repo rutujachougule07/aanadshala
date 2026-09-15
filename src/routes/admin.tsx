@@ -554,6 +554,32 @@ export default function AdminPage() {
         needsFix = true;
       }
 
+      const isStageImg = (url?: string) => {
+        if (!url) return true;
+        const lower = url.toLowerCase();
+        return (
+          lower.includes("screenshot") ||
+          lower.includes("imgever") ||
+          lower.includes("gallery imgage") ||
+          lower.includes("gallery image") ||
+          lower.includes("anadshala original") ||
+          lower.includes("slider2") ||
+          lower.includes("slider4")
+        );
+      };
+
+      if (
+        fixedSite.activityHalls &&
+        Array.isArray(fixedSite.activityHalls) &&
+        fixedSite.activityHalls.some((h) => isStageImg(h.imageUrl))
+      ) {
+        fixedSite.activityHalls = fixedSite.activityHalls.map((h) => ({
+          ...h,
+          imageUrl: isStageImg(h.imageUrl) ? "" : h.imageUrl,
+        }));
+        needsFix = true;
+      }
+
       setSiteForm(fixedSite);
       if (needsFix) {
         setStoredData(STORAGE_KEYS.site, fixedSite);
@@ -1397,42 +1423,97 @@ export default function AdminPage() {
                   <span>Activity Halls (17 Halls Images)</span>
                 </h1>
                 <p className="text-xs text-slate-500 mt-1 font-semibold">
-                  Click Edit button directly on any hall photo to replace image or title.
+                  Click Edit button directly on any hall photo to replace image, title, or description.
                 </p>
               </div>
+              <button
+                onClick={() => {
+                  const defaultHallsList = [
+                    { id: "hall-1", title: "१. बैठे खेळ हॉल", category: "कॅरम, बुद्धिबळ व इनडोअर खेळ", desc: "बैठे खेळ हॉलमध्ये जाऊन कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.", imageUrl: "/images/subimg/baithe-khel.png" },
+                    { id: "hall-2", title: "२. कला दालन", category: "चित्रकला, हस्तकला व विणकाम", desc: "कला दालनमध्ये जाऊन चित्रकला, हस्तकला आणि विणकाम शिकणे.", imageUrl: "/images/subimg/aart-hall.png" },
+                    { id: "hall-3", title: "३. संगीत वाद्य दालन", category: "तबला, गिटार, पेटी व संगीत आनंद", desc: "संगीत वाद्य दालनमध्ये जाऊन तबला, गिटार, पेटी, पियानो, वीणा, ढोलकी, बासरी शिकणे.", imageUrl: "/images/subimg/sangit-hall.png" },
+                    { id: "hall-4", title: "४. माहिती तंत्रज्ञान हॉल", category: "संगणक, मोबाईल व IT ट्रेनिंग", desc: "माहिती तंत्रज्ञान हॉलमध्ये जाऊन संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.", imageUrl: "/images/subimg/mahiti-tantradyan-hall.png" },
+                    { id: "hall-5", title: "५. करमणूक हॉल", category: "अंताक्षरी, गप्पा-गोष्टी व समूह खेळ", desc: "करमणूक हॉलमध्ये जाऊन गप्पा-गोष्टी करणे, अंताक्षरी, पझल गेम्स व जोक्स.", imageUrl: "/images/subimg/karmnuk-hall.png" },
+                    { id: "hall-6", title: "६. स्विमिंग पूल", category: "ऑलिंपिक मानकांचा स्वच्छ पूल", desc: "स्विमिंग पूलमध्ये जाऊन पोहणे व पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.", imageUrl: "/images/subimg/swimming-hall.png" },
+                    { id: "hall-7", title: "७. संस्कार व संप्रदाय हॉल", category: "सांस्कृतिक कार्यक्रम व अध्यात्म", desc: "संस्कार व संप्रदाय हॉलमध्ये जाऊन विविध सांस्कृतिक कार्यक्रम आणि व्हिडिओ पाहणे.", imageUrl: "/images/subimg/sanskar-sampraday-hall.png" },
+                    { id: "hall-8", title: "८. टेबल टेनिस हॉल", category: "टेबल टेनिस व इनडोअर स्पोर्ट्स", desc: "टेबल टेनिस हॉलमध्ये जाऊन टेबल टेनिस खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal-tenis.png" },
+                    { id: "hall-9", title: "९. बॅडमिंटन हॉल", category: "बॅडमिंटन", desc: "बॅडमिंटन कोर्टवर जाऊन बॅडमिंटन खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal-tenis.png" },
+                    { id: "hall-10", title: "१०. स्नूकर हॉल", category: "स्नूकर", desc: "स्नूकर हॉलमध्ये जाऊन स्नूकर व बिलियर्ड्स खेळणे.", imageUrl: "/images/subimg/tebal-tenis.png" },
+                    { id: "hall-11", title: "११. स्कॅश हॉल", category: "स्कॅश कोर्ट", desc: "स्कॅश कोर्टवर जाऊन स्कॅश खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal-tenis.png" },
+                    { id: "hall-12", title: "१२. जिम हॉल", category: "व्यायाम & फिटनेस", desc: "आधुनिक उपकरणांनी सुसज्ज जिम हॉलमध्ये जाऊन व्यायाम व फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam-hall.png" },
+                    { id: "hall-13", title: "१३. योगा हॉल", category: "योग व प्राणायाम", desc: "योगा हॉलमध्ये जाऊन तज्ज्ञांच्या मार्गदर्शनाखाली दररोज योगासने व प्राणायाम करणे.", imageUrl: "/images/subimg/vyayam-hall.png" },
+                    { id: "hall-14", title: "१४. झुम्बा हॉल", category: "झुम्बा & फिटनेस", desc: "झुम्बा हॉलमध्ये जाऊन संगीताच्या तालावर झुम्बा आणि फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam-hall.png" },
+                    { id: "hall-15", title: "१५. भोजन कक्ष", category: "भोजन & आस्वाद", desc: "भोजन कक्षामध्ये जाऊन चहा, नाश्ता आणि जेवण करणे.", imageUrl: "/images/subimg/pakruti-hall.png" },
+                    { id: "hall-16", title: "१६. विश्रांती हॉल", category: "वाचन & विश्रांती", desc: "विश्रांती हॉलमध्ये जाऊन आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.", imageUrl: "/images/subimg/vishranti-hall.png" },
+                    { id: "hall-17", title: "१७. थिएटर हॉल", category: "थिएटर & सिनेमा", desc: "थिएटर हॉलमध्ये जाऊन टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.", imageUrl: "/images/subimg/ChatGPT-Image-Aug-5,-2026,-04_15_03-PM.png" },
+                  ];
+                  const newForm = { ...store.siteData, activityHalls: defaultHallsList };
+                  setSiteForm(newForm);
+                  store.updateSiteData(newForm);
+                  store.syncAllToFirebaseCloud();
+                  showToast("🧹 All 17 Activity Halls reset to default photos!");
+                }}
+                className="px-4 py-2 rounded-2xl bg-rose-50 hover:bg-rose-100 text-[#db2777] border border-rose-200 text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+              >
+                <RotateCcw size={14} />
+                <span>Reset All 17 Halls</span>
+              </button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
               {(() => {
-                // Default images per hall index (same as website fallback)
-                const defaultImages = [
-                  "/images/subimg/baithe-khel.png",
-                  "/images/subimg/aart-hall.png",
-                  "/images/subimg/sangit-hall.png",
-                  "/images/subimg/mahiti-tantradyan-hall.png",
-                  "/images/subimg/karmnuk-hall.png",
-                  "/images/subimg/swimming-hall.png",
-                  "/images/subimg/sanskar-sampraday-hall.png",
-                  "/images/subimg/tebal-tenis.png",
-                  "/images/subimg/tebal-tenis.png",
-                  "/images/subimg/tebal-tenis.png",
-                  "/images/subimg/tebal-tenis.png",
-                  "/images/subimg/vyayam-hall.png",
-                  "/images/subimg/vyayam-hall.png",
-                  "/images/subimg/vyayam-hall.png",
-                  "/images/subimg/pakruti-hall.png",
-                  "/images/subimg/vishranti-hall.png",
-                  "/images/subimg/karmnuk-hall.png",
+                const defaultHallsList = [
+                  { id: "hall-1", title: "१. बैठे खेळ हॉल", category: "कॅरम, बुद्धिबळ व इनडोअर खेळ", desc: "बैठे खेळ हॉलमध्ये जाऊन कॅरम, बुद्धिबळ, पत्ते, सापाशिडी इत्यादी बैठे खेळ खेळणे.", imageUrl: "/images/subimg/baithe-khel.png" },
+                  { id: "hall-2", title: "२. कला दालन", category: "चित्रकला, हस्तकला व विणकाम", desc: "कला दालनमध्ये जाऊन चित्रकला, हस्तकला आणि विणकाम शिकणे.", imageUrl: "/images/subimg/aart-hall.png" },
+                  { id: "hall-3", title: "३. संगीत वाद्य दालन", category: "तबला, गिटार, पेटी व संगीत आनंद", desc: "संगीत वाद्य दालनमध्ये जाऊन तबला, गिटार, पेटी, पियानो, वीणा, ढोलकी, बासरी शिकणे.", imageUrl: "/images/subimg/sangit-hall.png" },
+                  { id: "hall-4", title: "४. माहिती तंत्रज्ञान हॉल", category: "संगणक, मोबाईल व IT ट्रेनिंग", desc: "माहिती तंत्रज्ञान हॉलमध्ये जाऊन संगणक, लॅपटॉप, मोबाईल, इंटरनेट आणि प्रिंटर वापरण्यास शिकणे.", imageUrl: "/images/subimg/mahiti-tantradyan-hall.png" },
+                  { id: "hall-5", title: "५. करमणूक हॉल", category: "अंताक्षरी, गप्पा-गोष्टी व समूह खेळ", desc: "करमणूक हॉलमध्ये जाऊन गप्पा-गोष्टी करणे, अंताक्षरी, पझल गेम्स व जोक्स.", imageUrl: "/images/subimg/karmnuk-hall.png" },
+                  { id: "hall-6", title: "६. स्विमिंग पूल", category: "ऑलिंपिक मानकांचा स्वच्छ पूल", desc: "स्विमिंग पूलमध्ये जाऊन पोहणे व पाण्यात खेळण्याचा मनसोक्त आनंद घेणे.", imageUrl: "/images/subimg/swimming-hall.png" },
+                  { id: "hall-7", title: "७. संस्कार व संप्रदाय हॉल", category: "सांस्कृतिक कार्यक्रम व अध्यात्म", desc: "संस्कार व संप्रदाय हॉलमध्ये जाऊन विविध सांस्कृतिक कार्यक्रम आणि व्हिडिओ पाहणे.", imageUrl: "/images/subimg/sanskar-sampraday-hall.png" },
+                  { id: "hall-8", title: "८. टेबल टेनिस हॉल", category: "टेबल टेनिस व इनडोअर स्पोर्ट्स", desc: "टेबल टेनिस हॉलमध्ये जाऊन टेबल टेनिस खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal-tenis.png" },
+                  { id: "hall-9", title: "९. बॅडमिंटन हॉल", category: "बॅडमिंटन", desc: "बॅडमिंटन कोर्टवर जाऊन बॅडमिंटन खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal-tenis.png" },
+                  { id: "hall-10", title: "१०. स्नूकर हॉल", category: "स्नूकर", desc: "स्नूकर हॉलमध्ये जाऊन स्नूकर व बिलियर्ड्स खेळणे.", imageUrl: "/images/subimg/tebal-tenis.png" },
+                  { id: "hall-11", title: "११. स्कॅश हॉल", category: "स्कॅश कोर्ट", desc: "स्कॅश कोर्टवर जाऊन स्कॅश खेळण्याचा आनंद घेणे.", imageUrl: "/images/subimg/tebal-tenis.png" },
+                  { id: "hall-12", title: "१२. जिम हॉल", category: "व्यायाम & फिटनेस", desc: "आधुनिक उपकरणांनी सुसज्ज जिम हॉलमध्ये जाऊन व्यायाम व फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam-hall.png" },
+                  { id: "hall-13", title: "१३. योगा हॉल", category: "योग व प्राणायाम", desc: "योगा हॉलमध्ये जाऊन तज्ज्ञांच्या मार्गदर्शनाखाली दररोज योगासने व प्राणायाम करणे.", imageUrl: "/images/subimg/vyayam-hall.png" },
+                  { id: "hall-14", title: "१४. झुम्बा हॉल", category: "झुम्बा & फिटनेस", desc: "झुम्बा हॉलमध्ये जाऊन संगीताच्या तालावर झुम्बा आणि फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam-hall.png" },
+                  { id: "hall-15", title: "१५. भोजन कक्ष", category: "भोजन & आस्वाद", desc: "भोजन कक्षामध्ये जाऊन चहा, नाश्ता आणि जेवण करणे.", imageUrl: "/images/subimg/pakruti-hall.png" },
+                  { id: "hall-16", title: "१६. विश्रांती हॉल", category: "वाचन & विश्रांती", desc: "विश्रांती हॉलमध्ये जाऊन आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.", imageUrl: "/images/subimg/vishranti-hall.png" },
+                  { id: "hall-17", title: "१७. थिएटर हॉल", category: "थिएटर & सिनेमा", desc: "थिएटर हॉलमध्ये जाऊन टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.", imageUrl: "/images/subimg/ChatGPT-Image-Aug-5,-2026,-04_15_03-PM.png" },
                 ];
 
-                const currentHalls =
-                  store.siteData.activityHalls && store.siteData.activityHalls.length > 0
-                    ? store.siteData.activityHalls
-                    : [];
+                const isGenericStageImage = (url: string) => {
+                  if (!url) return true;
+                  const lower = url.toLowerCase();
+                  return (
+                    lower.includes("screenshot") ||
+                    lower.includes("imgever") ||
+                    lower.includes("gallery imgage") ||
+                    lower.includes("gallery image") ||
+                    lower.includes("anadshala original") ||
+                    lower.includes("slider2") ||
+                    lower.includes("slider4")
+                  );
+                };
+
+                const rawHalls = store.siteData.activityHalls || [];
+                const currentHalls = defaultHallsList.map((def, idx) => {
+                  const saved = rawHalls[idx];
+                  const savedUrl = saved?.imageUrl;
+                  const finalUrl = savedUrl && !isGenericStageImage(savedUrl) ? savedUrl : def.imageUrl;
+                  return {
+                    id: saved?.id || def.id,
+                    title: saved?.title || def.title,
+                    category: saved?.category || def.category,
+                    desc: saved?.desc || def.desc,
+                    imageUrl: finalUrl,
+                  };
+                });
 
                 return currentHalls.map((hall, idx) => {
                   const hallId = hall.id || `hall-${idx + 1}`;
-                  const displayImage = hall.imageUrl || defaultImages[idx] || "/images/slider1.JPG";
+                  const fallbackImg = defaultHallsList[idx]?.imageUrl || "/images/subimg/baithe-khel.png";
+                  const displayImage = hall.imageUrl && !isGenericStageImage(hall.imageUrl) ? hall.imageUrl : fallbackImg;
                   // Read desc from dedicated localStorage (never overwritten by Firebase)
                   const currentDesc = getHallDesc(hallId, hall.desc || "");
 
@@ -1447,7 +1528,7 @@ export default function AdminPage() {
                           alt={hall.title}
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                            e.currentTarget.src = defaultImages[idx] || "/images/slider1.JPG";
+                            e.currentTarget.src = fallbackImg;
                           }}
                         />
                         <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black text-[#810B38] border border-rose-200 shadow-xs">
@@ -1467,7 +1548,7 @@ export default function AdminPage() {
                                 // Save desc to dedicated localStorage (Firebase-proof)
                                 saveHallDesc(hallId, newDesc || "");
                                 // Also update the store (title + imageUrl)
-                                const updatedHalls = (store.siteData.activityHalls || []).map(
+                                const updatedHalls = currentHalls.map(
                                   (h, i) =>
                                     i === idx
                                       ? {

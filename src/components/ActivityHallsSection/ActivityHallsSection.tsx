@@ -267,12 +267,36 @@ const ActivityHallsSection = () => {
     };
   }, [selectedHall]);
 
+  const isGenericStageImage = (url: string) => {
+    if (!url) return true;
+    const lower = url.toLowerCase();
+    return (
+      lower.includes("screenshot") ||
+      lower.includes("imgever") ||
+      lower.includes("gallery imgage") ||
+      lower.includes("gallery image") ||
+      lower.includes("anadshala original") ||
+      lower.includes("slider2") ||
+      lower.includes("slider4")
+    );
+  };
+
   const activeHalls: HallDetail[] =
     store.siteData.activityHalls && store.siteData.activityHalls.length > 0
       ? store.siteData.activityHalls.map((h, idx) => {
-        const fallback = hallsData[idx];
-        const rawImg = h.imageUrl || fallback?.image || "/images/subimg/baithe-khel.png";
-        const cleanImg = rawImg.startsWith("data:") || rawImg.startsWith("http") ? rawImg : encodeURI(rawImg.replace(/ /g, "-"));
+        const fallback = hallsData[idx] || hallsData[0];
+        const rawImg =
+          h.imageUrl && !isGenericStageImage(h.imageUrl)
+            ? h.imageUrl
+            : fallback.image;
+        const cleanImg =
+          rawImg.startsWith("data:") ||
+          rawImg.startsWith("http:") ||
+          rawImg.startsWith("https:") ||
+          rawImg.startsWith("blob:") ||
+          rawImg.startsWith("/")
+            ? rawImg
+            : encodeURI(rawImg.replace(/ /g, "-"));
         return {
           id: String(idx + 1).padStart(2, "0"),
           titleMr: h.title,
