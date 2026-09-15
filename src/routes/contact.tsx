@@ -173,9 +173,9 @@ function Contact() {
             4 QUICK CONTACT CARDS (PROMINENT LARGE FIT GRID)
            ══════════════════════════════════════════════════════════════ */}
         <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {/* Card 1: Helpline */}
+          {/* Card 1: Anandshala Helpline */}
           <a
-            href="tel:+919370237633"
+            href="tel:9970079090"
             className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-rose-100 shadow-md hover:shadow-2xl hover:border-pink-300 transition-all group cursor-pointer"
           >
             <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-lg shadow-pink-200 group-hover:scale-110 transition-transform">
@@ -194,32 +194,40 @@ function Contact() {
                 )}
               </p>
               <p className="text-base sm:text-lg font-black text-[#be185d] tracking-wide whitespace-nowrap group-hover:text-pink-600 transition-colors">
+                +91-9970079090
+              </p>
+            </div>
+          </a>
+
+          {/* Card 2: Sports Club Helpline */}
+          <a
+            href="tel:9370237633"
+            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-purple-100 shadow-md hover:shadow-2xl hover:border-purple-300 transition-all group cursor-pointer"
+          >
+            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-purple-200 group-hover:scale-110 transition-transform">
+              <Phone size={26} />
+            </div>
+            <div className="overflow-hidden min-w-0">
+              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
+                {isEn ? (
+                  <>
+                    <span className="text-amber-600 font-black">Sports Club</span> Helpline
+                  </>
+                ) : (
+                  <>
+                    <span className="text-amber-600 font-black">स्पोर्ट्स क्लब</span> हेल्पलाईन
+                  </>
+                )}
+              </p>
+              <p className="text-base sm:text-lg font-black text-[#1A05A2] tracking-wide whitespace-nowrap group-hover:text-purple-600 transition-colors">
                 +91-9370237633
               </p>
             </div>
           </a>
 
-          {/* Card 2: Office */}
+          {/* Card 3: WhatsApp Chat */}
           <a
-            href="tel:+919423258859"
-            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-purple-100 shadow-md hover:shadow-2xl hover:border-purple-300 transition-all group cursor-pointer"
-          >
-            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-purple-200 group-hover:scale-110 transition-transform">
-              <Building size={26} />
-            </div>
-            <div className="overflow-hidden min-w-0">
-              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
-                {isEn ? "Office Contact" : "कार्यालय संपर्क"}
-              </p>
-              <p className="text-base sm:text-lg font-black text-[#1A05A2] tracking-wide whitespace-nowrap group-hover:text-purple-600 transition-colors">
-                +91-9423258859
-              </p>
-            </div>
-          </a>
-
-          {/* Card 3: WhatsApp */}
-          <a
-            href={sportsClub.whatsapp}
+            href="https://wa.me/919970079090"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-emerald-100 shadow-md hover:shadow-2xl hover:border-emerald-300 transition-all group cursor-pointer"
@@ -229,10 +237,10 @@ function Contact() {
             </div>
             <div className="overflow-hidden min-w-0">
               <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
-                {isEn ? "WhatsApp Chat" : "चॅट WhatsApp"}
+                {isEn ? "WhatsApp Inquiry" : "WhatsApp हेल्पलाईन"}
               </p>
               <p className="text-base sm:text-lg font-black text-emerald-700 tracking-wide whitespace-nowrap group-hover:text-teal-600 transition-colors">
-                +91-9370237633
+                +91-9970079090
               </p>
             </div>
           </a>

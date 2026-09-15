@@ -90,42 +90,7 @@ const galleryImages = [
     date: "26 Jan 2026",
     image: "/images/gallery image8.JPG",
   },
-  {
-    id: 9,
-    titleEn: "Anandbhavan Campus",
-    titleMr: "आनंदभवन परिसर",
-    categoryEn: "Senior Citizen Anandshala",
-    categoryMr: "ज्येष्ठ नागरिक आनंदशाळा",
-    date: "26 Jan 2024",
-    image: "/images/Screenshot 2026-07-31 103107.png",
-  },
-  {
-    id: 10,
-    titleEn: "Joy Festival Celebration",
-    titleMr: "आनंद मेळावा सोहळा",
-    categoryEn: "Joy Festival",
-    categoryMr: "आनंद मेळावा",
-    date: "15 Aug 2023",
-    image: "/images/aandmelav 10.jpeg",
-  },
-  {
-    id: 11,
-    titleEn: "Bhumipujan Ceremony",
-    titleMr: "भूमिपूजन कार्यक्रम",
-    categoryEn: "Bhumipujan",
-    categoryMr: "भूमिपूजन",
-    date: "09 Jan 2024",
-    image: "/images/ropya mahotsv1.jpg",
-  },
-  {
-    id: 12,
-    titleEn: "Annual Gathering Meetup",
-    titleMr: "वार्षिक स्नेहसंमेलन",
-    categoryEn: "Annual Function",
-    categoryMr: "वार्षिक स्नेहसंमेलन",
-    date: "25 Dec 2023",
-    image: "/images/aandshala sahal 1.jpeg",
-  },
+
   {
     id: 13,
     titleEn: "Cultural Festival",
@@ -481,17 +446,7 @@ function Gallery() {
                       }}
                     />
 
-                    <div className="absolute bottom-0 inset-x-0 h-20 bg-linear-to-t from-black/90 via-black/40 to-transparent pointer-events-none z-10" />
 
-                    <div className="absolute bottom-2.5 inset-x-3 text-white z-20">
-                      <div className="flex items-center gap-1.5 text-pink-300 text-[11px] font-bold mb-0.5">
-                        <Calendar size={12} />
-                        <span>{item.date}</span>
-                      </div>
-                      <h3 className="text-sm sm:text-base font-black text-white line-clamp-1 group-hover:text-pink-200 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
-                        <HighlightText text={isEn ? item.titleEn : item.titleMr} />
-                      </h3>
-                    </div>
                   </motion.div>
                 ))}
               </div>

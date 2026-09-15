@@ -1,632 +1,351 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/lib/use-language";
 import {
-  CheckCircle2,
-  Phone,
-  MapPin,
-  Flower2,
-  Car,
-  ParkingCircle,
-  UtensilsCrossed,
-  Hotel,
-  Stethoscope,
-  Activity,
-  Church,
-  Pill,
-  Waves,
-  Radio,
-  Store,
-  Dumbbell,
   X,
   Sparkles,
-  ArrowRight,
+  Calendar,
+  ZoomIn,
+  ZoomOut,
+  RotateCcw,
+  ChevronLeft,
+  ChevronRight,
   PhoneCall,
+  MapPin,
+  FileText,
+  Download,
 } from "lucide-react";
+import { HighlightText } from "@/components/HighlightText";
 
-import "./brochure.css";
-import buildingImage from "../assets/anandshala-building.png";
-
-interface ModalDetail {
-  title: string;
-  category: string;
-  img?: string;
-  icon?: React.ReactNode;
-  mrDesc: string;
-  enDesc: string;
-  highlights: string[];
-}
+// ===== 4 OFFICIAL BROCHURE SCAN PAGES =====
+const brochureScanPages = [
+  {
+    id: 1,
+    titleEn: "Anandshala Cover Brochure Page & Admission Info",
+    titleMr: "आनंदशाळा मुखपृष्ठ माहिती पत्रक व प्रवेश माहिती",
+    categoryEn: "Brochure Cover",
+    categoryMr: "माहिती पत्रक मुखपृष्ठ",
+    date: "2026",
+    image: "/images/Screenshot 2026-07-31 103107.png",
+    descMr: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा मुखपृष्ठ माहिती पत्रक व प्रवेश माहिती.",
+    descEn: "Official Anandshala brochure cover page & admission details.",
+  },
+  {
+    id: 2,
+    titleEn: "5-Hour Daily Timetable & 18 Activity Halls",
+    titleMr: "आनंदशाळेतील ५ तासांचे वेळापत्रक व १८ उपक्रम हॉल्स",
+    categoryEn: "Timetable & Halls",
+    categoryMr: "वेळापत्रक व हॉल्स",
+    date: "2026",
+    image: "/images/Screenshot 2026-07-31 103131.png",
+    descMr: "दैनंदिन ५ तासांचे वेळापत्रक व १८ विशेष उपक्रम हॉल्सची सविस्तर माहिती.",
+    descEn: "Daily 5-hour activity schedule & 18 specialized halls.",
+  },
+  {
+    id: 3,
+    titleEn: "1.5 Acre Campus Scenic View & Infrastructure",
+    titleMr: "आनंदशाळा १.५ एकर विहंगम परिसर व बांधकाम दृश्य",
+    categoryEn: "Campus Architecture",
+    categoryMr: "परिसर व बांधकाम",
+    date: "2026",
+    image: "/images/Screenshot 2026-07-31 103152.png",
+    descMr: "सांगली शहरात १.५ एकर निसर्गरम्य परिसरातील आनंदशाळा संकुल व बांधकाम दृश्य.",
+    descEn: "1.5-acre scenic campus architecture & infrastructure.",
+  },
+  {
+    id: 4,
+    titleEn: "55ft Radha Krishna Statue, Proposed Temple & Gaushala",
+    titleMr: "५५ फुटांची राधाकृष्ण मूर्ती, नियोजित मंदिर व गोशाळा",
+    categoryEn: "Spiritual & Temple",
+    categoryMr: "अध्यात्म व गोशाळा",
+    date: "2026",
+    image: "/images/Screenshot 2026-07-31 103213.png",
+    descMr: "सांगलीकरांसाठी मुख्य आकर्षण - ५५ फुटांची राधाकृष्ण मूर्ती, नियोजित श्रीकृष्ण मंदिर व गोशाळा.",
+    descEn: "55ft Radha Krishna statue, proposed temple & Gaushala.",
+  },
+];
 
 const Brochure: React.FC = () => {
   const { isEn } = useLanguage();
-  const [selectedDetail, setSelectedDetail] = useState<ModalDetail | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [zoomLevel, setZoomLevel] = useState<number>(1);
 
-  const photoItems: ModalDetail[] = [
-    {
-      title: "आरोग्यदायी जीवनशैली",
-      category: "विशेष जीवनशैली",
-      img: "/images/aandshala sahal 1.jpeg",
-      mrDesc:
-        "ज्येष्ठ नागरिकांसाठी निसर्गरम्य १५ एकर परिसरात शुद्ध हवा, नियमित योगासने, प्राणायाम, शुद्ध सेंद्रिय आहार व २४×७ वैद्यकीय निगराणी.",
-      enDesc:
-        "Fresh air, organic meals, daily yoga, pranayama, and 24x7 medical care in a 1.5-acre green environment.",
-      highlights: [
-        "निसर्गरम्य १५ एकर परिसर",
-        "वैद्यकीय निगराणी व २४x७ डॉक्टर on call सेवा",
-        "आनंदी व निरोगी जीवनशैली",
-      ],
-    },
-    {
-      title: "स्नेह, संवाद व सहवास",
-      category: "सामाजिक नाती",
-      img: "/images/aandmelava1.jpg",
-      mrDesc:
-        "एकटेपणावर मात करून आपल्या वयाच्या समविचारी मित्र-मैत्रिणींसोबत गप्पागोष्टी, खेळ व आनंदी सहवासात जगण्याचा अद्वितीय अनुभव.",
-      enDesc:
-        "Overcome loneliness by connecting with like-minded friends of your age in a joyful environment.",
-      highlights: [
-        "एकटेपणा व नैराश्य मुक्ती",
-        "आपुलकीचे व जिव्हाळ्याचे नाते",
-        "दररोज गप्पागोष्टी व आनंद",
-      ],
-    },
-    {
-      title: "खेळ, व्यायाम व मनोरंजन",
-      category: "क्रीडा व मनोरंजन",
-      img: "/images/aandmelava4.jpg",
-      mrDesc:
-        "कॅरम, बुद्धिबळ, टेबल टेनिस, वातानुकूलित जिम, झुम्बा, स्विमिंग पूल व १८ विशेष उपक्रम हॉलमध्ये मनसोक्त मनोरंजन.",
-      enDesc:
-        "Enjoy indoor games, AC gym, Zumba, swimming pool, and 18 specialized activity halls.",
-      highlights: [
-        "१८ विशेष उपक्रम हॉल",
-        "बैठे खेळ व वातानुकूलित जिम",
-        "स्विमिंग पूल व झुम्बा क्लासेस",
-      ],
-    },
-    {
-      title: "सांस्कृतिक व शैक्षणिक उपक्रम",
-      category: "संस्कार व संस्कृती",
-      img: "/images/samajik karya 2.jpeg",
-      mrDesc:
-        "चित्रकला, विणकाम, संगीत शिकणे, नाटक, चित्रपट पाहणे, अंताक्षरी व धार्मिक-सांस्कृतिक उत्सव सोहळे.",
-      enDesc:
-        "Cultural events, music learning, painting, drama, Antakshari, and festival celebrations.",
-      highlights: [
-        "संगीत व कला शिकण्याची संधी",
-        "चित्रपट व नाटक स्क्रींनिंग",
-        "सर्व सण व वाढदिवस उत्सव",
-      ],
-    },
-    {
-      title: "सुरक्षित, सन्मानपूर्वक आयुष्य",
-      category: "सुरक्षा व स्वाभिमान",
-      img: "/images/vyavsaik mahiti 1.jpeg",
-      mrDesc:
-        "२४ तास सीसीटीव्ही सुरक्षा, प्रशिक्षित केअरटेकर, लिफ्ट व व्हीलचेअर सोयी, डॉक्टर ऑन कॉल व पूर्ण आत्मसन्मान.",
-      enDesc:
-        "24x7 CCTV security, trained caregivers, elevator & wheelchair access, and complete self-respect.",
-      highlights: [
-        "२४×७ सुरक्षा व सीसीटीव्ही",
-        "प्रशिक्षित केअरटेकर स्टाफ",
-        "पूर्ण स्वाभिमान व स्वातंत्र्य",
-      ],
-    },
-    {
-      title: "सुविधा व सेवा",
-      category: "प्रिमियम सोयी सुविधा",
-      img: "/images/vyavsaik mahiti 2.jpeg",
-      mrDesc:
-        "इलेक्ट्रिक व्हेईकल, फूड कोर्ट, लॉंड्री, मेडिकल स्टोअर, पोस्ट व बँकिंग मदत आणि २४ तास आपत्कालीन रुग्णवाहिका सेवा.",
-      enDesc:
-        "Electric vehicle transport, food court, laundry, medical store, and 24-hour ambulance service.",
-      highlights: [
-        "इलेक्ट्रिक गोल्फ कार्ट गाडी",
-        "हॉटेल व सुसज्ज फूड कोर्ट",
-        "२४ तास रुग्णवाहिका सेवा",
-      ],
-    },
-  ];
-
-  const facilityDetails: Record<string, ModalDetail> = {
-    "इलेक्ट्रिक गाडी": {
-      title: "इलेक्ट्रिक गाडी (Golf Cart)",
-      category: "परिसर वाहतूक सोय",
-      icon: <Car size={40} className="text-pink-600" />,
-      mrDesc:
-        "१.५ एकर निसर्गरम्य आनंदशाळा परिसरात ज्येष्ठ नागरिकांना फिरण्यासाठी व हॉल्समध्ये जाण्यासाठी विनामूल्य बॅटरी कार सोय.",
-      enDesc:
-        "Free electric battery golf cart service inside the 1.5-acre campus for easy movement.",
-      highlights: ["विनामूल्य सेवा", "ज्येष्ठांसाठी अत्यंत सोपी", "सुरक्षित व पर्यावरणपूरक"],
-    },
-    "२,३,४ व ६ चाकी पार्किंग": {
-      title: "भव्य व सुरक्षित पार्किंग",
-      category: "पार्किंग सोय",
-      icon: <ParkingCircle size={40} className="text-pink-600" />,
-      mrDesc:
-        "भेट देणारे आप्तजन, नातेवाईक व सदस्यांच्या २, ३, ४ आणि ६ चाकी वाहनांसाठी विशाल, सुरक्षित व सीसीटीव्ही निगराणीखालील पार्किंग.",
-      enDesc:
-        "Spacious, CCTV-monitored parking for 2, 3, 4, and 6-wheeler vehicles of visitors and members.",
-      highlights: ["२४ तास सीसीटीव्ही कॅमेरे", "विशाल मोकळी जागा", "सुरक्षित वाहन तळ"],
-    },
-    "फूड कोर्ट": {
-      title: "प्रीतम फूड कोर्ट (Preetam Food Court)",
-      category: "खानपान व आहार",
-      icon: <UtensilsCrossed size={40} className="text-pink-600" />,
-      mrDesc:
-        "सकस, पौष्टिक, घरगुती पद्धतीचे शाकाहारी जेवण, ताज्या भाज्या, ज्यूस, सरबते व स्नॅक्स मिळण्याचे सुसज्ज हॉटेल व फूड कोर्ट.",
-      enDesc:
-        "Nutritious, home-cooked pure vegetarian meals, fresh juices, and snacks served daily.",
-      highlights: ["सकस व पचनास हलका आहार", "स्वच्छ व वातानुकूलित डायनिंग", "ताजे सेंद्रिय पदार्थ"],
-    },
-    हॉटेल: {
-      title: "लक्झरी हॉटेल व निवास",
-      category: "आतिथ्य सेवा",
-      icon: <Hotel size={40} className="text-pink-600" />,
-      mrDesc:
-        "भेट देण्यासाठी येणाऱ्या आप्तजनांसाठी व पाहुण्यांसाठी विश्रांतीची व राहण्याची सर्व सोयींनी युक्त लक्झरी हॉटेल रूम्स.",
-      enDesc: "Luxury guest rooms with full amenities for visiting family members and guests.",
-      highlights: ["वातानुकूलित रूम्स", "स्वच्छ बेड व स्वच्छतागृह", "रूम सर्व्हिस उपलब्ध"],
-    },
-    दवाखाना: {
-      title: "दवाखाना व मेडिकल केअर",
-      category: "आरोग्य सेवा",
-      icon: <Stethoscope size={40} className="text-pink-600" />,
-      mrDesc:
-        "प्रकल्पातच सुसज्ज प्राथमिक आरोग्य केंद्र, डॉक्टरांची दररोजची नियमित तपासणी व २४ तास नर्स सेवा उपलब्ध.",
-      enDesc: "In-house primary clinic with daily doctor visits and round-the-clock nursing care.",
-      highlights: ["डॉक्टरांची दैनंदिन तपासणी", "२४ तास नर्स व केअरटेकर", "आपत्कालीन रुग्णवाहिका"],
-    },
-    योगासन: {
-      title: "योगासन व ध्यानधारणा कक्ष",
-      category: "फिटनेस व मानसोपचार",
-      icon: <Activity size={40} className="text-pink-600" />,
-      mrDesc:
-        "शांत वातानुकूलित हॉलमध्ये दररोज सकाळी व संध्याकाळी अनुभवी योगाचार्यांकडून प्राणायाम, ध्यानधारणा व योगासने सराव.",
-      enDesc: "Daily morning and evening Yoga, Meditation & Pranayama sessions guided by experts.",
-      highlights: ["बीपी व ताणतणाव मुक्ती", "ज्येष्ठांसाठी सोपे प्रकार", "प्रसन्न वातानुकूलित हॉल"],
-    },
-    मंदिर: {
-      title: "श्रीकृष्ण मंदिर व अध्यात्म केंद्र",
-      category: "धार्मिक सोयी",
-      icon: <Church size={40} className="text-pink-600" />,
-      mrDesc:
-        "५५ फुटांची भव्य राधाकृष्ण मूर्ती, दैनंदिन आरती, कीर्तन, भजन व मनःशांती देणारे शांत अध्यात्मिक वातावरण.",
-      enDesc:
-        "55ft grand Radha Krishna statue, daily Aarti, Kirtan, Bhajan, and serene spiritual vibe.",
-      highlights: [
-        "५५ फुटांची राधाकृष्ण मूर्ती",
-        "रोज सकाळी व संध्याकाळी आरती",
-        "प्रसन्न सत्संग केंद्र",
-      ],
-    },
-    मेडिकल: {
-      title: "२४ तास मेडिकल स्टोअर",
-      category: "औषध सेवा",
-      icon: <Pill size={40} className="text-pink-600" />,
-      mrDesc:
-        "ज्येष्ठ नागरिकांसाठी आवश्यक असणारी सर्व नियमित औषधे व प्रथमोपचार साहित्य २४ तास सवलतीच्या दरात उपलब्ध.",
-      enDesc: "24-hour pharmacy with all essential medicines and first-aid supplies available.",
-      highlights: ["२४ तास औषधे उपलब्ध", "सवलतीचे दर", "डोअर स्टेप डिलिव्हरी"],
-    },
-    "स्विमिंग पूल": {
-      title: "ऑलिंपिक स्विमिंग पूल व वॉटर थेरपी",
-      category: "जलतरण व व्यायाम",
-      icon: <Waves size={40} className="text-pink-600" />,
-      mrDesc:
-        "ऑलिंपिक मानकांचा शुद्ध पाण्याचा तरणतलाव, ज्येष्ठांसाठी वॉटर ॲरोबिक्स व सुरक्षेसाठी अनुभवी लाईफगार्ड्स.",
-      enDesc: "Olympic standard clean swimming pool with water aerobics and trained lifeguards.",
-      highlights: [
-        "फिल्टर केलेले स्वच्छ पाणी",
-        "ज्येष्ठांसाठी वॉटर व्यायाम",
-        "लाइफगार्ड्स व सुरक्षितता",
-      ],
-    },
-    "रेडिओ थेरपी": {
-      title: "आनंदशाळा एफएम रेडिओ व संगीत",
-      category: "मनोरंजन",
-      icon: <Radio size={40} className="text-pink-600" />,
-      mrDesc:
-        "आनंदशाळा इन-हाऊस रेडिओ, जुनी आवडती भावगीते, भक्तीगीते, बातम्या व संगीताचा आनंद घेण्याचा विशेष हॉल.",
-      enDesc: "In-house music and radio system playing classic retro tunes and devotional songs.",
-      highlights: ["आनंददायी संगीत वातावरण", "जुनी भावगीते व भक्तीगीते", "रियाझ व गाण्याची सोय"],
-    },
-    "जनरल स्टोअर": {
-      title: "जनरल स्टोअर व लॉंड्री",
-      category: "दैनंदिन सोयी",
-      icon: <Store size={40} className="text-pink-600" />,
-      mrDesc:
-        "दैनंदिन गरजेच्या सर्व वस्तू, साबण, पेस्ट, सौंदर्य प्रसाधने, कपडे धुणे व इस्त्री सेवा एकाच छताखाली उपलब्ध.",
-      enDesc: "General daily store and laundry services for washing and ironing clothes.",
-      highlights: ["कपडे धुणे व इस्त्री सोय", "दैनंदिन गरजेच्या सर्व वस्तू", "सुलभ खरेदी"],
-    },
-    "भव्य स्विमिंग पूल": {
-      title: "भव्य जलतरण तलाव",
-      category: "जलतरण",
-      icon: <Waves size={40} className="text-pink-600" />,
-      mrDesc:
-        "शुद्ध व ऑक्सिजनयुक्त पाण्याचा तलाव, जेथे ज्येष्ठ नागरिक मनसोक्त पोहण्याचा व व्यायामाचा आनंद घेऊ शकतात.",
-      enDesc: "Clean oxygenated swimming pool for fitness, fun, and relaxation.",
-      highlights: ["शुद्ध पाणी", "सुरक्षित खोली", "व्यायाम सोय"],
-    },
-    "फिटनेस कॉम्प्लेक्स": {
-      title: "वातानुकूलित फिटनेस कॉम्प्लेक्स",
-      category: "फिटनेस केंद्र",
-      icon: <Dumbbell size={40} className="text-pink-600" />,
-      mrDesc:
-        "आधुनिक वातानुकूलित जिम, कार्डिओ उपकरणे, फिजिओथेरपी व वैयक्तिक ट्रेनर्सच्या मार्गदर्शनाखाली व्यायाम.",
-      enDesc: "Modern AC gym, cardio gear, physiotherapy, and certified personal trainers.",
-      highlights: ["प्रशिक्षित ट्रेनर्स", "फिजिओथेरपी सोय", "वातानुकूलित जिम"],
-    },
+  const closeImage = () => {
+    setSelectedIndex(null);
+    setZoomLevel(1);
   };
 
+  const nextImage = () => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((prev) => (prev !== null ? (prev + 1) % brochureScanPages.length : 0));
+    setZoomLevel(1);
+  };
+
+  const prevImage = () => {
+    if (selectedIndex === null) return;
+    setSelectedIndex((prev) =>
+      prev !== null ? (prev - 1 + brochureScanPages.length) % brochureScanPages.length : 0,
+    );
+    setZoomLevel(1);
+  };
+
+  const zoomIn = () => setZoomLevel((prev) => Math.min(Number((prev + 0.25).toFixed(2)), 3.5));
+  const zoomOut = () => setZoomLevel((prev) => Math.max(Number((prev - 0.25).toFixed(2)), 0.5));
+  const resetZoom = () => setZoomLevel(1);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (selectedIndex === null) return;
+      if (e.key === "Escape") closeImage();
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [selectedIndex, brochureScanPages.length]);
+
+  const activePhoto = selectedIndex !== null ? brochureScanPages[selectedIndex] : null;
+
   return (
-    <div className="brochure-page-wrapper">
-      <div className="brochure-main-container">
-        {/* ══════════════════════════════════════════════════════════════
-            COLUMN 1 (LEFT FOLD - BRAND & FOUNDATION)
-           ══════════════════════════════════════════════════════════════ */}
-        <motion.div
-          className="brochure-col"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <div>
-            <div className="bcol-1-header">
-              <div className="bcol-top-badge">
-                {isEn
-                  ? "Enroll now for senior citizens' healthy and joyful golden years."
-                  : "ज्येष्ठ नागरिकांच्या निरोगी आरोग्य व आनंददायी आयुष्यासाठी आनंद प्रवेश घ्या."}
-              </div>
-              <h1 className="bcol-main-title">
-                {isEn ? (
-                  <>
-                    Preetam Senior Citizen
-                    <br />
-                    <span className="text-pink-400 font-black">Anandshala</span>
-                  </>
-                ) : (
-                  <>
-                    प्रीतम ज्येष्ठ नागरिक
-                    <br />
-                    <span className="text-pink-400 font-black">आनंदशाळा</span>
-                  </>
-                )}
-              </h1>
-              <p className="bcol-sub-title">
-                {isEn
-                  ? "Sangli's premier, modern & fully-equipped senior citizen sanctuary"
-                  : "सांगलीतील भव्य, आधुनिक, सर्व सुविधायुक्त ज्येष्ठ नागरिक आनंदधाम"}
-              </p>
-            </div>
+    <div className="min-h-screen bg-linear-to-b from-[#f8fafc] via-[#f1f5f9] to-[#ffffff]">
+      {/* Ambient background glows */}
+      <div className="fixed top-0 left-0 w-96 h-96 bg-pink-200/30 rounded-full blur-[120px] pointer-events-none" />
+      <div className="fixed bottom-0 right-0 w-96 h-96 bg-purple-200/30 rounded-full blur-[120px] pointer-events-none" />
 
-            {/* Main Building & Overlapping Founders Image */}
-            <div className="bcol-hero-img-box">
-              <img src={buildingImage} alt="Preetam Anandshala" className="bcol-hero-main-img" />
-              <div className="bcol-founders-overlay">
-                <img
-                  src="/images/founderimg.png"
-                  alt="Founders"
-                  onError={(e) => {
-                    e.currentTarget.src = buildingImage;
-                  }}
-                />
-              </div>
-            </div>
+      <style>{`
+        @keyframes galBorderRotate {
+          0% { background-position: 0% 0%, 0% 50%; }
+          50% { background-position: 0% 0%, 100% 50%; }
+          100% { background-position: 0% 0%, 0% 50%; }
+        }
+        .brochure-card-anim {
+          position: relative;
+          background: #0f172a;
+          border-radius: 1.25rem;
+          overflow: hidden;
+          border: 2.5px solid transparent;
+          background-image: linear-gradient(#0f172a, #0f172a), 
+                            linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6, #f59e0b, #ec4899);
+          background-origin: border-box;
+          background-clip: padding-box, border-box;
+          background-size: 100% 100%, 300% 300%;
+          animation: galBorderRotate 6s linear infinite;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+        }
+        .brochure-card-anim:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 20px 45px rgba(236, 72, 153, 0.3), 0 0 25px rgba(139, 92, 246, 0.2);
+          animation-duration: 2.5s;
+        }
+      `}</style>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
+        {/* ===== HEADING ===== */}
+        <div className="text-center mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 font-extrabold text-xs sm:text-sm mb-4 border border-pink-200 shadow-xs">
+            <Sparkles size={16} />
+            <span>{isEn ? "Official Information Brochure 2026" : "अधिकृत माहिती पत्रक २०२६"}</span>
           </div>
 
-          {/* Bottom Maroon Footer Block */}
-          <div className="bcol-1-bottom">
-            <div className="flex items-center gap-2 mb-2">
-              <Flower2 size={24} className="text-pink-300" />
-              <span className="font-bold text-sm text-pink-200">
-                {isEn ? "Preetam Belonging & Care Trust" : "प्रीतम आपुलकी व जिव्हाळा ट्रस्ट"}
-              </span>
-            </div>
-            <p className="bcol-bottom-text">
-              {isEn
-                ? "Built across 1.5 acres in Sangli amidst serene nature, this is India's first digital landmark project where senior citizens can reside happily for days or a lifetime."
-                : "सांगली शहरातील दीड एकर जागेवर, निसर्गाच्या वातावरणात उभा राहणारा हा भारतातील पहिलाच भव्य प्रकल्प आहे. येथे दिवसापासून ते आयुष्यभर आनंदाने राहता येते."}
-            </p>
-          </div>
-        </motion.div>
+          <h1
+            className="text-3xl sm:text-[40px] font-black text-[#541A1A] leading-tight"
+            style={{ fontWeight: 900 }}
+          >
+            {isEn ? (
+              <>
+                Preetam Senior Citizen <span className="text-pink-600">Brochure</span>
+              </>
+            ) : (
+              <>
+                प्रीतम ज्येष्ठ नागरिक <span className="text-pink-600">माहिती पत्रक</span>
+              </>
+            )}
+          </h1>
 
-        {/* ══════════════════════════════════════════════════════════════
-            COLUMN 2 (MIDDLE FOLD - GALLERY & FACILITIES)
-           ══════════════════════════════════════════════════════════════ */}
-        <motion.div
-          className="brochure-col"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <div>
-            <div className="bcol-2-top-badge">
-              {isEn
-                ? "Preetam Anandshala — An Ideal Senior Citizen Sanctuary"
-                : "प्रीतम आनंदशाळा — एक आदर्श ज्येष्ठ नागरिक धाम"}
-            </div>
+          <p
+            className="mt-3 text-[16px] !font-[300] text-slate-700 max-w-2xl mx-auto leading-relaxed"
+            style={{ fontSize: "16px", fontWeight: 300 }}
+          >
+            {isEn
+              ? "View & explore the official 4 brochure scan pages of Preetam Senior Citizen Anandshala."
+              : "प्रीतम ज्येष्ठ नागरिक आनंदशाळेचे अधिकृत ४ रंगीत माहिती पत्रक स्कॅन्स पहा व डाऊनलोड करा."}
+          </p>
+        </div>
 
-            <p className="bcol-2-intro">
-              {isEn
-                ? "Founded from the dream of Mr. Abhinay Kamaji, Sangli. Founded on 26 January 2000, organizing annual foundation day & senior citizen meetups."
-                : "माझ्या जन्माची बीजे रुजली ती श्री. अभिनय जगन्नाथ कामाजी (सांगली) यांच्या स्वप्नातून. अभिनय यांनी 26 जानेवारी 2000 रोजी व्यवसाय सुरू केला आणि दरवर्षी वाढदिवस दिन, <span>ज्येष्ठ नागरिक मेळावा व वाढदिवस आयोजन</span> करून तो साजरा करतात."}
-            </p>
-
-            {/* 6 Photo Grid - CLICKABLE */}
-            <div className="bcol-photo-grid">
-              {photoItems.map((item, idx) => (
-                <div className="bcol-photo-item" key={idx} onClick={() => setSelectedDetail(item)}>
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    onError={(e) => {
-                      e.currentTarget.src = buildingImage;
-                    }}
-                  />
-                  <div className="bcol-photo-label">{isEn ? item.category : item.title}</div>
-                </div>
-              ))}
-            </div>
-
-            {/* Facilities Header */}
-            <div className="bcol-section-header-red">
-              {isEn ? "Available Campus Facilities" : "आमच्याकडे उपलब्ध सुविधा"}
-            </div>
-
-            {/* 13 Facilities Grid - CLICKABLE */}
-            <div className="bcol-facilities-grid">
-              {Object.keys(facilityDetails).map((name) => {
-                const fac = facilityDetails[name];
-                return (
-                  <div
-                    className="bcol-facility-box"
-                    key={name}
-                    onClick={() => setSelectedDetail(fac)}
-                  >
-                    <div className="bcol-facility-icon-wrap">{fac.icon}</div>
-                    <span className="bcol-facility-title">{name}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Bottom Dark Blue Block */}
-          <div className="bcol-2-bottom">
-            <div className="flex items-center gap-2 mb-1">
-              <Flower2 size={20} className="text-yellow-300" />
-              <span className="font-bold text-yellow-300">धार्मिक व सांस्कृतिक उपक्रम</span>
-            </div>
-            आनंदशाळेमध्ये सर्व धार्मिक उत्सव, सण व वाढदिवस साजरे केले जातील. आनंद शाळा, पुणे, मुंबई,
-            महाराष्ट्र, भारतासह जगात कुठेही ठिकाणाहून आनंदाने राहण्यासाठी येऊ शकता.
-          </div>
-        </motion.div>
-
-        {/* ══════════════════════════════════════════════════════════════
-            COLUMN 3 (RIGHT FOLD - OBJECTIVES, RULES & CONTACT)
-           ══════════════════════════════════════════════════════════════ */}
-        <motion.div
-          className="brochure-col"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <div>
-            <div className="bcol-3-header">
-              <h2 className="bcol-3-title">आनंदशाळेचे ध्येय</h2>
-              <p className="bcol-3-sub">
-                ज्येष्ठ नागरिकांना आनंदी, उत्साही व निरोगी जीवन सुखद अनुभवता यावा यासाठी...
-              </p>
-            </div>
-
-            {/* Top Building Cover Banner */}
-            <div className="bcol-3-banner-box">
-              <img src={buildingImage} alt="Objective" className="bcol-3-banner-img" />
-            </div>
-
-            {/* Rules Checklist Section - CLEAN & CLICKABLE */}
-            <div
-              className="bcol-rules-sec cursor-pointer hover:bg-pink-50/50 transition-all duration-300 rounded-2xl p-4 border-2 border-dashed border-pink-200/80 shadow-sm"
-              onClick={() =>
-                setSelectedDetail({
-                  title: "प्रवेश प्रक्रिया व फी रचना माहिती",
-                  category: "प्रवेश योजना",
-                  img: buildingImage,
-                  mrDesc:
-                    "प्रीतम ज्येष्ठ नागरिक आनंदशाळेत प्रवेश घेण्यासाठी अत्यंत सोपी, पारदर्शक व सवलतीच्या दरातील विविध मासिक, दररोजच्या व डिपॉझिट योजना उपलब्ध आहेत.",
-                  enDesc:
-                    "Flexible, transparent, and discounted admission plans available for all senior citizens.",
-                  highlights: [
-                    "प्रति व्यक्ती, महिन्याची, आवडीनुसार किंवा दिवसाची फी भरा.",
-                    "५ ते १० लाखांपर्यंत फिक्स डिपॉझिट (FD) ठेवून त्याच्या व्याजातून विनामूल्य निवास.",
-                    "सभासद नोंदणी करून सोयीस्कर मासिक किंवा दैनिक शुल्कात प्रवेश.",
-                    "एक दिवसाचा डे-पास रू. ६००/- मध्ये सर्व सुविधांसह उपलब्ध.",
-                    "आनंदशाळा फंडातून मासिक सवलत फी (रु. ११,००० ते १५,०००/-).",
-                    "आनंदविलास निवास फी किमान रु. १२,०००/- *GST Extra.",
-                  ],
-                })
-              }
-            >
-              <div className="flex items-center justify-between mb-3 border-b border-pink-100 pb-2">
-                <h3 className="bcol-rules-title text-base sm:text-lg font-black text-[#881337] m-0">
-                  प्रवेश कसा घ्याल ?
-                </h3>
-                <span className="text-xs font-black text-pink-600 bg-pink-100 px-2.5 py-1 rounded-full border border-pink-300 shadow-sm">
-                  माहिती
-                </span>
-              </div>
-
-              <ul className="space-y-2.5 list-none p-0 m-0">
-                <li className="flex items-start gap-2.5 text-xs sm:text-sm font-bold text-slate-800 leading-snug">
-                  <CheckCircle2 size={18} className="text-pink-600 shrink-0 mt-0.5" />
-                  <span>प्रति व्यक्ती, महिन्याची, आवडीनुसार किंवा दिवसाची फी भरा.</span>
-                </li>
-                <li className="flex items-start gap-2.5 text-xs sm:text-sm font-bold text-slate-800 leading-snug">
-                  <CheckCircle2 size={18} className="text-pink-600 shrink-0 mt-0.5" />
-                  <span>५ ते १० लाखांपर्यंत फिक्स डिपॉझिट ठेवल्यास व्याजातून राहणे.</span>
-                </li>
-                <li className="flex items-start gap-2.5 text-xs sm:text-sm font-bold text-slate-800 leading-snug">
-                  <CheckCircle2 size={18} className="text-pink-600 shrink-0 mt-0.5" />
-                  <span>सभासद नोंदणी करून सोयीस्कर कन्फर्ट शुल्कात प्रवेश.</span>
-                </li>
-                <li className="flex items-start gap-2.5 text-xs sm:text-sm font-bold text-slate-800 leading-snug">
-                  <CheckCircle2 size={18} className="text-pink-600 shrink-0 mt-0.5" />
-                  <span>एक दिवसाचा डे-पास रू. ६००/- किमतीत सर्व सुविधांसह.</span>
-                </li>
-                <li className="flex items-start gap-2.5 text-xs sm:text-sm font-bold text-slate-800 leading-snug">
-                  <CheckCircle2 size={18} className="text-pink-600 shrink-0 mt-0.5" />
-                  <span>आनंदशाळा फंडातून मासिक सवलत फी (रु. ११,००० ते १५,०००/-).</span>
-                </li>
-                <li className="flex items-start gap-2.5 text-xs sm:text-sm font-bold text-slate-800 leading-snug">
-                  <CheckCircle2 size={18} className="text-pink-600 shrink-0 mt-0.5" />
-                  <span>आनंदविलास राहणे फी किमान रु. १२,०००/- *GST Extra.</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Founder Floating Badge - CLICKABLE */}
-            <div
-              className="bcol-founder-badge-wrapper cursor-pointer hover:scale-[1.02] transition-transform shadow-lg"
-              onClick={() =>
-                setSelectedDetail({
-                  title: "भारतातील पहिलेच ज्येष्ठ नागरिकांची आनंदशाळा",
-                  category: "प्रकल्पाचे मानचिन्ह",
-                  img: "/images/founderimg.png",
-                  mrDesc:
-                    "ज्येष्ठ नागरिकांसाठी उभारलेला भारतातील पहिलाच १.५ एकर निसर्गरम्य हक्काचा डिजिटल प्रकल्प, जेथे स्वातंत्र्य, आरोग्य व सन्मान मिळतो.",
-                  enDesc: "India's 1st 1.5-acre dedicated senior citizen landmark hub.",
-                  highlights: [
-                    "१.५ एकर भव्य निसर्गरम्य परिसर",
-                    "२४x७ डॉक्टर on call वैद्यकीय निगराणी",
-                    "सर्व सुविधायुक्त वातानुकूलित दालने",
-                  ],
-                })
-              }
+        {/* ===== 4 BROCHURE CARDS GRID ===== */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {brochureScanPages.map((item, index) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              onClick={() => {
+                setSelectedIndex(index);
+                setZoomLevel(1);
+              }}
+              className="brochure-card-anim group cursor-pointer relative w-full h-80 sm:h-96 rounded-3xl overflow-hidden shadow-xl"
             >
               <img
-                src="/images/founderimg.png"
-                alt="Founder"
-                className="bcol-founder-badge-img"
-                onError={(e) => {
-                  e.currentTarget.src = buildingImage;
-                }}
+                src={item.image}
+                alt={isEn ? item.titleEn : item.titleMr}
+                loading="eager"
+                className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="bcol-founder-badge-text">
-                भारतातील पहिलेच ज्येष्ठ नागरिकांची 'आनंदशाळा'
-              </div>
+
+
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ===== BOTTOM CONTACT & ADMISSION BANNER ===== */}
+        <div className="mt-14 max-w-4xl mx-auto bg-linear-to-r from-[#1a0429] via-[#310842] to-[#1a0429] rounded-3xl p-6 sm:p-8 text-white shadow-2xl border-2 border-pink-500/30 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-center md:text-left">
+            <h3 className="text-xl sm:text-2xl font-black text-pink-300">
+              {isEn ? "Need Admission Guidance?" : "प्रवेश प्रक्रिया माहिती हवी आहे?"}
+            </h3>
+            <p className="text-sm text-slate-300 font-medium">
+              {isEn
+                ? "Contact us for complete details regarding day passes, packages & rooms."
+                : "दिवसाचा पास, रूम्स व विविध पॅकेजेसच्या माहितीसाठी आजच संपर्क साधा."}
+            </p>
+            <div className="flex items-start justify-center md:justify-start gap-2 text-xs sm:text-sm text-amber-300 font-bold pt-1 leading-relaxed">
+              <MapPin size={18} className="shrink-0 mt-0.5" />
+              <span>
+                {isEn
+                  ? "Preetam Senior Citizen Anandshala, Madhavnagar, Karnal, Dhananjay Garden Road, Sangli."
+                  : "प्रीतम ज्येष्ठ नागरिक आनंदशाळा, माधवनगर, कर्नाळ, धनंजय गार्डन रोड, सांगली."}
+              </span>
             </div>
           </div>
 
-          {/* Column 3 Contact Footer */}
-          <div className="bcol-3-contact-footer">
-            <div className="bcol-contact-row">
-              <Phone size={18} />
-              <span>9970079090 / 9422409748</span>
-            </div>
-            <div className="bcol-contact-address flex items-start gap-1.5">
-              <MapPin size={16} className="shrink-0 text-pink-400 mt-0.5" />
-              <span>आनंदशाळा धाम, सांगली-मिरज रोड, कुपवाड फाटा, सांगली, महाराष्ट्र.</span>
-            </div>
+          <div className="flex items-center justify-center shrink-0">
+            <a
+              href="tel:9970079090"
+              className="px-7 py-3.5 rounded-full bg-pink-600 hover:bg-pink-500 text-white font-black text-base flex items-center gap-2 shadow-lg transition-transform hover:scale-105 cursor-pointer"
+            >
+              <PhoneCall size={20} />
+              <span>9970079090</span>
+            </a>
           </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════
-          POPUP MODAL WINDOW FOR CLICKED ITEM
-         ══════════════════════════════════════════════════════════════ */}
-      {selectedDetail &&
-        typeof document !== "undefined" &&
-        createPortal(
-          <div className="brochure-modal-overlay" onClick={() => setSelectedDetail(null)}>
-            <div className="brochure-modal-card" onClick={(e) => e.stopPropagation()}>
+      {/* ===== INTERACTIVE FULLSCREEN PURE PHOTO MODAL ===== */}
+      <AnimatePresence>
+        {selectedIndex !== null && activePhoto && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-999999 bg-black/95 backdrop-blur-lg flex flex-col items-center justify-between p-4 sm:p-6 select-none overflow-hidden"
+          >
+            {/* TOP FLOATING TOOLBAR */}
+            <div
+              className="w-full max-w-7xl flex items-center justify-end gap-3 z-30 py-2"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* ZOOM CONTROLS */}
+              <div className="flex items-center gap-1 bg-white/10 p-1 rounded-full border border-white/20 backdrop-blur shadow-lg">
+                <button
+                  onClick={zoomOut}
+                  disabled={zoomLevel <= 0.5}
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/20 text-white flex items-center justify-center transition disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer"
+                  title="Zoom Out (-)"
+                >
+                  <ZoomOut size={18} />
+                </button>
+
+                <button
+                  onClick={resetZoom}
+                  className="px-2.5 py-0.5 text-xs font-extrabold text-pink-300 hover:text-white transition cursor-pointer"
+                  title="Reset Zoom"
+                >
+                  {Math.round(zoomLevel * 100)}%
+                </button>
+
+                <button
+                  onClick={zoomIn}
+                  disabled={zoomLevel >= 3.5}
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full hover:bg-white/20 text-white flex items-center justify-center transition disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer"
+                  title="Zoom In (+)"
+                >
+                  <ZoomIn size={18} />
+                </button>
+
+                {zoomLevel !== 1 && (
+                  <button
+                    onClick={resetZoom}
+                    className="p-1.5 text-slate-300 hover:text-white transition cursor-pointer"
+                    title="Reset"
+                  >
+                    <RotateCcw size={16} />
+                  </button>
+                )}
+              </div>
+
               {/* CLOSE BUTTON */}
               <button
-                className="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 border border-slate-300 text-slate-700 flex items-center justify-center cursor-pointer hover:bg-slate-200 transition"
-                onClick={() => setSelectedDetail(null)}
+                onClick={closeImage}
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/15 hover:bg-rose-600 text-white flex items-center justify-center transition border border-white/25 shadow-lg cursor-pointer"
                 aria-label="Close"
               >
-                <X size={20} />
+                <X size={22} />
+              </button>
+            </div>
+
+            {/* MAIN PURE PHOTO DISPLAY AREA */}
+            <div
+              className="relative w-full max-w-6xl flex-1 flex items-center justify-center select-none overflow-hidden my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* PREV BUTTON */}
+              <button
+                onClick={prevImage}
+                className="absolute left-2 sm:left-4 z-30 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/60 hover:bg-pink-600 text-white border border-white/20 backdrop-blur flex items-center justify-center shadow-2xl transition transform hover:scale-110 active:scale-95 cursor-pointer"
+                title="मागील पान"
+              >
+                <ChevronLeft size={24} className="sm:size-8" />
               </button>
 
-              {/* MODAL HEADER BADGE */}
-              <div className="flex justify-center mb-4">
-                <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-900 text-xs font-extrabold px-4 py-1.5 rounded-full shadow-sm">
-                  <Sparkles size={16} className="text-amber-600" />
-                  <span>{selectedDetail.category}</span>
-                </div>
-              </div>
+              {/* 100% PURE BROCHURE PHOTO */}
+              <motion.div
+                key={activePhoto.id}
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.92 }}
+                transition={{ duration: 0.3 }}
+                className="relative max-h-[85vh] max-w-[90vw] rounded-2xl overflow-auto shadow-2xl border border-white/10 flex items-center justify-center bg-black/90 p-2"
+              >
+                <img
+                  src={activePhoto.image}
+                  alt={isEn ? activePhoto.titleEn : activePhoto.titleMr}
+                  style={{
+                    transform: `scale(${zoomLevel})`,
+                    transformOrigin: "center center",
+                    transition: "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                  className="max-h-[82vh] max-w-[88vw] object-contain select-none transition-transform"
+                />
+              </motion.div>
 
-              {/* MODAL BODY */}
-              <div className="flex flex-col items-center text-center mb-6">
-                {selectedDetail.img ? (
-                  <div className="w-full h-48 rounded-2xl overflow-hidden mb-4 border-2 border-pink-200 shadow-md">
-                    <img
-                      src={selectedDetail.img}
-                      alt={selectedDetail.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ) : selectedDetail.icon ? (
-                  <div className="w-20 h-20 rounded-full bg-pink-50 border-2 border-pink-500 flex items-center justify-center text-pink-600 mb-4 shadow-md">
-                    {selectedDetail.icon}
-                  </div>
-                ) : null}
-
-                <h3 className="text-xl font-black text-[#541A1A] mb-2">{selectedDetail.title}</h3>
-
-                <p className="text-sm font-semibold text-slate-700 leading-relaxed mb-2">
-                  {selectedDetail.mrDesc}
-                </p>
-
-                {selectedDetail.enDesc && (
-                  <p className="text-xs font-medium text-slate-500 mb-4">{selectedDetail.enDesc}</p>
-                )}
-
-                {/* HIGHLIGHTS */}
-                <div className="flex flex-col gap-2 bg-slate-50 border border-slate-200 p-3.5 rounded-xl w-full text-left">
-                  {selectedDetail.highlights.map((h, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-2 text-xs font-bold text-slate-800"
-                    >
-                      <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
-                      <span>{h}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* MODAL FOOTER BUTTONS */}
-              <div className="flex flex-col sm:flex-row gap-3 w-full">
-                <a
-                  href={`https://wa.me/919970079090?text=${encodeURIComponent(`Hi, I am interested in your product/service: ${selectedDetail.title}. Please provide more details.`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 bg-linear-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
-                >
-                  <span>💬</span>
-                  <span>
-                    {isEn
-                      ? "WhatsApp Inquiry (9970079090)"
-                      : "माहितीसाठी WhatsApp करा (9970079090)"}
-                  </span>
-                </a>
-
-                <a
-                  href="tel:9970079090"
-                  className="bg-linear-to-r from-pink-600 to-purple-600 text-white font-extrabold text-xs sm:text-sm py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:opacity-95 transition"
-                >
-                  <PhoneCall size={18} />
-                  <span>{isEn ? "Call" : "कॉल करा"}</span>
-                </a>
-              </div>
+              {/* NEXT BUTTON */}
+              <button
+                onClick={nextImage}
+                className="absolute right-2 sm:right-4 z-30 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/60 hover:bg-pink-600 text-white border border-white/20 backdrop-blur flex items-center justify-center shadow-2xl transition transform hover:scale-110 active:scale-95 cursor-pointer"
+                title="पुढील पान"
+              >
+                <ChevronRight size={24} className="sm:size-8" />
+              </button>
             </div>
-          </div>,
-          document.body,
+
+            <div className="h-2" />
+          </motion.div>
         )}
+      </AnimatePresence>
     </div>
   );
 };

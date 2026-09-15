@@ -1383,34 +1383,7 @@ const initialGallery: GalleryItem[] = [
     caption: "आनंदशाळा विशेष सोहळा ८",
     category: ["रौप्य महोत्सव व प्रकाशन"],
   },
-  {
-    id: "g1",
-    url: "/images/Screenshot 2026-07-31 103107.png",
-    caption: "आनंदशाळा मुखपृष्ठ माहिती पत्रक व प्रवेश माहिती",
-    category: [
-      "ज्येष्ठ नागरिक आनंदशाळा माहिती",
-      "रौप्य महोत्सव व प्रकाशन",
-      "प्रीतम व्यावसायिक माहिती",
-    ],
-  },
-  {
-    id: "g2",
-    url: "/images/Screenshot 2026-07-31 103131.png",
-    caption: "आनंदशाळेतील ५ तासांचे वेळापत्रक व १८ उपक्रम हॉल्स",
-    category: ["ज्येष्ठ नागरिक आनंदशाळा माहिती", "ज्येष्ठ नागरिक विरंगुळा केंद्र"],
-  },
-  {
-    id: "g3",
-    url: "/images/Screenshot 2026-07-31 103152.png",
-    caption: "आनंदशाळा १.५ एकर विहंगम परिसर व बांधकाम दृश्य",
-    category: ["आनंदशाळा भूमिपूजन व बांधकाम", "ज्येष्ठ नागरिक आनंदशाळा माहिती"],
-  },
-  {
-    id: "g4",
-    url: "/images/Screenshot 2026-07-31 103213.png",
-    caption: "५५ फुटांची राधाकृष्ण मूर्ती, नियोजित मंदिर व गोशाळा",
-    category: ["आनंदशाळा भूमिपूजन व बांधकाम", "ज्येष्ठ नागरिक आनंदशाळा माहिती"],
-  },
+
   {
     id: "g5",
     url: "/images/Screenshot 2026-07-31 103238.png",
@@ -2052,9 +2025,17 @@ export function useAdminStore() {
     };
     return { ...initialAboutData, ...loaded, sangliPlacesOverrides: mergedOverrides };
   });
-  const [gallery, setGalleryState] = useState<GalleryItem[]>(() =>
-    getStoredData(STORAGE_KEYS.gallery, initialGallery),
-  );
+  const [gallery, setGalleryState] = useState<GalleryItem[]>(() => {
+    const raw = getStoredData(STORAGE_KEYS.gallery, initialGallery);
+    return raw.filter(
+      (item) =>
+        !["g1", "g2", "g3", "g4"].includes(item.id) &&
+        !item.url.includes("103107") &&
+        !item.url.includes("103131") &&
+        !item.url.includes("103152") &&
+        !item.url.includes("103213"),
+    );
+  });
   const [inquiries, setInquiriesState] = useState<InquiryItem[]>(() =>
     getStoredData(STORAGE_KEYS.inquiries, initialInquiries),
   );
@@ -2142,7 +2123,17 @@ export function useAdminStore() {
     const handleUpdate = () => {
       setSiteDataState(getStoredData(STORAGE_KEYS.site, initialSiteData));
       setAboutDataState(getStoredData(STORAGE_KEYS.about, initialAboutData));
-      setGalleryState(getStoredData(STORAGE_KEYS.gallery, initialGallery));
+      const rawGal = getStoredData(STORAGE_KEYS.gallery, initialGallery);
+      setGalleryState(
+        rawGal.filter(
+          (item) =>
+            !["g1", "g2", "g3", "g4"].includes(item.id) &&
+            !item.url.includes("103107") &&
+            !item.url.includes("103131") &&
+            !item.url.includes("103152") &&
+            !item.url.includes("103213"),
+        ),
+      );
       setInquiriesState(getStoredData(STORAGE_KEYS.inquiries, initialInquiries));
       setTestimonialsState(getStoredData(STORAGE_KEYS.testimonials, initialTestimonials));
       setPackagesState(getStoredData(STORAGE_KEYS.packages, initialPackages));
@@ -2255,7 +2246,14 @@ export function useAdminStore() {
               const map = new Map<string, GalleryItem>();
               val.forEach((item: GalleryItem) => { if (item.id) map.set(item.id, item); });
               prev.forEach((item: GalleryItem) => { if (item.id && !map.has(item.id)) map.set(item.id, item); });
-              const merged = Array.from(map.values());
+              const merged = Array.from(map.values()).filter(
+                (item) =>
+                  !["g1", "g2", "g3", "g4"].includes(item.id) &&
+                  !item.url.includes("103107") &&
+                  !item.url.includes("103131") &&
+                  !item.url.includes("103152") &&
+                  !item.url.includes("103213"),
+              );
               try {
                 localStorage.setItem(STORAGE_KEYS.gallery, JSON.stringify(merged));
               } catch (e) { }

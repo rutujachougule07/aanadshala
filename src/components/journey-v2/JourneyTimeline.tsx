@@ -72,7 +72,7 @@ const timelineData = [
     titleMr: "विविध सुविधांची उभारणी",
     titleEn: "Campus Infrastructure",
     descMr:
-      "आनंद निवास, नियोजित गोशाळा, नियोजित श्रीकृष्ण मंदिर, जलतरण (swimming), आनंदशाळा इमारत, फिटनेस व स्पोर्ट्स कॉम्प्लेक्स, फूड कोर्ट, कार्यक्रम स्टेज, गार्डन, लॉन आणि क्रिकेट व इतर खेळांसाठी मैदान.",
+      "आनंद निवास, नियोजित गोशाळा, नियोजित श्रीकृष्ण मंदिर, जलतरण (swimming), आनंदशाळा इमारत, फिटनेस व स्पोर्ट्स कॉम्प्लेक्स, फूड कोर्ट, कार्यक्रम स्टेज, गार्डन, लॉन आणि पिकलबॉल व इतर खेळांसाठी मैदान.",
     descEn:
       "Anand Nivas stay, proposed Gaushala, Krishna Temple, swimming pool, sports complex, food court, stage, gardens & sports grounds.",
     color: "#059669",
