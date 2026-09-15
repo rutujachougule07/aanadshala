@@ -571,18 +571,6 @@ export default function AdminPage() {
         );
       };
 
-      if (
-        fixedSite.activityHalls &&
-        Array.isArray(fixedSite.activityHalls) &&
-        fixedSite.activityHalls.some((h) => isStageImg(h.imageUrl))
-      ) {
-        fixedSite.activityHalls = fixedSite.activityHalls.map((h) => ({
-          ...h,
-          imageUrl: isStageImg(h.imageUrl) ? "" : h.imageUrl,
-        }));
-        needsFix = true;
-      }
-
       setSiteForm(fixedSite);
       if (needsFix) {
         setStoredData(STORAGE_KEYS.site, fixedSite);
@@ -1448,7 +1436,7 @@ export default function AdminPage() {
                     { id: "hall-14", title: "१४. झुम्बा हॉल", category: "झुम्बा & फिटनेस", desc: "झुम्बा हॉलमध्ये जाऊन संगीताच्या तालावर झुम्बा आणि फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam-hall.png" },
                     { id: "hall-15", title: "१५. भोजन कक्ष", category: "भोजन & आस्वाद", desc: "भोजन कक्षामध्ये जाऊन चहा, नाश्ता आणि जेवण करणे.", imageUrl: "/images/subimg/pakruti-hall.png" },
                     { id: "hall-16", title: "१६. विश्रांती हॉल", category: "वाचन & विश्रांती", desc: "विश्रांती हॉलमध्ये जाऊन आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.", imageUrl: "/images/subimg/vishranti-hall.png" },
-                    { id: "hall-17", title: "१७. थिएटर हॉल", category: "थिएटर & सिनेमा", desc: "थिएटर हॉलमध्ये जाऊन टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.", imageUrl: "/images/subimg/ChatGPT-Image-Aug-5,-2026,-04_15_03-PM.png" },
+                    { id: "hall-17", title: "१७. थिएटर हॉल", category: "थिएटर & सिनेमा", desc: "थिएटर हॉलमध्ये जाऊन टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.", imageUrl: "/images/subimg/theater-hall.png" },
                   ];
                   const newForm = { ...store.siteData, activityHalls: defaultHallsList };
                   setSiteForm(newForm);
@@ -1482,7 +1470,7 @@ export default function AdminPage() {
                   { id: "hall-14", title: "१४. झुम्बा हॉल", category: "झुम्बा & फिटनेस", desc: "झुम्बा हॉलमध्ये जाऊन संगीताच्या तालावर झुम्बा आणि फिटनेस सराव करणे.", imageUrl: "/images/subimg/vyayam-hall.png" },
                   { id: "hall-15", title: "१५. भोजन कक्ष", category: "भोजन & आस्वाद", desc: "भोजन कक्षामध्ये जाऊन चहा, नाश्ता आणि जेवण करणे.", imageUrl: "/images/subimg/pakruti-hall.png" },
                   { id: "hall-16", title: "१६. विश्रांती हॉल", category: "वाचन & विश्रांती", desc: "विश्रांती हॉलमध्ये जाऊन आरामखुर्चीवर वाचन करणे, झोपणे व शांत विश्रांती घेणे.", imageUrl: "/images/subimg/vishranti-hall.png" },
-                  { id: "hall-17", title: "१७. थिएटर हॉल", category: "थिएटर & सिनेमा", desc: "थिएटर हॉलमध्ये जाऊन टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.", imageUrl: "/images/subimg/ChatGPT-Image-Aug-5,-2026,-04_15_03-PM.png" },
+                  { id: "hall-17", title: "१७. थिएटर हॉल", category: "थिएटर & सिनेमा", desc: "थिएटर हॉलमध्ये जाऊन टीव्ही, चित्रपट, नाटक इत्यादी पाहणे.", imageUrl: "/images/subimg/theater-hall.png" },
                 ];
 
                 const isGenericStageImage = (url: string) => {

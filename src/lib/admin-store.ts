@@ -126,7 +126,7 @@ export async function uploadImageToFirebase(
       });
 
       const timeoutTask = new Promise<string>((resolve) =>
-        setTimeout(() => resolve(""), 4000),
+        setTimeout(() => resolve(""), 12000),
       );
 
       const resultUrl = await Promise.race([uploadTask, timeoutTask]);
@@ -3000,8 +3000,25 @@ export function useAdminStore() {
       },
     ];
 
+    const currentSiteData = getStoredData<SiteData>(STORAGE_KEYS.site, siteData);
+    const currentAboutData = getStoredData<AboutData>(STORAGE_KEYS.about, aboutData);
+    const currentGallery = getStoredData<GalleryItem[]>(STORAGE_KEYS.gallery, gallery);
+    const currentInquiries = getStoredData<InquiryItem[]>(STORAGE_KEYS.inquiries, inquiries);
+    const currentTestimonials = getStoredData<TestimonialItem[]>(STORAGE_KEYS.testimonials, testimonials);
+    const currentPackages = getStoredData<PackageItem[]>(STORAGE_KEYS.packages, packages);
+    const currentBrochures = getStoredData<BrochureItem[]>(STORAGE_KEYS.brochures, brochures);
+    const currentHomeNews = getStoredData<HomeNewsItem[]>(STORAGE_KEYS.homeNews, homeNews);
+    const currentSchedule = getStoredData<ScheduleConfig>(STORAGE_KEYS.schedule, scheduleConfig);
+    const currentSportsSchedule = getStoredData<ScheduleConfig>(STORAGE_KEYS.sportsSchedule, sportsScheduleConfig);
+    const currentPricing = getStoredData<RateItem[]>(STORAGE_KEYS.pricing, pricingItems);
+    const currentBhojanalaya = getStoredData<BhojanalayaConfig>(STORAGE_KEYS.bhojanalaya, bhojanalayaConfig);
+    const currentSportsPricing = getStoredData<RateItem[]>(STORAGE_KEYS.sportsPricing, sportsPricingItems);
+    const currentSportsMembership = getStoredData<SportsMembershipTier[]>(STORAGE_KEYS.sportsMembership, sportsMembershipTiers);
+    const currentEliteConfig = getStoredData<PreetamEliteConfig>(STORAGE_KEYS.eliteMembership, eliteConfig);
+    const currentVideos = getStoredData<VideoItem[]>(STORAGE_KEYS.videos, videos);
+
     const effectiveOverrides = {
-      ...(aboutData.sangliPlacesOverrides || {}),
+      ...(currentAboutData.sangliPlacesOverrides || {}),
     };
 
     const itemsToSync: Array<{ name: string; key: string; ref: any; payload: any }> = [
@@ -3009,14 +3026,14 @@ export function useAdminStore() {
         name: "site",
         key: STORAGE_KEYS.site,
         ref: doc(db, "app_data", STORAGE_KEYS.site),
-        payload: { data: siteData, updatedAt: now },
+        payload: { data: currentSiteData, updatedAt: now },
       },
       {
         name: "about",
         key: STORAGE_KEYS.about,
         ref: doc(db, "app_data", STORAGE_KEYS.about),
         payload: {
-          data: { ...aboutData, sangliPlacesOverrides: effectiveOverrides },
+          data: { ...currentAboutData, sangliPlacesOverrides: effectiveOverrides },
           updatedAt: now,
         },
       },
@@ -3024,79 +3041,79 @@ export function useAdminStore() {
         name: "gallery",
         key: STORAGE_KEYS.gallery,
         ref: doc(db, "app_data", STORAGE_KEYS.gallery),
-        payload: { data: gallery, updatedAt: now },
+        payload: { data: currentGallery, updatedAt: now },
       },
       {
         name: "inquiries",
         key: STORAGE_KEYS.inquiries,
         ref: doc(db, "app_data", STORAGE_KEYS.inquiries),
-        payload: { data: inquiries, updatedAt: now },
+        payload: { data: currentInquiries, updatedAt: now },
       },
       {
         name: "testimonials",
         key: STORAGE_KEYS.testimonials,
         ref: doc(db, "app_data", STORAGE_KEYS.testimonials),
-        payload: { data: testimonials, updatedAt: now },
+        payload: { data: currentTestimonials, updatedAt: now },
       },
       {
         name: "packages",
         key: STORAGE_KEYS.packages,
         ref: doc(db, "app_data", STORAGE_KEYS.packages),
-        payload: { data: packages, updatedAt: now },
+        payload: { data: currentPackages, updatedAt: now },
       },
       {
         name: "brochures",
         key: STORAGE_KEYS.brochures,
         ref: doc(db, "app_data", STORAGE_KEYS.brochures),
-        payload: { data: brochures, updatedAt: now },
+        payload: { data: currentBrochures, updatedAt: now },
       },
       {
         name: "homeNews",
         key: STORAGE_KEYS.homeNews,
         ref: doc(db, "app_data", STORAGE_KEYS.homeNews),
-        payload: { data: homeNews, updatedAt: now },
+        payload: { data: currentHomeNews, updatedAt: now },
       },
       {
         name: "schedule",
         key: STORAGE_KEYS.schedule,
         ref: doc(db, "app_data", STORAGE_KEYS.schedule),
-        payload: { data: scheduleConfig, updatedAt: now },
+        payload: { data: currentSchedule, updatedAt: now },
       },
       {
         name: "sportsSchedule",
         key: STORAGE_KEYS.sportsSchedule,
         ref: doc(db, "app_data", STORAGE_KEYS.sportsSchedule),
-        payload: { data: sportsScheduleConfig, updatedAt: now },
+        payload: { data: currentSportsSchedule, updatedAt: now },
       },
       {
         name: "pricing",
         key: STORAGE_KEYS.pricing,
         ref: doc(db, "app_data", STORAGE_KEYS.pricing),
-        payload: { data: pricingItems, updatedAt: now },
+        payload: { data: currentPricing, updatedAt: now },
       },
       {
         name: "bhojanalaya",
         key: STORAGE_KEYS.bhojanalaya,
         ref: doc(db, "app_data", STORAGE_KEYS.bhojanalaya),
-        payload: { data: bhojanalayaConfig, updatedAt: now },
+        payload: { data: currentBhojanalaya, updatedAt: now },
       },
       {
         name: "sportsPricing",
         key: STORAGE_KEYS.sportsPricing,
         ref: doc(db, "app_data", STORAGE_KEYS.sportsPricing),
-        payload: { data: sportsPricingItems, updatedAt: now },
+        payload: { data: currentSportsPricing, updatedAt: now },
       },
       {
         name: "sportsMembership",
         key: STORAGE_KEYS.sportsMembership,
         ref: doc(db, "app_data", STORAGE_KEYS.sportsMembership),
-        payload: { data: sportsMembershipTiers, updatedAt: now },
+        payload: { data: currentSportsMembership, updatedAt: now },
       },
       {
         name: "eliteMembership",
         key: STORAGE_KEYS.eliteMembership,
         ref: doc(db, "app_data", STORAGE_KEYS.eliteMembership),
-        payload: { data: eliteConfig, updatedAt: now },
+        payload: { data: currentEliteConfig, updatedAt: now },
       },
       {
         name: "videos",
@@ -3108,13 +3125,13 @@ export function useAdminStore() {
         name: "site_settings",
         key: "general",
         ref: doc(db, "site_settings", "general"),
-        payload: { siteData, updatedAt: now },
+        payload: { siteData: currentSiteData, updatedAt: now },
       },
       {
         name: "about_collection",
         key: "about_main",
         ref: doc(db, "about_collection", "main"),
-        payload: { ...aboutData, sangliPlacesOverrides: effectiveOverrides, updatedAt: now },
+        payload: { ...currentAboutData, sangliPlacesOverrides: effectiveOverrides, updatedAt: now },
       },
       {
         name: "sangli_attractions_all",
@@ -3126,25 +3143,25 @@ export function useAdminStore() {
         name: "activity_halls_all",
         key: "activity_halls_all",
         ref: doc(db, "activity_halls", "all"),
-        payload: { halls: siteData.activityHalls, updatedAt: now },
+        payload: { halls: currentSiteData.activityHalls, updatedAt: now },
       },
       {
         name: "gallery_collection",
         key: "all_gallery",
         ref: doc(db, "gallery_collection", "all"),
-        payload: { items: gallery, updatedAt: now },
+        payload: { items: currentGallery, updatedAt: now },
       },
       {
         name: "inquiries_collection",
         key: "all_inquiries",
         ref: doc(db, "inquiries_collection", "all"),
-        payload: { items: inquiries, updatedAt: now },
+        payload: { items: currentInquiries, updatedAt: now },
       },
       {
         name: "brochures_collection",
         key: "all_brochures",
         ref: doc(db, "brochures_collection", "all"),
-        payload: { items: brochures, updatedAt: now },
+        payload: { items: currentBrochures, updatedAt: now },
       },
       {
         name: "videos_collection",
@@ -3163,8 +3180,8 @@ export function useAdminStore() {
       });
     });
 
-    if (siteData.activityHalls && Array.isArray(siteData.activityHalls)) {
-      siteData.activityHalls.forEach((hall, idx) => {
+    if (currentSiteData.activityHalls && Array.isArray(currentSiteData.activityHalls)) {
+      currentSiteData.activityHalls.forEach((hall, idx) => {
         const hallId = hall.id || `hall-${idx + 1}`;
         itemsToSync.push({
           name: `activity_hall_${hallId}`,
