@@ -42,6 +42,7 @@ import {
   Video,
   Utensils,
   Tag,
+  RotateCcw,
 } from "lucide-react";
 import { HighlightText } from "@/components/HighlightText";
 
@@ -384,8 +385,8 @@ function VideoDropzone({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl transition-all cursor-pointer select-none ${isDragging
-          ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
-          : "border-purple-300 hover:border-pink-600 bg-purple-50/50 hover:bg-pink-50/80"
+        ? "border-pink-600 bg-pink-100 scale-[1.02] shadow-xl ring-4 ring-pink-300"
+        : "border-purple-300 hover:border-pink-600 bg-purple-50/50 hover:bg-pink-50/80"
         } ${compact ? "p-3" : "p-4"}`}
     >
       <input
@@ -518,7 +519,46 @@ export default function AdminPage() {
   const [aboutForm, setAboutForm] = useState(store.aboutData);
 
   useEffect(() => {
-    setSiteForm(store.siteData);
+    if (store.siteData) {
+      const validSG = [
+        "/images/epic_sports_gym_bg.png",
+        "/images/sports img.png",
+        "/images/sqaush game .jpg",
+        "/images/pickleball-court.png",
+        "/images/Screenshot 2026-07-31 103517.png",
+      ];
+      let needsFix = false;
+      const fixedSite = { ...store.siteData };
+
+      if (
+        !fixedSite.sportsBrochureUrl ||
+        fixedSite.sportsBrochureUrl.includes("sports img.png") ||
+        fixedSite.sportsBrochureUrl.includes("103659")
+      ) {
+        fixedSite.sportsBrochureUrl = "/images/Screenshot 2026-07-31 103517.png";
+        needsFix = true;
+      }
+
+      if (
+        !fixedSite.sportsGallery ||
+        !Array.isArray(fixedSite.sportsGallery) ||
+        fixedSite.sportsGallery.some(
+          (url) =>
+            !url ||
+            url.includes("103712") ||
+            url.includes("103659") ||
+            url.includes("sports_club_building_card.png"),
+        )
+      ) {
+        fixedSite.sportsGallery = validSG;
+        needsFix = true;
+      }
+
+      setSiteForm(fixedSite);
+      if (needsFix) {
+        setStoredData(STORAGE_KEYS.site, fixedSite);
+      }
+    }
   }, [store.siteData]);
 
   useEffect(() => {
@@ -963,8 +1003,8 @@ export default function AdminPage() {
                     setSidebarOpen(false);
                   }}
                   className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-black transition-all cursor-pointer group ${isActive
-                      ? "bg-linear-to-r from-[#db2777] via-purple-600 to-[#1A05A2] text-white shadow-md shadow-pink-500/20"
-                      : "text-slate-700 hover:bg-rose-50/80 hover:text-[#db2777]"
+                    ? "bg-linear-to-r from-[#db2777] via-purple-600 to-[#1A05A2] text-white shadow-md shadow-pink-500/20"
+                    : "text-slate-700 hover:bg-rose-50/80 hover:text-[#db2777]"
                     }`}
                 >
                   <Icon
@@ -1001,8 +1041,8 @@ export default function AdminPage() {
               setActiveTab("home");
             }}
             className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${activeModule === "anandshala"
-                ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
-                : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
+              ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
+              : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
               }`}
           >
             <span>🌸</span>
@@ -1026,8 +1066,8 @@ export default function AdminPage() {
               setActiveTab("sports_home");
             }}
             className={`px-6 py-3 rounded-full text-xs sm:text-sm font-black transition-all flex items-center justify-center gap-2.5 cursor-pointer shadow-md ${activeModule === "sports"
-                ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
-                : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
+              ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white ring-4 ring-pink-100 scale-102"
+              : "bg-white text-slate-800 hover:bg-rose-50 border-2 border-rose-200"
               }`}
           >
             <span>🏋️‍♂️</span>
@@ -1870,8 +1910,8 @@ export default function AdminPage() {
                   key={cat}
                   onClick={() => setGalleryFilter(cat)}
                   className={`px-4 py-2 rounded-xl text-xs font-black shrink-0 transition-all cursor-pointer ${galleryFilter === cat
-                      ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white shadow-sm"
-                      : "bg-white text-slate-600 hover:text-[#db2777] border border-rose-100 shadow-xs"
+                    ? "bg-linear-to-r from-[#db2777] to-[#1A05A2] text-white shadow-sm"
+                    : "bg-white text-slate-600 hover:text-[#db2777] border border-rose-100 shadow-xs"
                     }`}
                 >
                   {cat}
@@ -3215,111 +3255,147 @@ export default function AdminPage() {
                   <span>Sports Club Photo Gallery</span>
                 </h1>
                 <p className="text-xs text-slate-500 mt-1 font-semibold">
-                  Manage sports club gallery photos with Edit and Delete options.
+                  Add, edit, or delete sports club gallery photos.
                 </p>
               </div>
+
+              <button
+                onClick={() =>
+                  openEditModal({
+                    type: "sportsGallery",
+                    title: "Add New Sports Photo",
+                    imageUrl: "",
+                    onSave: (_newTitle, newUrl) => {
+                      if (!newUrl) return;
+                      const currentGal = [...(siteForm.sportsGallery || [])];
+                      currentGal.push(newUrl);
+                      const newForm = { ...siteForm, sportsGallery: currentGal };
+                      setSiteForm(newForm);
+                      store.updateSiteData(newForm);
+                      showToast(`✅ New Sports Photo added!`);
+                    },
+                  })
+                }
+                className="px-4 py-2 rounded-full bg-linear-to-r from-[#810B38] to-[#1A05A2] text-white text-xs font-black shadow-md hover:opacity-95 flex items-center gap-2 cursor-pointer border border-rose-300"
+              >
+                <Plus size={14} />
+                <span>Add New Sports Photo</span>
+              </button>
+            </div>
+
+            {/* DRAG & DROP UPLOAD ZONE */}
+            <div className="bg-white border-2 border-dashed border-rose-200 rounded-3xl p-5 shadow-xs">
+              <ImageDropzone
+                label="Drag & drop new sports gallery photo here or click to browse"
+                onFileSelected={(file) =>
+                  handleFileUpload(file, (url) => {
+                    const currentGal = [...(siteForm.sportsGallery || [])];
+                    currentGal.push(url);
+                    const newForm = { ...siteForm, sportsGallery: currentGal };
+                    setSiteForm(newForm);
+                    store.updateSiteData(newForm);
+                    showToast("✅ New Sports Photo uploaded successfully!");
+                  })
+                }
+              />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {(siteForm.sportsGallery || []).map((url, idx) => (
-                <div
-                  key={idx}
-                  className="relative group rounded-2xl overflow-hidden bg-white border border-slate-200 p-2 shadow-xs"
-                >
-                  <div className="relative rounded-xl overflow-hidden bg-slate-50 border h-48">
-                    <img
-                      src={url}
-                      alt={`Sports Gallery ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
+              {(() => {
+                const defaultSG = [
+                  "/images/epic_sports_gym_bg.png",
+                  "/images/sports img.png",
+                  "/images/sqaush game .jpg",
+                  "/images/pickleball-court.png",
+                  "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243460172.jpg",
+                ];
+                const isAnandshalaImage = (url: string) =>
+                  !url ||
+                  url.includes("Screenshot 2026-07-31") ||
+                  url.includes("imgever") ||
+                  url.includes("page-0") ||
+                  url.includes("brochure/");
 
-                    <div className="absolute top-2 right-2 flex items-center gap-1.5 z-20">
-                      <button
-                        onClick={() =>
-                          openEditModal({
-                            type: "sportsGallery",
-                            title: `Sports Photo #${idx + 1}`,
-                            imageUrl: url,
-                            onSave: (_newTitle, newUrl) => {
-                              const currentGal = [...(siteForm.sportsGallery || [])];
-                              currentGal[idx] = newUrl;
+                const rawList = siteForm.sportsGallery || defaultSG;
+                const list = rawList.map((url, idx) => {
+                  if (
+                    !url ||
+                    isAnandshalaImage(url) ||
+                    url.includes("103712") ||
+                    url.includes("103659") ||
+                    url.includes("sports_club_building_card.png")
+                  ) {
+                    return defaultSG[idx % defaultSG.length];
+                  }
+                  return url;
+                });
+
+                return list.map((url, idx) => (
+                  <div
+                    key={idx}
+                    className="relative group rounded-2xl overflow-hidden bg-white border border-slate-200 p-2 shadow-xs"
+                  >
+                    <div className="relative rounded-xl overflow-hidden bg-slate-50 border h-48">
+                      <img
+                        src={url}
+                        alt={`Sports Gallery ${idx + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+
+                      <div className="absolute top-2 right-2 flex items-center gap-1.5 z-20">
+                        <button
+                          onClick={() =>
+                            openEditModal({
+                              type: "sportsGallery",
+                              title: `Sports Photo #${idx + 1}`,
+                              imageUrl: url,
+                              onSave: (_newTitle, newUrl) => {
+                                const currentGal = [...list];
+                                currentGal[idx] = newUrl;
+                                const newForm = { ...siteForm, sportsGallery: currentGal };
+                                setSiteForm(newForm);
+                                store.updateSiteData(newForm);
+                                showToast(`✅ Sports Photo #${idx + 1} updated!`);
+                              },
+                            })
+                          }
+                          className="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1 cursor-pointer border border-rose-200"
+                        >
+                          <Edit size={12} className="text-[#db2777]" />
+                          <span>Edit</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            if (window.confirm(`Are you sure you want to delete Sports Photo #${idx + 1}?`)) {
+                              const currentGal = list.filter((_, i) => i !== idx);
                               const newForm = { ...siteForm, sportsGallery: currentGal };
                               setSiteForm(newForm);
                               store.updateSiteData(newForm);
-                              showToast(`✅ Sports Photo updated!`);
-                            },
-                          })
-                        }
-                        className="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-[11px] font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1 cursor-pointer border border-rose-200"
-                      >
-                        <Edit size={12} className="text-[#db2777]" />
-                        <span>Edit</span>
-                      </button>
-                    </div>
+                              showToast(`🗑️ Sports Photo #${idx + 1} deleted!`);
+                            }
+                          }}
+                          className="px-3 py-1.5 rounded-full bg-red-600/90 backdrop-blur-md text-[11px] font-black text-white shadow-md hover:bg-red-700 flex items-center gap-1 cursor-pointer border border-red-300"
+                        >
+                          <Trash2 size={12} />
+                          <span>Delete</span>
+                        </button>
+                      </div>
 
-                    <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-2 text-white">
-                      <p className="font-black text-xs drop-shadow-md truncate">
-                        Sports Photo #{idx + 1}
-                      </p>
+                      <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-2 text-white">
+                        <p className="font-black text-xs drop-shadow-md truncate">
+                          Sports Photo #{idx + 1}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ));
+              })()}
             </div>
           </div>
         )}
 
-        {/* ================================================================== */}
-        {/* SPORTS TAB 4: SPORTS BROCHURE                                      */}
-        {/* ================================================================== */}
-        {activeTab === "sports_brochure" && (
-          <div className="space-y-6 animate-fade-up">
-            <div className="flex items-center justify-between border-b border-rose-200 pb-4">
-              <div>
-                <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
-                  <FileText className="text-[#db2777]" />
-                  <span>Sports Club Brochure Scan</span>
-                </h1>
-                <p className="text-xs text-slate-500 mt-1 font-semibold">
-                  Manage sports club official brochure scan photo.
-                </p>
-              </div>
-            </div>
 
-            <div className="bg-white border-2 border-rose-100 rounded-3xl p-5 space-y-4 shadow-sm max-w-md">
-              <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-64">
-                <img
-                  src={siteForm.sportsBrochureUrl || "/images/Screenshot 2026-07-31 103659.png"}
-                  alt="Sports Brochure"
-                  className="w-full h-full object-cover"
-                />
-
-                <div className="absolute top-2 right-2 flex items-center gap-1.5 z-20">
-                  <button
-                    onClick={() =>
-                      openEditModal({
-                        type: "sportsBrochure",
-                        title: "Sports Club Brochure",
-                        imageUrl:
-                          siteForm.sportsBrochureUrl || "/images/Screenshot 2026-07-31 103659.png",
-                        onSave: (_newTitle, newUrl) => {
-                          const newForm = { ...siteForm, sportsBrochureUrl: newUrl };
-                          setSiteForm(newForm);
-                          store.updateSiteData(newForm);
-                          showToast("✅ Sports Brochure saved!");
-                        },
-                      })
-                    }
-                    className="px-3.5 py-1.5 rounded-full bg-white/95 text-xs font-black text-[#1A05A2] shadow-md hover:bg-rose-50 flex items-center gap-1.5 border border-rose-200 cursor-pointer"
-                  >
-                    <Edit size={13} className="text-[#db2777]" />
-                    <span>Edit</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* ================================================================== */}
         {/* SPORTS TAB 5: SPORTS INQUIRIES                                     */}
@@ -3433,10 +3509,7 @@ export default function AdminPage() {
                           title: item.title,
                           imageUrl: item.fileUrl,
                           onSave: (newTitle, newUrl) => {
-                            const updated = store.brochures.map((b) =>
-                              b.id === item.id ? { ...b, title: newTitle, fileUrl: newUrl } : b,
-                            );
-                            setStoredData(STORAGE_KEYS.brochures, updated);
+                            store.updateBrochure(item.id, newTitle, newUrl);
                             showToast(`✅ ${newTitle} updated!`);
                           },
                         })
@@ -3453,6 +3526,128 @@ export default function AdminPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================== */}
+        {/* TAB: SPORTS BROCHURE PAGE IMAGES                                   */}
+        {/* ================================================================== */}
+        {activeTab === "sports_brochure" && (
+          <div className="space-y-6 animate-fade-up">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-rose-200 pb-4">
+              <div>
+                <h1 className="text-2xl font-black text-[#1A05A2] flex items-center gap-2">
+                  <FileText className="text-[#0284c7]" />
+                  <span>Sports Club Brochure Scans</span>
+                </h1>
+                <p className="text-xs text-slate-500 mt-1 font-semibold">
+                  Click Edit to replace or Delete to reset any brochure photo to Sports Club images.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  const sportsDefaults = [
+                    "/images/Screenshot 2026-07-31 103107.png",
+                    "/images/Screenshot 2026-07-31 103131.png",
+                    "/images/Screenshot 2026-07-31 103152.png",
+                    "/images/Screenshot 2026-07-31 103213.png",
+                  ];
+                  const newForm = { ...siteForm, sportsBrochurePages: sportsDefaults };
+                  setSiteForm(newForm);
+                  store.updateSiteData(newForm);
+                  store.syncAllToFirebaseCloud();
+                  showToast("🧹 Sports Brochure reset to official brochure scan pages!");
+                }}
+                className="px-4 py-2 rounded-2xl bg-blue-50 hover:bg-blue-100 text-[#0284c7] border border-blue-200 text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+              >
+                <RotateCcw size={14} />
+                <span>Reset to Official Brochure Scans</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {(() => {
+                const defaults = [
+                  { title: "१. प्रीतम माहिती पत्रक मुखपृष्ठ व प्रवेश माहिती", img: "/images/Screenshot 2026-07-31 103107.png" },
+                  { title: "२. ५ तासांचे वेळापत्रक व १८ उपक्रम हॉल्स", img: "/images/Screenshot 2026-07-31 103131.png" },
+                  { title: "३. १.५ एकर परिसर व बांधकाम दृश्य", img: "/images/Screenshot 2026-07-31 103152.png" },
+                  { title: "४. ५५ फुटांची राधाकृष्ण मूर्ती, मंदिर व गोशाळा", img: "/images/Screenshot 2026-07-31 103213.png" },
+                ];
+
+                const rawPages = store.siteData?.sportsBrochurePages || [];
+                const pages = defaults.map((def, idx) => {
+                  const saved = rawPages[idx];
+                  return saved ? saved : def.img;
+                });
+
+                return pages.map((url, idx) => {
+                  const title = defaults[idx]?.title || `स्पोर्ट्स माहिती पत्रक पान #${idx + 1}`;
+                  return (
+                    <div
+                      key={idx}
+                      className="bg-white border-2 border-blue-100 rounded-3xl p-3 space-y-2 shadow-sm relative group"
+                    >
+                      <div className="relative rounded-2xl overflow-hidden bg-slate-50 border h-52">
+                        <img
+                          src={url}
+                          alt={title}
+                          className="w-full h-full object-cover"
+                        />
+                        <span className="absolute top-2 left-2 px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-black text-[#0284c7] border border-blue-200 shadow-xs">
+                          Page #{idx + 1}
+                        </span>
+
+                        <div className="absolute top-2 right-2 flex items-center gap-1.5 z-20">
+                          <button
+                            onClick={() =>
+                              openEditModal({
+                                type: "brochure",
+                                id: `sports-page-${idx}`,
+                                title,
+                                imageUrl: url,
+                                onSave: (newTitle, newUrl) => {
+                                  const current = [...pages];
+                                  current[idx] = newUrl;
+                                  const newForm = { ...siteForm, sportsBrochurePages: current };
+                                  setSiteForm(newForm);
+                                  store.updateSiteData(newForm);
+                                  store.syncAllToFirebaseCloud();
+                                  showToast(`✅ ${newTitle} photo updated!`);
+                                },
+                              })
+                            }
+                            className="px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-black text-[#1A05A2] shadow-md hover:bg-blue-50 flex items-center gap-1 cursor-pointer border border-blue-200"
+                          >
+                            <Edit size={13} className="text-[#0284c7]" />
+                            <span>Edit</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              const current = [...pages];
+                              current[idx] = defaults[idx]?.img || "/images/Screenshot 2026-07-31 103107.png";
+                              const newForm = { ...siteForm, sportsBrochurePages: current };
+                              setSiteForm(newForm);
+                              store.updateSiteData(newForm);
+                              store.syncAllToFirebaseCloud();
+                              showToast("🗑️ Photo reset to default official brochure scan!");
+                            }}
+                            className="px-3 py-1.5 rounded-full bg-rose-600/95 backdrop-blur-md text-xs font-black text-white shadow-md hover:bg-rose-700 flex items-center gap-1 cursor-pointer border border-white/20"
+                          >
+                            <Trash2 size={13} />
+                            <span>Delete</span>
+                          </button>
+                        </div>
+
+                        <div className="absolute bottom-0 inset-x-0 bg-linear-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
+                          <p className="font-black text-xs drop-shadow-md truncate">{title}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                });
+              })()}
             </div>
           </div>
         )}

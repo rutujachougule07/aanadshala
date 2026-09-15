@@ -153,7 +153,7 @@ export function SiteHeader() {
 
           {/* TOP RIGHT ADMISSION CTA BUTTON */}
           <a
-            href="tel:+919370237633"
+            href="tel:+919970079090"
             className="ml-2 inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-2 text-xs sm:text-sm font-black text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
             style={{
               background: "linear-gradient(135deg, #db2777 0%, #1a05a2 100%)",
@@ -252,7 +252,7 @@ export function SiteHeader() {
             })}
 
             <a
-              href="tel:+919370237633"
+              href="tel:+919970079090"
               className="mt-3 flex items-center justify-center gap-2 rounded-2xl py-4 text-base font-black text-white shadow-lg"
               style={{
                 background: "linear-gradient(135deg, #db2777 0%, #1a05a2 100%)",

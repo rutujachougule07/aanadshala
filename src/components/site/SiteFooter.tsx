@@ -135,7 +135,7 @@ export function SiteFooter() {
               {isEn ? "Contact Us" : "संपर्क"}
             </h4>
             <ul className="space-y-4 text-sm font-extrabold text-slate-700">
-              {site.phones.map((p) => (
+              {(isSports ? sportsClub.phones : site.phones).map((p) => (
                 <li key={p}>
                   <a
                     href={`tel:${p.replace(/\s/g, "")}`}
@@ -162,7 +162,7 @@ export function SiteFooter() {
               ))}
               <li>
                 <a
-                  href={`mailto:${site.email}`}
+                  href={`mailto:${isSports ? sportsClub.email : site.email}`}
                   className="group flex items-center gap-3 text-slate-700 transition-all duration-300 hover:text-[#db2777]"
                 >
                   <div className="grid size-8 place-items-center rounded-xl bg-white border border-rose-200 text-[#810B38] group-hover:bg-[#db2777] group-hover:text-white transition-all duration-300 shadow-xs">
@@ -181,7 +181,7 @@ export function SiteFooter() {
                       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                     </svg>
                   </div>
-                  <span className="break-all">{site.email}</span>
+                  <span className="break-all">{isSports ? sportsClub.email : site.email}</span>
                 </a>
               </li>
               <li className="flex items-start gap-3 pt-1 leading-relaxed text-slate-700">

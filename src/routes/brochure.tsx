@@ -17,13 +17,14 @@ import {
   Download,
 } from "lucide-react";
 import { HighlightText } from "@/components/HighlightText";
+import { useAdminStore } from "@/lib/admin-store";
 
-// ===== 4 OFFICIAL BROCHURE SCAN PAGES =====
-const brochureScanPages = [
+// ===== 4 OFFICIAL BROCHURE SCAN PAGES DEFAULT =====
+const defaultBrochureScanPages = [
   {
     id: 1,
     titleEn: "Anandshala Cover Brochure Page & Admission Info",
-    titleMr: "आनंदशाळा मुखपृष्ठ माहिती पत्रक व प्रवेश माहिती",
+    titleMr: "१. आनंदशाळा मुखपृष्ठ माहिती पत्रक व प्रवेश माहिती",
     categoryEn: "Brochure Cover",
     categoryMr: "माहिती पत्रक मुखपृष्ठ",
     date: "2026",
@@ -34,7 +35,7 @@ const brochureScanPages = [
   {
     id: 2,
     titleEn: "5-Hour Daily Timetable & 18 Activity Halls",
-    titleMr: "आनंदशाळेतील ५ तासांचे वेळापत्रक व १८ उपक्रम हॉल्स",
+    titleMr: "२. आनंदशाळेतील ५ तासांचे वेळापत्रक व १८ उपक्रम हॉल्स",
     categoryEn: "Timetable & Halls",
     categoryMr: "वेळापत्रक व हॉल्स",
     date: "2026",
@@ -45,7 +46,7 @@ const brochureScanPages = [
   {
     id: 3,
     titleEn: "1.5 Acre Campus Scenic View & Infrastructure",
-    titleMr: "आनंदशाळा १.५ एकर विहंगम परिसर व बांधकाम दृश्य",
+    titleMr: "३. आनंदशाळा १.५ एकर विहंगम परिसर व बांधकाम दृश्य",
     categoryEn: "Campus Architecture",
     categoryMr: "परिसर व बांधकाम",
     date: "2026",
@@ -56,7 +57,7 @@ const brochureScanPages = [
   {
     id: 4,
     titleEn: "55ft Radha Krishna Statue, Proposed Temple & Gaushala",
-    titleMr: "५५ फुटांची राधाकृष्ण मूर्ती, नियोजित मंदिर व गोशाळा",
+    titleMr: "४. ५५ फुटांची राधाकृष्ण मूर्ती, नियोजित मंदिर व गोशाळा",
     categoryEn: "Spiritual & Temple",
     categoryMr: "अध्यात्म व गोशाळा",
     date: "2026",
@@ -66,8 +67,142 @@ const brochureScanPages = [
   },
 ];
 
+const defaultSportsBrochureScanPages = [
+  {
+    id: 1,
+    titleEn: "1. Preetam Sports & Fitness Club Cover Page",
+    titleMr: "१. प्रीतम स्पोर्ट्स अँड फिटनेस क्लब मुखपृष्ठ माहिती",
+    categoryEn: "Sports Brochure Cover",
+    categoryMr: "स्पोर्ट्स माहिती पत्रक मुखपृष्ठ",
+    date: "2026",
+    image: "/images/sports img.png",
+    descMr: "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब मुखपृष्ठ व क्रीडा संकुल माहिती.",
+    descEn: "Preetam Sports & Fitness Club official brochure cover.",
+  },
+  {
+    id: 2,
+    titleEn: "2. State-of-the-Art A.C. Gym & Fitness Arena",
+    titleMr: "२. अत्याधुनिक ए.सी. जिम व फिटनेस ॲरेना",
+    categoryEn: "Gym & Fitness",
+    categoryMr: "जिम व फिटनेस",
+    date: "2026",
+    image: "/images/epic_sports_gym_bg.png",
+    descMr: "अत्याधुनिक वर्कआउट इक्विपमेंट्स आणि ए.सी. फिटनेस ॲरेना.",
+    descEn: "State-of-the-art gym equipments & fitness arena.",
+  },
+  {
+    id: 3,
+    titleEn: "3. Grand Swimming Pool & International Courts",
+    titleMr: "३. भव्य स्विमिंग पूल व आंतरराष्ट्रीय कोर्ट्स",
+    categoryEn: "Swimming Pool",
+    categoryMr: "स्विमिंग पूल व कोर्ट्स",
+    date: "2026",
+    image: "https://d3k88l35vy59af.cloudfront.net/A42/9663/1762243460172.jpg",
+    descMr: "स्वच्छ भव्य स्विमिंग पूल व आंतरराष्ट्रीय दर्जाचे क्रीडा कोर्ट्स.",
+    descEn: "Olympic size clean swimming pool & international courts.",
+  },
+  {
+    id: 4,
+    titleEn: "4. All-Weather Turf & Pickleball Courts",
+    titleMr: "४. कृत्रिम टर्फ मैदान व पिकलबॉल कोर्ट",
+    categoryEn: "Turf & Pickleball",
+    categoryMr: "टर्फ व पिकलबॉल",
+    date: "2026",
+    image: "/images/pickleball-court.png",
+    descMr: "ऑल-वेदर कृत्रिम टर्फ मैदान व आंतरराष्ट्रीय पिकलबॉल कोर्ट.",
+    descEn: "All-weather artificial turf & international pickleball court.",
+  },
+];
+
 const Brochure: React.FC = () => {
   const { isEn } = useLanguage();
+  const store = useAdminStore();
+  const [currentSection, setCurrentSection] = useState<"aanandshala" | "sports">(() => {
+    try {
+      const activeSec = localStorage.getItem("preetam_active_section");
+      if (activeSec === "sports") return "sports";
+    } catch { }
+    return "aanandshala";
+  });
+
+  const [activeTab, setActiveTab] = useState<"aanandshala" | "sports">(() => {
+    try {
+      const activeSec = localStorage.getItem("preetam_active_section");
+      if (activeSec === "sports") return "sports";
+    } catch { }
+    return "aanandshala";
+  });
+
+  useEffect(() => {
+    const handleSecChange = () => {
+      try {
+        const activeSec = localStorage.getItem("preetam_active_section");
+        if (activeSec === "sports") {
+          setCurrentSection("sports");
+          setActiveTab("sports");
+        } else {
+          setCurrentSection("aanandshala");
+          setActiveTab("aanandshala");
+        }
+      } catch { }
+    };
+    handleSecChange();
+    window.addEventListener("section-changed", handleSecChange);
+    return () => window.removeEventListener("section-changed", handleSecChange);
+  }, []);
+
+  const isAnandshalaImage = (url: string) =>
+    !url ||
+    url.includes("Screenshot 2026-07-31") ||
+    url.includes("imgever") ||
+    url.includes("page-0") ||
+    url.includes("brochure/");
+
+  const rawBrochures =
+    activeTab === "sports"
+      ? (store.siteData?.sportsBrochurePages && store.siteData.sportsBrochurePages.length >= 4
+        ? store.siteData.sportsBrochurePages.map((url, idx) => ({
+          id: `sports-broch-${idx + 1}`,
+          title: defaultBrochureScanPages[idx]?.titleMr || `स्पोर्ट्स माहिती पत्रक पान #${idx + 1}`,
+          category: defaultBrochureScanPages[idx]?.categoryMr || "माहिती पत्रक",
+          fileUrl: url,
+          fileType: "image" as const,
+          description: defaultBrochureScanPages[idx]?.descMr || "",
+          date: "2026",
+        }))
+        : defaultBrochureScanPages.map((d) => ({
+          id: `sports-broch-${d.id}`,
+          title: d.titleMr,
+          category: d.categoryMr,
+          fileUrl: d.image,
+          fileType: "image" as const,
+          description: d.descMr,
+          date: d.date,
+        })))
+      : (store.brochures && store.brochures.length >= 4
+        ? store.brochures
+        : defaultBrochureScanPages.map((d) => ({
+          id: `broch-${d.id}`,
+          title: d.titleMr,
+          category: d.categoryMr,
+          fileUrl: d.image,
+          fileType: "image" as const,
+          description: d.descMr,
+          date: d.date,
+        })));
+
+  const brochureScanPages = rawBrochures.map((b, idx) => ({
+    id: idx + 1,
+    titleEn: b.title || defaultBrochureScanPages[idx]?.titleEn || "",
+    titleMr: b.title || defaultBrochureScanPages[idx]?.titleMr || "",
+    categoryEn: defaultBrochureScanPages[idx]?.categoryEn || "Brochure Page",
+    categoryMr: defaultBrochureScanPages[idx]?.categoryMr || `माहिती पत्रक पान #${idx + 1}`,
+    date: b.date || "2026",
+    image: b.fileUrl || defaultBrochureScanPages[idx]?.image || "",
+    descMr: b.description || defaultBrochureScanPages[idx]?.descMr || b.title,
+    descEn: b.description || defaultBrochureScanPages[idx]?.descEn || b.title,
+  }));
+
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
 
@@ -144,7 +279,7 @@ const Brochure: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
         {/* ===== HEADING ===== */}
-        <div className="text-center mb-10 sm:mb-14">
+        <div className="text-center mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 font-extrabold text-xs sm:text-sm mb-4 border border-pink-200 shadow-xs">
             <Sparkles size={16} />
             <span>{isEn ? "Official Information Brochure 2026" : "अधिकृत माहिती पत्रक २०२६"}</span>
@@ -154,7 +289,17 @@ const Brochure: React.FC = () => {
             className="text-3xl sm:text-[40px] font-black text-[#541A1A] leading-tight"
             style={{ fontWeight: 900 }}
           >
-            {isEn ? (
+            {currentSection === "sports" ? (
+              isEn ? (
+                <>
+                  Preetam Sports Club <span className="text-pink-600">Brochure</span>
+                </>
+              ) : (
+                <>
+                  प्रीतम स्पोर्ट्स क्लब <span className="text-pink-600">माहिती पत्रक</span>
+                </>
+              )
+            ) : isEn ? (
               <>
                 Preetam Senior Citizen <span className="text-pink-600">Brochure</span>
               </>
@@ -169,10 +314,41 @@ const Brochure: React.FC = () => {
             className="mt-3 text-[16px] !font-[300] text-slate-700 max-w-2xl mx-auto leading-relaxed"
             style={{ fontSize: "16px", fontWeight: 300 }}
           >
-            {isEn
-              ? "View & explore the official 4 brochure scan pages of Preetam Senior Citizen Anandshala."
-              : "प्रीतम ज्येष्ठ नागरिक आनंदशाळेचे अधिकृत ४ रंगीत माहिती पत्रक स्कॅन्स पहा व डाऊनलोड करा."}
+            {currentSection === "sports"
+              ? isEn
+                ? "View & explore the official brochure scan pages of Preetam Sports & Fitness Club."
+                : "प्रीतम स्पोर्ट्स अँड फिटनेस क्लबचे अधिकृत रंगीत माहिती पत्रक स्कॅन्स पहा व डाऊनलोड करा."
+              : isEn
+                ? "View & explore the official brochure scan pages of Preetam Senior Citizen Anandshala."
+                : "प्रीतम ज्येष्ठ नागरिक आनंदशाळेचे अधिकृत ४ रंगीत माहिती पत्रक स्कॅन्स पहा व डाऊनलोड करा."}
           </p>
+        </div>
+
+        {/* ===== TAB SWITCHER: CONTEXT AWARE ===== */}
+        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-10">
+          {currentSection === "aanandshala" && (
+            <button
+              onClick={() => {
+                setActiveTab("aanandshala");
+                setSelectedIndex(null);
+              }}
+              className="px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold bg-[#810B38] text-white shadow-md cursor-pointer"
+            >
+              {isEn ? "Anandshala Brochure" : "आनंदशाळा माहिती पत्रक"}
+            </button>
+          )}
+
+          {currentSection === "sports" && (
+            <button
+              onClick={() => {
+                setActiveTab("sports");
+                setSelectedIndex(null);
+              }}
+              className="px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold bg-[#810B38] text-white shadow-md cursor-pointer"
+            >
+              {isEn ? "Sports Club Brochure" : "स्पोर्ट्स क्लब माहिती पत्रक"}
+            </button>
+          )}
         </div>
 
         {/* ===== 4 BROCHURE CARDS GRID ===== */}

@@ -169,7 +169,7 @@ export default function About() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
-                    href={`https://wa.me/919370237633?text=${encodeURIComponent("Hi, I am interested in your product/service: Preetam Anandshala Senior Living. Please provide more details.")}`}
+                    href={`https://wa.me/919970079090?text=${encodeURIComponent("Hi, I am interested in your product/service: Preetam Anandshala Senior Living. Please provide more details.")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-4 rounded-full hover:scale-105 transition shadow-xl whitespace-nowrap flex items-center justify-center gap-2"
@@ -177,7 +177,7 @@ export default function About() {
                     💬 WhatsApp चौकशी →
                   </a>
                   <a
-                    href="tel:+919370237633"
+                    href="tel:+919970079090"
                     className="bg-white text-pink-500 font-bold px-8 py-4 rounded-full hover:scale-105 transition shadow-xl whitespace-nowrap text-center"
                   >
                     📞 कॉल करा

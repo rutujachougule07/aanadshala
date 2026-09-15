@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { db, storage } from "@/firebase";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { brochurePages } from "@/lib/brochure-pages";
 
 export function compressImageFile(file: File, maxDimension = 1920, quality = 0.85): Promise<Blob> {
   return new Promise((resolve) => {
@@ -364,6 +365,7 @@ export type SiteData = {
   sportsImages?: string[];
   sportsBrochureUrl?: string;
   sportsBrochureType?: "image" | "pdf";
+  sportsBrochurePages?: string[];
   sportsFacilities?: SportsFacilityItem[];
   sportsPackages?: SportsPackageItem[];
   sportsGallery?: string[];
@@ -853,8 +855,14 @@ export const initialSiteData: SiteData = {
   sportsTitle: "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब",
   sportsBadge: "अद्ययावत १.५ एकर स्पोर्ट्स संकुल",
   sportsImages: ["/images/sports img.png", "/images/pickleball-court.png"],
-  sportsBrochureUrl: "/images/Screenshot 2026-07-31 103659.png",
+  sportsBrochureUrl: "/images/Screenshot 2026-07-31 103517.png",
   sportsBrochureType: "image",
+  sportsBrochurePages: [
+    "/images/Screenshot 2026-07-31 103107.png",
+    "/images/Screenshot 2026-07-31 103131.png",
+    "/images/Screenshot 2026-07-31 103152.png",
+    "/images/Screenshot 2026-07-31 103213.png",
+  ],
   sportsFacilities: [
     {
       id: "gym",
@@ -991,10 +999,10 @@ export const initialSiteData: SiteData = {
   ],
   sportsGallery: [
     "/images/epic_sports_gym_bg.png",
-    "/images/Screenshot 2026-07-31 103712.png",
-    "/images/Screenshot 2026-07-31 103659.png",
+    "/images/sports img.png",
+    "/images/sqaush game .jpg",
     "/images/pickleball-court.png",
-    "/images/sports_club_building_card.png",
+    "/images/Screenshot 2026-07-31 103517.png",
   ],
   activityHalls: [
     {
@@ -1325,14 +1333,66 @@ if (typeof window !== "undefined") {
 const initialBrochures: BrochureItem[] = [
   {
     id: "broch-1",
-    title: "प्रीतम आनंदशाळा अधिकृत माहिती पत्रक (Official Brochure)",
+    title: "१. आनंदशाळा मुखपृष्ठ माहिती पत्रक व प्रवेश माहिती",
     category: "आनंदशाळा ब्रोशर",
     fileUrl: "/images/Screenshot 2026-07-31 103107.png",
     fileType: "image",
-    description: "आनंदशाळेचे १८ उपक्रम हॉल्स, दैनिक वेळापत्रक व संपूर्ण १८ सुविधांची रंगीत माहिती.",
-    date: "३१ जुलै २०२६",
+    description: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा मुखपृष्ठ माहिती पत्रक व प्रवेश माहिती.",
+    date: "२०२६",
+  },
+  {
+    id: "broch-2",
+    title: "२. आनंदशाळेतच प्रवेश का घ्यायचा?",
+    category: "आनंदशाळा ब्रोशर",
+    fileUrl: "/images/Screenshot 2026-07-31 103131.png",
+    fileType: "image",
+    description: "भारतात सर्वप्रथम सुरु होणाऱ्या प्रीतम ज्येष्ठ नागरिक आनंदशाळेतच प्रवेश का घ्यायचा?",
+    date: "२०२६",
+  },
+  {
+    id: "broch-3",
+    title: "३. आनंदशाळा १.५ एकर विहंगम परिसर व बांधकाम दृश्य",
+    category: "आनंदशाळा ब्रोशर",
+    fileUrl: "/images/Screenshot 2026-07-31 103152.png",
+    fileType: "image",
+    description: "सांगली शहरात १.५ एकर निसर्गरम्य परिसरातील आनंदशाळा संकुल व बांधकाम दृश्य.",
+    date: "२०२६",
+  },
+  {
+    id: "broch-4",
+    title: "४. ५५ फुटांची राधाकृष्ण मूर्ती, नियोजित मंदिर व गोशाळा",
+    category: "आनंदशाळा ब्रोशर",
+    fileUrl: "/images/Screenshot 2026-07-31 103213.png",
+    fileType: "image",
+    description: "सांगलीकरांसाठी मुख्य आकर्षण - ५५ फुटांची राधाकृष्ण मूर्ती, नियोजित श्रीकृष्ण मंदिर व गोशाळा.",
+    date: "२०२६",
   },
 ];
+
+export function ensureAllBrochures(list: any): BrochureItem[] {
+  if (!Array.isArray(list) || list.length < 4) {
+    return initialBrochures;
+  }
+  const has4Valid =
+    list.length >= 4 &&
+    list.every((item: any) => item && typeof item.fileUrl === "string" && item.fileUrl.length > 0);
+
+  if (!has4Valid) {
+    return initialBrochures;
+  }
+
+  return initialBrochures.map((initItem, idx) => {
+    const existing = list[idx];
+    if (existing && existing.fileUrl) {
+      return {
+        ...initItem,
+        ...existing,
+        id: initItem.id,
+      };
+    }
+    return initItem;
+  });
+}
 
 const initialGallery: GalleryItem[] = [
   {
@@ -2045,9 +2105,12 @@ export function useAdminStore() {
   const [packages, setPackagesState] = useState<PackageItem[]>(() =>
     getStoredData(STORAGE_KEYS.packages, initialPackages),
   );
-  const [brochures, setBrochuresState] = useState<BrochureItem[]>(() =>
-    getStoredData(STORAGE_KEYS.brochures, initialBrochures),
-  );
+  const [brochures, setBrochuresState] = useState<BrochureItem[]>(() => {
+    const raw = getStoredData(STORAGE_KEYS.brochures, initialBrochures);
+    const fixed = ensureAllBrochures(raw);
+    setStoredData(STORAGE_KEYS.brochures, fixed);
+    return fixed;
+  });
   const [homeNews, setHomeNewsState] = useState<HomeNewsItem[]>(() =>
     getStoredData(STORAGE_KEYS.homeNews, initialHomeNews),
   );
@@ -2089,9 +2152,30 @@ export function useAdminStore() {
     if (
       !siteData.sportsFacilities ||
       siteData.sportsFacilities.length !== 15 ||
-      siteData.sportsFacilities.some((f) => f.id === "open-gym-lawn")
+      siteData.sportsFacilities.some((f) => f.id === "open-gym-lawn") ||
+      !siteData.sportsBrochureUrl ||
+      siteData.sportsBrochureUrl.includes("103659") ||
+      siteData.sportsBrochureUrl.includes("sports img.png") ||
+      !siteData.sportsBrochurePages ||
+      !Array.isArray(siteData.sportsBrochurePages) ||
+      siteData.sportsBrochurePages.length === 0 ||
+      !siteData.sportsGallery ||
+      !Array.isArray(siteData.sportsGallery) ||
+      siteData.sportsGallery.some(
+        (url) =>
+          !url ||
+          url.includes("103712") ||
+          url.includes("103659") ||
+          url.includes("sports_club_building_card.png"),
+      )
     ) {
-      const updatedSite = { ...siteData, sportsFacilities: initialSiteData.sportsFacilities };
+      const updatedSite = {
+        ...siteData,
+        sportsFacilities: initialSiteData.sportsFacilities,
+        sportsBrochureUrl: "/images/Screenshot 2026-07-31 103517.png",
+        sportsBrochurePages: initialSiteData.sportsBrochurePages,
+        sportsGallery: initialSiteData.sportsGallery,
+      };
       setStoredData(STORAGE_KEYS.site, updatedSite);
       setSiteDataState(updatedSite);
     }
@@ -2116,6 +2200,16 @@ export function useAdminStore() {
         });
       }
     } catch (_) { }
+
+    // Ensure brochures has all 4 scan pages on initial load and syncs to cloud
+    try {
+      const storedB = getStoredData<BrochureItem[]>(STORAGE_KEYS.brochures, initialBrochures);
+      const fixedB = ensureAllBrochures(storedB);
+      setStoredData(STORAGE_KEYS.brochures, fixedB);
+      setBrochuresState(fixedB);
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: fixedB, updatedAt: now }).catch(() => { });
+    } catch (_) { }
   }, []);
 
   useEffect(() => {
@@ -2137,7 +2231,8 @@ export function useAdminStore() {
       setInquiriesState(getStoredData(STORAGE_KEYS.inquiries, initialInquiries));
       setTestimonialsState(getStoredData(STORAGE_KEYS.testimonials, initialTestimonials));
       setPackagesState(getStoredData(STORAGE_KEYS.packages, initialPackages));
-      setBrochuresState(getStoredData(STORAGE_KEYS.brochures, initialBrochures));
+      const rawBrochures = getStoredData(STORAGE_KEYS.brochures, initialBrochures);
+      setBrochuresState(ensureAllBrochures(rawBrochures));
       setHomeNewsState(getStoredData(STORAGE_KEYS.homeNews, initialHomeNews));
       setVideosState(getStoredData(STORAGE_KEYS.videos, initialVideos));
       setScheduleConfigState(getStoredData(STORAGE_KEYS.schedule, initialScheduleConfig));
@@ -2344,12 +2439,11 @@ export function useAdminStore() {
       const brochuresUnsub = onSnapshot(doc(db, "app_data", STORAGE_KEYS.brochures), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
           const val = sanitizeBlobUrls(snapshot.data().data);
-          if (Array.isArray(val) && val.length > 0) {
-            setBrochuresState(val);
-            try {
-              localStorage.setItem(STORAGE_KEYS.brochures, JSON.stringify(val));
-            } catch (e) { }
-          }
+          const fixed = ensureAllBrochures(val);
+          setBrochuresState(fixed);
+          try {
+            localStorage.setItem(STORAGE_KEYS.brochures, JSON.stringify(fixed));
+          } catch (e) { }
         }
       });
       unsubscribes.push(brochuresUnsub);
@@ -2616,6 +2710,20 @@ export function useAdminStore() {
     } catch (_) { }
   };
 
+  const updateBrochure = (id: string, newTitle: string, newUrl: string) => {
+    const updated = brochures.map((b) =>
+      b.id === id ? { ...b, title: newTitle, fileUrl: newUrl } : b,
+    );
+    const fixed = ensureAllBrochures(updated);
+    setBrochuresState(fixed);
+    setStoredData(STORAGE_KEYS.brochures, fixed);
+    try {
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: fixed, updatedAt: now });
+      setDoc(doc(db, "brochures_collection", "all"), { items: fixed, updatedAt: now });
+    } catch (_) { }
+  };
+
   const addHomeNews = (item: Omit<HomeNewsItem, "id" | "date">) => {
     const newNews: HomeNewsItem = {
       id: `news-${Date.now()}`,
@@ -2730,11 +2838,12 @@ export function useAdminStore() {
     setStoredData(STORAGE_KEYS.sportsSchedule, updated);
   };
 
-  const activeBrochures = brochures.filter(
-    (b) =>
-      b.id !== "broch-2" &&
-      b.category !== "स्पोर्ट्स क्लब ब्रोशर" &&
-      !b.category.includes("स्पोर्ट्स"),
+  const activeBrochures = ensureAllBrochures(
+    brochures.filter(
+      (b) =>
+        b.category !== "स्पोर्ट्स क्लब ब्रोशर" &&
+        (!b.category || !b.category.includes("स्पोर्ट्स")),
+    ),
   );
 
   const sportsInquiries = inquiries.filter(isSportsInquiryItem);
@@ -3173,6 +3282,7 @@ export function useAdminStore() {
     updatePackage,
     deletePackage,
     addBrochure,
+    updateBrochure,
     deleteBrochure,
     addHomeNews,
     deleteHomeNews,

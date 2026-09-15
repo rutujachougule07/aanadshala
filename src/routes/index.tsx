@@ -454,20 +454,30 @@ const keyHighlights = [
 
 function IndexComponent() {
   const shouldSkipIntro = useMemo(() => {
-    if (typeof window !== "undefined" && sessionStorage.getItem("skip_intro_banner") === "true") {
-      sessionStorage.removeItem("skip_intro_banner");
-      return true;
+    if (typeof window !== "undefined") {
+      if (
+        sessionStorage.getItem("skip_intro_banner") === "true" ||
+        localStorage.getItem("preetam_active_section")
+      ) {
+        return true;
+      }
     }
     return false;
   }, []);
 
   const [selectedSection, setSelectedSection] = useState<"aanandshala" | "sports" | null>(() => {
-    if (shouldSkipIntro) {
-      return (localStorage.getItem("preetam_active_section") as any) || "aanandshala";
+    if (typeof window !== "undefined") {
+      const activeSec = localStorage.getItem("preetam_active_section");
+      if (activeSec === "sports" || activeSec === "aanandshala") {
+        return activeSec;
+      }
     }
-    return null;
+    return shouldSkipIntro ? "aanandshala" : null;
   });
   const [showIntroBanner, setShowIntroBanner] = useState(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("preetam_active_section")) {
+      return false;
+    }
     return !shouldSkipIntro;
   });
   const { isEn } = useLanguage();
@@ -585,12 +595,15 @@ function IndexComponent() {
   const heroImage = brochurePages[0]?.url || publicImages[0];
   const sportsHeroImage = brochurePages[6]?.url || publicImages[1];
 
-  const sportsHeroImages = [
-    sportsHeroImage,
-    sportsClub.gallery[0] || "/images/sports img.png",
-    sportsClub.facilities[0]?.images[0] || "/images/pickleball-court.png",
-    sportsClub.gallery[1] || "/images/epic_sports_gym_bg.png",
-  ].filter(Boolean);
+  const sportsHeroImages =
+    store.siteData.sportsGallery && store.siteData.sportsGallery.length > 0
+      ? store.siteData.sportsGallery
+      : [
+          sportsHeroImage,
+          sportsClub.gallery[0] || "/images/sports img.png",
+          sportsClub.facilities[0]?.images[0] || "/images/pickleball-court.png",
+          sportsClub.gallery[1] || "/images/epic_sports_gym_bg.png",
+        ].filter(Boolean);
 
   const [sportsBgIdx, setSportsBgIdx] = useState(0);
   const [sportsLightboxIndex, setSportsLightboxIndex] = useState<number | null>(null);

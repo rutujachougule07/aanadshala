@@ -1070,7 +1070,7 @@ export function AboutSangli() {
                     {/* WhatsApp Inquiry Button for Scheduled Day Trips */}
                     <div className="pt-1 pb-2">
                       <a
-                        href={`https://wa.me/919370237633?text=${encodeURIComponent(
+                        href={`https://wa.me/919970079090?text=${encodeURIComponent(
                           `Hi, I want to know about the next scheduled Anandshala group trip for: ${selectedPlace.titleMr}. Please share upcoming dates and details.`,
                         )}`}
                         target="_blank"
@@ -1081,7 +1081,7 @@ export function AboutSangli() {
                         <span>
                           {isEn
                             ? "Inquire Upcoming Trip Dates (WhatsApp)"
-                            : "आगामी सहल वेळापत्रकासाठी WhatsApp करा (9370237633)"}
+                            : "आगामी सहल वेळापत्रकासाठी WhatsApp करा (9970079090)"}
                         </span>
                       </a>
                     </div>

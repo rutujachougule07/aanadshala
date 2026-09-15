@@ -62,7 +62,7 @@ export default function Navbar() {
 
           {/* ── DESKTOP CTA BUTTON ── */}
           <div className="navbar-cta-wrap">
-            <a href="tel:+919370237633" className="navbar-cta-btn">
+            <a href="tel:+919970079090" className="navbar-cta-btn">
               <Phone size={17} />
               <span>संपर्क साधा</span>
             </a>
@@ -97,7 +97,7 @@ export default function Navbar() {
           })}
 
           <a
-            href="tel:+919370237633"
+            href="tel:+919970079090"
             className="navbar-mobile-cta"
             onClick={() => setMobileOpen(false)}
           >

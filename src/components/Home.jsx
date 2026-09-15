@@ -111,7 +111,7 @@ const Home = () => {
             {/* Admission */}
 
             <a
-              href="tel:9370237633"
+              href="tel:9970079090"
               className="flex items-center gap-3 px-8 py-4 rounded-full text-white font-semibold bg-linear-to-r from-pink-400 to-purple-700 hover:scale-105 duration-300 shadow-lg cursor-pointer text-decoration-none"
             >
               <FaUniversity className="text-xl" />
@@ -267,7 +267,7 @@ const Home = () => {
 
             <div className="flex flex-wrap items-center gap-6 mt-8">
               <a
-                href="tel:9370237633"
+                href="tel:9970079090"
                 className="px-10 py-5 rounded-full bg-linear-to-r from-pink-400 to-purple-700 text-white font-bold text-lg shadow-lg hover:scale-105 duration-300 text-decoration-none"
               >
                 Ã°Å¸â€œÅ¾ Ã Â¤â€ Ã Â¤Å“Ã Â¤Å¡ Ã Â¤ÂªÃ Â¥ÂÃ Â¤Â°Ã Â¤ÂµÃ Â¥â€¡Ã Â¤Â¶
@@ -782,7 +782,7 @@ const Home = () => {
                 <div>
                   <p className="text-pink-400 font-semibold">Phone</p>
 
-                  <p className="text-gray-300">+91 9370237633</p>
+                  <p className="text-gray-300">+91 9970079090</p>
                 </div>
 
                 <div>

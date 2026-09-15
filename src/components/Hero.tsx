@@ -73,7 +73,7 @@ export default function Hero() {
             </button>
 
             <a
-              href="tel:+919370237633"
+              href="tel:+919970079090"
               className="px-8 py-4 rounded-full border-2 border-pink-400 text-pink-400 font-semibold hover:bg-pink-50 transition"
             >
               <span className="flex items-center gap-2">

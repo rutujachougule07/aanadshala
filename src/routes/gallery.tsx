@@ -167,59 +167,11 @@ const galleryImages = [
     id: 23,
     titleEn: "Anand Niwas Complex",
     titleMr: "आनंद निवास संकुल",
-    categoryEn: "Senior Citizen Anandshala",
-    categoryMr: "ज्येष्ठ नागरिक आनंदशाळा",
-    date: "10 Jan 2024",
     image: "/images/Screenshot 2026-07-31 103842.png",
-  },
-  {
-    id: 24,
-    titleEn: "Anand Picnic Tour 2",
-    titleMr: "आनंद सहल २",
-    categoryEn: "Annual Function",
-    categoryMr: "वार्षिक स्नेहसंमेलन",
-    date: "2024",
-    image: "/images/aandshala sahal 2.jpg",
-  },
-  {
-    id: 25,
-    titleEn: "Anand Picnic Tour 3",
-    titleMr: "आनंद सहल ३",
-    categoryEn: "Annual Function",
-    categoryMr: "वार्षिक स्नेहसंमेलन",
-    date: "2024",
-    image: "/images/aandshala sahal 3.jpg",
-  },
-  {
-    id: 26,
-    titleEn: "Anand Picnic Tour 4",
-    titleMr: "आनंद सहल ४",
-    categoryEn: "Annual Function",
-    categoryMr: "वार्षिक स्नेहसंमेलन",
-    date: "2024",
-    image: "/images/aandshala sahal 4.jpg",
-  },
-  {
-    id: 27,
-    titleEn: "Anand Picnic Tour 5",
-    titleMr: "आनंद सहल ५",
-    categoryEn: "Annual Function",
-    categoryMr: "वार्षिक स्नेहसंमेलन",
-    date: "2024",
-    image: "/images/aandshala sahal 5.jpeg",
-  },
-  {
-    id: 28,
-    titleEn: "Joy Festival Gathering 9",
-    titleMr: "आनंद मेळावा ९",
-    categoryEn: "Joy Festival",
-    categoryMr: "आनंद मेळावा",
-    date: "2023",
-    image: "/images/aandmelava 9.jpg",
   },
 ];
 
-const categoryList = [
+const aanandshalaCategories = [
   { key: "all", labelEn: "All", labelMr: "सर्व" },
   { key: "anandshala", labelEn: "Senior Citizen Anandshala", labelMr: "ज्येष्ठ नागरिक आनंदशाळा" },
   { key: "melava", labelEn: "Joy Festival", labelMr: "आनंद मेळावा" },
@@ -236,39 +188,86 @@ const videoGalleryItems: VideoItem[] = [];
 function Gallery() {
   const { isEn } = useLanguage();
   const store = useAdminStore();
-  const [activeGalleryType, setActiveGalleryType] = useState<"photos" | "videos">("photos");
+  const [currentSection, setCurrentSection] = useState<"aanandshala" | "sports">(() => {
+    try {
+      const activeSec = localStorage.getItem("preetam_active_section");
+      if (activeSec === "sports") return "sports";
+    } catch {}
+    return "aanandshala";
+  });
+
+  const [activeGalleryType, setActiveGalleryType] = useState<"aanandshala" | "sports" | "videos">(() => {
+    try {
+      const activeSec = localStorage.getItem("preetam_active_section");
+      if (activeSec === "sports") return "sports";
+    } catch {}
+    return "aanandshala";
+  });
   const [selectedKey, setSelectedKey] = useState("all");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
 
-  const selectedCatObj = categoryList.find((c) => c.key === selectedKey);
+  useEffect(() => {
+    const handleSecChange = () => {
+      try {
+        const activeSec = localStorage.getItem("preetam_active_section");
+        if (activeSec === "sports") {
+          setCurrentSection("sports");
+          setActiveGalleryType("sports");
+        } else {
+          setCurrentSection("aanandshala");
+          setActiveGalleryType("aanandshala");
+        }
+      } catch {}
+    };
+    handleSecChange();
+    window.addEventListener("section-changed", handleSecChange);
+    return () => window.removeEventListener("section-changed", handleSecChange);
+  }, []);
 
-  const activeGalleryImages =
+  const selectedCatObj = aanandshalaCategories.find((c) => c.key === selectedKey);
+
+  // 1. PURE ANANDSHALA GALLERY IMAGES (NO SPORTS IMAGES)
+  const aanandshalaImages =
     store.gallery && store.gallery.length > 0
       ? store.gallery.map((item, idx) => ({
-        id: item.id || idx + 1,
-        titleEn: item.caption || "Anandshala Photo",
-        titleMr: item.caption || "आनंदशाळा फोटो",
-        categoryEn: item.category?.[0] || "Senior Citizen Anandshala",
-        categoryMr: item.category?.[0] || "ज्येष्ठ नागरिक आनंदशाळा",
-        date: "२०२६",
-        image: item.url,
-      }))
+          id: item.id || idx + 1,
+          titleEn: item.caption || "Anandshala Photo",
+          titleMr: item.caption || "आनंदशाळा फोटो",
+          categoryEn: item.category?.[0] || "Senior Citizen Anandshala",
+          categoryMr: item.category?.[0] || "ज्येष्ठ नागरिक आनंदशाळा",
+          date: "२०२६",
+          image: item.url,
+        }))
       : galleryImages;
+
+  // 2. PURE SPORTS GALLERY IMAGES (NO ANANDSHALA IMAGES)
+  const sportsGalleryImages = (store.siteData?.sportsGallery || []).map((imgUrl, idx) => ({
+    id: `sports-${idx + 1}`,
+    titleEn: `Sports & Fitness Club Photo ${idx + 1}`,
+    titleMr: `स्पोर्ट्स अँड फिटनेस क्लब फोटो ${idx + 1}`,
+    categoryEn: "Sports & Fitness Club",
+    categoryMr: "स्पोर्ट्स अँड फिटनेस क्लब",
+    date: "२०२६",
+    image: imgUrl,
+  }));
+
+  const activeGalleryImages =
+    activeGalleryType === "sports" ? sportsGalleryImages : aanandshalaImages;
 
   const activeVideos = store.videos || [];
 
   const filteredImages =
-    selectedKey === "all"
+    activeGalleryType === "sports" || selectedKey === "all"
       ? activeGalleryImages
       : activeGalleryImages.filter((item) => {
-        if (!selectedCatObj) return true;
-        return (
-          item.categoryMr.includes(selectedCatObj.labelMr) ||
-          item.categoryEn.includes(selectedCatObj.labelEn)
-        );
-      });
+          if (!selectedCatObj) return true;
+          return (
+            (item.categoryMr && item.categoryMr.includes(selectedCatObj.labelMr)) ||
+            (item.categoryEn && item.categoryEn.includes(selectedCatObj.labelEn))
+          );
+        });
 
   const closeImage = () => {
     setSelectedIndex(null);
@@ -345,77 +344,128 @@ function Gallery() {
         {/* ===== HEADING ===== */}
         <div className="text-center mb-8 sm:mb-10">
           <h1 className="text-2xl sm:text-[35px] font-black text-[#541A1A]" style={{ fontSize: "35px", fontWeight: 900 }}>
-            {isEn ? (
+            {activeGalleryType === "sports" ? (
+              isEn ? (
+                <>
+                  Preetam Sports & Fitness Club <span className="text-pink-600">Photo Gallery</span>
+                </>
+              ) : (
+                <>
+                  प्रीतम स्पोर्ट्स क्लब <span className="text-pink-600">फोटो गॅलरी</span>
+                </>
+              )
+            ) : activeGalleryType === "videos" ? (
+              isEn ? (
+                <>
+                  Preetam Project <span className="text-pink-600">Video Gallery</span>
+                </>
+              ) : (
+                <>
+                  प्रीतम प्रकल्प <span className="text-pink-600">व्हिडिओ गॅलरी</span>
+                </>
+              )
+            ) : isEn ? (
               <>
-                <span className="text-pink-600">Anandshala</span> Gallery
+                Preetam Senior Citizen <span className="text-pink-600">Anandshala Gallery</span>
               </>
             ) : (
               <>
-                <span className="text-pink-600">आनंदशाळा</span> गॅलरी
+                प्रीतम ज्येष्ठ नागरिक <span className="text-pink-600">आनंदशाळा फोटो गॅलरी</span>
               </>
             )}
           </h1>
 
           <p className="section-main-subtitle mt-2 text-[16px] !font-[300] text-black max-w-2xl mx-auto" style={{ fontSize: "16px", fontWeight: 300, color: "#000000" }}>
-            {isEn
+            {activeGalleryType === "sports"
+              ? isEn
+                ? "High quality photos of state-of-the-art Gym, Courts, Turf, Swimming Pool & Sports Facilities."
+                : "अत्याधुनिक जिम, कोर्ट्स, टर्फ, स्विमिंग पूल व क्रीडा संकुलाची वैशिष्ट्यपूर्ण छायाचित्रे."
+              : isEn
               ? "Beautiful photos and videos of joyful moments created in a picturesque 15-acre campus in Sangli."
               : "सांगलीच्या कुशीत, निसर्गरम्य १५ एकर परिसरात साकारलेल्या आनंदी क्षणांची सुंदर चित्रे व व्हिडीओ."}
           </p>
         </div>
 
-        {/* ===== 2 MAIN GALLERY MODE SWITCHER BUTTONS (PHOTOS vs VIDEOS) ===== */}
-        <div className="flex items-center justify-center gap-3 sm:gap-4 mb-10">
-          <button
-            onClick={() => {
-              setActiveGalleryType("photos");
-              setSelectedVideo(null);
-            }}
-            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${activeGalleryType === "photos"
-                ? "bg-[#810B38] text-white shadow-md"
-                : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
+        {/* ===== MAIN GALLERY MODE SWITCHER BUTTONS ===== */}
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10">
+          {currentSection === "aanandshala" && (
+            <button
+              onClick={() => {
+                setActiveGalleryType("aanandshala");
+                setSelectedKey("all");
+                setSelectedIndex(null);
+                setSelectedVideo(null);
+              }}
+              className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
+                activeGalleryType === "aanandshala"
+                  ? "bg-[#810B38] text-white shadow-md scale-105"
+                  : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
               }`}
-          >
-            {isEn ? "Photo Gallery" : "फोटो गॅलरी"}
-          </button>
+            >
+              {isEn ? "Anandshala Photo Gallery" : "आनंदशाळा फोटो गॅलरी"}
+            </button>
+          )}
+
+          {currentSection === "sports" && (
+            <button
+              onClick={() => {
+                setActiveGalleryType("sports");
+                setSelectedKey("all");
+                setSelectedIndex(null);
+                setSelectedVideo(null);
+              }}
+              className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
+                activeGalleryType === "sports"
+                  ? "bg-[#810B38] text-white shadow-md scale-105"
+                  : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
+              }`}
+            >
+              {isEn ? "Sports Club Photo Gallery" : "स्पोर्ट्स क्लब फोटो गॅलरी"}
+            </button>
+          )}
 
           <button
             onClick={() => {
               setActiveGalleryType("videos");
               setSelectedIndex(null);
             }}
-            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${activeGalleryType === "videos"
-                ? "bg-[#810B38] text-white shadow-md"
+            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
+              activeGalleryType === "videos"
+                ? "bg-[#810B38] text-white shadow-md scale-105"
                 : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
-              }`}
+            }`}
           >
             {isEn ? "Video Gallery" : "व्हिडिओ गॅलरी"}
           </button>
         </div>
 
-        {/* ===== VIEW 1: PHOTO GALLERY ===== */}
-        {activeGalleryType === "photos" && (
+        {/* ===== VIEW 1 & 2: PHOTO GALLERY (ANANDSHALA OR SPORTS) ===== */}
+        {(activeGalleryType === "aanandshala" || activeGalleryType === "sports") && (
           <div className="space-y-6">
-            {/* CATEGORY FILTER BUTTONS */}
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
-              {categoryList.map((category) => {
-                const isActive = selectedKey === category.key;
-                return (
-                  <button
-                    key={category.key}
-                    onClick={() => {
-                      setSelectedKey(category.key);
-                      setSelectedIndex(null);
-                    }}
-                    className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${isActive
-                        ? "bg-linear-to-r from-pink-600 to-purple-600 text-white shadow-md scale-105"
-                        : "bg-white text-slate-700 border border-slate-200 hover:border-pink-300 hover:text-pink-600 hover:shadow-sm"
+            {/* CATEGORY FILTER BUTTONS (ONLY FOR ANANDSHALA) */}
+            {activeGalleryType === "aanandshala" && (
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
+                {aanandshalaCategories.map((category) => {
+                  const isActive = selectedKey === category.key;
+                  return (
+                    <button
+                      key={category.key}
+                      onClick={() => {
+                        setSelectedKey(category.key);
+                        setSelectedIndex(null);
+                      }}
+                      className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
+                        isActive
+                          ? "bg-linear-to-r from-pink-600 to-purple-600 text-white shadow-md scale-105"
+                          : "bg-white text-slate-700 border border-slate-200 hover:border-pink-300 hover:text-pink-600 hover:shadow-sm"
                       }`}
-                  >
-                    {isEn ? category.labelEn : category.labelMr}
-                  </button>
-                );
-              })}
-            </div>
+                    >
+                      {isEn ? category.labelEn : category.labelMr}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
 
             {/* GALLERY CARDS GRID */}
             {filteredImages.length === 0 ? (
@@ -445,8 +495,6 @@ function Gallery() {
                         (e.target as HTMLImageElement).src = "/images/aandshala%20sahal%201.jpeg";
                       }}
                     />
-
-
                   </motion.div>
                 ))}
               </div>

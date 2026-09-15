@@ -21,6 +21,30 @@ import { useLanguage } from "@/lib/use-language";
 function Contact() {
   const { addInquiry } = useAdminStore();
   const { isEn } = useLanguage();
+  const [activeSection, setActiveSection] = useState<"aanandshala" | "sports">(() => {
+    try {
+      const activeSec = localStorage.getItem("preetam_active_section");
+      if (activeSec === "sports") return "sports";
+    } catch {}
+    return "aanandshala";
+  });
+
+  useEffect(() => {
+    const handleSecChange = () => {
+      try {
+        const activeSec = localStorage.getItem("preetam_active_section");
+        if (activeSec === "sports") {
+          setActiveSection("sports");
+        } else {
+          setActiveSection("aanandshala");
+        }
+      } catch {}
+    };
+    handleSecChange();
+    window.addEventListener("section-changed", handleSecChange);
+    return () => window.removeEventListener("section-changed", handleSecChange);
+  }, []);
+
   const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -150,7 +174,11 @@ function Contact() {
 
         {/* Header Title */}
         <h1 className="relative z-10 text-xl sm:text-2xl lg:text-[35px] font-black text-[#1A05A2] tracking-tight mb-3 drop-shadow-xs" style={{ fontSize: "35px", fontWeight: 900 }}>
-          {isEn ? (
+          {activeSection === "sports"
+            ? isEn
+              ? "Contact Preetam Sports & Fitness Club"
+              : "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब संपर्क"
+            : isEn ? (
             <>
               Contact Preetam <span className="text-[#db2777]">Anandshala</span>
             </>
@@ -170,95 +198,88 @@ function Contact() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 space-y-12">
         {/* ══════════════════════════════════════════════════════════════
-            4 QUICK CONTACT CARDS (PROMINENT LARGE FIT GRID)
+            QUICK CONTACT CARDS (SECTION SPECIFIC)
            ══════════════════════════════════════════════════════════════ */}
-        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {/* Card 1: Anandshala Helpline */}
-          <a
-            href="tel:9970079090"
-            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-rose-100 shadow-md hover:shadow-2xl hover:border-pink-300 transition-all group cursor-pointer"
-          >
-            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-lg shadow-pink-200 group-hover:scale-110 transition-transform">
-              <Phone size={26} />
-            </div>
-            <div className="overflow-hidden min-w-0">
-              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
-                {isEn ? (
-                  <>
-                    <span className="text-pink-600 font-black">Anandshala</span> Helpline
-                  </>
-                ) : (
-                  <>
-                    <span className="text-pink-600 font-black">आनंदशाळा</span> हेल्पलाईन
-                  </>
-                )}
-              </p>
-              <p className="text-base sm:text-lg font-black text-[#be185d] tracking-wide whitespace-nowrap group-hover:text-pink-600 transition-colors">
-                +91-9970079090
-              </p>
-            </div>
-          </a>
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+          {/* Section Specific Helpline Card */}
+          {activeSection === "sports" ? (
+            <a
+              href="tel:9370237633"
+              className="flex items-center gap-3 sm:gap-4 bg-white rounded-3xl p-4 sm:p-5 border-2 border-purple-100 shadow-md hover:shadow-2xl hover:border-purple-300 transition-all group cursor-pointer"
+            >
+              <div className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-linear-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-purple-200 group-hover:scale-110 transition-transform">
+                <Phone size={24} />
+              </div>
+              <div className="overflow-hidden min-w-0 flex-1">
+                <p className="text-xs sm:text-sm font-black text-slate-500 mb-0.5 truncate">
+                  {isEn ? "Sports Club Helpline" : "स्पोर्ट्स क्लब हेल्पलाईन"}
+                </p>
+                <p className="text-sm sm:text-base font-black text-[#1A05A2] tracking-wide whitespace-nowrap group-hover:text-purple-600 transition-colors">
+                  +91-9370237633
+                </p>
+              </div>
+            </a>
+          ) : (
+            <a
+              href="tel:9970079090"
+              className="flex items-center gap-3 sm:gap-4 bg-white rounded-3xl p-4 sm:p-5 border-2 border-rose-100 shadow-md hover:shadow-2xl hover:border-pink-300 transition-all group cursor-pointer"
+            >
+              <div className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-linear-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white shadow-lg shadow-pink-200 group-hover:scale-110 transition-transform">
+                <Phone size={24} />
+              </div>
+              <div className="overflow-hidden min-w-0 flex-1">
+                <p className="text-xs sm:text-sm font-black text-slate-500 mb-0.5 truncate">
+                  {isEn ? (
+                    <>
+                      <span className="text-pink-600 font-black">Anandshala</span> Helpline
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-pink-600 font-black">आनंदशाळा</span> हेल्पलाईन
+                    </>
+                  )}
+                </p>
+                <p className="text-sm sm:text-base font-black text-[#be185d] tracking-wide whitespace-nowrap group-hover:text-pink-600 transition-colors">
+                  +91-9970079090
+                </p>
+              </div>
+            </a>
+          )}
 
-          {/* Card 2: Sports Club Helpline */}
+          {/* WhatsApp Chat */}
           <a
-            href="tel:9370237633"
-            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-purple-100 shadow-md hover:shadow-2xl hover:border-purple-300 transition-all group cursor-pointer"
-          >
-            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-purple-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-purple-200 group-hover:scale-110 transition-transform">
-              <Phone size={26} />
-            </div>
-            <div className="overflow-hidden min-w-0">
-              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
-                {isEn ? (
-                  <>
-                    <span className="text-amber-600 font-black">Sports Club</span> Helpline
-                  </>
-                ) : (
-                  <>
-                    <span className="text-amber-600 font-black">स्पोर्ट्स क्लब</span> हेल्पलाईन
-                  </>
-                )}
-              </p>
-              <p className="text-base sm:text-lg font-black text-[#1A05A2] tracking-wide whitespace-nowrap group-hover:text-purple-600 transition-colors">
-                +91-9370237633
-              </p>
-            </div>
-          </a>
-
-          {/* Card 3: WhatsApp Chat */}
-          <a
-            href="https://wa.me/919970079090"
+            href={activeSection === "sports" ? "https://wa.me/919370237633" : "https://wa.me/919970079090"}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-emerald-100 shadow-md hover:shadow-2xl hover:border-emerald-300 transition-all group cursor-pointer"
+            className="flex items-center gap-3 sm:gap-4 bg-white rounded-3xl p-4 sm:p-5 border-2 border-emerald-100 shadow-md hover:shadow-2xl hover:border-emerald-300 transition-all group cursor-pointer"
           >
-            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-lg shadow-emerald-200 group-hover:scale-110 transition-transform">
-              <MessageCircle size={26} />
+            <div className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-linear-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white shadow-lg shadow-emerald-200 group-hover:scale-110 transition-transform">
+              <MessageCircle size={24} />
             </div>
-            <div className="overflow-hidden min-w-0">
-              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
+            <div className="overflow-hidden min-w-0 flex-1">
+              <p className="text-xs sm:text-sm font-black text-slate-500 mb-0.5 truncate">
                 {isEn ? "WhatsApp Inquiry" : "WhatsApp हेल्पलाईन"}
               </p>
-              <p className="text-base sm:text-lg font-black text-emerald-700 tracking-wide whitespace-nowrap group-hover:text-teal-600 transition-colors">
-                +91-9970079090
+              <p className="text-sm sm:text-base font-black text-emerald-700 tracking-wide whitespace-nowrap group-hover:text-teal-600 transition-colors">
+                {activeSection === "sports" ? "+91-9370237633" : "+91-9970079090"}
               </p>
             </div>
           </a>
 
-          {/* Card 4: Email */}
+          {/* Email */}
           <a
             href={`mailto:${site.email}`}
-            className="flex items-center gap-4 bg-white rounded-3xl p-5 sm:p-6 border-2 border-orange-100 shadow-md hover:shadow-2xl hover:border-orange-300 transition-all group cursor-pointer"
+            className="flex items-center gap-3 sm:gap-4 bg-white rounded-3xl p-4 sm:p-5 border-2 border-orange-100 shadow-md hover:shadow-2xl hover:border-orange-300 transition-all group cursor-pointer"
           >
-            <div className="shrink-0 w-13 h-13 sm:w-15 sm:h-15 rounded-2xl bg-linear-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white shadow-lg shadow-orange-200 group-hover:scale-110 transition-transform">
-              <Mail size={26} />
+            <div className="shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-linear-to-br from-orange-500 to-amber-600 flex items-center justify-center text-white shadow-lg shadow-orange-200 group-hover:scale-110 transition-transform">
+              <Mail size={24} />
             </div>
-            <div className="overflow-hidden min-w-0">
-              <p className="text-xs sm:text-sm font-black text-slate-500 mb-1 truncate">
+            <div className="overflow-hidden min-w-0 flex-1">
+              <p className="text-xs sm:text-sm font-black text-slate-500 mb-0.5 truncate">
                 {isEn ? "Email Address" : "ई-मेल पत्ता"}
               </p>
               <p
-                className="text-xs sm:text-base font-black text-orange-600 tracking-tight truncate group-hover:text-amber-700 transition-colors"
+                className="text-[11px] sm:text-xs lg:text-sm font-black text-orange-600 tracking-tight leading-tight break-all group-hover:text-amber-700 transition-colors"
                 title={site.email}
               >
                 {site.email}
@@ -284,7 +305,11 @@ function Contact() {
                   {isEn ? "Visit Us & Address" : "भेट द्या व पत्ता"}
                 </h2>
                 <p className="text-xs font-bold text-slate-500 mt-0.5">
-                  {isEn ? (
+                  {activeSection === "sports" ? (
+                    isEn
+                      ? "Preetam Sports & Fitness Club, Sangli"
+                      : "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब, सांगली"
+                  ) : isEn ? (
                     <>
                       Preetam Senior Citizen{" "}
                       <span className="text-[#db2777] font-black">Anandshala</span>, Sangli
@@ -309,7 +334,13 @@ function Contact() {
                     {isEn ? "Official Postal Address" : "अधिकृत पत्ता"}
                   </p>
                   <p className="text-xs sm:text-sm font-bold text-slate-700 leading-relaxed">
-                    {isEn ? site.addressEn : site.addressMr}
+                    {activeSection === "sports"
+                      ? isEn
+                        ? "Preetam Sports & Fitness Club, Madhavnagar, Karnal, Dhananjay Garden Road, Sangli."
+                        : "प्रीतम स्पोर्ट्स अँड फिटनेस क्लब, माधवनगर, कर्नाळ, धनंजय गार्डन रोड, सांगली."
+                      : isEn
+                      ? site.addressEn
+                      : site.addressMr}
                   </p>
                 </div>
               </div>
@@ -318,53 +349,89 @@ function Contact() {
 
           {/* 3 Horizontal Sub-Cards Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
-            {/* Anandshala Center */}
+            {/* Center / Campus Sub-Card */}
             <div className="bg-linear-to-br from-rose-50/90 to-pink-100/60 rounded-2xl p-4 border-2 border-rose-200/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all flex items-center gap-3.5">
               <div className="w-11 h-11 rounded-2xl bg-linear-to-br from-pink-500 to-rose-600 text-white flex items-center justify-center shadow-md shadow-pink-200 shrink-0">
                 <Building size={22} />
               </div>
               <div className="min-w-0">
                 <p className="text-xs font-black text-[#810B38]">
-                  <span className="text-[#db2777] font-black">
-                    {isEn ? "Anandshala" : "आनंदशाळेचे"}
-                  </span>
-                  {isEn ? " Campus" : " केंद्र"}
+                  {activeSection === "sports" ? (
+                    isEn ? "Sports Complex Campus" : "स्पोर्ट्स संकुल केंद्र"
+                  ) : (
+                    <>
+                      <span className="text-[#db2777] font-black">
+                        {isEn ? "Anandshala" : "आनंदशाळेचे"}
+                      </span>
+                      {isEn ? " Campus" : " केंद्र"}
+                    </>
+                  )}
                 </p>
                 <span className="inline-block bg-white/90 border border-pink-200 text-[#db2777] text-[11px] font-black px-2.5 py-0.5 rounded-full mt-1 shadow-2xs">
-                  {isEn ? "Building 1 to Survey 5" : "इमारती नं. १ ते सर्वे. ५"}
+                  {activeSection === "sports"
+                    ? isEn
+                      ? "International Standard Sports Campus"
+                      : "आंतरराष्ट्रीय दर्जाचे क्रीडा संकुल"
+                    : isEn
+                    ? "Building 1 to Survey 5"
+                    : "इमारती नं. १ ते सर्वे. ५"}
                 </span>
               </div>
             </div>
 
-            {/* Office Center */}
+            {/* Office Sub-Card */}
             <div className="bg-linear-to-br from-indigo-50/90 to-blue-100/60 rounded-2xl p-4 border-2 border-blue-200/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all flex items-center gap-3.5">
               <div className="w-11 h-11 rounded-2xl bg-linear-to-br from-[#1A05A2] to-indigo-600 text-white flex items-center justify-center shadow-md shadow-blue-200 shrink-0">
                 <Building size={22} />
               </div>
               <div className="min-w-0">
                 <p className="text-xs font-black text-[#1A05A2]">
-                  {isEn ? "Office Center" : "कार्यालय केंद्र"}
+                  {activeSection === "sports"
+                    ? isEn
+                      ? "Sports Club Office"
+                      : "स्पोर्ट्स क्लब कार्यालय"
+                    : isEn
+                    ? "Office Center"
+                    : "कार्यालय केंद्र"}
                 </p>
                 <span className="inline-block bg-white/90 border border-blue-200 text-[#1A05A2] text-[11px] font-black px-2.5 py-0.5 rounded-full mt-1 shadow-2xs">
-                  {isEn ? "Building 6 to Survey 9" : "इमारती नं. ६ ते सर्वे. ९"}
+                  {activeSection === "sports"
+                    ? isEn
+                      ? "Club Admin & Booking Office"
+                      : "क्लब ॲडमिन व बुकिंग कार्यालय"
+                    : isEn
+                    ? "Building 6 to Survey 9"
+                    : "इमारती नं. ६ ते सर्वे. ९"}
                 </span>
               </div>
             </div>
 
-            {/* Timings */}
+            {/* Timings Sub-Card */}
             <div className="bg-linear-to-br from-amber-50/90 to-orange-100/60 rounded-2xl p-4 border-2 border-amber-200/80 shadow-sm hover:shadow-md hover:scale-[1.02] transition-all flex items-center gap-3.5">
               <div className="w-11 h-11 rounded-2xl bg-linear-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center shadow-md shadow-amber-200 shrink-0">
                 <Clock size={22} />
               </div>
               <div className="min-w-0">
                 <p className="text-xs font-black text-amber-900">
-                  <span className="text-[#db2777] font-black">
-                    {isEn ? "Anandshala" : "आनंदशाळा"}
-                  </span>{" "}
-                  {isEn ? "& Office Timings" : "व कार्यालय वेळ"}
+                  {activeSection === "sports" ? (
+                    isEn ? "Sports & Gym Timings" : "स्पोर्ट्स क्लब व जीम वेळ"
+                  ) : (
+                    <>
+                      <span className="text-[#db2777] font-black">
+                        {isEn ? "Anandshala" : "आनंदशाळा"}
+                      </span>{" "}
+                      {isEn ? "& Office Timings" : "व कार्यालय वेळ"}
+                    </>
+                  )}
                 </p>
                 <span className="inline-block bg-white/90 border border-amber-200 text-amber-800 text-[11px] font-black px-2.5 py-0.5 rounded-full mt-1 shadow-2xs">
-                  {isEn ? "11 AM - 5 PM (Daily)" : "सकाळी ११:०० ते सायं. ५:००"}
+                  {activeSection === "sports"
+                    ? isEn
+                      ? "6 AM to 9:30 PM (Daily)"
+                      : "सकाळी ६:०० ते रात्री ९:३०"
+                    : isEn
+                    ? "11 AM - 5 PM (Daily)"
+                    : "सकाळी ११:०० ते सायं. ५:००"}
                 </span>
               </div>
             </div>
@@ -577,7 +644,17 @@ function Contact() {
                   📍 {isEn ? "Google Maps Location" : "गूगल मॅप लोकेशन"}
                 </h3>
                 <p className="text-xs font-bold text-slate-500">
-                  {isEn ? (
+                  {activeSection === "sports" ? (
+                    isEn ? (
+                      <>
+                        Preetam <span className="text-[#0284c7] font-black">Sports & Fitness Club</span> Campus
+                      </>
+                    ) : (
+                      <>
+                        प्रीतम <span className="text-[#0284c7] font-black">स्पोर्ट्स अँड फिटनेस क्लब</span> परिसर
+                      </>
+                    )
+                  ) : isEn ? (
                     <>
                       Preetam Senior Citizen{" "}
                       <span className="text-[#db2777] font-black">Anandshala</span> Campus
@@ -606,7 +683,11 @@ function Contact() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
             <div className="lg:col-span-8 h-48 sm:h-52 rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md">
               <iframe
-                title="Preetam Anandshala Location Map"
+                title={
+                  activeSection === "sports"
+                    ? "Preetam Sports & Fitness Club Location Map"
+                    : "Preetam Anandshala Location Map"
+                }
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3817.8!2d74.58!3d16.86!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDUxJzM2LjAiTiA3NMKwMzQnNDguMCJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
@@ -623,7 +704,17 @@ function Contact() {
                   📍 {isEn ? "Direct Navigation" : "थेट नेव्हिगेशन"}
                 </p>
                 <p className="text-xs font-bold text-slate-600 leading-relaxed">
-                  {isEn ? (
+                  {activeSection === "sports" ? (
+                    isEn ? (
+                      <>
+                        <span className="text-[#0284c7] font-black">Sports Club</span> campus navigation
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-[#0284c7] font-black">स्पोर्ट्स क्लब</span> संकुलात येण्यासाठी थेट गूगल मॅप्स नेव्हिगेशन वापरा.
+                      </>
+                    )
+                  ) : isEn ? (
                     <>
                       <span className="text-[#db2777] font-black">Anandshala</span> campus
                       navigation

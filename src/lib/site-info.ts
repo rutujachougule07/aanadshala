@@ -5,7 +5,7 @@ export const site = {
   taglineEn: "The gateway to healthy living and a joyful life for senior citizens...",
   launchMr: "शुभारंभ : २६ जानेवारी २०२६",
   launchEn: "Grand Opening: 26th January 2026",
-  phones: ["9370237633", "9423258859", "9970079090"],
+  phones: ["9970079090"],
   email: "Preetamanandshala@gmail.com",
   website: "www.preetamseniorcitizenanandshala.com",
   addressMr: "प्रीतम ज्येष्ठ नागरिक आनंदशाळा, माधवनगर, कर्नाळ, धनंजय गार्डन रोड, सांगली.",
@@ -48,11 +48,11 @@ export const facilities = [
     textEn: "Health checkups, clinic & medical facilities inside campus.",
   },
   {
-    icon: "🏊",
-    titleMr: "स्विमिंग पूल व जीम",
-    titleEn: "Swimming Pool & Gym",
-    textMr: "भव्य स्पोर्ट्स व फिटनेस कॉम्प्लेक्स, बॅडमिंटन, टेनिस, जीम.",
-    textEn: "Grand sports & fitness complex, badminton, tennis, gym.",
+    icon: "🧘",
+    titleMr: "आरोग्य व योग केंद्र",
+    titleEn: "Health & Yoga Care",
+    textMr: "सकाळ-संध्याकाळ योगासन, ध्यान व निसर्गरम्य परिसराचा आनंद.",
+    textEn: "Morning & evening Yoga, meditation and serene nature atmosphere.",
   },
   {
     icon: "🛕",
@@ -197,18 +197,18 @@ export const sportsClub = {
   natureOfBusinessEn: "Sports & Fitness Club",
   founderMr: "श्री. अभिनय जगन्नाथ कामाजी",
   founderEn: "Shri Abhinay Jagannath Kamaji",
-  phones: ["+91-9370237633", "+91-9423258859"],
+  phones: ["9370237633"],
   whatsapp:
     "https://wa.me/919370237633?text=Got%20reference%20from%20your%20Digital%20vCard.%20Want%20to%20know%20more%20details.",
   email: "Preetamsportclub@gmail.com",
-  altEmail: "Preetamanandshala@gmail.com",
+  altEmail: "Preetamsportclub@gmail.com",
   googleMaps: "https://maps.app.goo.gl/KgXVLjLWke5p6PbR7",
   addressMr: "प्रीतम स्पोर्ट्स आणि फिटनेस क्लब, माधवनगर, कर्नाळ, धनंजय गार्डन रोड, सांगली.",
   addressEn:
     "Preetam Sports & Fitness Club, Madhavnagar, Karnal, Dhananjay Garden Road, Sangli.",
   socials: {
     youtube: "https://www.youtube.com/@PreetamSportsAndFitnessClub",
-    facebook: "https://www.facebook.com/preetamseniorcitizenanandshala",
+    facebook: "https://www.facebook.com/preetamsportclub",
     instagram: "https://www.instagram.com/preetam_sports_fitness_club",
   },
   stats: [
@@ -255,20 +255,16 @@ export const sportsClub = {
       en: "Join membership today and start your joyful health journey! 🚀",
     },
   ],
-  aboutFullMr: `आपण प्रीतम स्पोर्ट्स व फिटनेस क्लब ची मेंबरशिप घेऊन भारतातील प्रथम चालू होत असलेल्या जेष्ठ नागरिक आनंदशाळेला सपोर्ट सहकार्य करा व जेष्ठांचे शुभ आशीर्वाद मिळवा.
-
-सांगली जिल्ह्यातील पहिले आणि सर्वात भव्य स्पोर्ट्स अँड फिटनेस क्लब म्हणून 'प्रीतम स्पोर्ट्स अँड फिटनेस क्लब' आपल्या सेवेत आनंदाने सज्ज आहे! 🎉
+  aboutFullMr: `सांगली जिल्ह्यातील पहिले आणि सर्वात भव्य स्पोर्ट्स अँड फिटनेस क्लब म्हणून 'प्रीतम स्पोर्ट्स अँड फिटनेस क्लब' आपल्या सेवेत आनंदाने सज्ज आहे! 🎉
 
 आमचा उद्देश केवळ व्यायामशाळा (Gym) चालवणे नाही, तर संपूर्ण आरोग्य, उत्साह आणि आनंदाचे एक केंद्र निर्माण करणे आहे. श्री. अभिनय जगन्नाथ कामाजी यांच्या दूरदृष्टीमुळे, आम्ही एक असे ठिकाण उभे केले आहे, जिथे फिटनेस, खेळ आणि नैसर्गिक शांतता यांचा अद्भुत संगम आहे.
 
-🌿 निसर्गाच्या सानिध्यात आरोग्य: आमचे क्लब हे शहराच्या गजबजाटापासून दूर, शुद्ध हवा 🌬️ आणि हिरवळीच्या निसर्गरम्य वातावरणात स्थित आहे. सदर ठिकाण सांगलीच्या सर्व ठिकाणावरून ५ किलोमीटर च्या आत आहे. येथे व्यायाम करणे म्हणजे केवळ शरीराला ऊर्जा देणे नाही, तर मनालाही शांती आणि ताजेतवाने अनुभव देणे आहे. आमच्या प्रशस्त जॉगिंग ट्रॅक 👟, सुंदर लॉन आणि ओपन स्पेसमुळे प्रत्येक सकाळ उत्साहाने सुरू होते.
+🌿 निसर्गाच्या सानिध्यात आरोग्य: आमचे क्लब हे शहराच्या गजबजाटापासून दूर, शुद्ध हवा 🌬️ आणि हिरवळीच्या निसर्गरम्य वातावरणात स्थित आहे. सदर ठिकाण सांगलीच्या सर्व ठिकाणावरून ५ किलोमीटर च्या आत आहे. येथे व्यायाम करणे म्हणजे केवळ शरीराला ऊर्जा देणे नाही, तर मनालाही शांती आणि ताजेतवाने अनुभव देणे आहे. आमच्या प्रशस्त जॉगिंग ट्रॅक 👟, सुंदर लॉन आणि OPEN SPACE मुळे प्रत्येक सकाळ उत्साहाने सुरू होते.
 
 🥇 सुविधांचा भव्य अनुभव: आम्ही एकाच छताखाली २५ हून अधिक जागतिक दर्जाच्या फिटनेस आणि खेळांच्या सुविधा उपलब्ध करून दिल्या आहेत.
 
 ✨ कॉम्प्लिमेंटरी आनंदाचे केंद्र: वाचनालय (Library), संगीत उपकरण हॉल, व कॅरम-बुद्धीबळ बैठे खेळ मोफत!`,
-  aboutFullEn: `Support India's first Senior Citizen Anandshala by joining membership of Preetam Sports & Fitness Club and receive divine blessings of elders.
-
-Preetam Sports & Fitness Club is proudly ready to serve as the first and largest sports & fitness complex in Sangli district! 🎉
+  aboutFullEn: `Preetam Sports & Fitness Club is proudly ready to serve as the premier sports & fitness complex in Sangli district! 🎉
 
 Our aim is not merely running a gym, but creating a sanctuary of health, vigor, and joy. Envisioned by Shri Abhinay Jagannath Kamaji, we have built a destination where fitness, sports, and natural serenity blend harmoniously.
 
