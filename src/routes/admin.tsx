@@ -555,16 +555,19 @@ export default function AdminPage() {
       }
 
       const isStageImg = (url?: string) => {
-        if (!url) return true;
+        if (!url) return false;
+        if (url.startsWith("data:") || url.startsWith("blob:") || url.includes("firebasestorage.googleapis.com")) {
+          return false;
+        }
         const lower = url.toLowerCase();
         return (
-          lower.includes("screenshot") ||
-          lower.includes("imgever") ||
-          lower.includes("gallery imgage") ||
-          lower.includes("gallery image") ||
-          lower.includes("anadshala original") ||
-          lower.includes("slider2") ||
-          lower.includes("slider4")
+          lower.includes("103517") ||
+          lower.includes("103545") ||
+          lower.includes("103659") ||
+          lower.includes("103712") ||
+          lower.includes("103842") ||
+          lower.includes("imgever.jpg") ||
+          lower.includes("gallery imgage1")
         );
       };
 
@@ -1483,16 +1486,19 @@ export default function AdminPage() {
                 ];
 
                 const isGenericStageImage = (url: string) => {
-                  if (!url) return true;
+                  if (!url) return false;
+                  if (url.startsWith("data:") || url.startsWith("blob:") || url.includes("firebasestorage.googleapis.com")) {
+                    return false;
+                  }
                   const lower = url.toLowerCase();
                   return (
-                    lower.includes("screenshot") ||
-                    lower.includes("imgever") ||
-                    lower.includes("gallery imgage") ||
-                    lower.includes("gallery image") ||
-                    lower.includes("anadshala original") ||
-                    lower.includes("slider2") ||
-                    lower.includes("slider4")
+                    lower.includes("103517") ||
+                    lower.includes("103545") ||
+                    lower.includes("103659") ||
+                    lower.includes("103712") ||
+                    lower.includes("103842") ||
+                    lower.includes("imgever.jpg") ||
+                    lower.includes("gallery imgage1")
                   );
                 };
 
