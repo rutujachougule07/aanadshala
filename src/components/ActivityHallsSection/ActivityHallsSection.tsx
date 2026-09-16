@@ -294,10 +294,10 @@ const ActivityHallsSection = () => {
             : fallback.image;
         const cleanImg =
           rawImg.startsWith("data:") ||
-          rawImg.startsWith("http:") ||
-          rawImg.startsWith("https:") ||
-          rawImg.startsWith("blob:") ||
-          rawImg.startsWith("/")
+            rawImg.startsWith("http:") ||
+            rawImg.startsWith("https:") ||
+            rawImg.startsWith("blob:") ||
+            rawImg.startsWith("/")
             ? rawImg
             : encodeURI(rawImg.replace(/ /g, "-"));
         return {

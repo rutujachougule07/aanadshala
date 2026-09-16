@@ -192,7 +192,7 @@ function Gallery() {
     try {
       const activeSec = localStorage.getItem("preetam_active_section");
       if (activeSec === "sports") return "sports";
-    } catch {}
+    } catch { }
     return "aanandshala";
   });
 
@@ -200,7 +200,7 @@ function Gallery() {
     try {
       const activeSec = localStorage.getItem("preetam_active_section");
       if (activeSec === "sports") return "sports";
-    } catch {}
+    } catch { }
     return "aanandshala";
   });
   const [selectedKey, setSelectedKey] = useState("all");
@@ -219,7 +219,7 @@ function Gallery() {
           setCurrentSection("aanandshala");
           setActiveGalleryType("aanandshala");
         }
-      } catch {}
+      } catch { }
     };
     handleSecChange();
     window.addEventListener("section-changed", handleSecChange);
@@ -232,14 +232,14 @@ function Gallery() {
   const aanandshalaImages =
     store.gallery && store.gallery.length > 0
       ? store.gallery.map((item, idx) => ({
-          id: item.id || idx + 1,
-          titleEn: item.caption || "Anandshala Photo",
-          titleMr: item.caption || "आनंदशाळा फोटो",
-          categoryEn: item.category?.[0] || "Senior Citizen Anandshala",
-          categoryMr: item.category?.[0] || "ज्येष्ठ नागरिक आनंदशाळा",
-          date: "२०२६",
-          image: item.url,
-        }))
+        id: item.id || idx + 1,
+        titleEn: item.caption || "Anandshala Photo",
+        titleMr: item.caption || "आनंदशाळा फोटो",
+        categoryEn: item.category?.[0] || "Senior Citizen Anandshala",
+        categoryMr: item.category?.[0] || "ज्येष्ठ नागरिक आनंदशाळा",
+        date: "२०२६",
+        image: item.url,
+      }))
       : galleryImages;
 
   // 2. PURE SPORTS GALLERY IMAGES (NO ANANDSHALA IMAGES)
@@ -262,12 +262,12 @@ function Gallery() {
     activeGalleryType === "sports" || selectedKey === "all"
       ? activeGalleryImages
       : activeGalleryImages.filter((item) => {
-          if (!selectedCatObj) return true;
-          return (
-            (item.categoryMr && item.categoryMr.includes(selectedCatObj.labelMr)) ||
-            (item.categoryEn && item.categoryEn.includes(selectedCatObj.labelEn))
-          );
-        });
+        if (!selectedCatObj) return true;
+        return (
+          (item.categoryMr && item.categoryMr.includes(selectedCatObj.labelMr)) ||
+          (item.categoryEn && item.categoryEn.includes(selectedCatObj.labelEn))
+        );
+      });
 
   const closeImage = () => {
     setSelectedIndex(null);
@@ -381,8 +381,8 @@ function Gallery() {
                 ? "High quality photos of state-of-the-art Gym, Courts, Turf, Swimming Pool & Sports Facilities."
                 : "अत्याधुनिक जिम, कोर्ट्स, टर्फ, स्विमिंग पूल व क्रीडा संकुलाची वैशिष्ट्यपूर्ण छायाचित्रे."
               : isEn
-              ? "Beautiful photos and videos of joyful moments created in a picturesque 15-acre campus in Sangli."
-              : "सांगलीच्या कुशीत, निसर्गरम्य १५ एकर परिसरात साकारलेल्या आनंदी क्षणांची सुंदर चित्रे व व्हिडीओ."}
+                ? "Beautiful photos and videos of joyful moments created in a picturesque 15-acre campus in Sangli."
+                : "सांगलीच्या कुशीत, निसर्गरम्य १५ एकर परिसरात साकारलेल्या आनंदी क्षणांची सुंदर चित्रे व व्हिडीओ."}
           </p>
         </div>
 
@@ -396,11 +396,10 @@ function Gallery() {
                 setSelectedIndex(null);
                 setSelectedVideo(null);
               }}
-              className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
-                activeGalleryType === "aanandshala"
+              className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${activeGalleryType === "aanandshala"
                   ? "bg-[#810B38] text-white shadow-md scale-105"
                   : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
-              }`}
+                }`}
             >
               {isEn ? "Anandshala Photo Gallery" : "आनंदशाळा फोटो गॅलरी"}
             </button>
@@ -414,11 +413,10 @@ function Gallery() {
                 setSelectedIndex(null);
                 setSelectedVideo(null);
               }}
-              className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
-                activeGalleryType === "sports"
+              className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${activeGalleryType === "sports"
                   ? "bg-[#810B38] text-white shadow-md scale-105"
                   : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
-              }`}
+                }`}
             >
               {isEn ? "Sports Club Photo Gallery" : "स्पोर्ट्स क्लब फोटो गॅलरी"}
             </button>
@@ -429,11 +427,10 @@ function Gallery() {
               setActiveGalleryType("videos");
               setSelectedIndex(null);
             }}
-            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${
-              activeGalleryType === "videos"
+            className={`px-7 py-3 rounded-full text-xs sm:text-sm font-extrabold transition-all cursor-pointer shadow-xs ${activeGalleryType === "videos"
                 ? "bg-[#810B38] text-white shadow-md scale-105"
                 : "bg-white text-slate-700 hover:bg-rose-50 hover:text-[#810B38] border border-rose-200"
-            }`}
+              }`}
           >
             {isEn ? "Video Gallery" : "व्हिडिओ गॅलरी"}
           </button>
@@ -454,11 +451,10 @@ function Gallery() {
                         setSelectedKey(category.key);
                         setSelectedIndex(null);
                       }}
-                      className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${
-                        isActive
+                      className={`px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 cursor-pointer ${isActive
                           ? "bg-linear-to-r from-pink-600 to-purple-600 text-white shadow-md scale-105"
                           : "bg-white text-slate-700 border border-slate-200 hover:border-pink-300 hover:text-pink-600 hover:shadow-sm"
-                      }`}
+                        }`}
                     >
                       {isEn ? category.labelEn : category.labelMr}
                     </button>

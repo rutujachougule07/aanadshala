@@ -28,7 +28,7 @@ export class ErrorBoundary extends Component<Props, State> {
       // Clear local storage if there was a data corruption
       localStorage.clear();
       sessionStorage.clear();
-    } catch (_) {}
+    } catch (_) { }
     window.location.href = "/";
   };
 

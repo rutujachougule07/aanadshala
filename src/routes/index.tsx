@@ -17,6 +17,7 @@ import ScheduleSection from "@/components/ScheduleSection";
 import ActivityHallsSection from "@/components/ActivityHallsSection/ActivityHallsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import JourneyTimeline from "@/components/journey-v2/JourneyTimeline";
+import AboutSangli from "@/components/AboutSangli";
 
 const publicImages = [
   "/images/Screenshot 2026-07-31 103107.png",
@@ -586,11 +587,11 @@ function IndexComponent() {
     store.siteData.sportsGallery && store.siteData.sportsGallery.length > 0
       ? store.siteData.sportsGallery
       : [
-          sportsHeroImage,
-          sportsClub.gallery[0] || "/images/sports img.png",
-          sportsClub.facilities[0]?.images[0] || "/images/pickleball-court.png",
-          sportsClub.gallery[1] || "/images/epic_sports_gym_bg.png",
-        ].filter(Boolean);
+        sportsHeroImage,
+        sportsClub.gallery[0] || "/images/sports img.png",
+        sportsClub.facilities[0]?.images[0] || "/images/pickleball-court.png",
+        sportsClub.gallery[1] || "/images/epic_sports_gym_bg.png",
+      ].filter(Boolean);
 
   const [sportsBgIdx, setSportsBgIdx] = useState(0);
   const [sportsLightboxIndex, setSportsLightboxIndex] = useState<number | null>(null);
@@ -954,6 +955,9 @@ function IndexComponent() {
 
           {/* DAILY SCHEDULE ANANDSHALA */}
           <ScheduleSection type="anandshala" />
+
+          {/* 14 SANGLI TOURIST & EXCURSION PLACES */}
+          <AboutSangli />
 
           {/* VIDEO & MEMBER TESTIMONIALS */}
           <TestimonialsSection />

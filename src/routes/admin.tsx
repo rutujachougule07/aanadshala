@@ -520,56 +520,36 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (store.siteData) {
-      const validSG = [
-        "/images/epic_sports_gym_bg.png",
-        "/images/sports img.png",
-        "/images/sqaush game .jpg",
-        "/images/pickleball-court.png",
-        "/images/Screenshot 2026-07-31 103517.png",
-      ];
       let needsFix = false;
       const fixedSite = { ...store.siteData };
 
-      if (
-        !fixedSite.sportsBrochureUrl ||
-        fixedSite.sportsBrochureUrl.includes("sports img.png") ||
-        fixedSite.sportsBrochureUrl.includes("103659")
-      ) {
+      if (!fixedSite.sportsBrochureUrl || fixedSite.sportsBrochureUrl.includes("103659")) {
         fixedSite.sportsBrochureUrl = "/images/Screenshot 2026-07-31 103517.png";
         needsFix = true;
       }
 
-      if (
-        !fixedSite.sportsGallery ||
-        !Array.isArray(fixedSite.sportsGallery) ||
-        fixedSite.sportsGallery.some(
-          (url) =>
-            !url ||
-            url.includes("103712") ||
-            url.includes("103659") ||
-            url.includes("sports_club_building_card.png"),
-        )
-      ) {
-        fixedSite.sportsGallery = validSG;
+      if (!fixedSite.sportsGallery || !Array.isArray(fixedSite.sportsGallery)) {
+        fixedSite.sportsGallery = [
+          "/images/epic_sports_gym_bg.png",
+          "/images/sports img.png",
+          "/images/sqaush game .jpg",
+          "/images/pickleball-court.png",
+          "/images/Screenshot 2026-07-31 103517.png",
+        ];
+        needsFix = true;
+      } else if (fixedSite.sportsGallery.some((url) => !url || url.includes("103712") || url.includes("103659"))) {
+        fixedSite.sportsGallery = fixedSite.sportsGallery.filter((url) => url && !url.includes("103712") && !url.includes("103659"));
+        if (fixedSite.sportsGallery.length === 0) {
+          fixedSite.sportsGallery = [
+            "/images/epic_sports_gym_bg.png",
+            "/images/sports img.png",
+            "/images/sqaush game .jpg",
+            "/images/pickleball-court.png",
+            "/images/Screenshot 2026-07-31 103517.png",
+          ];
+        }
         needsFix = true;
       }
-
-      const isStageImg = (url?: string) => {
-        if (!url) return false;
-        if (url.startsWith("data:") || url.startsWith("blob:") || url.includes("firebasestorage.googleapis.com")) {
-          return false;
-        }
-        const lower = url.toLowerCase();
-        return (
-          lower.includes("103517") ||
-          lower.includes("103545") ||
-          lower.includes("103659") ||
-          lower.includes("103712") ||
-          lower.includes("103842") ||
-          lower.includes("imgever.jpg") ||
-          lower.includes("gallery imgage1")
-        );
-      };
 
       setSiteForm(fixedSite);
       if (needsFix) {
@@ -1713,98 +1693,98 @@ export default function AdminPage() {
                     title: "1. Sangli Royal Ganapati Temple",
                     dist: "3 km (10 mins)",
                     desc: "1843 historic black stone palace temple...",
-                    img: "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 1.jpeg",
                   },
                   {
                     id: "sangli-fort-rajwada",
                     title: "2. Sangli Fort & Rajwada Area",
                     dist: "3.5 km (12 mins)",
                     desc: "Patwardhan Sansthan Rajwada fort area...",
-                    img: "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 2.jpg",
                   },
                   {
                     id: "sangmeshwar-haripur",
                     title: "3. Sangmeshwar Temple (Haripur)",
                     dist: "5 km (15 mins)",
                     desc: "Confluence of Krishna and Warna rivers...",
-                    img: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 3.jpg",
                   },
                   {
                     id: "krishna-irwin-bridge",
                     title: "4. Krishna River & Irwin Bridge",
                     dist: "4 km (10 mins)",
                     desc: "1929 British era red stone bridge...",
-                    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 4.jpg",
                   },
                   {
                     id: "miraj-dargah",
                     title: "5. Miraj Khwaja Meerasaheb Dargah",
                     dist: "10 km (20 mins)",
                     desc: "Historic shrine & musical instruments hub...",
-                    img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 5.jpeg",
                   },
                   {
                     id: "audumbar-temple",
                     title: "6. Audumbar Shri Dattatreya Temple",
                     dist: "25 km (40 mins)",
                     desc: "Sacred Datta pilgrimage on Krishna bank...",
-                    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 6.jpeg",
                   },
                   {
                     id: "dandoba-hills",
                     title: "7. Dandoba Hills & Forest Shrine",
                     dist: "25 km (30 mins)",
                     desc: "Forest reserve and cave Shiva temple...",
-                    img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 7.jpeg",
                   },
                   {
                     id: "sagareshwar-sanctuary",
                     title: "8. Sagareshwar Wildlife Sanctuary",
                     dist: "30 km (45 mins)",
                     desc: "1000+ deer, blackbucks, peafowls & ancient temples...",
-                    img: "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 8.jpeg",
                   },
                   {
                     id: "bahubali-kumbhojgiri",
                     title: "9. Bahubali Hill, Kumbhojgiri",
                     dist: "35 km (50 mins)",
                     desc: "28ft grand Bahubali statue Jain shrine...",
-                    img: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 9.jpeg",
                   },
                   {
                     id: "ramling-island-bahe",
                     title: "10. Ramling Island, Bahe",
                     dist: "38 km (50 mins)",
                     desc: "Scenic river island and Lord Ram temple...",
-                    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandshala sahal 10.jpeg",
                   },
                   {
                     id: "chandoli-national-park",
                     title: "11. Chandoli National Park & Dam",
                     dist: "65 km (1.5 hrs)",
                     desc: "Sahyadri tiger reserve and massive dam...",
-                    img: "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandhsala sahal 11.jpeg",
                   },
                   {
                     id: "gokak-waterfall",
                     title: "12. Gokak Spectacular Waterfall",
                     dist: "75 km (1.5 hrs)",
                     desc: "177ft waterfall & historic hanging bridge...",
-                    img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandmelava 10.jpeg",
                   },
                   {
                     id: "machhindragad-fort",
                     title: "13. Machhindragad Fort & Temple",
                     dist: "45 km (1 hr)",
                     desc: "Built by Chhatrapati Shivaji Maharaj in 1676...",
-                    img: "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandmelava 11.jpeg",
                   },
                   {
                     id: "kolhapur-excursion",
                     title: "14. Kolhapur Day Tour (Mahalaxmi)",
                     dist: "50 km (1 hr)",
                     desc: "Shri Mahalaxmi Temple, New Palace & Rankala...",
-                    img: "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop",
+                    img: "/images/aandmelava 12.jpeg",
                   },
                 ].map((attraction) => {
                   const ov: SangliPlaceOverride = (store.aboutData?.sangliPlacesOverrides?.[
