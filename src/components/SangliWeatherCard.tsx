@@ -32,17 +32,19 @@ export default function SangliWeatherCard() {
     aqi: number;
     conditionMr: string;
     conditionEn: string;
+    weatherCode: number;
     isLive: boolean;
   }>({
-    temp: 27,
-    tempMin: 18,
-    tempMax: 28,
-    windSpeed: 24,
-    humidity: 72,
-    precipitation: 40,
-    aqi: 38,
-    conditionMr: "प्रसन्न व निरोगी",
-    conditionEn: "Pleasant & Healthy",
+    temp: 28,
+    tempMin: 20,
+    tempMax: 31,
+    windSpeed: 14,
+    humidity: 55,
+    precipitation: 15,
+    aqi: 35,
+    conditionMr: "प्रसन्न सूर्यप्रकाश व निरभ्र आकाश",
+    conditionEn: "Clear & Sunny Sky",
+    weatherCode: 0,
     isLive: false,
   });
 
@@ -65,7 +67,7 @@ export default function SangliWeatherCard() {
         ]);
 
         const weatherDataJson = await weatherRes.json();
-        let liveAqi = 38;
+        let liveAqi = 35;
         if (aqiRes) {
           try {
             const aqiDataJson = await aqiRes.json();
@@ -80,29 +82,35 @@ export default function SangliWeatherCard() {
         if (weatherDataJson && weatherDataJson.current_weather) {
           const liveTemp = Math.round(weatherDataJson.current_weather.temperature);
           const liveWind = Math.round(weatherDataJson.current_weather.windspeed);
-          const code = weatherDataJson.current_weather.weathercode;
+          const code = weatherDataJson.current_weather.weathercode ?? 0;
           const minT = weatherDataJson.daily?.temperature_2m_min?.[0]
             ? Math.round(weatherDataJson.daily.temperature_2m_min[0])
-            : 18;
+            : 20;
           const maxT = weatherDataJson.daily?.temperature_2m_max?.[0]
             ? Math.round(weatherDataJson.daily.temperature_2m_max[0])
-            : 28;
+            : 31;
           const currentHour = new Date().getHours();
-          const liveHumidity = weatherDataJson.hourly?.relative_humidity_2m?.[currentHour] || 72;
-          const livePrecip = weatherDataJson.hourly?.precipitation_probability?.[currentHour] ?? 40;
+          const liveHumidity = weatherDataJson.hourly?.relative_humidity_2m?.[currentHour] || 55;
+          const livePrecip = weatherDataJson.hourly?.precipitation_probability?.[currentHour] ?? 15;
 
-          let condMr = "प्रसन्न व निरोगी हवामान";
-          let condEn = "Pleasant & Healthy";
+          let condMr = "प्रसन्न सूर्यप्रकाश व निरभ्र आकाश";
+          let condEn = "Clear & Sunny Sky";
 
           if (code === 0) {
-            condMr = "प्रसन्न सूर्यप्रकाश";
-            condEn = "Clear & Sunny";
+            condMr = "प्रसन्न सूर्यप्रकाश व निरभ्र आकाश";
+            condEn = "Clear & Sunny Sky";
           } else if (code >= 1 && code <= 3) {
-            condMr = "आल्हाददायक ढगाळ हवा";
-            condEn = "Partly Cloudy Breeze";
+            condMr = "आल्हाददायक ऊन-सावली हवा";
+            condEn = "Partly Cloudy & Pleasant";
+          } else if (code >= 45 && code <= 48) {
+            condMr = "गुलाबी धुके व ताजी हवा";
+            condEn = "Cool & Foggy Breeze";
           } else if (code >= 51 && code <= 82) {
             condMr = "रिमझिम पाऊस व शीतल हवा";
             condEn = "Pleasant Rain & Breeze";
+          } else if (code >= 95) {
+            condMr = "विजांसह पावसाची शक्यता";
+            condEn = "Thunderstorm & Rain";
           }
 
           setWeatherData({
@@ -115,6 +123,7 @@ export default function SangliWeatherCard() {
             aqi: liveAqi,
             conditionMr: condMr,
             conditionEn: condEn,
+            weatherCode: code,
             isLive: true,
           });
         }
@@ -144,18 +153,45 @@ export default function SangliWeatherCard() {
   });
 
   const monthIndex = now.getMonth(); // 0 - 11
-  let seasonMr = "🌧️ पावसाळा (मॉन्सून)";
-  let seasonEn = "🌧️ Monsoon Season";
-  if (monthIndex >= 2 && monthIndex <= 4) {
-    seasonMr = "☀️ सुवर्ण उन्हाळा";
-    seasonEn = "☀️ Summer Season";
-  } else if (monthIndex >= 5 && monthIndex <= 8) {
+  let seasonMr = "☀️ सुवर्ण सूर्यप्रकाश";
+  let seasonEn = "☀️ Golden Sunshine";
+  if (weatherData.weatherCode >= 51 && weatherData.weatherCode <= 82) {
     seasonMr = "🌧️ हिरवागार पावसाळा";
     seasonEn = "🌧️ Pleasant Monsoon";
+  } else if (monthIndex >= 2 && monthIndex <= 4) {
+    seasonMr = "☀️ सुवर्ण उन्हाळा";
+    seasonEn = "☀️ Summer Season";
+  } else if (monthIndex >= 5 && monthIndex <= 9) {
+    seasonMr = "☀️ आल्हाददायक ऊन व निरभ्र हवा";
+    seasonEn = "☀️ Pleasant Sunny Climate";
   } else {
     seasonMr = "❄️ गुलाबी हिवाळा (थंडी)";
     seasonEn = "❄️ Refreshing Winter";
   }
+
+  const renderWeatherIcon = () => {
+    const code = weatherData.weatherCode;
+    if (code >= 51 && code <= 99) {
+      return <CloudRain className="size-12 sm:size-14 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.25)] animate-pulse" />;
+    }
+    if (code >= 1 && code <= 3) {
+      return <CloudSun className="size-12 sm:size-14 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.25)] animate-pulse" />;
+    }
+    return <Sun className="size-12 sm:size-14 text-[#1A05A2] drop-shadow-[0_4px_8px_rgba(0,0,0,0.15)] animate-spin-slow" />;
+  };
+
+  const getPrecipBadge = (precip: number, code: number) => {
+    if (code >= 51 && code <= 82) {
+      return isEn ? "Rain Showers" : "रिमझिम पाऊस";
+    }
+    if (precip >= 70) {
+      return isEn ? "High Rain Chance" : "पावसाची शक्यता";
+    }
+    if (precip >= 30) {
+      return isEn ? "Low Rain Chance" : "कमी शक्यता";
+    }
+    return isEn ? "Clear Sky" : "निरभ्र आकाश";
+  };
 
   return (
     <div className="w-full max-w-6xl mx-auto my-8 font-sans">
@@ -225,7 +261,7 @@ export default function SangliWeatherCard() {
 
               {/* Dynamic Weather Logo */}
               <div className="relative z-10 flex items-center justify-center">
-                <CloudSun className="size-12 sm:size-14 text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.25)] animate-pulse" />
+                {renderWeatherIcon()}
               </div>
             </div>
 
@@ -263,7 +299,7 @@ export default function SangliWeatherCard() {
                 {weatherData.precipitation}%
               </span>
               <span className="text-[10px] font-black text-purple-700 bg-purple-50 px-2 py-0.5 rounded-md mt-0.5 border border-purple-100">
-                {isEn ? "Rain Chance" : "रिमझिम पाऊस"}
+                {getPrecipBadge(weatherData.precipitation, weatherData.weatherCode)}
               </span>
             </div>
 

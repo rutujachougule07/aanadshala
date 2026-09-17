@@ -613,6 +613,11 @@ function IndexComponent() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [sportsLightboxIndex]);
 
+  const handleCloseIntroBanner = () => {
+    setShowIntroBanner(false);
+    setSelectedSection((prev) => prev || "aanandshala");
+  };
+
   const handleSectionSelect = (sec: "aanandshala" | "sports" | null) => {
     setSelectedSection(sec);
     if (sec) {
@@ -652,7 +657,7 @@ function IndexComponent() {
               ease: [0.16, 1, 0.3, 1],
             }}
 
-            onClick={() => setShowIntroBanner(false)}
+            onClick={handleCloseIntroBanner}
             className="
               fixed
               inset-0
@@ -679,7 +684,7 @@ function IndexComponent() {
             <img
               src={welcomePosterUrl}
               alt="Preetam Anandshala Real Building Photo"
-              onClick={() => setShowIntroBanner(false)}
+              onClick={handleCloseIntroBanner}
               className="
                 absolute
                 inset-0
@@ -698,7 +703,7 @@ function IndexComponent() {
             <div className="relative z-20 text-center px-3 sm:px-4 max-w-4xl sm:max-w-5xl w-full pt-4 sm:pt-6 animate-fade-up">
               <div className="inline-block rounded-3xl bg-black/85 backdrop-blur-xl px-5 py-4 sm:px-8 sm:py-4 border-2 border-white/35 shadow-[0_15px_50px_rgba(0,0,0,0.9)]">
                 <h2
-                  onClick={() => setShowIntroBanner(false)}
+                  onClick={handleCloseIntroBanner}
                   className="font-sans font-black text-base sm:text-xl lg:text-2xl tracking-normal leading-relaxed cursor-pointer"
                 >
                   {(() => {
@@ -973,6 +978,9 @@ function IndexComponent() {
 
           {/* ── PREETAM SPORTS PREMIUM SECTION ── */}
           <SportsSection />
+
+          {/* 14 SANGLI TOURIST & EXCURSION PLACES */}
+          <AboutSangli />
 
           {/* VIDEO & MEMBER TESTIMONIALS */}
           <TestimonialsSection showComplimentaryCards={true} />

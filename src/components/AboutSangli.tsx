@@ -87,7 +87,8 @@ export function AboutSangli() {
       titleEn: "1. Sangli Royal Ganapati Temple",
       distanceMr: "३ किमी (१० मिनिटे)",
       distanceEn: "3 km (10 mins)",
-      image: "/images/aandshala sahal 1.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
       shortDescEn:
@@ -119,7 +120,8 @@ export function AboutSangli() {
       titleEn: "2. Sangli Fort & Rajwada Area",
       distanceMr: "३.५ किमी (१२ मिनिटे)",
       distanceEn: "3.5 km (12 mins)",
-      image: "/images/aandshala sahal 2.jpg",
+      image:
+        "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
       shortDescEn:
@@ -151,7 +153,8 @@ export function AboutSangli() {
       titleEn: "3. Sangmeshwar Temple (Haripur)",
       distanceMr: "५ किमी (१५ मिनिटे)",
       distanceEn: "5 km (15 mins)",
-      image: "/images/aandshala sahal 3.jpg",
+      image:
+        "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
       shortDescEn:
@@ -183,7 +186,8 @@ export function AboutSangli() {
       titleEn: "4. Krishna River & Irwin Bridge",
       distanceMr: "४ किमी (१० मिनिटे)",
       distanceEn: "4 km (10 mins)",
-      image: "/images/aandshala sahal 4.jpg",
+      image:
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
       shortDescMr: "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल व कृष्णा नदीचा सुंदर घाट परिसर.",
       shortDescEn:
         "Historic 1929 British-era red-stone arch bridge; pleasant for morning/evening drives.",
@@ -214,7 +218,8 @@ export function AboutSangli() {
       titleEn: "5. Miraj Khwaja Meerasaheb Dargah",
       distanceMr: "१० किमी (२० मिनिटे)",
       distanceEn: "10 km (20 mins)",
-      image: "/images/aandshala sahal 5.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
       shortDescEn:
@@ -246,7 +251,8 @@ export function AboutSangli() {
       titleEn: "6. Audumbar Shri Dattatreya Temple",
       distanceMr: "२५ किमी (४० मिनिटे)",
       distanceEn: "25 km (40 mins)",
-      image: "/images/aandshala sahal 6.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.",
       shortDescEn:
@@ -280,7 +286,8 @@ export function AboutSangli() {
       titleEn: "7. Dandoba Hills & Forest Shrine",
       distanceMr: "२५ किमी (३० मिनिटे)",
       distanceEn: "25 km (30 mins)",
-      image: "/images/aandshala sahal 7.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.",
       shortDescEn:
@@ -312,7 +319,8 @@ export function AboutSangli() {
       titleEn: "8. Sagareshwar Wildlife Sanctuary",
       distanceMr: "३० किमी (४५ मिनिटे)",
       distanceEn: "30 km (45 mins)",
-      image: "/images/aandshala sahal 8.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.",
       shortDescEn:
@@ -344,7 +352,8 @@ export function AboutSangli() {
       titleEn: "9. Bahubali Hill, Kumbhojgiri",
       distanceMr: "३५ किमी (५० मिनिटे)",
       distanceEn: "35 km (50 mins)",
-      image: "/images/aandshala sahal 9.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील अतिशय प्रसिद्ध जैन तीर्थक्षेत्र.",
       shortDescEn:
@@ -376,7 +385,8 @@ export function AboutSangli() {
       titleEn: "10. Ramling Island, Bahe",
       distanceMr: "३८ किमी (५० मिनिटे)",
       distanceEn: "38 km (50 mins)",
-      image: "/images/aandshala sahal 10.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.",
       shortDescEn:
@@ -410,7 +420,8 @@ export function AboutSangli() {
       titleEn: "11. Chandoli National Park & Dam",
       distanceMr: "६५ किमी (१.५ तास)",
       distanceEn: "65 km (1.5 hrs)",
-      image: "/images/aandhsala sahal 11.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "यूनेस्को जागतिक वारसा सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व निसर्गरम्य जंगल परिसर.",
       shortDescEn:
@@ -442,7 +453,8 @@ export function AboutSangli() {
       titleEn: "12. Gokak Spectacular Waterfall",
       distanceMr: "७५ किमी (१.५ तास)",
       distanceEn: "75 km (1.5 hrs)",
-      image: "/images/aandmelava 10.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "१७७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).",
       shortDescEn:
@@ -474,7 +486,8 @@ export function AboutSangli() {
       titleEn: "13. Machhindragad Fort & Temple",
       distanceMr: "४५ किमी (१ तास)",
       distanceEn: "45 km (1 hr)",
-      image: "/images/aandmelava 11.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop",
       shortDescMr: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला व मच्छिंद्रनाथ मंदिर.",
       shortDescEn:
         "Historic fort built by Chhatrapati Shivaji Maharaj in 1676 with Machhindranath temple.",
@@ -505,7 +518,8 @@ export function AboutSangli() {
       titleEn: "14. Kolhapur Day Tour (Mahalaxmi)",
       distanceMr: "५० किमी (१ तास)",
       distanceEn: "50 km (1 hr)",
-      image: "/images/aandmelava 12.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop",
       shortDescMr:
         "श्री अंबाबाई महालक्ष्मी मंदिर, छत्रपती शाहू न्यू पॅलेस राजवाडा व रंकाळा तलाव एक दिवसीय सहल.",
       shortDescEn:
@@ -669,7 +683,7 @@ export function AboutSangli() {
         <SangliWeatherCard />
 
         {/* ── FILTER TABS ── */}
-        <div className="as-sangli-tabs flex-wrap gap-2 justify-center">
+        <div className="as-sangli-tabs">
           <button
             onClick={() => setActiveTab("all")}
             className={`as-sangli-tab-btn ${activeTab === "all" ? "active" : ""}`}
@@ -677,28 +691,10 @@ export function AboutSangli() {
             <span>{isEn ? "🌟 All 14 Places" : "🌟 सर्व १४ ठिकाणे"}</span>
           </button>
           <button
-            onClick={() => setActiveTab("close")}
-            className={`as-sangli-tab-btn ${activeTab === "close" ? "active" : ""}`}
-          >
-            <span>{isEn ? "📍 City Hub (1-10 km)" : "📍 शहर परिसर (१-१० किमी)"}</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("medium")}
-            className={`as-sangli-tab-btn ${activeTab === "medium" ? "active" : ""}`}
-          >
-            <span>{isEn ? "🚗 25-50 km Radius" : "🚗 २५-५० किमी परिसर"}</span>
-          </button>
-          <button
             onClick={() => setActiveTab("daytrips")}
             className={`as-sangli-tab-btn ${activeTab === "daytrips" ? "active" : ""}`}
           >
-            <span>{isEn ? "🚌 Day Trips (50-80 km)" : "🚌 १ दिवसाच्या सहली (ठिकाणे ११ ते १४)"}</span>
-          </button>
-          <button
-            onClick={() => setActiveTab("senior-friendly")}
-            className={`as-sangli-tab-btn ${activeTab === "senior-friendly" ? "active" : ""}`}
-          >
-            <span>{isEn ? "👴 Senior Friendly" : "👴 ज्येष्ठांसाठी सुलभ"}</span>
+            <span>{isEn ? "🚌 Day Trips (50-80 km)" : "🚌 १ दिवसाच्या सहली (५०-८० किमी)"}</span>
           </button>
         </div>
 

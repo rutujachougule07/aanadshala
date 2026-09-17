@@ -98,8 +98,8 @@ export async function uploadImageToFirebase(
   pathFolder = "admin_uploads",
 ): Promise<string> {
   try {
-    // 1. Instant client compression (600px max dimension, quality 0.55 => ~15KB lightweight payload)
-    const compressedBlob = await compressImageFile(file, 600, 0.55);
+    // 1. Instant client compression (800px max dimension, quality 0.65 => ~20KB lightweight payload)
+    const compressedBlob = await compressImageFile(file, 800, 0.65);
     const uploadPayload =
       compressedBlob instanceof File
         ? compressedBlob
@@ -413,7 +413,6 @@ export type SangliPlaceOverride = {
   titleMr?: string;
   titleEn?: string;
   distanceMr?: string;
-  distanceEn?: string;
   shortDescMr?: string;
 };
 
@@ -1179,7 +1178,8 @@ const initialAboutData: AboutData = {
       distanceMr: "३ किमी (१० मिनिटे)",
       shortDescMr:
         "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
-      image: "/images/aandshala sahal 1.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1567157577867-05ccb1388e66?q=80&w=1200&auto=format&fit=crop",
     },
     "sangli-fort-rajwada": {
       id: "sangli-fort-rajwada",
@@ -1188,7 +1188,8 @@ const initialAboutData: AboutData = {
       distanceMr: "३.५ किमी (१२ मिनिटे)",
       shortDescMr:
         "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
-      image: "/images/aandshala sahal 2.jpg",
+      image:
+        "https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=1200&auto=format&fit=crop",
     },
     "sangmeshwar-haripur": {
       id: "sangmeshwar-haripur",
@@ -1197,7 +1198,8 @@ const initialAboutData: AboutData = {
       distanceMr: "५ किमी (१५ मिनिटे)",
       shortDescMr:
         "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
-      image: "/images/aandshala sahal 3.jpg",
+      image:
+        "https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1200&auto=format&fit=crop",
     },
     "krishna-irwin-bridge": {
       id: "krishna-irwin-bridge",
@@ -1205,7 +1207,8 @@ const initialAboutData: AboutData = {
       titleEn: "4. Krishna River & Irwin Bridge",
       distanceMr: "४ किमी (१० मिनिटे)",
       shortDescMr: "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल व कृष्णा नदीचा सुंदर घाट परिसर.",
-      image: "/images/aandshala sahal 4.jpg",
+      image:
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
     },
     "miraj-dargah": {
       id: "miraj-dargah",
@@ -1214,7 +1217,8 @@ const initialAboutData: AboutData = {
       distanceMr: "१० किमी (२० मिनिटे)",
       shortDescMr:
         "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
-      image: "/images/aandshala sahal 5.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1200&auto=format&fit=crop",
     },
     "audumbar-temple": {
       id: "audumbar-temple",
@@ -1223,17 +1227,18 @@ const initialAboutData: AboutData = {
       distanceMr: "२५ किमी (४० मिनिटे)",
       shortDescMr:
         "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.",
-      image: "/images/aandshala sahal 6.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
     },
     "dandoba-hills": {
       id: "dandoba-hills",
       titleMr: "७. दंडोबा टेकडी व गुहा शिवमंदिर (भोसे)",
       titleEn: "7. Dandoba Hills & Forest Shrine",
       distanceMr: "२५ किमी (३० मिनिटे)",
-      distanceEn: "25 km (30 mins)",
       shortDescMr:
         "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.",
-      image: "/images/aandshala sahal 7.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
     },
     "sagareshwar-sanctuary": {
       id: "sagareshwar-sanctuary",
@@ -1242,7 +1247,8 @@ const initialAboutData: AboutData = {
       distanceMr: "३० किमी (४५ मिनिटे)",
       shortDescMr:
         "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.",
-      image: "/images/aandshala sahal 8.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop",
     },
     "bahubali-kumbhojgiri": {
       id: "bahubali-kumbhojgiri",
@@ -1251,7 +1257,8 @@ const initialAboutData: AboutData = {
       distanceMr: "३५ किमी (५० मिनिटे)",
       shortDescMr:
         "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील अतिशय प्रसिद्ध जैन तीर्थक्षेत्र.",
-      image: "/images/aandshala sahal 9.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop",
     },
     "ramling-island-bahe": {
       id: "ramling-island-bahe",
@@ -1260,7 +1267,8 @@ const initialAboutData: AboutData = {
       distanceMr: "३८ किमी (५० मिनिटे)",
       shortDescMr:
         "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.",
-      image: "/images/aandshala sahal 10.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
     },
     "chandoli-national-park": {
       id: "chandoli-national-park",
@@ -1269,7 +1277,8 @@ const initialAboutData: AboutData = {
       distanceMr: "६५ किमी (१.५ तास)",
       shortDescMr:
         "यूनेस्को जागतिक वारसा सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व निसर्गरम्य जंगल परिसर.",
-      image: "/images/aandhsala sahal 11.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop",
     },
     "gokak-waterfall": {
       id: "gokak-waterfall",
@@ -1278,7 +1287,8 @@ const initialAboutData: AboutData = {
       distanceMr: "७५ किमी (१.५ तास)",
       shortDescMr:
         "१७७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).",
-      image: "/images/aandmelava 10.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
     },
     "machhindragad-fort": {
       id: "machhindragad-fort",
@@ -1286,7 +1296,8 @@ const initialAboutData: AboutData = {
       titleEn: "13. Machhindragad Fort & Temple",
       distanceMr: "४५ किमी (१ तास)",
       shortDescMr: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला व मच्छिंद्रनाथ मंदिर.",
-      image: "/images/aandmelava 11.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop",
     },
     "kolhapur-excursion": {
       id: "kolhapur-excursion",
@@ -1295,11 +1306,29 @@ const initialAboutData: AboutData = {
       distanceMr: "५० किमी (१ तास)",
       shortDescMr:
         "श्री अंबाबाई महालक्ष्मी मंदिर, छत्रपती शाहू न्यू पॅलेस राजवाडा व रंकाळा तलाव एक दिवसीय सहल.",
-      image: "/images/aandmelava 12.jpeg",
+      image:
+        "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop",
     },
   },
 };
 
+// Immediate self-executing auto-sync for all 14 Sangli places to Firebase Firestore
+if (typeof window !== "undefined") {
+  setTimeout(() => {
+    try {
+      const now = Date.now();
+      if (initialAboutData.sangliPlacesOverrides) {
+        Object.entries(initialAboutData.sangliPlacesOverrides).forEach(([id, item]) => {
+          setDoc(
+            doc(db, "sangli_attractions", id),
+            { ...item, updatedAt: now },
+            { merge: true },
+          ).catch(() => { });
+        });
+      }
+    } catch (_) { }
+  }, 200);
+}
 
 const initialBrochures: BrochureItem[] = [
   {
@@ -2136,12 +2165,35 @@ export function useAdminStore() {
       setSiteDataState(updatedSite);
     }
 
-    // Ensure brochures state is valid on mount
+    // Auto-push any local hall edits from Localhost directly into Firestore Cloud
+    try {
+      const storedSite = getStoredData<SiteData>(STORAGE_KEYS.site, initialSiteData);
+      if (storedSite && storedSite.activityHalls && Array.isArray(storedSite.activityHalls)) {
+        const now = Date.now();
+        setDoc(
+          doc(db, "activity_halls", "all"),
+          { halls: storedSite.activityHalls, updatedAt: now },
+          { merge: true },
+        ).catch(() => { });
+        storedSite.activityHalls.forEach((hall, idx) => {
+          const hallId = hall.id || `hall-${idx + 1}`;
+          setDoc(
+            doc(db, "activity_halls", hallId),
+            { ...hall, updatedAt: now },
+            { merge: true },
+          ).catch(() => { });
+        });
+      }
+    } catch (_) { }
+
+    // Ensure brochures has all 4 scan pages on initial load and syncs to cloud
     try {
       const storedB = getStoredData<BrochureItem[]>(STORAGE_KEYS.brochures, initialBrochures);
       const fixedB = ensureAllBrochures(storedB);
       setStoredData(STORAGE_KEYS.brochures, fixedB);
       setBrochuresState(fixedB);
+      const now = Date.now();
+      setDoc(doc(db, "app_data", STORAGE_KEYS.brochures), { data: fixedB, updatedAt: now }).catch(() => { });
     } catch (_) { }
   }, []);
 
@@ -2209,22 +2261,10 @@ export function useAdminStore() {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.data) {
           const val = sanitizeBlobUrls(snapshot.data().data);
           if (val && typeof val === "object") {
-            setAboutDataState((prev) => {
-              const prevTime = (prev as any).updatedAt || 0;
-              const incomingTime = (val as any).updatedAt || 0;
-              if (prevTime > 0 && prevTime > incomingTime) {
-                return prev;
-              }
-              const mergedOverrides = {
-                ...(prev.sangliPlacesOverrides || {}),
-                ...((val as any).sangliPlacesOverrides || {}),
-              };
-              const merged = { ...prev, ...val, sangliPlacesOverrides: mergedOverrides };
-              try {
-                localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(merged));
-              } catch (e) { }
-              return merged;
-            });
+            setAboutDataState((prev) => ({ ...prev, ...val }));
+            try {
+              localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(val));
+            } catch (e) { }
           }
         }
       });
@@ -2235,18 +2275,12 @@ export function useAdminStore() {
           const places = snapshot.data().places;
           if (places && typeof places === "object") {
             setAboutDataState((prev) => {
-              const prevTime = (prev as any).updatedAt || 0;
-              const incomingTime = snapshot.data()?.updatedAt || 0;
-              if (prevTime > 0 && prevTime > incomingTime) {
-                return prev;
-              }
-              const updatedOverrides = {
-                ...(prev.sangliPlacesOverrides || {}),
-                ...places,
-              };
               const updated = {
                 ...prev,
-                sangliPlacesOverrides: updatedOverrides,
+                sangliPlacesOverrides: {
+                  ...(prev.sangliPlacesOverrides || {}),
+                  ...places,
+                },
               };
               try {
                 localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(updated));
@@ -2257,48 +2291,6 @@ export function useAdminStore() {
         }
       });
       unsubscribes.push(sangliAttractionsUnsub);
-
-      const sangliPlaceIds = [
-        "sangli-ganpati",
-        "sangli-fort-rajwada",
-        "sangmeshwar-haripur",
-        "krishna-irwin-bridge",
-        "miraj-dargah",
-        "audumbar-temple",
-        "dandoba-hills",
-        "sagareshwar-sanctuary",
-        "bahubali-kumbhojgiri",
-        "ramling-island-bahe",
-        "chandoli-national-park",
-        "gokak-waterfall",
-        "machhindragad-fort",
-        "kolhapur-excursion",
-      ];
-      sangliPlaceIds.forEach((pId) => {
-        const pUnsub = onSnapshot(doc(db, "sangli_attractions", pId), (snap) => {
-          if (snap.exists()) {
-            const pData = snap.data();
-            if (pData && (pData.image || pData.titleMr || pData.id)) {
-              setAboutDataState((prev) => {
-                const currentOv = prev.sangliPlacesOverrides || {};
-                const updatedOv = {
-                  ...currentOv,
-                  [pId]: {
-                    ...(currentOv[pId] || {}),
-                    ...pData,
-                  },
-                };
-                const updated = { ...prev, sangliPlacesOverrides: updatedOv };
-                try {
-                  localStorage.setItem(STORAGE_KEYS.about, JSON.stringify(updated));
-                } catch (e) { }
-                return updated;
-              });
-            }
-          }
-        });
-        unsubscribes.push(pUnsub);
-      });
 
       const activityHallsUnsub = onSnapshot(doc(db, "activity_halls", "all"), (snapshot) => {
         if (!snapshot.metadata.hasPendingWrites && snapshot.exists() && snapshot.data()?.halls) {
@@ -2492,11 +2484,11 @@ export function useAdminStore() {
         };
       });
     }
-    const now = Date.now();
-    const updated = { ...aboutData, ...newAbout, sangliPlacesOverrides: updatedOverrides, updatedAt: now };
+    const updated = { ...aboutData, ...newAbout, sangliPlacesOverrides: updatedOverrides };
     setAboutDataState(updated);
     setStoredData(STORAGE_KEYS.about, updated);
     try {
+      const now = Date.now();
 
       // Save main site document
       setDoc(
@@ -2859,7 +2851,8 @@ export function useAdminStore() {
         distanceMr: "३ किमी (१० मिनिटे)",
         shortDescMr:
           "१८४३ मध्ये बांधलेले काळ्या पाषाणातील ऐतिहासिक राजवाडा मंदिर; शहराचे प्रमुख अध्यात्मिक प्रतीक.",
-        image: "/images/aandshala sahal 1.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "sangli-fort-rajwada",
@@ -2868,7 +2861,8 @@ export function useAdminStore() {
         distanceMr: "३.५ किमी (१२ मिनिटे)",
         shortDescMr:
           "पटवर्धन संस्थानाचा ऐतिहासिक राजवाडा, कारंजे, पुरातत्व वास्तू व ऐतिहासिक वारसा केंद्र.",
-        image: "/images/aandshala sahal 2.jpg",
+        image:
+          "https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "sangmeshwar-haripur",
@@ -2877,7 +2871,8 @@ export function useAdminStore() {
         distanceMr: "५ किमी (१५ मिनिटे)",
         shortDescMr:
           "कृष्णा आणि वारणा नद्यांच्या पवित्र संगमावर वसलेले अत्यंत शांत व निसर्गरम्य शिवमंदिर.",
-        image: "/images/aandshala sahal 3.jpg",
+        image:
+          "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "krishna-irwin-bridge",
@@ -2886,7 +2881,8 @@ export function useAdminStore() {
         distanceMr: "४ किमी (१० मिनिटे)",
         shortDescMr:
           "१९२९ मधील ब्रिटिशकालीन ऐतिहासिक लाल दगडाचा पूल व कृष्णा नदीचा सुंदर घाट परिसर.",
-        image: "/images/aandshala sahal 4.jpg",
+        image:
+          "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "miraj-dargah",
@@ -2895,7 +2891,8 @@ export function useAdminStore() {
         distanceMr: "१० किमी (२० मिनिटे)",
         shortDescMr:
           "हिंदू-मुस्लिम सलोख्याचे ऐतिहासिक दर्गाह व जागतिक प्रसिद्ध मिरज सतार-तंबोरा संगीत केंद्र.",
-        image: "/images/aandshala sahal 5.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "audumbar-temple",
@@ -2904,7 +2901,8 @@ export function useAdminStore() {
         distanceMr: "२५ किमी (४० मिनिटे)",
         shortDescMr:
           "कृष्णा नदीच्या काठावर औदुंबराच्या दाट सावलीत वसलेले परमपवित्र व शांत दत्त तीर्थक्षेत्र.",
-        image: "/images/aandshala sahal 6.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "dandoba-hills",
@@ -2913,7 +2911,8 @@ export function useAdminStore() {
         distanceMr: "२५ किमी (३० मिनिटे)",
         shortDescMr:
           "राखीव वनक्षेत्र, टेकडी, प्राचीन गुहेतील शिवमंदिर व निसर्गरम्य दरीचे विहंगम दृश्य.",
-        image: "/images/aandshala sahal 7.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "sagareshwar-sanctuary",
@@ -2922,7 +2921,8 @@ export function useAdminStore() {
         distanceMr: "३० किमी (४५ मिनिटे)",
         shortDescMr:
           "१,०००+ हरणे, काळवीट, मोर व प्राचीन दगडी शिवमंदिर समूह असलेले अद्वितीय मानवनिर्मित अभयारण्य.",
-        image: "/images/aandshala sahal 8.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1484406566174-9da000fda645?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "bahubali-kumbhojgiri",
@@ -2931,7 +2931,8 @@ export function useAdminStore() {
         distanceMr: "३५ किमी (५० मिनिटे)",
         shortDescMr:
           "२८ फुटांची भव्य बाहुबली मूर्ती असलेले टेकडीवरील अतिशय प्रसिद्ध जैन तीर्थक्षेत्र.",
-        image: "/images/aandshala sahal 9.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "ramling-island-bahe",
@@ -2940,7 +2941,8 @@ export function useAdminStore() {
         distanceMr: "३८ किमी (५० मिनिटे)",
         shortDescMr:
           "कृष्णा नदीच्या पात्रातील निसर्गरम्य बेट, रामायणकालीन ऐतिहासिक राममंदिर व निसर्ग पर्यटन.",
-        image: "/images/aandshala sahal 10.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "chandoli-national-park",
@@ -2949,7 +2951,8 @@ export function useAdminStore() {
         distanceMr: "६५ किमी (१.५ तास)",
         shortDescMr:
           "यूनेस्को जागतिक वारसा सह्याद्री व्याघ्र प्रकल्प, विशाल धरण व निसर्गरम्य जंगल परिसर.",
-        image: "/images/aandhsala sahal 11.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "gokak-waterfall",
@@ -2957,8 +2960,9 @@ export function useAdminStore() {
         titleEn: "12. Gokak Spectacular Waterfall",
         distanceMr: "७५ किमी (१.५ तास)",
         shortDescMr:
-          "१७७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).",
-        image: "/images/aandmelava 10.jpeg",
+          "१७ फूट (५२ मीटर) उंचीवरून कोसळणारा भव्य धबधबा व ऐतिहासिक लटकता पूल (Hanging Bridge).",
+        image:
+          "https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "machhindragad-fort",
@@ -2966,7 +2970,8 @@ export function useAdminStore() {
         titleEn: "13. Machhindragad Fort & Temple",
         distanceMr: "४५ किमी (१ तास)",
         shortDescMr: "छत्रपती शिवाजी महाराजांनी १६७६ मध्ये बांधलेला किल्ला व मच्छिंद्रनाथ मंदिर.",
-        image: "/images/aandmelava 11.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1566837945700-30057527ade0?q=80&w=1200&auto=format&fit=crop",
       },
       {
         id: "kolhapur-excursion",
@@ -2975,7 +2980,8 @@ export function useAdminStore() {
         distanceMr: "५० किमी (१ तास)",
         shortDescMr:
           "श्री अंबाबाई महालक्ष्मी मंदिर, छत्रपती शाहू न्यू पॅलेस राजवाडा व रंकाळा तलाव एक दिवसीय सहल.",
-        image: "/images/aandmelava 12.jpeg",
+        image:
+          "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=1200&auto=format&fit=crop",
       },
     ];
 
