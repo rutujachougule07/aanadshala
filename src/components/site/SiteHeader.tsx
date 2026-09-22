@@ -61,7 +61,6 @@ export function SiteHeader() {
         <Link
           to="/"
           onClick={() => {
-            sessionStorage.removeItem("skip_intro_banner");
             window.scrollTo({ top: 0, behavior: "smooth" });
             window.dispatchEvent(new CustomEvent("reset-section"));
           }}

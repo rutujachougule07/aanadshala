@@ -453,8 +453,26 @@ const keyHighlights = [
 ];
 
 function IndexComponent() {
-  const [selectedSection, setSelectedSection] = useState<"aanandshala" | "sports" | null>(null);
-  const [showIntroBanner, setShowIntroBanner] = useState(true);
+  const [selectedSection, setSelectedSection] = useState<"aanandshala" | "sports" | null>(() => {
+    if (typeof window !== "undefined") {
+      const active = localStorage.getItem("preetam_active_section");
+      if (active === "aanandshala" || active === "sports") {
+        return active;
+      }
+    }
+    return null;
+  });
+
+  const [showIntroBanner, setShowIntroBanner] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      const hasSkipped = sessionStorage.getItem("skip_intro_banner") === "true";
+      const hasActiveSec = localStorage.getItem("preetam_active_section");
+      if (hasSkipped || hasActiveSec) {
+        return false;
+      }
+    }
+    return true;
+  });
   const { isEn } = useLanguage();
   const store = useAdminStore();
 
@@ -510,12 +528,17 @@ function IndexComponent() {
       setSelectedSection(null);
       setShowIntroBanner(true);
       try {
+        sessionStorage.removeItem("skip_intro_banner");
         localStorage.removeItem("preetam_active_section");
-      } catch { }
+      } catch {}
     };
     const handleShowHomeContent = () => {
       setShowIntroBanner(false);
-      setSelectedSection(null);
+      sessionStorage.setItem("skip_intro_banner", "true");
+      const active = localStorage.getItem("preetam_active_section");
+      if (active === "aanandshala" || active === "sports") {
+        setSelectedSection(active);
+      }
     };
     window.addEventListener("reset-section", handleReset);
     window.addEventListener("show-home-content", handleShowHomeContent);
@@ -603,15 +626,13 @@ function IndexComponent() {
 
   const handleCloseIntroBanner = () => {
     setShowIntroBanner(false);
-    setSelectedSection(null);
-    try {
-      localStorage.removeItem("preetam_active_section");
-    } catch {}
+    sessionStorage.setItem("skip_intro_banner", "true");
   };
 
   const handleSectionSelect = (sec: "aanandshala" | "sports" | null) => {
     setShowIntroBanner(false);
     setSelectedSection(sec);
+    sessionStorage.setItem("skip_intro_banner", "true");
     if (sec) {
       localStorage.setItem("preetam_active_section", sec);
       window.dispatchEvent(new CustomEvent("section-changed", { detail: sec }));
