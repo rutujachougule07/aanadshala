@@ -17,7 +17,6 @@ import ScheduleSection from "@/components/ScheduleSection";
 import ActivityHallsSection from "@/components/ActivityHallsSection/ActivityHallsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import JourneyTimeline from "@/components/journey-v2/JourneyTimeline";
-import AboutSangli from "@/components/AboutSangli";
 
 const publicImages = [
   "/images/Screenshot 2026-07-31 103107.png",
@@ -956,9 +955,6 @@ function IndexComponent() {
           {/* DAILY SCHEDULE ANANDSHALA */}
           <ScheduleSection type="anandshala" />
 
-          {/* 14 SANGLI TOURIST & EXCURSION PLACES */}
-          <AboutSangli />
-
           {/* VIDEO & MEMBER TESTIMONIALS */}
           <TestimonialsSection />
         </div>
@@ -973,9 +969,6 @@ function IndexComponent() {
 
           {/* ── PREETAM SPORTS PREMIUM SECTION ── */}
           <SportsSection />
-
-          {/* 14 SANGLI TOURIST & EXCURSION PLACES */}
-          <AboutSangli />
 
           {/* VIDEO & MEMBER TESTIMONIALS */}
           <TestimonialsSection showComplimentaryCards={true} />
