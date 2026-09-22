@@ -454,18 +454,6 @@ const keyHighlights = [
 ];
 
 function IndexComponent() {
-  const shouldSkipIntro = useMemo(() => {
-    if (typeof window !== "undefined") {
-      if (
-        sessionStorage.getItem("skip_intro_banner") === "true" ||
-        localStorage.getItem("preetam_active_section")
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }, []);
-
   const [selectedSection, setSelectedSection] = useState<"aanandshala" | "sports" | null>(null);
   const [showIntroBanner, setShowIntroBanner] = useState(true);
   const { isEn } = useLanguage();
@@ -522,12 +510,13 @@ function IndexComponent() {
     const handleReset = () => {
       setSelectedSection(null);
       setShowIntroBanner(true);
-      localStorage.setItem("preetam_active_section", "aanandshala");
-      window.dispatchEvent(new CustomEvent("section-changed", { detail: "aanandshala" }));
+      try {
+        localStorage.removeItem("preetam_active_section");
+      } catch { }
     };
     const handleShowHomeContent = () => {
       setShowIntroBanner(false);
-      setSelectedSection((prev) => prev || (localStorage.getItem("preetam_active_section") as any) || "aanandshala");
+      setSelectedSection(null);
     };
     window.addEventListener("reset-section", handleReset);
     window.addEventListener("show-home-content", handleShowHomeContent);
@@ -615,14 +604,20 @@ function IndexComponent() {
 
   const handleCloseIntroBanner = () => {
     setShowIntroBanner(false);
-    setSelectedSection((prev) => prev || "aanandshala");
+    setSelectedSection(null);
+    try {
+      localStorage.removeItem("preetam_active_section");
+    } catch {}
   };
 
   const handleSectionSelect = (sec: "aanandshala" | "sports" | null) => {
+    setShowIntroBanner(false);
     setSelectedSection(sec);
     if (sec) {
       localStorage.setItem("preetam_active_section", sec);
       window.dispatchEvent(new CustomEvent("section-changed", { detail: sec }));
+    } else {
+      localStorage.removeItem("preetam_active_section");
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -748,7 +743,7 @@ function IndexComponent() {
       {selectedSection === null && !showIntroBanner && (
         <section
           id="sections"
-          className="relative h-screen h-[100dvh] max-h-screen w-screen overflow-hidden bg-linear-to-br from-[#fff5f8] via-[#f8fafc] to-[#f0f4ff] p-3 sm:p-5 flex flex-col justify-between items-center select-none"
+          className="relative min-h-screen min-h-[100dvh] w-full overflow-y-auto bg-linear-to-br from-[#fff5f8] via-[#f8fafc] to-[#f0f4ff] p-3 sm:p-5 flex flex-col justify-between items-center select-none"
         >
           {/* FLOATING RICH AMBIENT LIGHT ORBS */}
           <div className="pointer-events-none absolute top-5 left-5 size-87.5 sm:size-112.5 rounded-full bg-pink-300/35 blur-[130px] animate-pulse" />
