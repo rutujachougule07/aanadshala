@@ -455,7 +455,7 @@ const keyHighlights = [
 function IndexComponent() {
   const [selectedSection, setSelectedSection] = useState<"aanandshala" | "sports" | null>(() => {
     if (typeof window !== "undefined") {
-      const active = localStorage.getItem("preetam_active_section");
+      const active = sessionStorage.getItem("preetam_active_section");
       if (active === "aanandshala" || active === "sports") {
         return active;
       }
@@ -466,8 +466,8 @@ function IndexComponent() {
   const [showIntroBanner, setShowIntroBanner] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       const hasSkipped = sessionStorage.getItem("skip_intro_banner") === "true";
-      const hasActiveSec = localStorage.getItem("preetam_active_section");
-      if (hasSkipped || hasActiveSec) {
+      const hasActiveSec = sessionStorage.getItem("preetam_active_section");
+      if (hasSkipped && hasActiveSec) {
         return false;
       }
     }
@@ -676,7 +676,7 @@ function IndexComponent() {
             className="
               fixed
               inset-0
-              z-999999
+              z-[999999]
 
               w-screen
               h-screen

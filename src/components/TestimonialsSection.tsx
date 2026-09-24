@@ -286,7 +286,7 @@ export default function TestimonialsSection({
       {/* FULLSCREEN VIDEO LIGHTBOX MODAL */}
       {activeVideo && (
         <div
-          className="fixed inset-0 z-999999 bg-black/85 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center animate-fade-in"
+          className="fixed inset-0 z-[999999] bg-black/85 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center animate-fade-in"
           onClick={() => setActiveVideo(null)}
         >
           <div
